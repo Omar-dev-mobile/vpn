@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vpn/core/shared/usecases/system_info_service.dart';
 import 'package:vpn/locator.dart';
 
 class CacheHelper {

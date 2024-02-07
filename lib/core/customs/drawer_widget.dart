@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
+import 'package:vpn/core/theme/assets.dart';
 
 import 'list_title_drawer_widget.dart';
 
@@ -31,7 +32,7 @@ class DrawerWidget extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                   onTap: () {},
-                  child: SvgPicture.asset('assets/icons/sun.svg'),
+                  child: SvgPicture.asset(Assets.sun),
                 ),
               ],
             ),
@@ -65,7 +66,7 @@ class DrawerWidget extends StatelessWidget {
             ListTile(
               title: Row(
                 children: [
-                  SvgPicture.asset('assets/icons/logout.svg'),
+                  SvgPicture.asset(Assets.logout),
                   14.pw,
                   CommonTextWidget(
                     text: 'Log out'.toUpperCase(),

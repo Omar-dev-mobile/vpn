@@ -13,3 +13,4 @@ extension EmptyPadding on num {
 }
 
 final screenUtil = ScreenUtil();
+final GlobalKey<NavigatorState> homeKey = GlobalKey<NavigatorState>();

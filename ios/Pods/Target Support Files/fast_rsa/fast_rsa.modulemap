@@ -1,0 +1,6 @@
+framework module fast_rsa {
+  umbrella header "fast_rsa-umbrella.h"
+
+  export *
+  module * { export * }
+}

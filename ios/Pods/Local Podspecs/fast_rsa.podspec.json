@@ -1,0 +1,40 @@
+{
+  "name": "fast_rsa",
+  "version": "0.6.0",
+  "summary": "library for use RSA.",
+  "description": "library for use RSA.",
+  "homepage": "https://github.com/jerson/flutter-rsa",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Gerson Alexander Pardo Gamez": "jeral17@gmail.com"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "public_header_files": "Classes/**/*.h",
+  "vendored_libraries": "*.a",
+  "dependencies": {
+    "Flutter": [
+
+    ]
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "xcconfig": {
+    "OTHER_LDFLAGS": "-force_load '/Users/mostafaomar/work/vpn/ios/.symlinks/plugins/fast_rsa/ios/librsa_bridge.a'"
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES",
+    "VALID_ARCHS[sdk=iphonesimulator*]": "x86_64",
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
+  },
+  "user_target_xcconfig": {
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "arm64"
+  },
+  "swift_versions": "5.0",
+  "swift_version": "5.0"
+}

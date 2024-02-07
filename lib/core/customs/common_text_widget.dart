@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme.dart';
+import '../theme/theme.dart';
 
 class CommonTextWidget extends StatelessWidget {
   final String text;
@@ -36,7 +36,7 @@ class CommonTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: Theme.of(context).textTheme.bodyText1?.copyWith(
+      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             fontWeight: fontWeight,
             fontSize: size,
             height: height,

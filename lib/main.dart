@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vpn/app.dart';
 import 'package:vpn/core/init_app.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  InitApp.initialize();
+  await InitApp.initialize();
   runApp(const VpnApp());
 }
-

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
-import 'package:vpn/core/theme.dart';
+import 'package:vpn/core/theme/theme.dart';
 
 import '../../../../core/constants.dart';
 

@@ -1,52 +1,46 @@
+import 'dart:async';
+
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/customs/common_text_widget.dart';
-import 'package:vpn/core/theme.dart';
-import 'package:vpn/features/splash/presentation/bloc/splash_cubit.dart';
+import 'package:gif/gif.dart';
+import 'package:lottie/lottie.dart';
+import 'package:vpn/core/router/app_router.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  const SplashScreen({Key? key}) : super(key: key);
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   @override
   void initState() {
-    SplashCubit.get(context).changeActiveImage(context);
     super.initState();
+    startTimer();
   }
+
+  startTimer() async {
+    var dur = const Duration(seconds: 5);
+    return Timer(dur, route);
+  }
+
+  route() async {
+    context.replaceRoute(const HomeRoute());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kTeal,
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Spacer(),
-            BlocBuilder<SplashCubit, SplashState>(
-              builder: (context, state) {
-                if (state is SplashImageChanged) {
-                  return Image.asset(state.activeImage);
-                } else {
-                  return Image.asset('assets/images/splash.png',width: 500,);
-                }
-              },
-            ),
-            const Spacer(),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: CommonTextWidget(
-                text: 'VPN Line v1.1',
-                size: screenUtil.setSp(18),
-                color: kWhite,
-              ),
-            )
-          ],
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Container(
+          child: Lottie.asset(
+            'assets/images/lottie_animation.json',
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
+          ),
         ),
       ),
     );

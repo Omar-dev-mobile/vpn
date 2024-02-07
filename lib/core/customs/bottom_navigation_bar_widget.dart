@@ -1,76 +1,50 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
+import 'package:vpn/core/router/app_router.dart';
+import 'package:vpn/core/theme/assets.dart';
+import 'package:vpn/features/home/presentation/widgets/nav_bar_widget.dart';
 
-import '../theme.dart';
+import '../theme/theme.dart';
 import 'common_text_widget.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
-  const BottomNavigationBarWidget({super.key, required this.onTap});
-
-  final Function(int) onTap;
+  const BottomNavigationBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> image = [
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset('assets/icons/RU.svg'),
-          5.ph,
-          CommonTextWidget(
-            text: "Russia",
-            size: screenUtil.setSp(12),
-            color: kGrayishBlue,
-            fontWeight: FontWeight.w500,
-          )
-        ],
-      ),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset('assets/icons/person.svg'),
-          5.ph,
-           CommonTextWidget(
-            text: "Tarif",
-            color: kGrayishBlue,
-            size: screenUtil.setSp(12),
-            fontWeight: FontWeight.w500,
-          )
-        ],
-      ),
-    ];
-    return AnimatedBottomNavigationBar.builder(
-      backgroundGradient: LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment(0, 1),
-        colors: [
-          Theme.of(context).primaryColor.withOpacity(0.25),
-          Theme.of(context).primaryColor.withOpacity(0),
-        ],
-      ),
-      safeAreaValues: const SafeAreaValues(bottom: false),
-      itemCount: 2,
-      tabBuilder: (int index, bool isActive) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [image[index]],
-        );
-      },
-      // backgroundColor: kWhite,
-      activeIndex: 1,
-      splashSpeedInMilliseconds: 300,
-      notchSmoothness: NotchSmoothness.defaultEdge,
-      gapLocation: GapLocation.center,
-      onTap: onTap,
-      shadow: BoxShadow(
-        offset: const Offset(0, 1),
-        blurRadius: 12,
-        spreadRadius: 0.5,
-        color: kGray.withOpacity(0.14),
-      ),
+    return Stack(
+      children: [
+        Align(
+            alignment: Alignment.center,
+            child: SvgPicture.asset(Assets.navBar)),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 30, top: 20),
+            child: NavBarWidget(
+              title: 'Russia',
+              icons: Assets.ru,
+              onTap: () {},
+            ),
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 30, top: 20),
+            child: NavBarWidget(
+              title: 'Tarif',
+              icons: Assets.person,
+              onTap: () {
+                context.pushRoute(const TarifRoute());
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

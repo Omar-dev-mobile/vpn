@@ -1,23 +1,47 @@
 PODS:
+  - device_info_plus (0.0.1):
+    - Flutter
+  - fast_rsa (0.6.0):
+    - Flutter
   - Flutter (1.0.0)
+  - flutter_keyboard_visibility (0.0.1):
+    - Flutter
+  - flutter_vpn (0.1.0):
+    - Flutter
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
 
 DEPENDENCIES:
+  - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - fast_rsa (from `.symlinks/plugins/fast_rsa/ios`)
   - Flutter (from `Flutter`)
+  - flutter_keyboard_visibility (from `.symlinks/plugins/flutter_keyboard_visibility/ios`)
+  - flutter_vpn (from `.symlinks/plugins/flutter_vpn/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
 
 EXTERNAL SOURCES:
+  device_info_plus:
+    :path: ".symlinks/plugins/device_info_plus/ios"
+  fast_rsa:
+    :path: ".symlinks/plugins/fast_rsa/ios"
   Flutter:
     :path: Flutter
+  flutter_keyboard_visibility:
+    :path: ".symlinks/plugins/flutter_keyboard_visibility/ios"
+  flutter_vpn:
+    :path: ".symlinks/plugins/flutter_vpn/ios"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
 
 SPEC CHECKSUMS:
+  device_info_plus: c6fb39579d0f423935b0c9ce7ee2f44b71b9fce6
+  fast_rsa: 19aa4a14dff3093242af649c9340d0db8b9ec6d8
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_keyboard_visibility: 0339d06371254c3eb25eeb90ba8d17dca8f9c069
+  flutter_vpn: a106f778c4994b07edc78c6a66ca24a7b539bb15
   shared_preferences_foundation: b4c3b4cddf1c21f02770737f147a3f5da9d39695
 
-PODFILE CHECKSUM: 91c749e99a20f552241c18bdd72c14037058dd43
+PODFILE CHECKSUM: 4f8b194e86a2c07993b24c83efcdb72fac8e8d54
 
 COCOAPODS: 1.14.3

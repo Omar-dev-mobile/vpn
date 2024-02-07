@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/theme.dart';
+import 'package:vpn/core/theme/theme.dart';
 
 import 'common_text_widget.dart';
-
 
 class CustomButton extends StatelessWidget {
   final Function()? onPressed;
@@ -50,11 +49,11 @@ class CustomButton extends StatelessWidget {
       child: FittedBox(
         child: isLoading
             ? const SizedBox(
+                height: 25.0,
+                width: 25.0,
                 child: CircularProgressIndicator(
                   color: kWhite,
                 ),
-                height: 25.0,
-                width: 25.0,
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
