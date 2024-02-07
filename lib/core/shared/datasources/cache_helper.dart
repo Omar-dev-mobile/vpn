@@ -1,6 +1,7 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vpn/core/shared/usecases/system_info_service.dart';
-import 'package:vpn/locator.dart';
+import 'package:vpn/core/shared/model/security_model.dart';
 
 class CacheHelper {
   static SharedPreferences? sharedPreferences;
@@ -32,23 +33,22 @@ class CacheHelper {
     return await sharedPreferences!.remove(key);
   }
 
-  static setLastPurchaseToken(String lastPurchaseToken) {
-    SharedPreferences prefs = locator<SharedPreferences>();
-    prefs.setString("lastPurchaseToken", lastPurchaseToken);
+  Future<bool> clearData() async {
+    return await sharedPreferences!.clear();
   }
 
-  static String? getLastPurchaseToken() {
-    SharedPreferences prefs = locator<SharedPreferences>();
-    return prefs.getString("lastPurchaseToken");
+  Future saveSecurityDataAlgithms(SecurityModel securityModel) async {
+    String jsonString = json.encode(securityModel.toJson());
+    await saveData(key: 'security', value: jsonString);
   }
 
-  static setBottomSheetShown(bool isShown) {
-    SharedPreferences prefs = locator<SharedPreferences>();
-    prefs.setBool("isBottomSheetShown", isShown);
-  }
-
-  static bool? getBottomSheetShown() {
-    SharedPreferences prefs = locator<SharedPreferences>();
-    return prefs.getBool("isBottomSheetShown");
+  Future<SecurityModel?> getSecurityDataAlgithms() async {
+    String? jsonString = await getData('security');
+    if (jsonString != null) {
+      var res = SecurityModel.fromJson(json.decode(jsonString));
+      return res;
+    } else {
+      return null;
+    }
   }
 }
