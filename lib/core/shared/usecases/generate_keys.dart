@@ -1,27 +1,16 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:math';
 import "package:asn1lib/asn1lib.dart";
 import 'package:basic_utils/basic_utils.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import "package:pointycastle/export.dart";
 import 'package:uuid/uuid.dart';
-import 'package:vpn/core/shared/datasources/cache_helper.dart';
 import 'package:vpn/core/shared/usecases/system_info_service.dart';
 import 'package:vpn/locator.dart';
 
 class RsaKeyHelper {
   Future<Map<String, String>> generateAlgithmsForInitApp() async {
-    final cacheHelper = locator<CacheHelper>();
-    String udid = '';
-    final localUdid = await cacheHelper.getData('udid');
-    if (localUdid != null) {
-      udid = localUdid;
-    } else {
-      udid = generateRandomUUID();
-      await cacheHelper.saveData(key: 'udid', value: udid);
-    }
+    String udid = generateRandomUUID();
     final rnd = generateRandomUUID();
     AsymmetricKeyPair generateRSAKeyPair = CryptoUtils.generateRSAKeyPair();
 
