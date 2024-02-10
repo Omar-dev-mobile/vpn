@@ -1,3 +1,3 @@
-import 'package:vpn/core/shared/datasources/api_base.dart';
+import 'package:vpn/core/shared/datasources/remote/api_base.dart';
 
 class ApiServiceHome extends ApiBase {}

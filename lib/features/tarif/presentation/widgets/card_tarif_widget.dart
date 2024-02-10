@@ -24,7 +24,7 @@ class CardTarifWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 175,
+      height: screenUtil.setHeight(155),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       decoration: ShapeDecoration(
         gradient: LinearGradient(
