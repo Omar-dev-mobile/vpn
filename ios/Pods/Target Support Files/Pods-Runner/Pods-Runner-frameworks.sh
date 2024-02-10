@@ -179,6 +179,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/device_info_plus/device_info_plus.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/fast_rsa/fast_rsa.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_keyboard_visibility/flutter_keyboard_visibility.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/flutter_native_splash/flutter_native_splash.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_vpn/flutter_vpn.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/shared_preferences_foundation/shared_preferences_foundation.framework"
 fi
@@ -186,6 +187,7 @@ if [[ "$CONFIGURATION" == "Profile" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/device_info_plus/device_info_plus.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/fast_rsa/fast_rsa.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_keyboard_visibility/flutter_keyboard_visibility.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/flutter_native_splash/flutter_native_splash.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_vpn/flutter_vpn.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/shared_preferences_foundation/shared_preferences_foundation.framework"
 fi
@@ -193,6 +195,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/device_info_plus/device_info_plus.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/fast_rsa/fast_rsa.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_keyboard_visibility/flutter_keyboard_visibility.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/flutter_native_splash/flutter_native_splash.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/flutter_vpn/flutter_vpn.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/shared_preferences_foundation/shared_preferences_foundation.framework"
 fi

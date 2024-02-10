@@ -6,7 +6,6 @@ const Color kBluishGray = Color(0xffC9CAD1);
 const Color kGray = Color(0xffAAAAAF);
 const Color kPrimary = Color(0xff1392A4);
 const Color kShadeOfGray = Color(0xff95A1A1);
-const Color kTeal = Color(0xff1392A4);
 const Color kSlateGray = Color(0xff737373);
 
 const Color kYellowColor = Color(0xFFFFD964);
@@ -17,7 +16,6 @@ const Color kDarkTealColor = Color(0xFF006072);
 const Color kDeepPurpleColor = Color(0xFF7513A4);
 const Color kOrangeColor = Color(0xFFF5990F);
 const Color kGreenColor = Color(0xFF10BD6A);
-const Color kMediumBlueColor = Color(0xFF1392A4);
 const Color kAnotherOrangeColor = Color(0xFFF5990F);
 const Color kDarkGrayColor = Color(0xFF252525);
 const Color kBlueGray = Color(0xFF7D8696);

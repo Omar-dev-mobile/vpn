@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:vpn/core/error/exception.dart';
-import 'package:vpn/core/shared/datasources/network_info.dart';
+import 'package:vpn/core/shared/usecases/network_info.dart';
 import 'package:vpn/locator.dart';
 // Custom helper function for make our code more clean.
 
@@ -39,13 +39,15 @@ Future<T> executeAndHandleErrorServer<T>(
     if (error.response?.statusCode == 401) {
       // homeKey.currentState?.pushNamed('/login');
     }
+    print(error.response?.data);
     throw DioException(
-        message: error.response?.data?["errors"].toString(),
+        message: error.response?.data?["error_status"].toString(),
         requestOptions: error.requestOptions);
   } on NoInternetException {
     throw NoInternetException();
   } on Exception catch (error, s) {
     print(s);
+
     throw Exception(error.toString());
   }
 }

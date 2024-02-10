@@ -29,6 +29,7 @@ class VpnApp extends StatelessWidget {
             }
           },
           child: MaterialApp.router(
+            color: kBlack,
             key: homeKey,
             supportedLocales: const [Locale('en')],
             debugShowCheckedModeBanner: false,

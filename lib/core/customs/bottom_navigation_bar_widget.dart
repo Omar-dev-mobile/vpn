@@ -5,10 +5,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
+import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/home/presentation/widgets/nav_bar_widget.dart';
-
-import '../theme/theme.dart';
-import 'common_text_widget.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({super.key});
@@ -18,8 +16,12 @@ class BottomNavigationBarWidget extends StatelessWidget {
     return Stack(
       children: [
         Align(
-            alignment: Alignment.center,
-            child: SvgPicture.asset(Assets.navBar)),
+          alignment: Alignment.center,
+          child: SvgPicture.asset(
+            Assets.navBar,
+            width: screenUtil.screenWidth,
+          ),
+        ),
         Align(
           alignment: Alignment.centerLeft,
           child: Padding(
