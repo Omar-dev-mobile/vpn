@@ -5,17 +5,22 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/foundation.dart';
 import "package:pointycastle/export.dart";
 import 'package:uuid/uuid.dart';
+import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
 import 'package:vpn/core/shared/usecases/system_info_service.dart';
 import 'package:vpn/locator.dart';
 
 class RsaKeyHelper {
+  final cacheHelper = locator<CacheGenAlgorithm>();
   Future<Map<String, String>> generateAlgithmsForInitApp() async {
-    String udid = generateRandomUUID();
-    final rnd = generateRandomUUID();
+    String udid = generateRandomUUID;
+    final rnd = generateRandomUUID;
     AsymmetricKeyPair generateRSAKeyPair = CryptoUtils.generateRSAKeyPair();
 
     RSAPrivateKey privateKey = generateRSAKeyPair.privateKey as RSAPrivateKey;
     RSAPublicKey publicKey = generateRSAKeyPair.publicKey as RSAPublicKey;
+
+    cacheHelper.saveRSAPrivateKey(privateKey);
+    cacheHelper.saveRSAPublicKey(publicKey);
 
     String pmk = CryptoUtils.encodeRSAPublicKeyToPem(publicKey);
     Uint8List hash = generateSHA1Digest(udid + rnd);
@@ -29,6 +34,22 @@ class RsaKeyHelper {
       "pmk": base64Encode(pmk.codeUnits),
       "signature": signature,
     };
+  }
+
+  Future<String> getSignature(String rnd, String udid) async {
+    try {
+      Uint8List hash = generateSHA1Digest(udid + rnd);
+      RSAPrivateKey? privateKey = await cacheHelper.getSavedRSAPrivateKey();
+      if (privateKey != null) {
+        String signature = base64Encode(CryptoUtils.rsaSign(privateKey, hash));
+        return signature;
+      } else {
+        return "";
+      }
+    } catch (e) {
+      print("objectdbfbfd$e");
+      rethrow;
+    }
   }
 
   Map<String, String> get getDeviceInfo {
@@ -48,7 +69,7 @@ class RsaKeyHelper {
     return await compute(getRsaKeyPair, secureRandom);
   }
 
-  String generateRandomUUID() {
+  String get generateRandomUUID {
     //Generate random UUID
     return const Uuid().v4();
   }
@@ -114,13 +135,13 @@ class RsaKeyHelper {
     var topLevelSeq = asn1Parser.nextObject() as ASN1Sequence;
 
     ASN1Integer modulus, privateExponent, p, q;
-    print('Private Key Seq Length: ${topLevelSeq.elements.length}');
+
     if (topLevelSeq.elements.length < 3) {
       var privateKey = topLevelSeq.elements[1];
 
       asn1Parser = ASN1Parser(privateKey.contentBytes());
       var pkSeq = asn1Parser.nextObject() as ASN1Sequence;
-
+      print('Private Key Seq Length: ${topLevelSeq.elements.length}');
       modulus = pkSeq.elements[1] as ASN1Integer;
       privateExponent = pkSeq.elements[3] as ASN1Integer;
       p = pkSeq.elements[4] as ASN1Integer;
@@ -137,7 +158,6 @@ class RsaKeyHelper {
         privateExponent.valueAsBigInteger,
         p.valueAsBigInteger,
         q.valueAsBigInteger);
-
     return rsaPrivateKey;
   }
 
