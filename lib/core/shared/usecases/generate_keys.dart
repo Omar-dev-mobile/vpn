@@ -5,9 +5,10 @@ import 'package:basic_utils/basic_utils.dart';
 import 'package:flutter/foundation.dart';
 import "package:pointycastle/export.dart";
 import 'package:uuid/uuid.dart';
+import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
-import 'package:vpn/core/shared/usecases/system_info_service.dart';
 import 'package:vpn/locator.dart';
+import 'package:crypto/crypto.dart' as crypto;
 
 class RsaKeyHelper {
   final cacheHelper = locator<CacheGenAlgorithm>();
@@ -42,6 +43,23 @@ class RsaKeyHelper {
       RSAPrivateKey? privateKey = await cacheHelper.getSavedRSAPrivateKey();
       if (privateKey != null) {
         String signature = base64Encode(CryptoUtils.rsaSign(privateKey, hash));
+        return signature;
+      } else {
+        return "";
+      }
+    } catch (e) {
+      print("objectdbfbfd$e");
+      rethrow;
+    }
+  }
+
+  Future<String> getSignatureWithLogin(String rnd, String udid, appleId) async {
+    try {
+      Uint8List hash = generateSHA1Digest(udid + rnd + appleId);
+      RSAPrivateKey? privateKey = await cacheHelper.getSavedRSAPrivateKey();
+      if (privateKey != null) {
+        String signature = base64Encode(CryptoUtils.rsaSign(privateKey, hash));
+        print(signature);
         return signature;
       } else {
         return "";
@@ -249,6 +267,12 @@ class RsaKeyHelper {
 
     var dataBase64 = base64.encode(topLevel.encodedBytes);
     return """-----BEGIN PUBLIC KEY-----\r\n$dataBase64\r\n-----END PUBLIC KEY-----""";
+  }
+
+  static String sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    final digest = crypto.sha256.convert(bytes);
+    return digest.toString();
   }
 }
 

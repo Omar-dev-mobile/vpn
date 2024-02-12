@@ -47,7 +47,6 @@ Future<T> executeAndHandleErrorServer<T>(
     throw NoInternetException();
   } on Exception catch (error, s) {
     print(s);
-
     throw Exception(error.toString());
   }
 }

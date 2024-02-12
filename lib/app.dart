@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/router/app_router.dart';
+import 'package:vpn/core/shared/components/system_info_service.dart';
+import 'package:vpn/features/home/presentation/bloc/home_cubit.dart';
 
 import 'core/shared/components/providers.dart';
 import 'core/theme/theme.dart';
@@ -30,7 +32,6 @@ class VpnApp extends StatelessWidget {
           },
           child: MaterialApp.router(
             color: kBlack,
-            key: homeKey,
             supportedLocales: const [Locale('en')],
             debugShowCheckedModeBanner: false,
             builder: (context, child) {

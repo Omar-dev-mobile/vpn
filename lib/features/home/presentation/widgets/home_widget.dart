@@ -1,18 +1,13 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_vpn/state.dart';
 import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/shared/usecases/system_info_service.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/home/presentation/bloc/home_cubit.dart';
-import 'package:vpn/features/home/presentation/widgets/app_bar_header.dart';
-import 'package:vpn/locator.dart';
+import 'package:vpn/core/customs/app_bar_header.dart';
 
 import '../../../../core/customs/bottom_navigation_bar_widget.dart';
-import '../../data/datasources/api_service_home.dart';
 import 'info_vpn.dart';
 
 class HomeWidget extends StatelessWidget {
@@ -50,7 +45,11 @@ class HomeWidget extends StatelessWidget {
                           builder: (context, state) {
                             return GestureDetector(
                               onTap: () {
-                                homeCubit.toggleActiveVpn();
+                                // context.read<AuthBloc>().add(
+                                //     const LoginWithGoogleAndAppleAuthEvent(
+                                //         type: 'apple'));
+
+                                // homeCubit.toggleActiveVpn();
                               },
                               child: homeCubit.active
                                   ? Image.asset(

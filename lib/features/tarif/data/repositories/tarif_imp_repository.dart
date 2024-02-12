@@ -12,6 +12,7 @@ class TarifImpRepository extends TarifRepository {
   Future<Either<String, TarifModel>> getTrials() async {
     return executeAndHandleError<TarifModel>(() async {
       final res = await apiServiceTarif.getTrials();
+      print("res $res");
       return res;
     });
   }

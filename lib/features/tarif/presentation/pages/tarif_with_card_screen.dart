@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
-import 'package:vpn/features/home/presentation/widgets/app_bar_header.dart';
+import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/features/tarif/presentation/widgets/card_pay_widget.dart';
 import 'package:vpn/features/tarif/presentation/widgets/card_tarif_widget.dart';
 

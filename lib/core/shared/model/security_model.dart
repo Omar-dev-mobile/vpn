@@ -22,7 +22,7 @@ class SecurityModel {
     workStatus = json['work_status'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJsonInit() {
     final data = <String, dynamic>{};
     data['oper'] = oper;
     data['udid'] = udid;
@@ -30,6 +30,15 @@ class SecurityModel {
     data['pmk'] = pmk;
     data['signature'] = signature;
     data['work_status'] = workStatus;
+    return data;
+  }
+
+  Map<String, dynamic> toJsonLogin() {
+    final data = <String, dynamic>{};
+    data['oper'] = oper;
+    data['udid'] = udid;
+    data['rnd'] = rnd;
+    data['signature'] = signature;
     return data;
   }
 }

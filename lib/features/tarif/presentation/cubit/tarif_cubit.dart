@@ -15,12 +15,8 @@ class TarifCubit extends Cubit<TarifState> {
     emit(TarifLoadingState());
     final res = await _traifUsecases.getTrials();
     emit(
-      res.fold(
-        (failure) => TarifErrorState(error: failure),
-        (data) {
-          return TarifSuccessState(tarifModel: data);
-        },
-      ),
+      res.fold((failure) => TarifErrorState(error: failure),
+          (data) => TarifSuccessState(tarifModel: data)),
     );
   }
 }
