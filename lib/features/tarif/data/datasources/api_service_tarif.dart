@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/error/execute_and_handle_error.dart';
 import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
 import 'package:vpn/core/shared/datasources/remote/api_base.dart';
@@ -17,7 +20,7 @@ class ApiServiceTarif extends ApiBase {
           await rsaKeyHelper.getSignature(rnd, cacheHelper?.udid ?? "");
 
       final response = await post(
-        'https://vp-line.aysec.org/ios.php',
+        BASE_URL,
         queryParameters: {
           "oper": "get_tarif_list",
           "udid": cacheHelper?.udid ?? "",
@@ -25,8 +28,11 @@ class ApiServiceTarif extends ApiBase {
           "signature": signature,
         },
       );
-      print(response.json);
-      return TarifModel.fromJson(response.json);
+      if (response.json.containsKey("error_status")) {
+        throw "${response.json["error_status"]}";
+      }
+      final res = TarifModel.fromJson(response.json);
+      return res;
     });
   }
 }

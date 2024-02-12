@@ -4,27 +4,6 @@ import 'package:dio/dio.dart';
 
 import '../../../constants.dart';
 
-class ApiResponse<T> {
-  late T load;
-  late bool ok;
-  late int statusCode;
-  String? errorMessage;
-
-  ApiResponse(this.statusCode, this.load, [bool? isOk]) {
-    this.ok = isOk ?? statusCode == 200;
-  }
-
-  ApiResponse.fromBC(APIResponse<T> bcresp) {
-    if (bcresp.load != null) {
-      load = bcresp.load as T;
-    } else {
-      errorMessage = bcresp.error?.message;
-    }
-    statusCode = bcresp.statusCode!;
-    ok = bcresp.ok ?? statusCode == 200;
-  }
-}
-
 class RequestResult {
   dynamic json;
   int? statusCode;
@@ -36,7 +15,9 @@ abstract class ApiBase {
   late String endpoint;
 
   final Dio _dio = Dio();
-
+  ApiBase() {
+    _dio.interceptors.add(LogInterceptor(responseBody: true));
+  }
   Future<RequestResult> request({
     required String method,
     required String path,
@@ -46,10 +27,11 @@ abstract class ApiBase {
     bool customPath = false,
     String contentType = 'application/json',
   }) async {
-    path = customPath ? endpoint : BASE_URL + path;
+    path = customPath ? endpoint : path;
     Response? resp;
     dynamic decodedJson;
     _dio.options.headers['Accept'] = 'application/json';
+
     print(path);
     try {
       switch (method) {
@@ -202,62 +184,4 @@ abstract class ApiBase {
       queryParameters: queryParameters,
     );
   }
-}
-
-enum APIStatus {
-  success,
-  connectionReady,
-  transferError,
-  authError,
-  serverError,
-  connectionError,
-  serverConnectionError,
-  unexpectedError,
-  emptyAccount
-}
-
-Map<int, APIStatus> statusCodes = {
-  200: APIStatus.success,
-  401: APIStatus.authError,
-  500: APIStatus.serverError,
-  0: APIStatus.unexpectedError
-};
-
-class APIResponse<DataModel_T> {
-  int? statusCode;
-  DataModel_T? load;
-  Error? error;
-  bool? ok;
-
-  APIResponse(this.statusCode, DataModel_T load) {
-    ok = statusCode == 200;
-
-    if (statusCode == 200) {
-      this.load = load;
-    } else {
-      this.load = <String, dynamic>{} as DataModel_T;
-      var load_ = load as Map;
-      try {
-        error = Error(
-            code: statusCode,
-            message: (load_['message'] as String?) != null
-                ? load_['message']
-                : load.toString());
-      } catch (_) {}
-    }
-  }
-
-  APIResponse.fromOther(APIResponse other) {
-    statusCode = other.statusCode;
-    load = other.load;
-    error = other.error;
-    ok = other.ok;
-  }
-}
-
-class Error {
-  int? code;
-  String? message;
-
-  Error({this.code, this.message});
 }

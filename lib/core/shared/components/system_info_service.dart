@@ -1,8 +1,33 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:rxdart/subjects.dart';
+import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
+import 'package:vpn/features/auth/data/models/user_model.dart';
+import 'package:vpn/locator.dart';
 
 class SystemInfoService {
+  // Singleton setup
+  static final SystemInfoService _singleton = SystemInfoService._internal();
+  factory SystemInfoService() {
+    return _singleton;
+  }
+  SystemInfoService._internal();
+
+  static BehaviorSubject<UserModel?> userSubject =
+      BehaviorSubject<UserModel?>.seeded(null);
+
+  static BehaviorSubject<bool> isLoginSubject =
+      BehaviorSubject<bool>.seeded(false);
+
+  UserModel? get user => userSubject.value;
+
+  bool get isLogin => isLoginSubject.value || user != null;
+
+  set user(UserModel? value) => userSubject.add(value);
+  set isLogin(bool value) => isLoginSubject.add(value);
+
   String _lang = '';
   String _hardModel = '';
   String _hardOS = '';
@@ -19,7 +44,7 @@ class SystemInfoService {
 
   Future<void> getSystemInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    final language = getlocaleName;
+    final language = getLocaleName;
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       _lang = language;
@@ -37,9 +62,11 @@ class SystemInfoService {
       _hardLModel = iosInfo.localizedModel;
       _hardFModel = iosInfo.identifierForVendor ?? "";
     }
+    user = await locator<CacheHelper>().getUser();
+    isLogin = user != null;
   }
 
-  String get getlocaleName {
+  String get getLocaleName {
     try {
       final localeStr = Platform.localeName;
       final loc = localeStr.split('_')[0];
@@ -47,15 +74,5 @@ class SystemInfoService {
     } catch (e) {
       return "en";
     }
-  }
-
-  // Singleton setup
-  static final SystemInfoService _singleton = SystemInfoService._internal();
-
-  factory SystemInfoService() {
-    return _singleton;
-  }
-  SystemInfoService._internal() {
-    print("SystemInfoService initialized");
   }
 }

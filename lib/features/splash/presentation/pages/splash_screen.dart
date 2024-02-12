@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/theme.dart';
 
+@RoutePage()
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -20,21 +21,15 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // startTimer();
   }
 
-  // startTimer() async {
-  //   var dur = const Duration(seconds: 10);
-  //   return Timer(dur, route);
-  // }
-
   route() async {
-    FlutterNativeSplash.remove();
     context.replaceRoute(const HomeRoute());
   }
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
     return Scaffold(
       body: Center(
           child: FlutterSplashScreen(

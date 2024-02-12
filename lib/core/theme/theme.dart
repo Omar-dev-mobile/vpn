@@ -22,6 +22,8 @@ const Color kBlueGray = Color(0xFF7D8696);
 const Color kLightGray = Color(0xFFF6F6F6);
 const Color kShadeBlueGray = Color(0xFF7D8797);
 
+const Color kTransparent = Colors.transparent;
+
 List<List<Color>> gradient = [
   [kDarkTealColor, kDarkTealColor],
   [kDeepPurpleColor, kDarkTealColor],

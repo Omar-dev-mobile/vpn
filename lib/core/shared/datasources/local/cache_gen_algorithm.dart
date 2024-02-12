@@ -10,7 +10,7 @@ class CacheGenAlgorithm {
   CacheHelper cacheHelper;
 
   Future saveSecurityDataAlgithms(SecurityModel securityModel) async {
-    String jsonString = json.encode(securityModel.toJson());
+    String jsonString = json.encode(securityModel.toJsonInit());
     await cacheHelper.saveData(key: 'security', value: jsonString);
   }
 
@@ -32,7 +32,6 @@ class CacheGenAlgorithm {
   Future<RSAPrivateKey?> getSavedRSAPrivateKey() async {
     try {
       String? privateKeyData = await cacheHelper.getData('RSAPrivateKey');
-      print(privateKeyData);
       if (privateKeyData != null) {
         final key = CryptoUtils.rsaPrivateKeyFromPemPkcs1(privateKeyData);
         return key;

@@ -18,6 +18,8 @@ dependencies:
   shared_preferences: ^2.2.0
   dio: ^5.3.2
   flutter_bloc: ^8.1.1
+  bloc: ^8.1.2
+  rxdart:
   equatable: ^2.0.3
   dartz: ^0.10.1
   get_it: ^7.2.0
@@ -41,6 +43,8 @@ dependencies:
   encrypt: ^5.0.3
   flutter_native_splash:
   another_flutter_splash_screen: ^1.2.0
+  sign_in_with_apple: ^5.0.0
+  google_sign_in: ^6.1.4
 
 
 

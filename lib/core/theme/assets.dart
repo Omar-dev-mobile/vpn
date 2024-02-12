@@ -4,7 +4,7 @@ abstract class Assets {
   static const String _images = 'images';
 
   //Images
-  // static const String appLogo = '$_assets/$_images/app-logo.png';
+  static const String noActive = '$_assets/$_images/no_active.png';
 
   //Icons
   static const String navBar = '$_assets/$_icons/nav_bar.svg';
@@ -23,4 +23,7 @@ abstract class Assets {
   static const String bgTraif = '$_assets/$_icons/bg_traif.svg';
   static const String close = '$_assets/$_icons/close.svg';
   static const String tarifLogo = '$_assets/$_icons/tarif_logo.svg';
+  static const String iconApple = '$_assets/$_icons/icon_apple.svg';
+  static const String iconGoogle = '$_assets/$_icons/icon_google.svg';
+  // static const String noActive = '$_assets/$_icons/no_active.svg';
 }
