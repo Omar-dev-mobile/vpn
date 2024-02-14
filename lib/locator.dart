@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
 import 'package:vpn/core/shared/datasources/remote/api_service_init.dart';
@@ -14,6 +15,8 @@ import 'package:vpn/features/auth/domain/repositories/auth_repository.dart';
 import 'package:vpn/features/auth/domain/usecases/auth_usecases.dart';
 import 'package:vpn/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:vpn/features/home/data/datasources/api_service_home.dart';
+import 'package:vpn/features/home/presentation/logic/bloc/home_vpn_bloc.dart';
+import 'package:vpn/features/home/presentation/logic/cubit/home_cubit.dart';
 import 'package:vpn/features/tarif/data/datasources/api_service_tarif.dart';
 import 'package:vpn/features/tarif/data/repositories/tarif_imp_repository.dart';
 import 'package:vpn/features/tarif/domain/repositories/tarif_repository.dart';
@@ -21,7 +24,6 @@ import 'package:vpn/features/tarif/domain/usecases/traif_usecases.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif_cubit.dart';
 
 import 'core/router/app_router.dart';
-import 'features/home/presentation/bloc/home_cubit.dart';
 import 'features/splash/presentation/bloc/splash_cubit.dart';
 
 GetIt locator = GetIt.instance;
@@ -30,6 +32,7 @@ Future<void> setupLocator() async {
   //BLOC
 
   locator.registerFactory(() => HomeCubit());
+  locator.registerFactory(() => HomeVpnBloc()..add(const HomeVpnEvent()));
   locator.registerFactory(() => SplashCubit());
 
   locator.registerFactory(
@@ -67,4 +70,5 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => RsaKeyHelper());
   locator.registerLazySingleton(() => CacheGenAlgorithm(locator()));
   locator.registerLazySingleton(() => SystemInfoService());
+  locator.registerLazySingleton(() => VPNIOSManager());
 }

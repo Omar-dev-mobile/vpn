@@ -10,6 +10,9 @@
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
+		3E1DF7682B7BD2C000B078B0 /* VPLibDDD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1DF7672B7BD2C000B078B0 /* VPLibDDD.swift */; };
+		3E1DF76A2B7BD2E700B078B0 /* CommonDateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1DF7692B7BD2E700B078B0 /* CommonDateTime.swift */; };
+		3E1DF76C2B7BD30C00B078B0 /* LogManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E1DF76B2B7BD30C00B078B0 /* LogManager.swift */; };
 		6C175E063C268C395672334D /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E7B3F7B25CA5DBE3088C94 /* Pods_Runner.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
@@ -50,6 +53,9 @@
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		36F906394626CB54920C3BE8 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
+		3E1DF7672B7BD2C000B078B0 /* VPLibDDD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VPLibDDD.swift; sourceTree = "<group>"; };
+		3E1DF7692B7BD2E700B078B0 /* CommonDateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonDateTime.swift; sourceTree = "<group>"; };
+		3E1DF76B2B7BD30C00B078B0 /* LogManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogManager.swift; sourceTree = "<group>"; };
 		3E6EB3002B78137E005E9197 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		4AE5F904A7AF61BDD986F86A /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		5F688A2EFF3205A33CD484EB /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
@@ -94,6 +100,16 @@
 				331C807B294A618700263BE5 /* RunnerTests.swift */,
 			);
 			path = RunnerTests;
+			sourceTree = "<group>";
+		};
+		3E1DF7662B7BD22D00B078B0 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				3E1DF7672B7BD2C000B078B0 /* VPLibDDD.swift */,
+				3E1DF7692B7BD2E700B078B0 /* CommonDateTime.swift */,
+				3E1DF76B2B7BD30C00B078B0 /* LogManager.swift */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		8AEABD82E15461CE28BC66CF /* Pods */ = {
@@ -144,6 +160,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				3E1DF7662B7BD22D00B078B0 /* Classes */,
 				3E6EB3002B78137E005E9197 /* Runner.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -378,6 +395,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E1DF7682B7BD2C000B078B0 /* VPLibDDD.swift in Sources */,
+				3E1DF76C2B7BD30C00B078B0 /* LogManager.swift in Sources */,
+				3E1DF76A2B7BD2E700B078B0 /* CommonDateTime.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
