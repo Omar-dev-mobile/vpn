@@ -8,7 +8,6 @@ import 'package:vpn/core/customs/custom_button.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
-import 'package:vpn/features/home/presentation/bloc/home_cubit.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
 
 class ActivateTarifScreen extends StatelessWidget {
