@@ -30,12 +30,6 @@
 @import flutter_native_splash;
 #endif
 
-#if __has_include(<flutter_vpn/FlutterVpnPlugin.h>)
-#import <flutter_vpn/FlutterVpnPlugin.h>
-#else
-@import flutter_vpn;
-#endif
-
 #if __has_include(<google_sign_in_ios/FLTGoogleSignInPlugin.h>)
 #import <google_sign_in_ios/FLTGoogleSignInPlugin.h>
 #else
@@ -61,7 +55,6 @@
   [FastRsaPlugin registerWithRegistrar:[registry registrarForPlugin:@"FastRsaPlugin"]];
   [FlutterKeyboardVisibilityPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterKeyboardVisibilityPlugin"]];
   [FlutterNativeSplashPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterNativeSplashPlugin"]];
-  [FlutterVpnPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterVpnPlugin"]];
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
   [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];
   [SignInWithApplePlugin registerWithRegistrar:[registry registrarForPlugin:@"SignInWithApplePlugin"]];

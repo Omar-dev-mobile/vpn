@@ -2,10 +2,19 @@ abstract class Assets {
   static const String _assets = 'assets';
   static const String _icons = 'icons';
   static const String _images = 'images';
+  static const String _animation = 'animation';
 
   //Images
-  static const String noActive = '$_assets/$_images/no_active.png';
+  static const String online = '$_assets/$_images/online.png';
+  static const String stopin = '$_assets/$_images/stopin.png';
+  static const String offline = '$_assets/$_images/offline.png';
+//Images animation
+  static const String lottieSplashAnimation =
+      '$_assets/$_animation/lottie_splash_animation.json';
 
+  static const String connecting = '$_assets/$_animation/connecting.json';
+//assets/animation/connecting_to_vpn.json
+  static const String stopeToVpn = '$_assets/$_animation/stope_to_vpn.json';
   //Icons
   static const String navBar = '$_assets/$_icons/nav_bar.svg';
   static const String sun = '$_assets/$_icons/sun.svg';
@@ -25,5 +34,4 @@ abstract class Assets {
   static const String tarifLogo = '$_assets/$_icons/tarif_logo.svg';
   static const String iconApple = '$_assets/$_icons/icon_apple.svg';
   static const String iconGoogle = '$_assets/$_icons/icon_google.svg';
-  // static const String noActive = '$_assets/$_icons/no_active.svg';
 }

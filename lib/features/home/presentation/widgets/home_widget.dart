@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/customs/common_text_widget.dart';
+import 'package:vpn/core/customs/lottie_widget.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
-import 'package:vpn/core/shared/components/builder_bloc.dart';
+import 'package:vpn/core/shared/components/snack_bar.dart';
+import 'package:vpn/core/shared/components/system_info_service.dart';
+import 'package:vpn/core/shared/usecases/network_info.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
-import 'package:vpn/features/home/presentation/logic/bloc/home_vpn_bloc.dart';
 import 'package:vpn/features/home/presentation/logic/cubit/home_cubit.dart';
+import 'package:vpn/features/home/presentation/widgets/stopin_home.dart';
 import 'package:vpn/locator.dart';
 
 import '../../../../core/customs/bottom_navigation_bar_widget.dart';
@@ -22,16 +26,32 @@ class HomeWidget extends StatefulWidget {
   State<HomeWidget> createState() => _HomeWidgetState();
 }
 
-class _HomeWidgetState extends State<HomeWidget> {
+class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
+  var crash = false;
+  late final AnimationController _animationController;
+
   @override
   void initState() {
     super.initState();
+    _animationController = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final homeCubit = HomeCubit.get(context);
-    return BlocBuilder<HomeVpnBloc, HomeVpnState>(
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
+        if (homeCubit.statusConnection.status == StatusConnection.Online &&
+            state is SuccessListenVpnState) {
+          CustomSnackBar.goodSnackBar(context, "Success connect vpn");
+        }
+      },
       builder: (context, state) {
         return Column(
           children: [
@@ -48,97 +68,64 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ),
                   ),
                 ),
-                child: Stack(
+                child: Column(
                   children: [
                     const AppBarHeader(),
-                    BuilderBloc<HomeSuccessVpnState, HomeErrorVpnState>(
-                      state: state,
-                      child: Builder(
-                        builder: (context) {
-                          var status = (state as HomeSuccessVpnState);
-                          print(status.status);
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Spacer(),
-                              Stack(
-                                children: [
-                                  BlocBuilder<HomeCubit, HomeState>(
-                                    builder: (context, state) {
-                                      return GestureDetector(
-                                        onTap: () async {
-                                          // print((await VPNIOSManager.getStatus()).status);
-                                          if (status.status ==
-                                              StatusConnection.Online) {
-                                            await locator<VPNIOSManager>()
-                                                .stopTun();
-                                          } else {
-                                            await locator<VPNIOSManager>()
-                                                .configureVPN(
-                                                    username: 'usr9',
-                                                    serverAddress:
-                                                        '128.140.61.187',
-                                                    sharedSecret:
-                                                        'N2gzEt5RoovqxtgfsAmw',
-                                                    password:
-                                                        'aRMD2wYkN9MtzElPI');
-                                          }
-                                          // print((await VPNIOSManager.getStatus()).status);
-
-                                          // await Future.delayed(
-                                          //     const Duration(minutes: 1));
-                                          // await VPNIOSManager.stopTun();
-                                          // print((await VPNIOSManager.getStatus()).status);
-                                          // context.read<AuthBloc>().add(
-                                          //     const LoginWithGoogleAndAppleAuthEvent(
-                                          //         type: 'apple'));
-
-                                          // homeCubit.toggleActiveVpn();
-                                        },
-                                        child: homeCubit.active
-                                            ? Image.asset(
-                                                'assets/images/active_color.png')
-                                            : Image.asset(
-                                                'assets/images/desactive_color.png'),
-                                      );
-                                    },
-                                  ),
-                                  Positioned(
-                                    top: screenUtil.setHeight(220),
-                                    left: screenUtil.setWidth(200),
-                                    child: Align(
-                                      alignment: Alignment.bottomLeft,
-                                      child: SvgPicture.asset(Assets.facebook),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    top: screenUtil.setHeight(180),
-                                    child: Align(
-                                        alignment: Alignment.topRight,
-                                        child:
-                                            SvgPicture.asset(Assets.twitter)),
-                                  ),
-                                  Positioned(
-                                    child: Align(
-                                        alignment: Alignment.bottomLeft,
-                                        child:
-                                            SvgPicture.asset(Assets.youTube)),
-                                  ),
-                                  Positioned(
-                                    child: Align(
-                                        alignment: Alignment.bottomRight,
-                                        child: SvgPicture.asset(Assets.google)),
-                                  ),
-                                ],
+                    const Spacer(),
+                    StreamBuilder(
+                      stream: locator<NetworkChecker>()
+                          .connectionChecker
+                          .onStatusChange,
+                      builder: (BuildContext context, AsyncSnapshot snapshot) {
+                        return Column(
+                          children: [
+                            screenUtil.setHeight(60).ph,
+                            if (homeCubit.isOnline)
+                              GestureDetector(
+                                onTap: () async {
+                                  await homeCubit.stopVpnConnecting(context);
+                                },
+                                child: Lottie.asset(
+                                  Assets.stopeToVpn,
+                                  repeat: state is LoadingConnectVpnState ||
+                                      state is LoadingStopVpnState,
+                                  reverse: state is LoadingStopVpnState,
+                                ),
                               ),
-                              CommonTextWidget(text: "${status.status}"),
-                              const Expanded(child: InfoVpnWidget())
-                            ],
-                          );
-                        },
-                      ),
+                            if (homeCubit.isOffline)
+                              GestureDetector(
+                                onTap: () async {
+                                  await homeCubit.getVpnConnecting(context);
+                                },
+                                child: Image.asset(
+                                  Assets.offline,
+                                ),
+                              ),
+                            // if (homeCubit.isOffline ||
+                            //     InternetConnectionStatus.disconnected ==
+                            //         snapshot.data)
+                            //   Image.asset(
+                            //     Assets.offline,
+                            //   ),
+                            if (homeCubit.isConnecting || homeCubit.isStopped)
+                              GestureDetector(
+                                onTap: () async {
+                                  if (state is! LoadingConnectVpnState) {
+                                    await homeCubit.getVpnConnecting(context);
+                                  }
+                                },
+                                child: Lottie.asset(
+                                  Assets.connecting,
+                                  animate: homeCubit.isConnecting,
+                                ),
+                              ),
+                          ],
+                        );
+                      },
                     ),
+                    const Spacer(),
+                    const InfoVpnWidget(),
+                    screenUtil.setHeight(30).ph,
                   ],
                 ),
               ),

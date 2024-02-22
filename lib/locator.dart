@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vpn/core/error/exceotion_native.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
@@ -15,8 +16,12 @@ import 'package:vpn/features/auth/domain/repositories/auth_repository.dart';
 import 'package:vpn/features/auth/domain/usecases/auth_usecases.dart';
 import 'package:vpn/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:vpn/features/home/data/datasources/api_service_home.dart';
-import 'package:vpn/features/home/presentation/logic/bloc/home_vpn_bloc.dart';
 import 'package:vpn/features/home/presentation/logic/cubit/home_cubit.dart';
+import 'package:vpn/features/select_country/data/datasources/api_service_country.dart';
+import 'package:vpn/features/select_country/data/repositories/country_imp_repository.dart';
+import 'package:vpn/features/select_country/domain/repositories/country_repository.dart';
+import 'package:vpn/features/select_country/domain/usecases/country_usecases.dart';
+import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/features/tarif/data/datasources/api_service_tarif.dart';
 import 'package:vpn/features/tarif/data/repositories/tarif_imp_repository.dart';
 import 'package:vpn/features/tarif/domain/repositories/tarif_repository.dart';
@@ -32,8 +37,8 @@ Future<void> setupLocator() async {
   //BLOC
 
   locator.registerFactory(() => HomeCubit());
-  locator.registerFactory(() => HomeVpnBloc()..add(const HomeVpnEvent()));
-  locator.registerFactory(() => SplashCubit());
+  locator.registerLazySingleton(() => SplashCubit());
+  locator.registerLazySingleton(() => CountryCubit(locator()));
 
   locator.registerFactory(
       () => AuthBloc(authUseCase: locator(), cacheHelper: locator()));
@@ -44,6 +49,8 @@ Future<void> setupLocator() async {
   locator
       .registerLazySingleton(() => TraifUsecases(tarifRepository: locator()));
   locator.registerLazySingleton(() => AuthUseCase(locator()));
+  locator.registerLazySingleton(
+      () => CountryUseCases(countryRepository: locator()));
 
   // //CORE
   // locator.registerLazySingleton(() => NetworkInfoImpl(locator()));
@@ -53,12 +60,15 @@ Future<void> setupLocator() async {
       () => TarifImpRepository(locator()));
   locator.registerLazySingleton<AuthRepository>(
       () => AuthImplRepository(authService: locator(), cacheHelper: locator()));
+  locator.registerLazySingleton<CountryRepository>(
+      () => CountryImpRepository(locator(), locator()));
 
   // //DATASOURSE
   locator.registerLazySingleton(() => ApiServiceHome());
   locator.registerLazySingleton(() => ApiServiceInit());
   locator.registerLazySingleton(() => ApiServiceTarif());
   locator.registerLazySingleton(() => ApiServiceAuth());
+  locator.registerLazySingleton(() => ApiServiceCountry());
 
   // //EXTRNAL
   locator.registerLazySingleton(() => SharedPreferences.getInstance());
@@ -71,4 +81,5 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => CacheGenAlgorithm(locator()));
   locator.registerLazySingleton(() => SystemInfoService());
   locator.registerLazySingleton(() => VPNIOSManager());
+  locator.registerLazySingleton(() => HandlerErrorNative());
 }

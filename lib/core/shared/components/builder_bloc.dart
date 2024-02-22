@@ -13,13 +13,17 @@ class BuilderBloc<S, E> extends StatelessWidget {
     if (state is S) {
       return child;
     } else if (state is E) {
-      return Center(
-          child: CommonTextWidget(
-        text: state.error,
-        size: screenUtil.setSp(20),
-        fontWeight: FontWeight.w500,
-        color: kBlack,
-      ));
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Center(
+            child: CommonTextWidget(
+          text: state.error,
+          textAlign: TextAlign.center,
+          size: screenUtil.setSp(20),
+          fontWeight: FontWeight.w500,
+          color: kBlack,
+        )),
+      );
     }
     return const Center(child: CircularProgressIndicator());
   }

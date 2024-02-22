@@ -5,7 +5,6 @@
 //  Created by mostafa omar on 13/02/2024.
 //
 
-import Flutter
 import Foundation
 import SystemConfiguration
 import NetworkExtension
@@ -14,8 +13,6 @@ import UIKit
 public class VPLibDDD: NSObject, FlutterStreamHandler {
     var eventSink: FlutterEventSink?
     private var vpnStatusObservation: NSKeyValueObservation?
-    
-    
     
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         self.eventSink = events
@@ -26,6 +23,8 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         return nil
     }
     func getVpnStatusString(_ status: StatusConnection) -> String {
+        print("Swift code")
+        print(status)
         switch status {
         case .Online:
             return "Online"
@@ -71,13 +70,12 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
                let sharedSecret = args["sharedSecret"] as? String,
                let password = args["password"] as? String {
                 // Call your configureVPN function here
-                configureVPN(username: username, serverAddress: serverAddress, sharedSecret: sharedSecret, password: password)
-                result(nil)
+                configureVPN(username: username, serverAddress: serverAddress, sharedSecret: sharedSecret, password: password,flutterResult: result)
             } else {
                 result(FlutterError(code: "INVALID_ARGUMENTS", message: "Invalid arguments", details: nil))
             }
         case "stopTun":
-            StopTun { success in
+            StopTun (flutterResult: result){ success in
                 result(success)
             }
         case "getStatus":
@@ -109,30 +107,35 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
     public var initTunProcessing : ((StatusInitTun, String?) -> ())?
     
     
-    private var tunSaveHandler: (Error?) -> Void { return
-        { (error:Error?) in
-            if (error != nil) {
+    private var tunSaveHandler: (Error?, @escaping FlutterResult) -> Void {
+        return { (error: Error?, flutterResult: @escaping FlutterResult) in
+            if let error = error {
                 LibSettings.mcc = 0
-                self.initTunProcessing?(StatusInitTun.NotAllowedConfig, "Could not save config")
-                return
+                flutterResult(FlutterError(code: "SAVE_CONFIG_ERROR", message: "Could not save VPN Configurations", details: error.localizedDescription))
             } else {
-                self.vpnMan.loadFromPreferences { (error : Error?) in
+                self.vpnMan.loadFromPreferences { loadError in
+                    if let loadError = loadError {
+                        let errorMessage = "Error loading preferences: \(loadError.localizedDescription)"
+                        flutterResult(FlutterError(code: "LOAD_CONFIG_ERROR", message: errorMessage, details: nil))
+                        return
+                    }
                     let p = self.getBaseProtocol()
                     self.vpnMan.protocolConfiguration = p
                     self.vpnMan.localizedDescription = self.nameTun
                     self.vpnMan.isEnabled = true
+                    
                     do {
                         try self.vpnMan.connection.startVPNTunnel ()
-                        self.initTunProcessing?(StatusInitTun.Success, nil)
-                    } catch let error {
+                    } catch let startError {
                         LibSettings.mcc = 0
-                        LogManager.Error ("Error starting Tun-VPN Connection \(error.localizedDescription)");
-                        self.initTunProcessing?(StatusInitTun.Failed, "Error starting connection \(error.localizedDescription)")
+                        let errorMessage = "Error starting Tun-VPN Connection: \(startError.localizedDescription)"
+                        flutterResult(FlutterError(code: "START_TUNNEL_ERROR", message: errorMessage, details: nil))
                     }
                 }
             }
-        }}
-    
+        }
+    }
+
     private let vpnMan = NEVPNManager.shared()
     private var lastConnectionStatus : StatusConnection = .Stopped
     public var LastConnectionStatus : StatusConnection {
@@ -171,12 +174,10 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
             self.lastConnectionStatus = status;
             
             listener(status, LibSettings.mcc, self.vpnMan.connection.connectedDate)
-//            let data: [String: Any] = ["status": status, "lastMcc": LibSettings.mcc, "dateConnection": self.vpnMan.connection.connectedDate]
-//            self.eventSink?(data)
         }
     }
     
-    public func StopTun (callback: @escaping (_ status: Bool) -> Void) -> Void {
+    public func StopTun (flutterResult: @escaping FlutterResult,callback: @escaping (_ status: Bool) -> Void) -> Void {
         self.vpnMan.loadFromPreferences { (error : Error?) in
             let p = self.getBaseProtocol()
             self.vpnMan.protocolConfiguration = p
@@ -185,9 +186,10 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
             LibSettings.mcc = 0
             do {
                 try self.vpnMan.connection.stopVPNTunnel ()
+                flutterResult("VPN configuration successful")
                 callback (true)
             } catch let error {
-                LogManager.Error ("Error stoping Tun-VPN Connection \(error.localizedDescription)");
+                flutterResult(FlutterError(code: "START_TUNNEL_ERROR", message: "Error stoping Tun-VPN Connection \(error.localizedDescription)", details: nil))
                 callback (false)
             }
         }
@@ -195,8 +197,8 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
     
     
     
-    public func configureVPN(username: String, serverAddress: String, sharedSecret: String, password: String)
-    {
+    public func configureVPN(username: String, serverAddress: String, sharedSecret: String, password: String, flutterResult: @escaping FlutterResult) {
+
         
         let p : NEVPNProtocolIPSec = self.getBaseProtocol()
         p.username = username
@@ -213,8 +215,11 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         self.vpnMan.localizedDescription = self.nameTun
         self.vpnMan.isEnabled = true
         
+        self.vpnMan.saveToPreferences { [flutterResult] error in
+                self.tunSaveHandler(error, flutterResult)
+            }
+        return
         
-        self.vpnMan.saveToPreferences (completionHandler: self.tunSaveHandler)
     }
 }
  

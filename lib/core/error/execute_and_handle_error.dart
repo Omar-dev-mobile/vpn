@@ -22,6 +22,7 @@ Future<Either<String, T>> executeAndHandleError<T>(
     final result = await function();
     return Right(result);
   } catch (e) {
+    print('Exception in executeAndHandleError$e');
     final failure = ErrorHandler.handle(e);
     return Left(failure.errorMessage ?? "");
   }
@@ -46,7 +47,8 @@ Future<T> executeAndHandleErrorServer<T>(
   } on NoInternetException {
     throw NoInternetException();
   } on Exception catch (error, s) {
-    print(s);
+    print('Exception in executeAndHandleError$error');
+    print('Stack trace in executeAndHandleError$s');
     throw Exception(error.toString());
   }
 }

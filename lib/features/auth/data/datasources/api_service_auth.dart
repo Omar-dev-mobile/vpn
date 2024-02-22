@@ -13,8 +13,8 @@ class ApiServiceAuth extends ApiBase {
           await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();
       final rsaKeyHelper = locator<RsaKeyHelper>();
       final rnd = rsaKeyHelper.generateRandomUUID;
-      final signature = await rsaKeyHelper.getSignatureWithLogin(
-          rnd, cacheHelper?.udid ?? "", appleId);
+      final signature = await rsaKeyHelper.getSignature(
+          "$rnd$appleId", cacheHelper?.udid ?? "");
       final response = await post(
         BASE_URL,
         queryParameters: {

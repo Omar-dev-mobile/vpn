@@ -64,11 +64,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>flutter_vpn.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>google_sign_in_ios.xcscheme</key>
 		<dict>
 			<key>isShown</key>
