@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/router/app_router.dart';
 
 import 'core/shared/components/providers.dart';

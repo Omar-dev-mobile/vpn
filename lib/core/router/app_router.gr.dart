@@ -33,6 +33,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const LoginScreen(),
       );
     },
+    SelectCountryRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const SelectCountryScreen(),
+      );
+    },
     SplashRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -92,6 +98,20 @@ class LoginRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'LoginRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [SelectCountryScreen]
+class SelectCountryRoute extends PageRouteInfo<void> {
+  const SelectCountryRoute({List<PageRouteInfo>? children})
+      : super(
+          SelectCountryRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SelectCountryRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

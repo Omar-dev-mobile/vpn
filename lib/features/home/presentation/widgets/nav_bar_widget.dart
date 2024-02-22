@@ -11,7 +11,7 @@ class NavBarWidget extends StatelessWidget {
       required this.icons,
       required this.onTap});
   final String title;
-  final String icons;
+  final Widget icons;
   final Function() onTap;
 
   @override
@@ -21,12 +21,12 @@ class NavBarWidget extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset(icons),
+          icons,
           5.ph,
           CommonTextWidget(
             text: title,
             size: screenUtil.setSp(12),
-            color: kDarkBluishGrayColor,
+            color: kDarkBluishGray,
             fontWeight: FontWeight.w500,
           )
         ],

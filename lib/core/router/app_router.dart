@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:vpn/features/auth/presentation/pages/login_screen.dart';
+import 'package:vpn/features/select_country/presentation/pages/select_country_screen.dart';
 import 'package:vpn/features/tarif/presentation/pages/tarif_with_card_screen.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/home/presentation/widgets/home_widget.dart';
@@ -31,6 +32,10 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: LoginRoute.page,
+          path: '/',
+        ),
+        AutoRoute(
+          page: SelectCountryRoute.page,
           path: '/',
         ),
       ];

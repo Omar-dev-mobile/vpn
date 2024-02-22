@@ -9,7 +9,7 @@ const Color kShadeOfGray = Color(0xff95A1A1);
 const Color kSlateGray = Color(0xff737373);
 
 const Color kYellowColor = Color(0xFFFFD964);
-const Color kDarkBluishGrayColor = Color(0xFF222828);
+const Color kDarkBluishGray = Color(0xFF222828);
 const Color kLightCyanColor = Color(0xFFA5F4FF);
 const Color kVibrantCyanColor = Color(0xFF00E0FF);
 const Color kDarkTealColor = Color(0xFF006072);
@@ -21,8 +21,12 @@ const Color kDarkGrayColor = Color(0xFF252525);
 const Color kBlueGray = Color(0xFF7D8696);
 const Color kLightGray = Color(0xFFF6F6F6);
 const Color kShadeBlueGray = Color(0xFF7D8797);
-
 const Color kTransparent = Colors.transparent;
+const Color kBackGround = Color(0xffECF1F1);
+const Color kSendButton = Color(0xff1392A4);
+const Color kStarIconOff = Color(0xffE0E0E0);
+const Color kStarIconOn = Color(0xffF2994A);
+const Color kFlagDivider = Color(0xffEAEAEA);
 
 List<List<Color>> gradient = [
   [kDarkTealColor, kDarkTealColor],
@@ -37,7 +41,7 @@ class MyThemeData {
       primaryColor: kPrimary,
       brightness: Brightness.light,
       textTheme: const CustomTextThemeLight(),
-      disabledColor: kDarkBluishGrayColor,
+      disabledColor: kDarkBluishGray,
       indicatorColor: kYellowColor,
     );
   }
@@ -64,7 +68,7 @@ class CustomTextThemeLight extends TextTheme {
           titleLarge: const TextStyle(fontSize: 28),
           titleMedium: const TextStyle(fontSize: 18),
           titleSmall: const TextStyle(fontSize: 8),
-          bodyLarge: const TextStyle(fontSize: 35, color: kDarkBluishGrayColor),
+          bodyLarge: const TextStyle(fontSize: 35, color: kDarkBluishGray),
           bodyMedium: const TextStyle(fontSize: 16, color: kDarkGrayColor),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
           labelLarge: const TextStyle(fontSize: 12, color: kWhite),

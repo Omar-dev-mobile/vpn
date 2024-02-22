@@ -39,27 +39,12 @@ class RsaKeyHelper {
 
   Future<String> getSignature(String rnd, String udid) async {
     try {
-      Uint8List hash = generateSHA1Digest(udid + rnd);
+      final d = udid + rnd;
+      print(d);
+      Uint8List hash = generateSHA1Digest(d);
       RSAPrivateKey? privateKey = await cacheHelper.getSavedRSAPrivateKey();
       if (privateKey != null) {
         String signature = base64Encode(CryptoUtils.rsaSign(privateKey, hash));
-        return signature;
-      } else {
-        return "";
-      }
-    } catch (e) {
-      print("objectdbfbfd$e");
-      rethrow;
-    }
-  }
-
-  Future<String> getSignatureWithLogin(String rnd, String udid, appleId) async {
-    try {
-      Uint8List hash = generateSHA1Digest(udid + rnd + appleId);
-      RSAPrivateKey? privateKey = await cacheHelper.getSavedRSAPrivateKey();
-      if (privateKey != null) {
-        String signature = base64Encode(CryptoUtils.rsaSign(privateKey, hash));
-        print(signature);
         return signature;
       } else {
         return "";

@@ -7,6 +7,7 @@ import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/theme/assets.dart';
+import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/locator.dart';
 
 import 'list_title_drawer_widget.dart';
@@ -55,7 +56,10 @@ class DrawerWidget extends StatelessWidget {
             ),
             ListTitleDrawerWidget(
               title: 'Select country',
-              onTap: () {},
+              onTap: () {
+                locator<CountryCubit>().getCountriesList();
+                context.pushRoute(const SelectCountryRoute());
+              },
             ),
             ListTitleDrawerWidget(
               title: 'Tarifs',

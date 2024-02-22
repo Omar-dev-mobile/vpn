@@ -1,15 +1,16 @@
 // ignore: file_names
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:vpn/core/constants.dart';
 
 enum StatusConnection { Offline, Online, Connecting, Stopped }
 
 class ConnectionStatus {
-  final StatusConnection status;
-  final int lastMcc;
+  final StatusConnection? status;
+  final int? lastMcc;
   final DateTime? dateConnection;
 
-  ConnectionStatus(this.status, this.lastMcc, this.dateConnection);
+  ConnectionStatus({this.status, this.lastMcc, this.dateConnection});
+  ConnectionStatus.fromData(this.status, this.lastMcc, this.dateConnection);
 }
 
 DateTime dateFromTimeIntervalSinceReferenceDate(double seconds) {
@@ -23,8 +24,8 @@ class VPNIOSManager {
 
   Future<bool> stopTun() async {
     try {
-      final bool success = await _channel.invokeMethod('stopTun');
-      return success;
+      await _channel.invokeMethod('stopTun');
+      return true;
     } on PlatformException catch (e) {
       print("Failed to stop Tun: '${e.message}'.");
       return false;
@@ -41,7 +42,7 @@ class VPNIOSManager {
       final dateConnection = result['dateConnection'] != null
           ? dateFromTimeIntervalSinceReferenceDate(result['dateConnection'])
           : null;
-      return ConnectionStatus(status, lastMcc, dateConnection);
+      return ConnectionStatus.fromData(status, lastMcc, dateConnection);
     });
   }
 
@@ -58,8 +59,9 @@ class VPNIOSManager {
         'sharedSecret': sharedSecret,
         'password': password,
       });
+      return;
     } catch (e) {
-      print('Error configuring VPN: $e');
+      rethrow;
     }
   }
 
@@ -87,10 +89,10 @@ class VPNIOSManager {
       final dateConnection = result['dateConnection'] != null
           ? dateFromTimeIntervalSinceReferenceDate(result['dateConnection'])
           : null;
-      return ConnectionStatus(status, lastMcc, dateConnection);
+      return ConnectionStatus.fromData(status, lastMcc, dateConnection);
     } on PlatformException catch (e) {
       print("Failed to get status: '${e.message}'.");
-      return ConnectionStatus(StatusConnection.Offline, 0, null);
+      return emptyConnectionStatus;
     }
   }
 }

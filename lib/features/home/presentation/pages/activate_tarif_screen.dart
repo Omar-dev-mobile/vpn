@@ -22,7 +22,7 @@ class ActivateTarifScreen extends StatelessWidget {
             onTap: () {
               context.pushRoute(const LoginRoute());
             },
-            child: Image.asset(Assets.noActive)),
+            child: Image.asset(Assets.online)),
         Image.asset(Assets.union),
         const Align(alignment: Alignment.topCenter, child: AppBarHeader()),
         Align(
@@ -35,7 +35,7 @@ class ActivateTarifScreen extends StatelessWidget {
                 CommonTextWidget(
                   text: "Need activate tarif to use VPN",
                   size: screenUtil.setSp(20),
-                  color: kDarkBluishGrayColor,
+                  color: kDarkBluishGray,
                 ),
                 screenUtil.setHeight(50).ph,
                 CustomButton(

@@ -1,7 +1,10 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vpn/core/shared/extensions/extension.dart';
 import 'package:vpn/features/auth/data/models/user_model.dart';
+import 'package:vpn/features/select_country/data/models/countries_model.dart';
+import 'package:vpn/features/select_country/domain/entities/countries_entity.dart';
 import 'package:vpn/locator.dart';
 
 class CacheHelper {
@@ -86,5 +89,64 @@ class CacheHelper {
 
   Future removeUser() async {
     await removeData(key: 'user');
+  }
+
+  Future saveVersionVpn(dynamic version) async {
+    await saveData(key: 'version_vpn', value: version);
+  }
+
+  Future<dynamic> getVersionVpn() async {
+    dynamic jsonString = await getData('version_vpn');
+    if (jsonString != null) {
+      return "$jsonString".safeParseToInt();
+    } else {
+      return 0;
+    }
+  }
+
+  Future saveVpnServer(VpnList vpnList) async {
+    String jsonString = json.encode(vpnList.toJson());
+    await saveData(key: 'vpn_server', value: jsonString);
+  }
+
+  Future<VpnList?> getVpnServer() async {
+    String? jsonString = await getData('vpn_server');
+    if (jsonString != null) {
+      jsonString = jsonString.trim();
+      var res = VpnList.fromJson(json.decode(jsonString));
+      return res;
+    } else {
+      return null;
+    }
+  }
+
+  Future saveCountriesModel(CountriesModel countriesModel) async {
+    String jsonString = json.encode(countriesModel.toJson());
+    await saveData(key: 'countries_model', value: jsonString);
+  }
+
+  Future<CountriesModel?> getCountriesModel() async {
+    String? jsonString = await getData('countries_model');
+    if (jsonString != null) {
+      var res = CountriesModel.fromJson(json.decode(jsonString));
+      return res;
+    } else {
+      return null;
+    }
+  }
+
+  Future saveCountriesFavorite(List<String> favorite) async {
+    String jsonString = json.encode(favorite);
+    await saveData(key: 'save_countries_favorite', value: jsonString);
+  }
+
+  Future<List<String>?> getCountriesFavorite() async {
+    String? jsonString = await getData('save_countries_favorite');
+    if (jsonString != null) {
+      var res = List<String>.from(json.decode(jsonString));
+      return res;
+    } else {
+      return null;
+    }
   }
 }

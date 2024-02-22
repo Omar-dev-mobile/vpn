@@ -3,8 +3,10 @@ import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/features/auth/data/models/user_model.dart';
+import 'package:vpn/features/select_country/domain/entities/countries_entity.dart';
 import 'package:vpn/locator.dart';
 
 class SystemInfoService {
@@ -18,15 +20,27 @@ class SystemInfoService {
   static BehaviorSubject<UserModel?> userSubject =
       BehaviorSubject<UserModel?>.seeded(null);
 
+  static BehaviorSubject<ConnectionStatus?> connectionStatusSubject =
+      BehaviorSubject<ConnectionStatus?>.seeded(null);
+
   static BehaviorSubject<bool> isLoginSubject =
       BehaviorSubject<bool>.seeded(false);
 
+  static BehaviorSubject<VpnList?> vpnServerSubject =
+      BehaviorSubject<VpnList?>.seeded(null);
+
   UserModel? get user => userSubject.value;
+  VpnList? get vpnServer => vpnServerSubject.value;
+
+  ConnectionStatus? get connectionStatus => connectionStatusSubject.value;
 
   bool get isLogin => isLoginSubject.value || user != null;
 
   set user(UserModel? value) => userSubject.add(value);
   set isLogin(bool value) => isLoginSubject.add(value);
+  set vpnServer(VpnList? value) => vpnServerSubject.add(value);
+  set connectionStatus(ConnectionStatus? value) =>
+      connectionStatusSubject.add(value);
 
   String _lang = '';
   String _hardModel = '';
@@ -64,6 +78,7 @@ class SystemInfoService {
     }
     user = await locator<CacheHelper>().getUser();
     isLogin = user != null;
+    vpnServer = await locator<CacheHelper>().getVpnServer();
   }
 
   String get getLocaleName {
