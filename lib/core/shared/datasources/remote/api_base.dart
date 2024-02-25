@@ -1,9 +1,8 @@
 import 'dart:developer';
-
+import 'dart:io';
+import 'package:crypto/crypto.dart' as crypto;
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
-
-import '../../../constants.dart';
 
 class RequestResult {
   dynamic json;
@@ -18,6 +17,11 @@ abstract class ApiBase {
   final Dio _dio = Dio();
   ApiBase() {
     _dio.interceptors.add(LogInterceptor(responseBody: true));
+    HttpClient httpClient = HttpClient();
+    httpClient.badCertificateCallback =
+        (X509Certificate cert, String host, int port) {
+      return true;
+    };
   }
   Future<RequestResult> request({
     required String method,
@@ -92,6 +96,21 @@ abstract class ApiBase {
       rethrow;
     }
     return RequestResult(decodedJson, resp.statusCode);
+  }
+
+  void initAdapter() {
+    void initAdapter() {
+      _dio.httpClientAdapter = IOHttpClientAdapter(
+        createHttpClient: () {
+          final client = HttpClient();
+          client.badCertificateCallback =
+              (X509Certificate cert, String host, int port) {
+            return true;
+          };
+          return client;
+        },
+      );
+    }
   }
 
   Future<RequestResult> post(

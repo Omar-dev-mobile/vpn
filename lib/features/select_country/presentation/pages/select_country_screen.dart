@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
+import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/customs/drawer_widget.dart';
 import 'package:vpn/core/customs/roundedButton.dart';
 import 'package:vpn/core/shared/components/builder_bloc.dart';
@@ -40,7 +42,12 @@ class SelectCountryScreen extends StatelessWidget {
                         );
                       } else if (state is CountriesErrorState) {
                         return Center(
-                          child: Text(state.error),
+                          child: CommonTextWidget(
+                            text: state.error,
+                            textAlign: TextAlign.center,
+                            size: screenUtil.setSp(16),
+                            fontWeight: FontWeight.w400,
+                          ),
                         );
                       }
                       var countriesModel = countryCubit.countriesModel;

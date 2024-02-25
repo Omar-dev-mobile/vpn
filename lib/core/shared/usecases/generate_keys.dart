@@ -12,7 +12,7 @@ import 'package:crypto/crypto.dart' as crypto;
 
 class RsaKeyHelper {
   final cacheHelper = locator<CacheGenAlgorithm>();
-  Future<Map<String, String>> generateAlgithmsForInitApp() async {
+  Future<Map<String, String>> generateAlgorithmsForInitApp() async {
     String udid = generateRandomUUID;
     final rnd = generateRandomUUID;
     AsymmetricKeyPair generateRSAKeyPair = CryptoUtils.generateRSAKeyPair();
@@ -35,6 +35,20 @@ class RsaKeyHelper {
       "pmk": base64Encode(pmk.codeUnits),
       "signature": signature,
     };
+  }
+
+  String buildQueryString(Map<String, String> parameters) {
+    var query = '';
+    parameters.forEach((k, v) {
+      final kt = k;
+      final vt = escape(v);
+      query += '$kt=$vt&';
+    });
+    return query;
+  }
+
+  String escape(String string) {
+    return Uri.encodeQueryComponent(string);
   }
 
   Future<String> getSignature(String rnd, String udid) async {

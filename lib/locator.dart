@@ -7,6 +7,7 @@ import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
 import 'package:vpn/core/shared/datasources/remote/api_service_init.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
+import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/shared/usecases/network_info.dart';
 import 'package:vpn/core/shared/usecases/init_usecases.dart';
 import 'package:vpn/core/shared/usecases/generate_keys.dart';
@@ -39,6 +40,7 @@ Future<void> setupLocator() async {
   locator.registerFactory(() => HomeCubit());
   locator.registerLazySingleton(() => SplashCubit());
   locator.registerLazySingleton(() => CountryCubit(locator()));
+  locator.registerLazySingleton(() => ThemeModeCubit());
 
   locator.registerFactory(
       () => AuthBloc(authUseCase: locator(), cacheHelper: locator()));

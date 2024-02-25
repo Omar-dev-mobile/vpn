@@ -60,7 +60,6 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                 height: screenUtil.screenHeight,
                 alignment: Alignment.center,
                 decoration: const BoxDecoration(
-                  color: kWhite,
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: AssetImage(

@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/drawer_widget.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
+import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/theme/assets.dart';
+import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/home/presentation/pages/activate_tarif_screen.dart';
 import 'package:vpn/features/home/presentation/widgets/home_widget.dart';
 import 'package:auto_route/auto_route.dart';
@@ -37,7 +40,25 @@ class HomeScreen extends StatelessWidget {
           : const SizedBox.shrink(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       drawer: const DrawerWidget(),
-      body: isLogin ? const HomeWidget() : const ActivateTarifScreen(),
+      body: isLogin
+          ? BlocBuilder<ThemeModeCubit, ThemeModeState>(
+              builder: (context, state) {
+                var themeMode = ThemeModeCubit.get(context);
+                return Container(
+                  height: screenUtil.screenHeight,
+                  width: screenUtil.screenWidth,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage(themeMode.themeMode == 'light'
+                        ? Assets.navBarLight
+                        : Assets.navBarDark),
+                  )),
+                  child: const HomeWidget(),
+                );
+              },
+            )
+          : const ActivateTarifScreen(),
     );
   }
 }

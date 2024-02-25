@@ -149,4 +149,17 @@ class CacheHelper {
       return null;
     }
   }
+
+  Future saveThemeMode(String theme) async {
+    await saveData(key: 'theme_mode', value: theme);
+  }
+
+  Future<String?> getThemeMode() async {
+    String? jsonString = await getData('theme_mode');
+    if (jsonString != null) {
+      return jsonString;
+    } else {
+      return null;
+    }
+  }
 }
