@@ -15,19 +15,15 @@ class ApiServiceTarif extends ApiBase {
           await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();
       final rsaKeyHelper = locator<RsaKeyHelper>();
       final rnd = rsaKeyHelper.generateRandomUUID;
-
       final signature =
           await rsaKeyHelper.getSignature(rnd, cacheHelper?.udid ?? "");
-
-      final response = await post(
-        BASE_URL,
-        queryParameters: {
-          "oper": "get_tarif_list",
-          "udid": cacheHelper?.udid ?? "",
-          "rnd": rnd,
-          "signature": signature,
-        },
-      );
+      final queryParams = rsaKeyHelper.buildQueryString({
+        "oper": "get_tarif_list",
+        "udid": cacheHelper?.udid ?? "",
+        "rnd": rnd,
+        "signature": signature,
+      });
+      final response = await post('$BASE_URL?$queryParams');
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
       }

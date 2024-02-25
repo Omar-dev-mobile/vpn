@@ -18,6 +18,8 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
+    String activeRouteName = AutoRouter.of(context).topRoute.name;
+    print(activeRouteName);
     return Drawer(
       width: double.infinity,
       child: SafeArea(
@@ -42,13 +44,13 @@ class DrawerWidget extends StatelessWidget {
                 ),
               ],
             ),
-            screenUtil.setHeight(30).ph,
+            screenUtil.setHeight(25).ph,
             ListTitleDrawerWidget(
               title: 'Home',
               onTap: () {
                 context.pushRoute(const HomeRoute());
               },
-              isActive: true,
+              isActive: activeRouteName == HomeRoute.name,
             ),
             ListTitleDrawerWidget(
               title: 'Profile',
@@ -60,10 +62,14 @@ class DrawerWidget extends StatelessWidget {
                 locator<CountryCubit>().getCountriesList();
                 context.pushRoute(const SelectCountryRoute());
               },
+              isActive: activeRouteName == SelectCountryRoute.name,
             ),
             ListTitleDrawerWidget(
               title: 'Tarifs',
-              onTap: () {},
+              onTap: () {
+                context.pushRoute(const TarifRoute());
+              },
+              isActive: activeRouteName == TarifRoute.name,
             ),
             ListTitleDrawerWidget(
               title: 'Safety',
@@ -92,7 +98,6 @@ class DrawerWidget extends StatelessWidget {
                     locator<SystemInfoService>().isLogin = false;
                     locator<SystemInfoService>().user = null;
                     context.pushRoute(const HomeRoute());
-                    print("object");
                   });
                 },
               ),

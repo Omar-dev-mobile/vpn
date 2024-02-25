@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/theme/assets.dart';
+import 'package:vpn/locator.dart';
 import 'logo.dart';
 
 class AppBarHeader extends StatelessWidget {
@@ -26,7 +29,12 @@ class AppBarHeader extends StatelessWidget {
           const Spacer(),
           const Logo(),
           const Spacer(),
-          SvgPicture.asset(Assets.sun),
+          GestureDetector(
+            onTap: () {
+              ThemeModeCubit.get(context).toggleMode();
+            },
+            child: SvgPicture.asset(Assets.sun),
+          ),
         ],
       ),
     );

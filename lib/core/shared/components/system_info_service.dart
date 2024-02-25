@@ -25,6 +25,8 @@ class SystemInfoService {
 
   static BehaviorSubject<bool> isLoginSubject =
       BehaviorSubject<bool>.seeded(false);
+  static BehaviorSubject<String?> themeModeSubject =
+      BehaviorSubject<String?>.seeded(null);
 
   static BehaviorSubject<VpnList?> vpnServerSubject =
       BehaviorSubject<VpnList?>.seeded(null);
@@ -33,6 +35,7 @@ class SystemInfoService {
   VpnList? get vpnServer => vpnServerSubject.value;
 
   ConnectionStatus? get connectionStatus => connectionStatusSubject.value;
+  String? get themeMode => themeModeSubject.value;
 
   bool get isLogin => isLoginSubject.value || user != null;
 
@@ -41,6 +44,8 @@ class SystemInfoService {
   set vpnServer(VpnList? value) => vpnServerSubject.add(value);
   set connectionStatus(ConnectionStatus? value) =>
       connectionStatusSubject.add(value);
+
+  set themeMode(String? value) => themeModeSubject.add(value);
 
   String _lang = '';
   String _hardModel = '';
@@ -79,6 +84,7 @@ class SystemInfoService {
     user = await locator<CacheHelper>().getUser();
     isLogin = user != null;
     vpnServer = await locator<CacheHelper>().getVpnServer();
+    themeMode = await locator<CacheHelper>().getThemeMode();
   }
 
   String get getLocaleName {

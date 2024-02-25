@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 const Color kWhite = Color(0xffFFFFFF);
 const Color kBlack = Colors.black;
+const Color kBGDark = Color(0xff1D1D1D);
+const Color kBGLight = Color(0xffF2F5F5);
 const Color kBluishGray = Color(0xffC9CAD1);
 const Color kGray = Color(0xffAAAAAF);
 const Color kPrimary = Color(0xff1392A4);
@@ -43,6 +45,7 @@ class MyThemeData {
       textTheme: const CustomTextThemeLight(),
       disabledColor: kDarkBluishGray,
       indicatorColor: kYellowColor,
+      scaffoldBackgroundColor: kBGLight,
     );
   }
 
@@ -52,6 +55,7 @@ class MyThemeData {
       primaryColor: Colors.indigo,
       brightness: Brightness.dark,
       textTheme: const CustomTextThemeDark(),
+      scaffoldBackgroundColor: kBGDark,
     );
   }
 }
@@ -71,7 +75,7 @@ class CustomTextThemeLight extends TextTheme {
           bodyLarge: const TextStyle(fontSize: 35, color: kDarkBluishGray),
           bodyMedium: const TextStyle(fontSize: 16, color: kDarkGrayColor),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
-          labelLarge: const TextStyle(fontSize: 12, color: kWhite),
+          labelLarge: const TextStyle(fontSize: 12, color: kDarkBluishGray),
           labelMedium: const TextStyle(fontSize: 17),
           labelSmall: const TextStyle(fontSize: 5),
         );
@@ -90,7 +94,7 @@ class CustomTextThemeDark extends TextTheme {
           titleMedium: const TextStyle(fontSize: 18),
           titleSmall: const TextStyle(fontSize: 8),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
-          labelLarge: const TextStyle(fontSize: 11),
+          labelLarge: const TextStyle(fontSize: 11, color: kWhite),
           labelMedium: const TextStyle(fontSize: 17),
           labelSmall: const TextStyle(fontSize: 5),
         );

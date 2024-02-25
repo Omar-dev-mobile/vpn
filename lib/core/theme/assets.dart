@@ -8,6 +8,9 @@ abstract class Assets {
   static const String online = '$_assets/$_images/online.png';
   static const String stopin = '$_assets/$_images/stopin.png';
   static const String offline = '$_assets/$_images/offline.png';
+  static const String bgTraifPng = '$_assets/$_images/bgTraif.png';
+  static const String navBarLight = '$_assets/$_images/nav_bar_light.png';
+  static const String navBarDark = '$_assets/$_images/nav_bar_dark.png';
 //Images animation
   static const String lottieSplashAnimation =
       '$_assets/$_animation/lottie_splash_animation.json';
@@ -16,7 +19,7 @@ abstract class Assets {
 //assets/animation/connecting_to_vpn.json
   static const String stopeToVpn = '$_assets/$_animation/stope_to_vpn.json';
   //Icons
-  static const String navBar = '$_assets/$_icons/nav_bar.svg';
+
   static const String sun = '$_assets/$_icons/sun.svg';
   static const String logout = '$_assets/$_icons/logout.svg';
   static const String logo = '$_assets/$_icons/logo.svg';

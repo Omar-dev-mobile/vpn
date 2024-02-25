@@ -16,6 +16,7 @@ class NavBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme.labelLarge;
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -26,7 +27,7 @@ class NavBarWidget extends StatelessWidget {
           CommonTextWidget(
             text: title,
             size: screenUtil.setSp(12),
-            color: kDarkBluishGray,
+            color: theme!.color,
             fontWeight: FontWeight.w500,
           )
         ],
