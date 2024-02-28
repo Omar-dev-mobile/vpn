@@ -8,14 +8,15 @@ import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/usecases/network_info.dart';
+import 'package:vpn/features/home/domain/usecases/home_usecase.dart';
 import 'package:vpn/locator.dart';
 
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial()) {
+  final HomeUseCase _homeUseCase;
+  HomeCubit(this._homeUseCase) : super(HomeInitial()) {
     emit(LoadingInitialStatusHomeState());
-    print("object");
     getInitStatus();
     _vpnStatusSubscription =
         locator<VPNIOSManager>().vpnStatusStream().listen((event) async {
@@ -59,8 +60,6 @@ class HomeCubit extends Cubit<HomeState> {
           serverAddress: '185.26.121.229',
           sharedSecret: 'ECHhFDpoN76jJ5VMc5Ko',
           password: 'aRMD2wYkN9MtzElPI');
-    }).then((value) {
-      print(value);
     });
     await res.fold((l) async {
       CustomSnackBar.badSnackBar(context, l);

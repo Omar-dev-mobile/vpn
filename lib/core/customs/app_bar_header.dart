@@ -1,15 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/theme/assets.dart';
-import 'package:vpn/locator.dart';
 import 'logo.dart';
 
-class AppBarHeader extends StatelessWidget {
+class AppBarHeader extends StatelessWidget implements PreferredSizeWidget {
   const AppBarHeader({super.key});
-
+  @override
+  Size get preferredSize => const Size(1, 40);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -24,7 +22,9 @@ class AppBarHeader extends StatelessWidget {
                 print(e);
               }
             },
-            child: SvgPicture.asset(Assets.nav),
+            child: SvgPicture.asset(
+              Assets.nav,
+            ),
           ),
           const Spacer(),
           const Logo(),
@@ -33,7 +33,13 @@ class AppBarHeader extends StatelessWidget {
             onTap: () {
               ThemeModeCubit.get(context).toggleMode();
             },
-            child: SvgPicture.asset(Assets.sun),
+            child: SvgPicture.asset(
+              Assets.sun,
+              colorFilter: ColorFilter.mode(
+                  Theme.of(context).textTheme.displaySmall!.color ??
+                      Colors.white,
+                  BlendMode.srcIn),
+            ),
           ),
         ],
       ),

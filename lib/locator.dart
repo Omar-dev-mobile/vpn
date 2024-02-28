@@ -17,7 +17,11 @@ import 'package:vpn/features/auth/domain/repositories/auth_repository.dart';
 import 'package:vpn/features/auth/domain/usecases/auth_usecases.dart';
 import 'package:vpn/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:vpn/features/home/data/datasources/api_service_home.dart';
-import 'package:vpn/features/home/presentation/logic/cubit/home_cubit.dart';
+import 'package:vpn/features/home/data/repositories/home_imp_repository.dart';
+import 'package:vpn/features/home/domain/repositories/home_repository.dart';
+import 'package:vpn/features/home/domain/usecases/home_usecase.dart';
+import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
+import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/select_country/data/datasources/api_service_country.dart';
 import 'package:vpn/features/select_country/data/repositories/country_imp_repository.dart';
 import 'package:vpn/features/select_country/domain/repositories/country_repository.dart';
@@ -37,10 +41,11 @@ GetIt locator = GetIt.instance;
 Future<void> setupLocator() async {
   //BLOC
 
-  locator.registerFactory(() => HomeCubit());
+  locator.registerFactory(() => HomeCubit(locator()));
   locator.registerLazySingleton(() => SplashCubit());
   locator.registerLazySingleton(() => CountryCubit(locator()));
   locator.registerLazySingleton(() => ThemeModeCubit());
+  locator.registerLazySingleton(() => MainCubit(locator(), locator()));
 
   locator.registerFactory(
       () => AuthBloc(authUseCase: locator(), cacheHelper: locator()));
@@ -53,6 +58,7 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => AuthUseCase(locator()));
   locator.registerLazySingleton(
       () => CountryUseCases(countryRepository: locator()));
+  locator.registerLazySingleton(() => HomeUseCase(locator()));
 
   // //CORE
   // locator.registerLazySingleton(() => NetworkInfoImpl(locator()));
@@ -64,6 +70,8 @@ Future<void> setupLocator() async {
       () => AuthImplRepository(authService: locator(), cacheHelper: locator()));
   locator.registerLazySingleton<CountryRepository>(
       () => CountryImpRepository(locator(), locator()));
+  locator.registerLazySingleton<HomeRepository>(
+      () => HomeImplRepository(locator()));
 
   // //DATASOURSE
   locator.registerLazySingleton(() => ApiServiceHome());

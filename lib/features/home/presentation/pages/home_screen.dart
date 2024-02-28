@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -9,7 +7,7 @@ import 'package:vpn/core/customs/drawer_widget.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/theme/assets.dart';
-import 'package:vpn/core/theme/theme.dart';
+import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
 import 'package:vpn/features/home/presentation/pages/activate_tarif_screen.dart';
 import 'package:vpn/features/home/presentation/widgets/home_widget.dart';
 import 'package:auto_route/auto_route.dart';
@@ -22,6 +20,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isLogin = locator<SystemInfoService>().isLogin;
+    print("HomeScreen");
     return Scaffold(
       floatingActionButton: isLogin
           ? KeyboardVisibilityBuilder(builder: (context, isKeyboardVisible) {
@@ -58,7 +57,11 @@ class HomeScreen extends StatelessWidget {
                 );
               },
             )
-          : const ActivateTarifScreen(),
+          : ActivateTarifScreen(
+              textButton: "Activate tarif",
+              title: "Need activate tarif to use VPN",
+              onPressed: () {},
+            ),
     );
   }
 }

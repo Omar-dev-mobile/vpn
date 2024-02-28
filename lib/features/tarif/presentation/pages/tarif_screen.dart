@@ -47,7 +47,10 @@ class TarifScreen extends StatelessWidget {
                             children: [
                               CommonTextWidget(
                                 text: 'Tarif',
-                                color: Theme.of(context).disabledColor,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .color,
                                 size: screenUtil.setSp(35),
                                 fontWeight: FontWeight.w500,
                               ),

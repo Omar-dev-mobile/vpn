@@ -48,7 +48,7 @@ class CardTarifWidget extends StatelessWidget {
               10.pw,
               CommonTextWidget(
                 text: '\$$prise',
-                color: Theme.of(context).canvasColor,
+                color: kWhite.withOpacity(0.7),
                 size: screenUtil.setSp(30),
                 fontWeight: FontWeight.w300,
               ),
@@ -61,14 +61,14 @@ class CardTarifWidget extends StatelessWidget {
                 children: [
                   CommonTextWidget(
                     text: plan,
-                    color: Theme.of(context).canvasColor,
+                    color: kWhite.withOpacity(0.7),
                     size: screenUtil.setSp(25),
                     fontWeight: FontWeight.w300,
                   ),
                   const Spacer(),
                   CommonTextWidget(
                     text: day,
-                    color: Theme.of(context).canvasColor,
+                    color: kSilver,
                     size: screenUtil.setSp(12),
                     fontWeight: FontWeight.w300,
                   ),
@@ -87,13 +87,13 @@ class CardTarifWidget extends StatelessWidget {
                       CommonTextWidget(
                         text: plan,
                         fontFamily: 'Roboto',
-                        color: Theme.of(context).canvasColor,
+                        color: kWhite.withOpacity(0.7),
                         size: screenUtil.setSp(25),
                         fontWeight: FontWeight.w300,
                       ),
                       CommonTextWidget(
                         text: day,
-                        color: Theme.of(context).canvasColor,
+                        color: kWhite.withOpacity(0.7),
                         fontFamily: 'Roboto',
                         size: screenUtil.setSp(17),
                         fontWeight: FontWeight.w300,
@@ -104,7 +104,7 @@ class CardTarifWidget extends StatelessWidget {
                   CommonTextWidget(
                     text: 'Bay',
                     fontFamily: 'Roboto',
-                    color: Theme.of(context).canvasColor,
+                    color: kSilver,
                     size: screenUtil.setSp(12),
                     fontWeight: FontWeight.w300,
                   ),
@@ -118,7 +118,7 @@ class CardTarifWidget extends StatelessWidget {
               barRadius: const Radius.circular(20),
               percent: percent!,
               padding: const EdgeInsets.symmetric(horizontal: 0),
-              backgroundColor: Theme.of(context).canvasColor,
+              backgroundColor: Theme.of(context).primaryColorLight,
               progressColor: Theme.of(context).indicatorColor,
             ),
           ]

@@ -4,5 +4,6 @@ import 'package:vpn/core/init_app.dart';
 
 void main() async {
   await InitApp.initialize();
+
   runApp(const VpnApp());
 }

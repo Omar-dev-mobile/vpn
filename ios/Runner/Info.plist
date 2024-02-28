@@ -4,8 +4,21 @@
 <dict>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
+		<key>NSPinnedDomains</key>
+		<dict>
+			<key>vp-line.aysec.org</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSPinnedLeafIdentities</key>
+				<array>
+					<dict>
+						<key>SPKI-SHA256-BASE64</key>
+						<string>MGSKNg2vxagufKhtBWhUhsZ3hw5iOds3cJPaoG9XqQE=</string>
+					</dict>
+				</array>
+			</dict>
+		</dict>
 	</dict>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>

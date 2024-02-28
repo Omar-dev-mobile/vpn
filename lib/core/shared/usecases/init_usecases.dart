@@ -7,6 +7,7 @@ class InitUsecases {
   ApiServiceInit apiServiceInit;
   InitUsecases({required this.apiServiceInit});
   Future<void> initSecurityRequest() async {
+    //need run this function when user sign in
     final cacheHelper = locator<CacheGenAlgorithm>();
     if ((await cacheHelper.getSecurityDataAlgithms()) == null) {
       await executeAndHandleError<bool>(() async {

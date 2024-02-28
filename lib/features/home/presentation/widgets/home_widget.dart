@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/customs/lottie_widget.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
-import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/usecases/network_info.dart';
 import 'package:vpn/core/theme/assets.dart';
-import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
-import 'package:vpn/features/home/presentation/logic/cubit/home_cubit.dart';
-import 'package:vpn/features/home/presentation/widgets/stopin_home.dart';
+import 'package:vpn/features/home/data/datasources/api_service_home.dart';
+import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
 import 'package:vpn/locator.dart';
 
 import '../../../../core/customs/bottom_navigation_bar_widget.dart';
@@ -28,18 +23,9 @@ class HomeWidget extends StatefulWidget {
 
 class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
   var crash = false;
-  late final AnimationController _animationController;
-
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -69,7 +55,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                 ),
                 child: Column(
                   children: [
-                    const AppBarHeader(),
+                    // const AppBarHeader(),
                     const Spacer(),
                     StreamBuilder(
                       stream: locator<NetworkChecker>()
@@ -94,28 +80,31 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                             if (homeCubit.isOffline)
                               GestureDetector(
                                 onTap: () async {
-                                  await homeCubit.getVpnConnecting(context);
+                                  // ApiServiceHome().getDataServiceAcc();
+                                  if (!homeCubit.isConnecting) {
+                                    await homeCubit.getVpnConnecting(context);
+                                  }
                                 },
                                 child: Image.asset(
                                   Assets.offline,
                                 ),
                               ),
-                            // if (homeCubit.isOffline ||
-                            //     InternetConnectionStatus.disconnected ==
-                            //         snapshot.data)
-                            //   Image.asset(
-                            //     Assets.offline,
-                            //   ),
-                            if (homeCubit.isConnecting || homeCubit.isStopped)
+                            if (homeCubit.isConnecting)
+                              Lottie.asset(
+                                Assets.connecting,
+                                animate: homeCubit.isConnecting,
+                                reverse: state is LoadingStopVpnState,
+                              ),
+                            if (homeCubit.isStopped)
                               GestureDetector(
                                 onTap: () async {
-                                  if (state is! LoadingConnectVpnState) {
+                                  if (!homeCubit.isConnecting) {
                                     await homeCubit.getVpnConnecting(context);
                                   }
                                 },
                                 child: Lottie.asset(
-                                  Assets.connecting,
-                                  animate: homeCubit.isConnecting,
+                                  Assets.disconnecting,
+                                  repeat: false,
                                 ),
                               ),
                           ],
@@ -124,7 +113,7 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
                     ),
                     const Spacer(),
                     const InfoVpnWidget(),
-                    screenUtil.setHeight(30).ph,
+                    screenUtil.setHeight(40).ph,
                   ],
                 ),
               ),

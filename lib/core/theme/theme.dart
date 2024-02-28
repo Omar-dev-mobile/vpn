@@ -29,6 +29,7 @@ const Color kSendButton = Color(0xff1392A4);
 const Color kStarIconOff = Color(0xffE0E0E0);
 const Color kStarIconOn = Color(0xffF2994A);
 const Color kFlagDivider = Color(0xffEAEAEA);
+const Color kSilver = Color(0xffE5E5E5);
 
 List<List<Color>> gradient = [
   [kDarkTealColor, kDarkTealColor],
@@ -41,6 +42,7 @@ class MyThemeData {
     return ThemeData(
       fontFamily: 'Saira',
       primaryColor: kPrimary,
+      primaryColorLight: kBGLight,
       brightness: Brightness.light,
       textTheme: const CustomTextThemeLight(),
       disabledColor: kDarkBluishGray,
@@ -52,10 +54,12 @@ class MyThemeData {
   static ThemeData darkTheme() {
     return ThemeData(
       fontFamily: 'Saira',
-      primaryColor: Colors.indigo,
+      primaryColor: kPrimary,
+      primaryColorLight: kBGDark,
       brightness: Brightness.dark,
       textTheme: const CustomTextThemeDark(),
       scaffoldBackgroundColor: kBGDark,
+      indicatorColor: kYellowColor,
     );
   }
 }
@@ -64,13 +68,13 @@ class CustomTextThemeLight extends TextTheme {
   const CustomTextThemeLight()
       : super(
           displayLarge: const TextStyle(fontSize: 35, color: kPrimary),
-          displayMedium: const TextStyle(fontSize: 25, color: kWhite),
-          displaySmall: const TextStyle(fontSize: 14),
+          displayMedium: const TextStyle(fontSize: 25, color: kBlack),
+          displaySmall: const TextStyle(fontSize: 12, color: kShadeOfGray),
           headlineLarge: const TextStyle(fontSize: 30, color: kWhite),
           headlineMedium: const TextStyle(fontSize: 20),
           headlineSmall: const TextStyle(fontSize: 10),
           titleLarge: const TextStyle(fontSize: 28),
-          titleMedium: const TextStyle(fontSize: 18),
+          titleMedium: const TextStyle(fontSize: 18, color: kBlack),
           titleSmall: const TextStyle(fontSize: 8),
           bodyLarge: const TextStyle(fontSize: 35, color: kDarkBluishGray),
           bodyMedium: const TextStyle(fontSize: 16, color: kDarkGrayColor),
@@ -86,12 +90,12 @@ class CustomTextThemeDark extends TextTheme {
       : super(
           displayLarge: const TextStyle(fontSize: 35, color: kPrimary),
           displayMedium: const TextStyle(fontSize: 25, color: kSlateGray),
-          displaySmall: const TextStyle(fontSize: 14),
+          displaySmall: const TextStyle(fontSize: 12, color: kSilver),
           headlineLarge: const TextStyle(fontSize: 30),
           headlineMedium: const TextStyle(fontSize: 20),
           headlineSmall: const TextStyle(fontSize: 10),
           titleLarge: const TextStyle(fontSize: 28),
-          titleMedium: const TextStyle(fontSize: 18),
+          titleMedium: const TextStyle(fontSize: 18, color: kWhite),
           titleSmall: const TextStyle(fontSize: 8),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
           labelLarge: const TextStyle(fontSize: 11, color: kWhite),

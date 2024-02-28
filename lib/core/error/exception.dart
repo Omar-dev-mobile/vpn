@@ -38,7 +38,7 @@ class ErrorHandler {
     if (error is DioException) {
       return Failure(
         errorMessage: error.message ??
-            "Error connecting to the server, please try again later",
+            "Error connecting to the server\nplease try again later",
       );
     } else if (error is NoInternetException) {
       return Failure(
