@@ -37,7 +37,7 @@ class SystemInfoService {
   ConnectionStatus? get connectionStatus => connectionStatusSubject.value;
   String? get themeMode => themeModeSubject.value;
 
-  bool get isLogin => isLoginSubject.value || user != null;
+  bool get isLogin => isLoginSubject.value;
 
   set user(UserModel? value) => userSubject.add(value);
   set isLogin(bool value) => isLoginSubject.add(value);

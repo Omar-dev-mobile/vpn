@@ -21,8 +21,9 @@ Future<Either<String, T>> executeAndHandleError<T>(
     if (!internet) throw NoInternetException();
     final result = await function();
     return Right(result);
-  } catch (e) {
+  } catch (e, s) {
     print('Exception in executeAndHandleError$e');
+    print('Stack trace in executeAndHandleError$s');
     final failure = ErrorHandler.handle(e);
     return Left(failure.errorMessage ?? "");
   }

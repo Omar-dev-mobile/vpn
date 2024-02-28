@@ -20,3 +20,4 @@ ConnectionStatus emptyConnectionStatus = ConnectionStatus(
 
 ConnectionStatus deInternetConnectionStatus = ConnectionStatus(
     status: StatusConnection.Offline, lastMcc: null, dateConnection: null);
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

@@ -20,11 +20,13 @@ class ListTitleDrawerWidget extends StatelessWidget {
     Color primaryColor = Theme.of(context).primaryColor;
     return Column(
       children: [
-        screenUtil.setHeight(30).ph,
+        screenUtil.setHeight(20).ph,
         ListTile(
           title: CommonTextWidget(
             text: title.toUpperCase(),
-            color: isActive ? Colors.black : primaryColor,
+            color: isActive
+                ? Theme.of(context).textTheme.titleMedium!.color
+                : primaryColor,
             size: screenUtil.setSp(30),
             fontWeight: FontWeight.w300,
           ),

@@ -6,6 +6,7 @@ import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
+import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/locator.dart';
@@ -19,12 +20,13 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
     String activeRouteName = AutoRouter.of(context).topRoute.name;
-    print(activeRouteName);
+    final SystemInfoService systemInfoService = SystemInfoService();
     return Drawer(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       width: double.infinity,
       child: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 15),
           children: [
             Row(
               children: [
@@ -39,7 +41,9 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    ThemeModeCubit.get(context).toggleMode();
+                  },
                   child: SvgPicture.asset(Assets.sun),
                 ),
               ],
@@ -52,25 +56,30 @@ class DrawerWidget extends StatelessWidget {
               },
               isActive: activeRouteName == HomeRoute.name,
             ),
-            ListTitleDrawerWidget(
-              title: 'Profile',
-              onTap: () {},
-            ),
-            ListTitleDrawerWidget(
-              title: 'Select country',
-              onTap: () {
-                locator<CountryCubit>().getCountriesList();
-                context.pushRoute(const SelectCountryRoute());
-              },
-              isActive: activeRouteName == SelectCountryRoute.name,
-            ),
-            ListTitleDrawerWidget(
-              title: 'Tarifs',
-              onTap: () {
-                context.pushRoute(const TarifRoute());
-              },
-              isActive: activeRouteName == TarifRoute.name,
-            ),
+            if (systemInfoService.isLogin)
+              ListTitleDrawerWidget(
+                title: 'Profile',
+                onTap: () {
+                  context.pushRoute(const ProfileRoute());
+                },
+              ),
+            if (systemInfoService.isLogin)
+              ListTitleDrawerWidget(
+                title: 'Select country',
+                onTap: () {
+                  locator<CountryCubit>().getCountriesList();
+                  context.pushRoute(const SelectCountryRoute());
+                },
+                isActive: activeRouteName == SelectCountryRoute.name,
+              ),
+            if (systemInfoService.isLogin)
+              ListTitleDrawerWidget(
+                title: 'Tarifs',
+                onTap: () {
+                  context.pushRoute(const TarifRoute());
+                },
+                isActive: activeRouteName == TarifRoute.name,
+              ),
             ListTitleDrawerWidget(
               title: 'Safety',
               onTap: () {},
@@ -80,7 +89,7 @@ class DrawerWidget extends StatelessWidget {
               onTap: () {},
             ),
             screenUtil.setHeight(30).ph,
-            if (locator<SystemInfoService>().isLogin)
+            if (systemInfoService.isLogin)
               ListTile(
                 title: Row(
                   children: [
@@ -89,6 +98,7 @@ class DrawerWidget extends StatelessWidget {
                     CommonTextWidget(
                       text: 'Log out'.toUpperCase(),
                       size: screenUtil.setSp(18),
+                      color: Theme.of(context).textTheme.labelLarge!.color,
                       fontWeight: FontWeight.w300,
                     ),
                   ],

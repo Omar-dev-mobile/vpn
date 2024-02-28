@@ -27,7 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   route() async {
-    context.replaceRoute(const HomeRoute());
+    context.replaceRoute(const MainRoute());
   }
 
   @override

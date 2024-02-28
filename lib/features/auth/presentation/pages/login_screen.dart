@@ -40,7 +40,7 @@ class LoginScreen extends StatelessWidget {
                       CommonTextWidget(
                         text: 'Unlock social media\nAnywhere\nAnytime',
                         size: screenUtil.setSp(35),
-                        color: kShadeBlueGray,
+                        color: Theme.of(context).textTheme.displaySmall!.color,
                         height: 1.2,
                       ),
                       screenUtil.setHeight(100).ph,
