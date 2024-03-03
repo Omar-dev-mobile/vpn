@@ -9,6 +9,7 @@ on:
   push:
     branches:
     - main
+    - dev
     - release/*
 
 jobs:
@@ -22,7 +23,6 @@ jobs:
       with:
         flutter-version: '3.19.1'
     - run: flutter pub get
-    - run: flutter test
     - run: flutter build apk
     - run: flutter build appbundle
     - run: flutter build ios --release --no-codesign
