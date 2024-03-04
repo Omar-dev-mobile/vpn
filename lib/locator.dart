@@ -22,6 +22,11 @@ import 'package:vpn/features/home/domain/repositories/home_repository.dart';
 import 'package:vpn/features/home/domain/usecases/home_usecase.dart';
 import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
+import 'package:vpn/features/profile/data/datasources/api_service_profile.dart';
+import 'package:vpn/features/profile/data/repositories/profile_imp_repository.dart';
+import 'package:vpn/features/profile/domain/repositories/profile_repository.dart';
+import 'package:vpn/features/profile/domain/usecases/profile_usecases.dart';
+import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vpn/features/select_country/data/datasources/api_service_country.dart';
 import 'package:vpn/features/select_country/data/repositories/country_imp_repository.dart';
 import 'package:vpn/features/select_country/domain/repositories/country_repository.dart';
@@ -46,6 +51,7 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => CountryCubit(locator()));
   locator.registerLazySingleton(() => ThemeModeCubit());
   locator.registerLazySingleton(() => MainCubit(locator(), locator()));
+  locator.registerLazySingleton(() => ProfileCubit(locator()));
 
   locator.registerFactory(
       () => AuthBloc(authUseCase: locator(), cacheHelper: locator()));
@@ -58,7 +64,9 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => AuthUseCase(locator()));
   locator.registerLazySingleton(
       () => CountryUseCases(countryRepository: locator()));
+
   locator.registerLazySingleton(() => HomeUseCase(locator()));
+  locator.registerLazySingleton(() => ProfileUseCases(locator()));
 
   // //CORE
   // locator.registerLazySingleton(() => NetworkInfoImpl(locator()));
@@ -72,6 +80,8 @@ Future<void> setupLocator() async {
       () => CountryImpRepository(locator(), locator()));
   locator.registerLazySingleton<HomeRepository>(
       () => HomeImplRepository(locator()));
+  locator.registerLazySingleton<ProfileRepository>(
+      () => ProfileImpRepository(locator()));
 
   // //DATASOURSE
   locator.registerLazySingleton(() => ApiServiceHome());
@@ -79,6 +89,7 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => ApiServiceTarif());
   locator.registerLazySingleton(() => ApiServiceAuth());
   locator.registerLazySingleton(() => ApiServiceCountry());
+  locator.registerLazySingleton(() => ApiServiceProfile());
 
   // //EXTRNAL
   locator.registerLazySingleton(() => SharedPreferences.getInstance());

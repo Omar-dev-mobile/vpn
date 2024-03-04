@@ -86,11 +86,11 @@ class SelectCountryScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 20),
-                child: RoundedButton(
-                    name: 'Send', color: kSendButton, width: 130.0),
-              ),
+              // const Padding(
+              //   padding: EdgeInsets.only(bottom: 20),
+              //   child: RoundedButton(
+              //       name: 'Send', color: kSendButton, width: 130.0),
+              // ),
             ],
           );
         },

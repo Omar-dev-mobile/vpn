@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
-import 'package:vpn/core/theme/theme.dart';
 
 class NavBarWidget extends StatelessWidget {
   const NavBarWidget(

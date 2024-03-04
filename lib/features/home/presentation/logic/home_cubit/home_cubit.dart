@@ -37,7 +37,7 @@ class HomeCubit extends Cubit<HomeState> {
   static HomeCubit get(context) => BlocProvider.of(context);
   VPNIOSManager vpniosManager = locator<VPNIOSManager>();
   SystemInfoService systemInfoService = locator<SystemInfoService>();
-  final HandlerErrorNative _errorNative = locator<HandlerErrorNative>();
+  final HandlerErrorNative _handlerErrorNative = locator<HandlerErrorNative>();
 
   String getStatusVpn() {
     switch (systemInfoService.connectionStatus?.status) {
@@ -54,12 +54,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future getVpnConnecting(context) async {
     emit(LoadingConnectVpnState());
-    final res = await _errorNative.executeNativeHandleError(() async {
+    final res = await _handlerErrorNative.executeNativeHandleError(() async {
       await locator<VPNIOSManager>().configureVPN(
-          username: 'usr9',
-          serverAddress: '185.26.121.229',
-          sharedSecret: 'ECHhFDpoN76jJ5VMc5Ko',
-          password: 'aRMD2wYkN9MtzElPI');
+        username: systemInfoService.vpnInfo?.u ?? "",
+        serverAddress: systemInfoService.vpnInfo?.s ?? "",
+        sharedSecret: systemInfoService.vpnInfo?.k ?? "",
+        password: systemInfoService.vpnInfo?.p ?? "",
+      );
     });
     await res.fold((l) async {
       CustomSnackBar.badSnackBar(context, l);
@@ -70,7 +71,7 @@ class HomeCubit extends Cubit<HomeState> {
   Future stopVpnConnecting(context) async {
     emit(LoadingStopVpnState());
     await Future.delayed(const Duration(seconds: 2), () async {
-      final res = await _errorNative.executeNativeHandleError(() async {
+      final res = await _handlerErrorNative.executeNativeHandleError(() async {
         await locator<VPNIOSManager>().stopTun();
       });
       res.fold((l) {

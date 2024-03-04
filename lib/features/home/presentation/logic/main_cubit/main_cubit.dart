@@ -18,19 +18,23 @@ class MainCubit extends Cubit<MainState> {
   final SystemInfoService _systemInfoService;
 
   static MainCubit get(context) => BlocProvider.of(context);
-
   Future getDataServiceAcc() async {
     emit(LoadingGetDataServiceAccState());
     final res = await _homeUseCase.getDataServiceAcc();
-    emit(res.fold((l) => ErrorGetDataServiceAccState(l),
-        (r) => SuccessGetDataServiceAccState(r)));
+    emit(res.fold((l) {
+      _systemInfoService.isLogin = false;
+      return ErrorGetDataServiceAccState(l);
+    }, (data) {
+      _systemInfoService.vpnInfo = data.workStatus;
+      return SuccessGetDataServiceAccState(data);
+    }));
   }
 
   Widget getWidgetMain(
       DataServiceAccModel dataServiceAccModel, BuildContext context) {
-    // dataServiceAccModel.workStatus!.errorAction = "activate_tarif";
     switch (dataServiceAccModel.workStatus!.errorAction) {
       case null:
+        _systemInfoService.isLogin = true;
         return const HomeScreen();
       case "login":
         _systemInfoService.isLogin = false;

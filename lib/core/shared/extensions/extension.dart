@@ -1,3 +1,5 @@
+import 'package:vpn/core/constants.dart';
+
 extension TryParse on int {
   int tryParseInt() {
     return int.tryParse(toString()) ?? 0;
@@ -7,6 +9,19 @@ extension TryParse on int {
 extension ParseStringToInt on String {
   int safeParseToInt() {
     return int.tryParse(this) ?? 0;
+  }
+
+  String fixDouble() {
+    if (isEmpty) return "";
+    double d = double.tryParse(this) ?? 0.0;
+    print("profileModel :  s $d");
+    if (d == d.truncateToDouble()) {
+      return d.toInt().toString();
+    } else {
+      final numberOfDecimal = getNumberOfDecimalDigits(d);
+
+      return d.toStringAsFixed(numberOfDecimal);
+    }
   }
 }
 
