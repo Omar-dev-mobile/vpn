@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vpn/core/customs/icon_mode.dart';
 import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'logo.dart';
@@ -29,18 +30,7 @@ class AppBarHeader extends StatelessWidget implements PreferredSizeWidget {
           const Spacer(),
           const Logo(),
           const Spacer(),
-          GestureDetector(
-            onTap: () {
-              ThemeModeCubit.get(context).toggleMode();
-            },
-            child: SvgPicture.asset(
-              Assets.sun,
-              colorFilter: ColorFilter.mode(
-                  Theme.of(context).textTheme.displaySmall!.color ??
-                      Colors.white,
-                  BlendMode.srcIn),
-            ),
-          ),
+          const IconMode(),
         ],
       ),
     );

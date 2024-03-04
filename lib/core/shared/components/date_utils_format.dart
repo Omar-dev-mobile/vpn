@@ -13,6 +13,14 @@ class DateUtilsFormat {
     return '$day.$month.$year';
   }
 
+  static String getTime(DateTime? dateTime) {
+    if (dateTime == null) return '';
+    final hour = dateTime.hour.toString().padLeft(2, '0');
+    final minute = dateTime.minute.toString().padLeft(2, '0');
+    final second = dateTime.second.toString().padLeft(2, '0');
+    return '$hour:$minute:$second';
+  }
+
   static String convertDateTimeWithTime(DateTime dateTime) {
     final year = dateTime.year;
     final month = dateTime.month.toString().padLeft(2, '0');

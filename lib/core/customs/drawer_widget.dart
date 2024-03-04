@@ -8,6 +8,7 @@ import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/theme/assets.dart';
+import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/locator.dart';
 
@@ -52,7 +53,7 @@ class DrawerWidget extends StatelessWidget {
             ListTitleDrawerWidget(
               title: 'Home',
               onTap: () {
-                context.pushRoute(const HomeRoute());
+                context.pushRoute(const MainRoute());
               },
               isActive: activeRouteName == HomeRoute.name,
             ),
@@ -60,6 +61,7 @@ class DrawerWidget extends StatelessWidget {
               ListTitleDrawerWidget(
                 title: 'Profile',
                 onTap: () {
+                  locator<ProfileCubit>().getProfile();
                   context.pushRoute(const ProfileRoute());
                 },
               ),

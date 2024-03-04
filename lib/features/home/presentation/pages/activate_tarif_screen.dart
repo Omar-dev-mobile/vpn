@@ -1,11 +1,7 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/customs/custom_button.dart';
-import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
@@ -29,7 +25,7 @@ class ActivateTarifScreen extends StatelessWidget {
           height: 250,
         ),
         Image.asset(Assets.union),
-        // const Align(alignment: Alignment.topCenter, child: AppBarHeader()),
+        const Align(alignment: Alignment.topCenter, child: AppBarHeader()),
         Align(
           alignment: Alignment.bottomCenter,
           child: Padding(

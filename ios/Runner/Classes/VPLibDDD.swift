@@ -43,8 +43,16 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         print(" onListen onListen onListen onListen onListen v onListenonListen")
         GetStatus { status, lastMcc, dateConnection in
             let vpnStatusString = self.getVpnStatusString(status)
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+            var dateString: String?
+            if let connectedDate = dateConnection {
+                dateString = dateFormatter.string(from: connectedDate)
+            }
+
             print(vpnStatusString);
-            let data: [String: Any] = ["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateConnection?.timeIntervalSinceReferenceDate ?? 1.0]
+            let data: [String: Any] = ["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateString]
             self.eventSink?(data)
         }
         
@@ -81,7 +89,14 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         case "getStatus":
             GetStatus { status, lastMcc, dateConnection in
                 let vpnStatusString = self.getVpnStatusString(status)
-                result(["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateConnection?.timeIntervalSinceReferenceDate ?? 1.0])
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+                var dateString: String?
+                if let connectedDate = dateConnection {
+                    dateString = dateFormatter.string(from: connectedDate)
+                }
+                result(["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateString ])
             }
         default:
             result(FlutterMethodNotImplemented)

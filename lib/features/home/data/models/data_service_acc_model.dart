@@ -4,12 +4,12 @@ class DataServiceAccModel {
     this.workStatus,
   });
   int? errorCode;
-  WorkStatus? workStatus;
+  WorkStatusAcc? workStatus;
 
   DataServiceAccModel.fromJson(Map<String, dynamic> json) {
     errorCode = json['error_code'];
     workStatus = json['work_status'] != null
-        ? WorkStatus.fromJson(json['work_status'])
+        ? WorkStatusAcc.fromJson(json['work_status'])
         : null;
   }
 
@@ -21,8 +21,8 @@ class DataServiceAccModel {
   }
 }
 
-class WorkStatus {
-  WorkStatus({
+class WorkStatusAcc {
+  WorkStatusAcc({
     this.u,
     this.k,
     this.p,
@@ -38,7 +38,7 @@ class WorkStatus {
   String? errorMessage;
   String? errorAction;
   UserInfo? userInfo;
-  WorkStatus.fromJson(Map<String, dynamic> json) {
+  WorkStatusAcc.fromJson(Map<String, dynamic> json) {
     u = json['u'];
     k = json['k'];
     p = json['p'];

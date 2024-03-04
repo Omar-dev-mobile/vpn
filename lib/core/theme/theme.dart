@@ -81,7 +81,7 @@ class CustomTextThemeLight extends TextTheme {
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
           labelLarge: const TextStyle(fontSize: 12, color: kDarkBluishGray),
           labelMedium: const TextStyle(fontSize: 17),
-          labelSmall: const TextStyle(fontSize: 5),
+          labelSmall: const TextStyle(fontSize: 5, color: kDarkTealColor),
         );
 }
 
@@ -100,6 +100,6 @@ class CustomTextThemeDark extends TextTheme {
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
           labelLarge: const TextStyle(fontSize: 11, color: kWhite),
           labelMedium: const TextStyle(fontSize: 17),
-          labelSmall: const TextStyle(fontSize: 5),
+          labelSmall: const TextStyle(fontSize: 5, color: kSilver),
         );
 }

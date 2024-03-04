@@ -13,12 +13,6 @@ class ConnectionStatus {
   ConnectionStatus.fromData(this.status, this.lastMcc, this.dateConnection);
 }
 
-DateTime dateFromTimeIntervalSinceReferenceDate(double seconds) {
-  int millisecondsSinceEpoch = (seconds * 1000).toInt();
-  return DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch,
-      isUtc: true);
-}
-
 class VPNIOSManager {
   final MethodChannel _channel = const MethodChannel('vpn_manager');
 
@@ -38,9 +32,9 @@ class VPNIOSManager {
     return _eventChannel.receiveBroadcastStream().map((result) {
       final status = convertStatusStringToEnum(result['status']);
       final lastMcc = result['lastMcc'];
-
+      print("objectobjectobject${result['dateConnection']}");
       final dateConnection = result['dateConnection'] != null
-          ? dateFromTimeIntervalSinceReferenceDate(result['dateConnection'])
+          ? DateTime.tryParse(result['dateConnection'])
           : null;
       return ConnectionStatus.fromData(status, lastMcc, dateConnection);
     });
@@ -87,7 +81,7 @@ class VPNIOSManager {
       final lastMcc = result['lastMcc'];
       print(result['dateConnection']);
       final dateConnection = result['dateConnection'] != null
-          ? dateFromTimeIntervalSinceReferenceDate(result['dateConnection'])
+          ? DateTime.tryParse(result['dateConnection'])
           : null;
       return ConnectionStatus.fromData(status, lastMcc, dateConnection);
     } on PlatformException catch (e) {
