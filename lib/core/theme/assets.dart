@@ -40,4 +40,10 @@ abstract class Assets {
   static const String tarifLogo = '$_assets/$_icons/tarif_logo.svg';
   static const String iconApple = '$_assets/$_icons/icon_apple.svg';
   static const String iconGoogle = '$_assets/$_icons/icon_google.svg';
+  static const String telegram = '$_assets/$_icons/telegram.svg';
+  static const String mail = '$_assets/$_icons/mail.svg';
+  static const String whats = '$_assets/$_icons/whats.svg';
+  static const String whatsPhone = '$_assets/$_icons/whatsPhone.svg';
+
+
 }

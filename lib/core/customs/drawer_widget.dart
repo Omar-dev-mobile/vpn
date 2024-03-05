@@ -88,7 +88,10 @@ class DrawerWidget extends StatelessWidget {
             ),
             ListTitleDrawerWidget(
               title: 'About',
-              onTap: () {},
+              onTap: () {
+                context.pushRoute(const AboutRoute());
+
+              },
             ),
             screenUtil.setHeight(30).ph,
             if (systemInfoService.isLogin)
