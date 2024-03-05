@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/theme/theme.dart';
+
+import '../../../../core/constants.dart';
+import '../../../../core/theme/theme.dart';
+
+
 
 class TextFieldWidget extends StatelessWidget {
   TextFieldWidget({
@@ -21,33 +24,31 @@ class TextFieldWidget extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: TextFormField(
-        cursorHeight: 18,
+        cursorHeight:18 ,
         inputFormatters: inputFormatters,
         controller: controller,
         textAlign: textAlign,
         scrollPadding: EdgeInsets.zero,
         cursorColor: kBlack,
         decoration: InputDecoration(
-          fillColor: kLightGray,
+          fillColor: kWhite,
           errorBorder: InputBorder.none,
           hintText: hintText,
           alignLabelWithHint: true,
           hintStyle: TextStyle(
-            fontSize: screenUtil.setSp(14),
-            fontFamily: 'Inter',
-            color:Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .color,
+            fontSize: screenUtil.setSp(23),
+            fontFamily: 'Saira',
+            fontWeight: FontWeight.w300,
+            color: kDarkBluishGray,
           ),
           filled: true,
           focusedErrorBorder: InputBorder.none,
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
+          enabledBorder: UnderlineInputBorder(
+            
             borderRadius: BorderRadius.circular(5.0), // Set the border radius
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
+          focusedBorder: UnderlineInputBorder
+          (
             borderRadius: BorderRadius.circular(5.0), // Set the border radius
           ),
         ),
