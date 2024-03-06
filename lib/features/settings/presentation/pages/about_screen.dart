@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:vpn/core/customs/custom_button.dart';
+import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/settings/presentation/widgets/icon_widget.dart';
 
@@ -101,23 +102,34 @@ class AboutScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CommonTextWidget(text: 'Terms of Service',color:Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .color,
-                        fontWeight: FontWeight.w400,
-                        size: screenUtil.setSp(15),
+                      GestureDetector(
+                        onTap: () {
+                          context.pushRoute(WebViewRoute(url: 'https://candodream.com/termsofservice'));
+
+                        },
+                        child: CommonTextWidget(text: 'Terms of Service',color:Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .color,
+                          fontWeight: FontWeight.w400,
+                          size: screenUtil.setSp(15),
+                        ),
                       ),
                       Container(height: 27,width: 2,color: Theme.of(context)
                           .textTheme
                           .bodyLarge!
                           .color,),
-                      CommonTextWidget(text: 'Privacy Policy',color:Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .color,
-                        fontWeight: FontWeight.w400,
-                        size: screenUtil.setSp(15),
+                      GestureDetector(
+                        onTap: () {
+                          context.pushRoute(WebViewRoute(url: 'https://candodream.com/policy'));
+                        },
+                        child: CommonTextWidget(text: 'Privacy Policy',color:Theme.of(context)
+                            .textTheme
+                            .bodyLarge!
+                            .color,
+                          fontWeight: FontWeight.w400,
+                          size: screenUtil.setSp(15),
+                        ),
                       ),
                     ],
                   ),
@@ -126,7 +138,9 @@ class AboutScreen extends StatelessWidget {
                 SizedBox(
                     width:screenUtil.setWidth(315),
                     height:screenUtil.setHeight(48),
-                    child: CustomButton(title: 'Ask a question', color: kPrimary , radius: 64, fontWeight: FontWeight.w500,)),
+                    child: CustomButton(title: 'Ask a question', color: kPrimary , radius: 64, fontWeight: FontWeight.w500,
+                      onPressed:(){context.pushRoute(AskQuestionRoute());}
+                      ,)),
               ],
             ),
           ),

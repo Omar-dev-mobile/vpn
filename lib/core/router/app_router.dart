@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:vpn/features/auth/presentation/pages/login_screen.dart';
 import 'package:vpn/features/home/presentation/pages/main_screen.dart';
 import 'package:vpn/features/profile/presentation/pages/profile_screen.dart';
@@ -7,6 +8,9 @@ import 'package:vpn/features/tarif/presentation/pages/tarif_with_card_screen.dar
 import '../../features/home/presentation/pages/home_screen.dart';
 import '../../features/home/presentation/widgets/home_widget.dart';
 import '../../features/settings/presentation/pages/about_screen.dart';
+import '../../features/settings/presentation/pages/appeal_screen.dart';
+import '../../features/settings/presentation/pages/ask_question_screen.dart';
+import '../../features/settings/presentation/pages/web_view_screen.dart';
 import '../../features/splash/presentation/pages/splash_screen.dart';
 import '../../features/tarif/presentation/pages/tarif_screen.dart';
 
@@ -27,6 +31,18 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: AboutRoute.page,
           path: '/',
+        ),
+        AutoRoute(
+            page:AppealRoute.page,
+            path: '/'
+        ),
+        AutoRoute(
+            page:AskQuestionRoute.page,
+            path: '/'
+        ),
+        AutoRoute(
+            page:WebViewRoute.page,
+            path: '/'
         ),
         AutoRoute(
           page: TarifRoute.page,
