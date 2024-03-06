@@ -31,7 +31,6 @@ const Color kStarIconOn = Color(0xffF2994A);
 const Color kFlagDivider = Color(0xffEAEAEA);
 const Color kSilver = Color(0xffE5E5E5);
 
-
 List<List<Color>> gradient = [
   [kDarkTealColor, kDarkTealColor],
   [kDeepPurpleColor, kDarkTealColor],
@@ -100,6 +99,7 @@ class CustomTextThemeDark extends TextTheme {
           titleSmall: const TextStyle(fontSize: 8),
           bodyLarge: const TextStyle(fontSize: 35, color: kWhite),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
+          bodyMedium:const TextStyle(fontSize: 11, color: kWhite) ,
           labelLarge: const TextStyle(fontSize: 11, color: kWhite),
           labelMedium: const TextStyle(fontSize: 17),
           labelSmall: const TextStyle(fontSize: 5, color: kSilver),

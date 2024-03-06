@@ -6,8 +6,8 @@ import '../../../../core/theme/theme.dart';
 
 
 
-class TextFieldWidget extends StatelessWidget {
-  TextFieldWidget({
+class TextFieldWidgetForAsk extends StatelessWidget {
+  TextFieldWidgetForAsk({
     super.key,
     required this.hintText,
     this.controller,
@@ -24,33 +24,54 @@ class TextFieldWidget extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: TextFormField(
-        cursorHeight:18 ,
+        cursorHeight:40 ,
+        validator:  (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter some text';
+          }
+          return null;
+        },
         inputFormatters: inputFormatters,
         controller: controller,
         textAlign: textAlign,
         scrollPadding: EdgeInsets.zero,
         cursorColor: kBlack,
+        cursorErrorColor: kBlack,
         decoration: InputDecoration(
-          fillColor: kWhite,
-          errorBorder: InputBorder.none,
+          fillColor: Theme.of(context).scaffoldBackgroundColor,
+          errorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).textTheme.bodyMedium!.color ?? kBlack),
+            // borderRadius: BorderRadius.circular(5.0), // Set the border radius
+          ),
+
           hintText: hintText,
           alignLabelWithHint: true,
+
           hintStyle: TextStyle(
             fontSize: screenUtil.setSp(23),
             fontFamily: 'Saira',
             fontWeight: FontWeight.w300,
-            color: kDarkBluishGray,
+            color: Theme.of(context).textTheme.bodyLarge!.color,
           ),
           filled: true,
-          focusedErrorBorder: InputBorder.none,
-          enabledBorder: UnderlineInputBorder(
-            
-            borderRadius: BorderRadius.circular(5.0), // Set the border radius
+          focusedErrorBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).textTheme.bodyMedium!.color ?? kBlack),
+            // borderRadius: BorderRadius.circular(5.0), // Set the border radius
           ),
+          enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Theme.of(context).textTheme.bodyMedium!.color ?? kBlack),
+            // borderRadius: BorderRadius.circular(5.0), // Set the border radius
+          ),
+          disabledBorder:UnderlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).textTheme.bodyMedium!.color ?? kBlack),
+            // borderRadius: BorderRadius.circular(5.0), // Set the border radius
+          ) ,
           focusedBorder: UnderlineInputBorder
           (
-            borderRadius: BorderRadius.circular(5.0), // Set the border radius
+            borderSide: BorderSide(color: Theme.of(context).textTheme.bodyMedium!.color ?? kBlack),
+            // borderRadius: BorderRadius.circular(5.0), // Set the border radius
           ),
+
         ),
       ),
     );

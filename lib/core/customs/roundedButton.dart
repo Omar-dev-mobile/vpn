@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vpn/core/customs/custom_button.dart';
+import 'package:vpn/core/theme/theme.dart';
 
 class RoundedButton extends StatelessWidget {
   const RoundedButton(
@@ -7,7 +8,9 @@ class RoundedButton extends StatelessWidget {
       required this.color,
       required this.colorRounded,
       required this.width,
+        this.onPressed,
       super.key});
+  final Function()? onPressed;
   final String name;
   final Color color;
   final Color colorRounded;
@@ -41,10 +44,11 @@ class RoundedButton extends StatelessWidget {
             SizedBox(
                 width: width,
                 child: CustomButton(
+                  onPressed: onPressed,
                   title: name,
                   color: color,
                   radius: 20,
-                  textColor: Theme.of(context).textTheme.labelSmall!.color!,
+                  textColor: kWhite,
                   fontWeight: FontWeight.w400,
                   size: 24,
                 )),

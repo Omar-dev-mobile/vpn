@@ -21,6 +21,20 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AboutScreen(),
       );
     },
+    AppealRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AppealScreen(),
+      );
+    },
+    AskQuestionRoute.name: (routeData) {
+      final args = routeData.argsAs<AskQuestionRouteArgs>(
+          orElse: () => const AskQuestionRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AskQuestionScreen(key: args.key),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -69,6 +83,16 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const TarifWithCardScreen(),
       );
     },
+    WebViewRoute.name: (routeData) {
+      final args = routeData.argsAs<WebViewRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WebViewScreen(
+          args.url,
+          key: args.key,
+        ),
+      );
+    },
   };
 }
 
@@ -84,6 +108,49 @@ class AboutRoute extends PageRouteInfo<void> {
   static const String name = 'AboutRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AppealScreen]
+class AppealRoute extends PageRouteInfo<void> {
+  const AppealRoute({List<PageRouteInfo>? children})
+      : super(
+          AppealRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AppealRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [AskQuestionScreen]
+class AskQuestionRoute extends PageRouteInfo<AskQuestionRouteArgs> {
+  AskQuestionRoute({
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AskQuestionRoute.name,
+          args: AskQuestionRouteArgs(key: key),
+          initialChildren: children,
+        );
+
+  static const String name = 'AskQuestionRoute';
+
+  static const PageInfo<AskQuestionRouteArgs> page =
+      PageInfo<AskQuestionRouteArgs>(name);
+}
+
+class AskQuestionRouteArgs {
+  const AskQuestionRouteArgs({this.key});
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'AskQuestionRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for
@@ -196,4 +263,42 @@ class TarifWithCardRoute extends PageRouteInfo<void> {
   static const String name = 'TarifWithCardRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [WebViewScreen]
+class WebViewRoute extends PageRouteInfo<WebViewRouteArgs> {
+  WebViewRoute({
+    required String url,
+    Key? key,
+    List<PageRouteInfo>? children,
+  }) : super(
+          WebViewRoute.name,
+          args: WebViewRouteArgs(
+            url: url,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'WebViewRoute';
+
+  static const PageInfo<WebViewRouteArgs> page =
+      PageInfo<WebViewRouteArgs>(name);
+}
+
+class WebViewRouteArgs {
+  const WebViewRouteArgs({
+    required this.url,
+    this.key,
+  });
+
+  final String url;
+
+  final Key? key;
+
+  @override
+  String toString() {
+    return 'WebViewRouteArgs{url: $url, key: $key}';
+  }
 }
