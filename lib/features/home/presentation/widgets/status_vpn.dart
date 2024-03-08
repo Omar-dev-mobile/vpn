@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:vpn/core/customs/lottie_widget.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
 
-class StatusVpn extends StatelessWidget {
+class StatusVpn extends StatefulWidget {
   const StatusVpn({super.key});
 
+  @override
+  State<StatusVpn> createState() => _StatusVpnState();
+}
+
+class _StatusVpnState extends State<StatusVpn> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final homeCubit = HomeCubit.get(context);
@@ -37,16 +48,17 @@ class StatusVpn extends StatelessWidget {
                 await homeCubit.getVpnConnecting(context);
               }
             },
-            child: Lottie.asset(
-              Assets.disconnecting,
+            child: LottieWidget(
+              asset: Assets.disconnecting,
               repeat: false,
+
             ),
           );
         case StatusConnection.Connecting:
-          return Lottie.asset(
-            Assets.connecting,
-            animate: homeCubit.isConnecting,
+          return LottieWidget(
+            asset: Assets.connecting,
             reverse: state is LoadingStopVpnState,
+            animate: homeCubit.isConnecting,
           );
         case StatusConnection.Offline:
           return GestureDetector(
