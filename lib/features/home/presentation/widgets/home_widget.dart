@@ -40,11 +40,11 @@ class _HomeWidgetState extends State<HomeWidget> with TickerProviderStateMixin {
               children: [
                 const AppBarHeader(),
                 const Spacer(),
-                screenUtil.setHeight(40).ph,
+                screenUtil.setHeight(50).ph,
                 const StatusVpn(),
                 const Spacer(),
                 const InfoVpnWidget(),
-                screenUtil.setHeight(40).ph,
+                screenUtil.setHeight(30).ph,
               ],
             ),
           ),
