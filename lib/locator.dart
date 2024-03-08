@@ -32,6 +32,11 @@ import 'package:vpn/features/select_country/data/repositories/country_imp_reposi
 import 'package:vpn/features/select_country/domain/repositories/country_repository.dart';
 import 'package:vpn/features/select_country/domain/usecases/country_usecases.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
+import 'package:vpn/features/settings/data/datasources/api_service_ask_question.dart';
+import 'package:vpn/features/settings/data/repositories/ask_question_repository_impl.dart';
+import 'package:vpn/features/settings/domain/repositories/ask_question_repository.dart';
+import 'package:vpn/features/settings/domain/usecases/ask_question_usecases.dart';
+import 'package:vpn/features/settings/presentation/cubit/ask_question_cubit.dart';
 import 'package:vpn/features/tarif/data/datasources/api_service_tarif.dart';
 import 'package:vpn/features/tarif/data/repositories/tarif_imp_repository.dart';
 import 'package:vpn/features/tarif/domain/repositories/tarif_repository.dart';
@@ -56,6 +61,8 @@ Future<void> setupLocator() async {
   locator.registerFactory(
       () => AuthBloc(authUseCase: locator(), cacheHelper: locator()));
   locator.registerFactory(() => TarifCubit(locator()));
+  locator.registerFactory(() => AskQuestionCubit(locator()));
+
 
   // //USECASES
   locator.registerLazySingleton(() => InitUsecases(apiServiceInit: locator()));
@@ -67,6 +74,8 @@ Future<void> setupLocator() async {
 
   locator.registerLazySingleton(() => HomeUseCase(locator()));
   locator.registerLazySingleton(() => ProfileUseCases(locator()));
+  locator.registerLazySingleton(() => AskQuestionUsecases(locator()));
+
 
   // //CORE
   // locator.registerLazySingleton(() => NetworkInfoImpl(locator()));
@@ -82,6 +91,8 @@ Future<void> setupLocator() async {
       () => HomeImplRepository(locator()));
   locator.registerLazySingleton<ProfileRepository>(
       () => ProfileImpRepository(locator()));
+  locator.registerLazySingleton<AskQuestionRepository>(
+          () => AskQuestionRepositoryImpl(locator()));
 
   // //DATASOURSE
   locator.registerLazySingleton(() => ApiServiceHome());
@@ -90,6 +101,8 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => ApiServiceAuth());
   locator.registerLazySingleton(() => ApiServiceCountry());
   locator.registerLazySingleton(() => ApiServiceProfile());
+  locator.registerLazySingleton(() => ApiServiceAskQuestion());
+
 
   // //EXTRNAL
   locator.registerLazySingleton(() => SharedPreferences.getInstance());
