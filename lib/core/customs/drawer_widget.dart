@@ -112,7 +112,7 @@ class DrawerWidget extends StatelessWidget {
                   locator<CacheHelper>().removeUser().then((value) {
                     locator<SystemInfoService>().isLogin = false;
                     locator<SystemInfoService>().user = null;
-                    context.pushRoute(const HomeRoute());
+                    context.pushRoute(const MainRoute());
                   });
                 },
               ),

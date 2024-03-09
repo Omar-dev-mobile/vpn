@@ -7,7 +7,6 @@ import '../../../../core/customs/common_text_widget.dart';
 import '../../../../core/customs/roundedButton.dart';
 import '../../../../core/theme/theme.dart';
 
-
 @RoutePage()
 class AppealScreen extends StatelessWidget {
   const AppealScreen({super.key});
@@ -16,49 +15,57 @@ class AppealScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 40, left: 20 , right: 20),
-            child: IconButton(
-              icon:const Icon(Icons.close) ,
-              onPressed: () {
-                context.router.pop();
+      appBar: AppBar(
+        backgroundColor: kTransparent,
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () {
+            context.router.pop();
+          },
+          color: kPrimary,
+          iconSize: 30,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
 
-              },
-              color: kPrimary,
-              iconSize: 30,
-            ),
-          ),
-          const Spacer(),
-          Padding(
-        padding: const EdgeInsets.all(30.0),
-            child: Column(
+            const Spacer(),
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Icon(
                   Icons.check,
                   color: kGreenColor,
                   size: 100,
-                
                 ),
-                CommonTextWidget(text: "Your appeal has been sent", size:  ScreenUtil().setSp(35.0), fontWeight: FontWeight.w500,color:Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .color,),
+                CommonTextWidget(
+                  text: "Your appeal has been sent",
+                  size: ScreenUtil().setSp(35.0),
+                  fontWeight: FontWeight.w500,
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                ),
               ],
             ),
-          ),
-          screenUtil.setHeight(30).ph,
-          const RoundedButton(name: "Thanks", color:kGreenColor , width: 130, colorRounded: kGreenColor,)
-          
-        ],
+            screenUtil.setHeight(30).ph,
+            Padding(
+              padding: const EdgeInsets.only( bottom: 10),
+              child: RoundedButton(
+                name: "Thanks",
+                color: kGreenColor,
+                width: 130,
+                colorRounded: kGreenColor,
+                onPressed: () {
+                  context.router.pop();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
-
-

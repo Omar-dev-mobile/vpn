@@ -29,9 +29,8 @@ class LoginScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
-                  // AuthSuccessState
                   if (state is AuthSuccessState) {
-                    context.replaceRoute(const HomeRoute());
+                    context.replaceRoute(const MainRoute());
                   }
                 },
                 builder: (context, state) {
