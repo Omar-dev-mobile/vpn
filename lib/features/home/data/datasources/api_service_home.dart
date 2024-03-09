@@ -21,7 +21,7 @@ class ApiServiceHome extends ApiBase {
         "oper": "acc",
         "udid": cacheGenAlgorithm?.udid ?? "",
         "rnd": rnd,
-        "id_server": idServer?.id?.toString() ?? "0",
+        "id_server": idServer?.id?.toString() ?? "1",
         "signature": signature,
       });
       final response = await post('$BASE_URL?$queryParams');

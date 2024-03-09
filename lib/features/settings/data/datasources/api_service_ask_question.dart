@@ -15,7 +15,7 @@ class ApiServiceAskQuestion extends ApiBase{
       final rsaKeyHelper = locator<RsaKeyHelper>();
       final rnd = rsaKeyHelper.generateRandomUUID;
       final signature =
-      await rsaKeyHelper.getSignature((cacheHelper?.udid ?? ""), rnd + model.email);
+      await rsaKeyHelper.getSignature("$rnd${model.email}", cacheHelper?.udid ?? "");
       final queryParams = rsaKeyHelper.buildQueryString({
         "oper": "back_user",
         "udid": cacheHelper?.udid ?? "",
