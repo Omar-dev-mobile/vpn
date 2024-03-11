@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:appmetrica_plugin/appmetrica_plugin.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 
@@ -60,3 +62,8 @@ String? validateEmail(String? value) {
       ? 'Enter a valid email address'
       : null;
 }
+
+void reportAppMetricaEvent(String eventName) =>
+    AppMetrica.reportEvent(eventName).then((value) {
+      print("eventName$eventName");
+    });

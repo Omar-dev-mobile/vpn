@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "440899395030",
+    "project_id": "vpn-line",
+    "storage_bucket": "vpn-line.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440899395030:android:231cee1f42dd2d295b5877",
+        "android_client_info": {
+          "package_name": "org.cnddrm.vp_line_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9pAl-tdIAuEEV_bj5Ah4T2FjQgUctNsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
