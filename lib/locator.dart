@@ -44,6 +44,7 @@ import 'package:vpn/features/tarif/domain/usecases/traif_usecases.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif_cubit.dart';
 
 import 'core/router/app_router.dart';
+import 'core/shared/components/notification_service.dart';
 import 'features/splash/presentation/bloc/splash_cubit.dart';
 
 GetIt locator = GetIt.instance;
@@ -116,4 +117,6 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => SystemInfoService());
   locator.registerLazySingleton(() => VPNIOSManager());
   locator.registerLazySingleton(() => HandlerErrorNative());
+  locator.registerLazySingleton(() => NotificationService());
+
 }
