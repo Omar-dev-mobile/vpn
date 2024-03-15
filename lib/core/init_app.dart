@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -29,28 +28,24 @@ class InitApp {
     Bloc.observer = BlocsObserver();
     await locator<CacheHelper>().init();
     await locator<SystemInfoService>().getSystemInfo();
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+            alert: true, badge: true, sound: true);
     await locator<InitUsecases>().initSecurityRequest();
     await FlutterVpn.prepare();
-    var token = await FirebaseMessaging.instance.getToken();
-
-    print('The Token: ');
-    print(token);
     final notification = locator<NotificationService>();
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print('Got a message whilst in the foreground!');
       print('Message data: ${message.data}');
       if (message.notification != null) {
         notification.showNotification(message);
-        print('Message also contained a notification: ${message.notification!}');
+        print(
+            'Message also contained a notification: ${message.notification!}');
       }
     });
-    await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-        alert: true, badge: true, sound: true);
+
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    notification.checkNotificationPermission();
-
-
-
     initAnimation();
     // FlutterVpn.connectIkev2EAP(
     //   server: "128.140.61.187",

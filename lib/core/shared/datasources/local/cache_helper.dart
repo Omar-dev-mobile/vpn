@@ -5,7 +5,6 @@ import 'package:vpn/core/shared/extensions/extension.dart';
 import 'package:vpn/features/auth/data/models/user_model.dart';
 import 'package:vpn/features/select_country/data/models/countries_model.dart';
 import 'package:vpn/features/select_country/domain/entities/countries_entity.dart';
-import 'package:vpn/locator.dart';
 
 class CacheHelper {
   static SharedPreferences? sharedPreferences;

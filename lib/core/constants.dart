@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:appmetrica_plugin/appmetrica_plugin.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 
@@ -47,9 +45,7 @@ const tarifCost = {
   "year": 365,
 };
 
-
 String? validateEmail(String? value) {
-
   const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"
       r'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-'
       r'\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*'
@@ -62,8 +58,3 @@ String? validateEmail(String? value) {
       ? 'Enter a valid email address'
       : null;
 }
-
-void reportAppMetricaEvent(String eventName) =>
-    AppMetrica.reportEvent(eventName).then((value) {
-      print("eventName$eventName");
-    });

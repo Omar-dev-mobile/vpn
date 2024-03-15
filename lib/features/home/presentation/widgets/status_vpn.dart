@@ -15,11 +15,11 @@ class StatusVpn extends StatefulWidget {
 }
 
 class _StatusVpnState extends State<StatusVpn> {
-
   @override
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final homeCubit = HomeCubit.get(context);
@@ -51,7 +51,6 @@ class _StatusVpnState extends State<StatusVpn> {
             child: LottieWidget(
               asset: Assets.disconnecting,
               repeat: false,
-
             ),
           );
         case StatusConnection.Connecting:
