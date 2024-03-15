@@ -2,10 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/customs/common_text_widget.dart';
+import 'package:vpn/core/customs/log_out.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
-import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
@@ -21,7 +20,7 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
     String activeRouteName = AutoRouter.of(context).topRoute.name;
-    final SystemInfoService systemInfoService = SystemInfoService();
+    final systemInfoService = locator<SystemInfoService>();
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       width: double.infinity,
@@ -90,32 +89,10 @@ class DrawerWidget extends StatelessWidget {
               title: 'About',
               onTap: () {
                 context.pushRoute(const AboutRoute());
-
               },
             ),
             screenUtil.setHeight(30).ph,
-            if (systemInfoService.isLogin)
-              ListTile(
-                title: Row(
-                  children: [
-                    SvgPicture.asset(Assets.logout),
-                    14.pw,
-                    CommonTextWidget(
-                      text: 'Log out'.toUpperCase(),
-                      size: screenUtil.setSp(18),
-                      color: Theme.of(context).textTheme.labelLarge!.color,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ],
-                ),
-                onTap: () {
-                  locator<CacheHelper>().removeUser().then((value) {
-                    locator<SystemInfoService>().isLogin = false;
-                    locator<SystemInfoService>().user = null;
-                    context.pushRoute(const MainRoute());
-                  });
-                },
-              ),
+            if (systemInfoService.isLogin) const LogOut(),
           ],
         ),
       ),

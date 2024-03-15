@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/router/app_router.dart';
-import 'package:vpn/core/shared/components/system_info_service.dart';
-import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 
 import 'core/shared/components/providers.dart';
@@ -36,6 +34,7 @@ class VpnApp extends StatelessWidget {
               final logicAppCubit = locator<ThemeModeCubit>();
               return MaterialApp.router(
                 color: kBlack,
+                title: 'VPN Line',
                 key: navigatorKey,
                 supportedLocales: const [Locale('en')],
                 debugShowCheckedModeBanner: false,

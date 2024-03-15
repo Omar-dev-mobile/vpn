@@ -2,9 +2,11 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/usecases/generate_keys.dart';
 import 'package:vpn/features/auth/domain/usecases/auth_usecases.dart';
+import 'package:vpn/locator.dart';
 
 part 'auth_event.dart';
 
@@ -45,6 +47,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         res.fold(
           (failure) => AuthErrorState(error: failure),
           (data) {
+            locator<SystemInfoService>().isLogin = true;
             return AuthSuccessState();
           },
         ),

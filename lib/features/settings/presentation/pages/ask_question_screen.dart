@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/features/settings/data/models/ask_question_model.dart';
-import 'package:vpn/features/settings/presentation/cubit/ask_question_cubit.dart';
-import 'package:vpn/features/settings/presentation/cubit/ask_question_state.dart';
+import 'package:vpn/features/settings/presentation/cubit/setting_cubit.dart';
+import 'package:vpn/features/settings/presentation/cubit/setting_state.dart';
 import 'package:vpn/features/settings/presentation/widgets/text_field_widget.dart';
 import 'package:vpn/locator.dart';
 
@@ -31,8 +31,8 @@ class AskQuestionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocProvider(
-        create: (context) => AskQuestionCubit(locator()),
-        child: BlocConsumer<AskQuestionCubit, AskQuestionState>(
+        create: (context) => SettingCubit(locator()),
+        child: BlocConsumer<SettingCubit, SettingState>(
           listener: (context, state) {
             if (state is AskQuestionSuccessState) {
               context.replaceRoute(const AppealRoute());
@@ -108,7 +108,7 @@ class AskQuestionScreen extends StatelessWidget {
                     colorRounded: kPrimary,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        AskQuestionCubit.get(context).leaveFeedback(
+                        SettingCubit.get(context).leaveFeedback(
                             AskQuestionModel(controllers[1].text,
                                 controllers[2].text, controllers[0].text));
                       }

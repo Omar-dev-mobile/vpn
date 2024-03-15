@@ -18,40 +18,43 @@ class SystemInfoService {
   }
   SystemInfoService._internal();
 
-  static BehaviorSubject<UserModel?> userSubject =
+  // SystemInfoService
+
+  final BehaviorSubject<UserModel?> _userSubject =
       BehaviorSubject<UserModel?>.seeded(null);
 
-  static BehaviorSubject<ConnectionStatus?> connectionStatusSubject =
+  final BehaviorSubject<ConnectionStatus?> _connectionStatusSubject =
       BehaviorSubject<ConnectionStatus?>.seeded(null);
 
-  static BehaviorSubject<bool> isLoginSubject =
+  final BehaviorSubject<bool> _isLoginSubject =
       BehaviorSubject<bool>.seeded(false);
-  static BehaviorSubject<String?> themeModeSubject =
+
+  final BehaviorSubject<String?> _themeModeSubject =
       BehaviorSubject<String?>.seeded(null);
 
-  static BehaviorSubject<VpnList?> vpnServerSubject =
+  final BehaviorSubject<VpnList?> _vpnServerSubject =
       BehaviorSubject<VpnList?>.seeded(null);
 
-  static BehaviorSubject<WorkStatusAcc?> vpnInfoSubject =
+  final BehaviorSubject<WorkStatusAcc?> _vpnInfoSubject =
       BehaviorSubject<WorkStatusAcc?>.seeded(null);
 
-  UserModel? get user => userSubject.value;
-  VpnList? get vpnServer => vpnServerSubject.value;
-  WorkStatusAcc? get vpnInfo => vpnInfoSubject.value;
+  UserModel? get user => _userSubject.value;
+  VpnList? get vpnServer => _vpnServerSubject.value;
+  WorkStatusAcc? get vpnInfo => _vpnInfoSubject.value;
 
-  ConnectionStatus? get connectionStatus => connectionStatusSubject.value;
-  String? get themeMode => themeModeSubject.value;
+  ConnectionStatus? get connectionStatus => _connectionStatusSubject.value;
+  String? get themeMode => _themeModeSubject.value;
 
-  bool get isLogin => isLoginSubject.value;
+  bool get isLogin => _isLoginSubject.value;
 
-  set user(UserModel? value) => userSubject.add(value);
-  set isLogin(bool value) => isLoginSubject.add(value);
-  set vpnServer(VpnList? value) => vpnServerSubject.add(value);
-  set vpnInfo(WorkStatusAcc? value) => vpnInfoSubject.add(value);
+  set user(UserModel? value) => _userSubject.add(value);
+  set isLogin(bool value) => _isLoginSubject.add(value);
+  set vpnServer(VpnList? value) => _vpnServerSubject.add(value);
+  set vpnInfo(WorkStatusAcc? value) => _vpnInfoSubject.add(value);
   set connectionStatus(ConnectionStatus? value) =>
-      connectionStatusSubject.add(value);
+      _connectionStatusSubject.add(value);
 
-  set themeMode(String? value) => themeModeSubject.add(value);
+  set themeMode(String? value) => _themeModeSubject.add(value);
 
   String _lang = '';
   String _hardModel = '';
@@ -101,5 +104,14 @@ class SystemInfoService {
     } catch (e) {
       return "en";
     }
+  }
+
+  void dispose() {
+    user = null;
+    connectionStatus = null;
+    isLogin = false;
+    themeMode = null;
+    vpnServer = null;
+    vpnInfo = null;
   }
 }

@@ -3,36 +3,20 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-
 import '../../../locator.dart';
 import '../../constants.dart';
 import '../datasources/local/cache_helper.dart';
 
 class NotificationService {
   static final NotificationService _notificationService =
-  NotificationService._internal();
+      NotificationService._internal();
 
   factory NotificationService() {
     return _notificationService;
   }
 
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
-
-  Future checkNotificationPermission() async {
-    final local = locator<CacheHelper>();
-    if (local.getData('notification_permission') == null) {
-      local.saveData(key: 'notification_permission', value: true);
-      if (Platform.isIOS) {
-        final settings = await FirebaseMessaging.instance.requestPermission();
-        if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-          reportAppMetricaEvent("notification_permission_granted");
-        } else {
-          reportAppMetricaEvent("notification_permission_denied");
-        }
-      }
-    }
-  }
+      FlutterLocalNotificationsPlugin();
 
   bool openShatScreen = false;
 
@@ -40,17 +24,17 @@ class NotificationService {
 
   Future<void> initNotification() async {
     const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings(
+        AndroidInitializationSettings(
       '@mipmap/ic_launcher',
     );
     const IOSInitializationSettings initializationSettingsIOS =
-    IOSInitializationSettings(
+        IOSInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
       requestSoundPermission: false,
     );
     const InitializationSettings initializationSettings =
-    InitializationSettings(
+        InitializationSettings(
       android: initializationSettingsAndroid,
       iOS: initializationSettingsIOS,
     );

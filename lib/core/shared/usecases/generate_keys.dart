@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:math';
 import "package:asn1lib/asn1lib.dart";
 import 'package:basic_utils/basic_utils.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import "package:pointycastle/export.dart";
 import 'package:uuid/uuid.dart';
@@ -27,6 +28,10 @@ class RsaKeyHelper {
     Uint8List hash = generateSHA1Digest(udid + rnd);
 
     String signature = base64Encode(CryptoUtils.rsaSign(privateKey, hash));
+    var token = await FirebaseMessaging.instance.getToken();
+
+    print('The FCM Token: ');
+    print(token);
     return {
       ...getDeviceInfo,
       "oper": "init",
@@ -34,6 +39,7 @@ class RsaKeyHelper {
       "rnd": rnd,
       "pmk": base64Encode(pmk.codeUnits),
       "signature": signature,
+      "fcm_key": token ?? ""
     };
   }
 
