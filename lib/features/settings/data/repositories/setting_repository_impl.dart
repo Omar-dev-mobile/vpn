@@ -13,7 +13,6 @@ class SettingRepositoryImpl extends SettingRepository {
   Future<Either<String, bool>> leaveFeedback(AskQuestionModel model) {
     return executeAndHandleError<bool>(() async {
       final res = await apiServiceAskQuestion.leaveFeedback(model);
-      print("res $res");
       return res;
     });
   }
@@ -22,7 +21,6 @@ class SettingRepositoryImpl extends SettingRepository {
   Future<Either<String, bool>> logout() {
     return executeAndHandleError<bool>(() async {
       final res = await apiServiceAskQuestion.logout();
-      print("res $res");
       return res;
     });
   }

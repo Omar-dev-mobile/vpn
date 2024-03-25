@@ -6,7 +6,6 @@ import 'package:vpn/features/profile/presentation/pages/profile_screen.dart';
 import 'package:vpn/features/select_country/presentation/pages/select_country_screen.dart';
 import 'package:vpn/features/tarif/presentation/pages/tarif_with_card_screen.dart';
 import '../../features/home/presentation/pages/home_screen.dart';
-import '../../features/home/presentation/widgets/home_widget.dart';
 import '../../features/settings/presentation/pages/about_screen.dart';
 import '../../features/settings/presentation/pages/appeal_screen.dart';
 import '../../features/settings/presentation/pages/ask_question_screen.dart';
@@ -32,18 +31,9 @@ class AppRouter extends _$AppRouter {
           page: AboutRoute.page,
           path: '/',
         ),
-        AutoRoute(
-            page:AppealRoute.page,
-            path: '/'
-        ),
-        AutoRoute(
-            page:AskQuestionRoute.page,
-            path: '/'
-        ),
-        AutoRoute(
-            page:WebViewRoute.page,
-            path: '/'
-        ),
+        AutoRoute(page: AppealRoute.page, path: '/'),
+        AutoRoute(page: AskQuestionRoute.page, path: '/'),
+        AutoRoute(page: WebViewRoute.page, path: '/'),
         AutoRoute(
           page: TarifRoute.page,
           path: '/',
