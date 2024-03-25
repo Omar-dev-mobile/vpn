@@ -1,4 +1,4 @@
-import 'dart:math';
+import 'dart:developer';
 
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/error/execute_and_handle_error.dart';
@@ -24,6 +24,7 @@ class ApiServiceTarif extends ApiBase {
         "signature": signature,
       });
       final response = await post('$BASE_URL?$queryParams');
+      log(response.json.toString());
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
       }

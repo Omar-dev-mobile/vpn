@@ -8,6 +8,7 @@ import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/features/settings/presentation/cubit/setting_cubit.dart';
 import 'package:vpn/features/splash/presentation/bloc/splash_cubit.dart';
+import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
 import 'package:vpn/locator.dart';
 
 List<SingleChildWidget> providers = [
@@ -19,4 +20,5 @@ List<SingleChildWidget> providers = [
   BlocProvider(create: (_) => locator<MainCubit>()),
   BlocProvider(create: (_) => locator<ProfileCubit>()),
   BlocProvider(create: (_) => locator<SettingCubit>()),
+  BlocProvider(create: (_) => locator<PurchasesCubit>()),
 ];

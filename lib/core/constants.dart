@@ -58,3 +58,13 @@ String? validateEmail(String? value) {
       ? 'Enter a valid email address'
       : null;
 }
+
+T? first<T>(List<T> list) {
+  return list.isNotEmpty ? list.first : null;
+}
+
+const kProductIds = [
+  'org.cnddrm.vplineapp.pay.sub.week',
+  'org.cnddrm.vplineapp.pay.sub.month',
+  'org.cnddrm.vplineapp.pay.sub.triple.month'
+];

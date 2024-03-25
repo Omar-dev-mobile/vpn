@@ -47,15 +47,6 @@ class InitApp {
 
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     initAnimation();
-    // FlutterVpn.connectIkev2EAP(
-    //   server: "128.140.61.187",
-    //   password: "N2gzEt5RoovqxtgfsAmw",
-    //   username: "usr5",
-    //   name: "usr5",
-    // );
-    // FlutterVpn.currentState.then((value) {
-    //   print("connect $value");
-    // });
   }
 
   static void initAnimation() {

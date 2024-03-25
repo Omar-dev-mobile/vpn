@@ -22,7 +22,6 @@ class ActivateTarifScreen extends StatelessWidget {
       children: [
         Image.asset(
           Assets.notActive,
-          height: 250,
         ),
         Image.asset(Assets.union),
         const Align(alignment: Alignment.topCenter, child: AppBarHeader()),

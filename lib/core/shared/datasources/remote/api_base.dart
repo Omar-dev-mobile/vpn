@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+import 'package:flutter/services.dart';
 
 class RequestResult {
   dynamic json;
@@ -30,9 +31,6 @@ abstract class ApiBase {
     path = customPath ? endpoint : path;
     Response? resp;
     dynamic decodedJson;
-
-    _dio.options.headers['Accept'] = 'application/json';
-
     print(path);
     try {
       switch (method) {
