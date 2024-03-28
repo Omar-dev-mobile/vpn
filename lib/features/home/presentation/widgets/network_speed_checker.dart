@@ -4,10 +4,11 @@ import 'package:speed_test_dart/classes/server.dart';
 import 'package:speed_test_dart/speed_test_dart.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
+import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
 
 class NetworkSpeedChecker extends StatefulWidget {
-  const NetworkSpeedChecker({super.key});
-
+  const NetworkSpeedChecker({super.key, required this.isOnline});
+  final bool isOnline;
   @override
   State<NetworkSpeedChecker> createState() => _NetworkSpeedCheckerState();
 }
@@ -15,6 +16,11 @@ class NetworkSpeedChecker extends StatefulWidget {
 class _NetworkSpeedCheckerState extends State<NetworkSpeedChecker> {
   SpeedTestDart tester = SpeedTestDart();
   List<Server> bestServersList = [];
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   double downloadRate = 0;
   double uploadRate = 0;
@@ -43,7 +49,6 @@ class _NetworkSpeedCheckerState extends State<NetworkSpeedChecker> {
     });
 
     final upload = await tester.testUploadSpeed(servers: bestServersList);
-
     setState(() {
       uploadRate = upload;
       print("download$upload");
@@ -54,8 +59,10 @@ class _NetworkSpeedCheckerState extends State<NetworkSpeedChecker> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await setBestServers();
-      _testUploadSpeed();
+      if (bestServersList.isEmpty) {
+        await setBestServers();
+      }
+      if (uploadRate == 0) _testUploadSpeed();
     });
     super.initState();
   }
@@ -65,19 +72,28 @@ class _NetworkSpeedCheckerState extends State<NetworkSpeedChecker> {
     Color primaryColor = Theme.of(context).primaryColor;
     Color? displaySmall = Theme.of(context).textTheme.displaySmall!.color;
 
-    return Column(
-      children: [
-        CommonTextWidget(
-          text: uploadRate.toStringAsFixed(1),
-          size: screenUtil.setSp(28),
-          color: primaryColor,
-        ),
-        CommonTextWidget(
-          text: 'MBps',
-          size: screenUtil.setSp(16),
-          color: displaySmall,
-        ),
-      ],
-    );
+    return widget.isOnline
+        ? FutureBuilder(
+            future: tester.testUploadSpeed(servers: bestServersList),
+            builder: (context, snapshot) {
+              if (snapshot.data != null) {
+                return Column(
+                  children: [
+                    CommonTextWidget(
+                      text: snapshot.data?.toStringAsFixed(1) ?? "",
+                      size: screenUtil.setSp(28),
+                      color: primaryColor,
+                    ),
+                    CommonTextWidget(
+                      text: 'MBps',
+                      size: screenUtil.setSp(16),
+                      color: displaySmall,
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox.shrink();
+            })
+        : const SizedBox.shrink();
   }
 }

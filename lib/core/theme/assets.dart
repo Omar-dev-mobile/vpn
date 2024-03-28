@@ -44,6 +44,5 @@ abstract class Assets {
   static const String mail = '$_assets/$_icons/mail.svg';
   static const String whats = '$_assets/$_icons/whats.svg';
   static const String whatsPhone = '$_assets/$_icons/whatsPhone.svg';
-
-
+  static const String key = '$_assets/$_icons/key.svg';
 }

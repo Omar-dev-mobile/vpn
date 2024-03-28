@@ -6,7 +6,12 @@ class TraifUsecases {
   TarifRepository tarifRepository;
   TraifUsecases({required this.tarifRepository});
 
-  Future<Either<String, TarifModel>> getTrials() async {
-    return tarifRepository.getTrials();
+  Future<Either<String, TarifModel>> getTarifs() async {
+    return tarifRepository.getTarifs();
+  }
+
+  Future<Either<String, bool>> buyTarif(
+      String transactionId, String productId) async {
+    return tarifRepository.buyTarif(transactionId, productId);
   }
 }

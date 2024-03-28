@@ -27,10 +27,17 @@ class HomeScreen extends StatelessWidget {
                   padding: const EdgeInsets.all(5.0),
                   child: GestureDetector(
                     onTap: () {
-                      if (homeCubit.isOnline) {
-                        homeCubit.stopVpnConnecting(context);
-                      } else {
-                        homeCubit.getVpnConnecting(context);
+                      if (!homeCubit.isConnecting) {
+                        if (homeCubit.isOnline) {
+                          if (homeCubit.isOnline && !homeCubit.inProgress) {
+                            homeCubit.stopVpnConnecting(context);
+                          }
+                        } else {
+                          if (!homeCubit.isConnecting &&
+                              !homeCubit.inProgress) {
+                            homeCubit.getVpnConnecting(context);
+                          }
+                        }
                       }
                     },
                     child: SvgPicture.asset(Assets.homeIcon),

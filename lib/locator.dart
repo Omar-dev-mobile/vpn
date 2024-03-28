@@ -1,4 +1,3 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -55,17 +54,18 @@ GetIt locator = GetIt.instance;
 Future<void> setupLocator() async {
   //BLOC
 
-  locator.registerFactory(() => HomeCubit(locator()));
+  locator.registerFactory(() => HomeCubit());
   locator.registerLazySingleton(() => SplashCubit());
   locator.registerLazySingleton(() => CountryCubit(locator()));
   locator.registerLazySingleton(() => ThemeModeCubit());
-  locator.registerLazySingleton(() => PurchasesCubit());
-  locator.registerLazySingleton(() => MainCubit(locator(), locator()));
+  locator.registerLazySingleton(() => PurchasesCubit(locator()));
+  locator.registerLazySingleton(
+      () => MainCubit(locator(), locator(), locator())..getDataServiceAcc());
   locator.registerLazySingleton(() => ProfileCubit(locator()));
 
   locator.registerFactory(
       () => AuthBloc(authUseCase: locator(), cacheHelper: locator()));
-  locator.registerFactory(() => TarifCubit(locator()));
+  locator.registerFactory(() => TarifCubit(locator(), locator()));
   locator.registerFactory(() => SettingCubit(locator()));
 
   // //USECASES

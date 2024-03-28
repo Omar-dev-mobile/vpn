@@ -24,7 +24,8 @@ class BottomNavigationBarWidget extends StatelessWidget {
               var vpnServer = locator<SystemInfoService>().vpnServer;
               return NavBarWidget(
                 title: vpnServer?.countryName ?? "",
-                icons: vpnServer != null
+                icons: vpnServer != null &&
+                        (vpnServer.countryId?.isNotEmpty ?? false)
                     ? Flag.fromString(
                         vpnServer.countryId ?? "",
                         height: 32,

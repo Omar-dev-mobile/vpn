@@ -130,7 +130,7 @@ class UserInfo {
   String? dateLastLogin;
   String? balance;
   String? flBlock;
-  String? vpnTimeExpire;
+  DateTime? vpnTimeExpire;
   String? vpnTimeExpireUnixtime;
   TarifInfo? tarifInfo;
 
@@ -144,7 +144,9 @@ class UserInfo {
     dateLastLogin = json['date_last_login'];
     balance = json['balance'];
     flBlock = json['fl_block'];
-    vpnTimeExpire = json['vpn_time_expire'];
+    vpnTimeExpire = json['vpn_time_expire'] != null
+        ? DateTime.tryParse(json['vpn_time_expire'])
+        : null;
     vpnTimeExpireUnixtime = json['vpn_time_expire_unixtime'];
     tarifInfo = json['tarif_info'] != null
         ? TarifInfo.fromJson(json['tarif_info'])

@@ -6,13 +6,17 @@ class RoundedButton extends StatelessWidget {
   const RoundedButton(
       {required this.name,
       required this.color,
+      this.textColor = kWhite,
       required this.colorRounded,
       required this.width,
-        this.onPressed,
+      this.onPressed,
+      this.isLoading = false,
       super.key});
   final Function()? onPressed;
   final String name;
+  final bool isLoading;
   final Color color;
+  final Color textColor;
   final Color colorRounded;
   final double width;
 
@@ -47,8 +51,9 @@ class RoundedButton extends StatelessWidget {
                   onPressed: onPressed,
                   title: name,
                   color: color,
+                  isLoading: isLoading,
                   radius: 20,
-                  textColor: kWhite,
+                  textColor: textColor,
                   fontWeight: FontWeight.w400,
                   size: 24,
                 )),

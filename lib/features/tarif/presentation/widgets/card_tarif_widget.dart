@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -30,7 +32,9 @@ class CardTarifWidget extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: const Alignment(0.1, 1.4),
-          colors: gradient[index],
+          colors: index == 0
+              ? [kDarkTealColor, kDarkTealColor]
+              : (gradient[plan] ?? gradient['7']!),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),

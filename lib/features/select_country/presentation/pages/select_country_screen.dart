@@ -5,21 +5,14 @@ import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/customs/drawer_widget.dart';
-import 'package:vpn/core/customs/roundedButton.dart';
-import 'package:vpn/core/shared/components/builder_bloc.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/features/select_country/presentation/widgets/flag_row_widget.dart';
-import 'package:vpn/locator.dart';
+import 'package:vpn/features/select_country/presentation/widgets/progress_indicator_country.dart';
 
 @RoutePage()
 class SelectCountryScreen extends StatelessWidget {
   const SelectCountryScreen({super.key});
-// BlocConsumer<CountryCubit, CountryState>(
-//           listener: (context, state) {},
-//           builder: (context, state) {
-//             var countryCubit = CountryCubit.get(context);
-//             return
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,15 +20,17 @@ class SelectCountryScreen extends StatelessWidget {
       body: BlocConsumer<CountryCubit, CountryState>(
         listener: (context, state) {},
         builder: (context, state) {
-          var countryCubit = CountryCubit.get(context);
           return Column(
             children: [
               const AppBarHeader(),
+              ProgressIndicatorCountry(
+                  progressing: state is CountriesSelectVpnLoadingState),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Builder(
                     builder: (context) {
+                      var countryCubit = CountryCubit.get(context);
                       if (state is CountriesLoadingState) {
                         return const Center(
                           child: CircularProgressIndicator(),
@@ -59,7 +54,12 @@ class SelectCountryScreen extends StatelessWidget {
                               countriesModel?.workStatus?.vpnList?[index];
                           return GestureDetector(
                             onTap: () {
-                              countryCubit.selectVpn(vpnList);
+                              if (state is! CountriesSelectVpnLoadingState &&
+                                  countryCubit.systemInfoService.vpnServer
+                                          ?.countryId !=
+                                      vpnList?.countryId) {
+                                countryCubit.selectVpn(vpnList, context);
+                              }
                             },
                             child: FlagRowWidget(
                               ip: vpnList?.ip ?? "",

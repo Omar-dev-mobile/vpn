@@ -9,9 +9,18 @@ class TarifImpRepository extends TarifRepository {
   TarifImpRepository(this.apiServiceTarif);
 
   @override
-  Future<Either<String, TarifModel>> getTrials() async {
+  Future<Either<String, TarifModel>> getTarifs() async {
     return executeAndHandleError<TarifModel>(() async {
       final res = await apiServiceTarif.getTrials();
+      return res;
+    });
+  }
+
+  @override
+  Future<Either<String, bool>> buyTarif(
+      String transactionId, String productId) async {
+    return executeAndHandleError<bool>(() async {
+      final res = await apiServiceTarif.buyTarif(transactionId, productId);
       return res;
     });
   }

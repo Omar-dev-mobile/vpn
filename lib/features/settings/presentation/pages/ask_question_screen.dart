@@ -105,6 +105,7 @@ class AskQuestionScreen extends StatelessWidget {
                     name: "Send",
                     color: kPrimary,
                     width: 130,
+                    isLoading: state is AskQuestionLoadingState,
                     colorRounded: kPrimary,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {

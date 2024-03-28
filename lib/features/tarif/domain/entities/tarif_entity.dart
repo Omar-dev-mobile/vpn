@@ -25,10 +25,12 @@ class TarifListEntity {
     this.tarifDays,
     this.tarifCostActivation,
     this.tarifCostPerMb,
+    this.tarifBuy,
   });
   String? tarifId;
   String? tarifName;
   String? tarifDays;
   String? tarifCostActivation;
   String? tarifCostPerMb;
+  String? tarifBuy;
 }

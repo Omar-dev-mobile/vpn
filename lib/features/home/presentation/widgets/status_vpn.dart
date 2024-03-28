@@ -7,18 +7,8 @@ import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
 
-class StatusVpn extends StatefulWidget {
+class StatusVpn extends StatelessWidget {
   const StatusVpn({super.key});
-
-  @override
-  State<StatusVpn> createState() => _StatusVpnState();
-}
-
-class _StatusVpnState extends State<StatusVpn> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +23,9 @@ class _StatusVpnState extends State<StatusVpn> {
         case StatusConnection.Online:
           return GestureDetector(
             onTap: () async {
-              await homeCubit.stopVpnConnecting(context);
+              if (homeCubit.isOnline && !homeCubit.inProgress) {
+                await homeCubit.stopVpnConnecting(context);
+              }
             },
             child: Lottie.asset(
               Assets.stopeToVpn,
@@ -44,7 +36,7 @@ class _StatusVpnState extends State<StatusVpn> {
         case StatusConnection.Stopped:
           return GestureDetector(
             onTap: () async {
-              if (!homeCubit.isConnecting) {
+              if (!homeCubit.isConnecting && !homeCubit.inProgress) {
                 await homeCubit.getVpnConnecting(context);
               }
             },
@@ -62,7 +54,7 @@ class _StatusVpnState extends State<StatusVpn> {
         case StatusConnection.Offline:
           return GestureDetector(
             onTap: () async {
-              if (!homeCubit.isConnecting) {
+              if (!homeCubit.isConnecting && !homeCubit.inProgress) {
                 await homeCubit.getVpnConnecting(context);
               }
             },

@@ -61,7 +61,9 @@ class UserInfoModel extends UserInfo {
     dateLastLogin = json['date_last_login'];
     balance = json['balance'];
     flBlock = json['fl_block'];
-    vpnTimeExpire = json['vpn_time_expire'];
+    vpnTimeExpire = json['vpn_time_expire'] != null
+        ? DateTime.tryParse(json['vpn_time_expire'])
+        : null;
     vpnTimeExpireUnixtime = json['vpn_time_expire_unixtime'];
     clientDateCreate = json['client_date_create'];
     clientDateCreateUnixtime = json['client_date_create_unixtime'];

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
-import 'package:vpn/core/shared/components/date_utils_format.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
+import 'package:vpn/features/home/presentation/widgets/date_connection.dart';
 import 'package:vpn/features/home/presentation/widgets/network_speed_checker.dart';
 
 import '../../../../core/constants.dart';
@@ -22,22 +22,7 @@ class InfoVpnWidget extends StatelessWidget {
         builder: (context, state) {
           return Row(
             children: [
-              if (homeCubit.isOnline)
-                Column(
-                  children: [
-                    CommonTextWidget(
-                      text: '34',
-                      size: screenUtil.setSp(28),
-                      color: primaryColor,
-                    ),
-                    CommonTextWidget(
-                      text: 'Device',
-                      size: screenUtil.setSp(16),
-                      color: displaySmall,
-                    ),
-                  ],
-                ),
-              const Spacer(),
+              if (homeCubit.isConnecting || homeCubit.isStopped) const Spacer(),
               Column(
                 children: [
                   CommonTextWidget(
@@ -45,22 +30,22 @@ class InfoVpnWidget extends StatelessWidget {
                     size: screenUtil.setSp(35),
                     color: primaryColor,
                   ),
-                  CommonTextWidget(
-                    text: DateUtilsFormat.getTime(
-                        homeCubit.statusConnection.dateConnection),
-                    size: screenUtil.setSp(18),
-                    color: Theme.of(context).textTheme.labelLarge!.color,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  CommonTextWidget(
-                    text: homeCubit.systemInfoService.vpnInfo?.s ?? "",
-                    size: screenUtil.setSp(16),
-                    color: kShadeOfGray,
-                  ),
+                  if (homeCubit.statusConnection.dateConnection != null)
+                    DateConnection(
+                      date: homeCubit.statusConnection.dateConnection!,
+                    ),
+                  if (homeCubit.isOnline)
+                    CommonTextWidget(
+                      text: homeCubit.systemInfoService.vpnInfo?.s ?? "",
+                      size: screenUtil.setSp(16),
+                      color: kShadeOfGray,
+                    ),
                 ],
               ),
               const Spacer(),
-              if (homeCubit.isOnline) const NetworkSpeedChecker()
+              NetworkSpeedChecker(
+                isOnline: homeCubit.isOnline,
+              )
             ],
           );
         },

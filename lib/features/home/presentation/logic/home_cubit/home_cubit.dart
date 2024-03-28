@@ -8,14 +8,11 @@ import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/usecases/network_info.dart';
-import 'package:vpn/features/home/domain/usecases/home_usecase.dart';
 import 'package:vpn/locator.dart';
-
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  final HomeUseCase _homeUseCase;
-  HomeCubit(this._homeUseCase) : super(HomeInitial()) {
+  HomeCubit() : super(HomeInitial()) {
     emit(LoadingInitialStatusHomeState());
     getInitStatus();
     _vpnStatusSubscription =
@@ -38,7 +35,16 @@ class HomeCubit extends Cubit<HomeState> {
   VPNIOSManager vpniosManager = locator<VPNIOSManager>();
   SystemInfoService systemInfoService = locator<SystemInfoService>();
   final HandlerErrorNative _handlerErrorNative = locator<HandlerErrorNative>();
+  StreamSubscription<dynamic>? _vpnStatusSubscription;
+  ConnectionStatus get statusConnection =>
+      systemInfoService.connectionStatus ?? emptyConnectionStatus;
 
+  bool get isOnline => statusConnection.status == StatusConnection.Online;
+  bool get isOffline => statusConnection.status == StatusConnection.Offline;
+  bool get isStopped => statusConnection.status == StatusConnection.Stopped;
+  bool get isConnecting =>
+      statusConnection.status == StatusConnection.Connecting;
+  bool inProgress = false;
   String getStatusVpn() {
     switch (systemInfoService.connectionStatus?.status) {
       case StatusConnection.Online:
@@ -54,22 +60,27 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future getVpnConnecting(context) async {
     emit(LoadingConnectVpnState());
+    inProgress = true;
     final res = await _handlerErrorNative.executeNativeHandleError(() async {
-      await locator<VPNIOSManager>().configureVPN(
+      locator<VPNIOSManager>().configureVPN(
         username: systemInfoService.vpnInfo?.u ?? "",
         serverAddress: systemInfoService.vpnInfo?.s ?? "",
         sharedSecret: systemInfoService.vpnInfo?.k ?? "",
         password: systemInfoService.vpnInfo?.p ?? "",
       );
     });
-    await res.fold((l) async {
-      CustomSnackBar.badSnackBar(context, l);
-    }, (r) => null);
+    await res.fold((l) => CustomSnackBar.badSnackBar(context, l), (r) => null);
     emit(SuccessConnectVpnState());
+    // when completed status to connect
+    await Future.delayed(const Duration(seconds: 4)).then((value) {
+      inProgress = false;
+      emit(ProgressVpnHomeState());
+    });
   }
 
-  Future stopVpnConnecting(context) async {
+  Future stopVpnConnecting(context, {bool showDialog = true}) async {
     emit(LoadingStopVpnState());
+    inProgress = true;
     await Future.delayed(const Duration(seconds: 2), () async {
       final res = await _handlerErrorNative.executeNativeHandleError(() async {
         await locator<VPNIOSManager>().stopTun();
@@ -77,20 +88,18 @@ class HomeCubit extends Cubit<HomeState> {
       res.fold((l) {
         CustomSnackBar.badSnackBar(context, l);
       }, (r) {
-        CustomSnackBar.goodSnackBar(context, "Success stop vpn");
+        if (showDialog) {
+          CustomSnackBar.goodSnackBar(context, "Success stop vpn");
+        }
       });
     });
     emit(SuccessStoppedVpnState());
+    // when completed status to disconnect
+    await Future.delayed(const Duration(seconds: 4)).then((value) {
+      inProgress = false;
+      emit(ProgressVpnHomeState());
+    });
   }
-
-  ConnectionStatus get statusConnection =>
-      systemInfoService.connectionStatus ?? emptyConnectionStatus;
-
-  bool get isOnline => statusConnection.status == StatusConnection.Online;
-  bool get isOffline => statusConnection.status == StatusConnection.Offline;
-  bool get isStopped => statusConnection.status == StatusConnection.Stopped;
-  bool get isConnecting =>
-      statusConnection.status == StatusConnection.Connecting;
 
   getInitStatus() async {
     emit(LoadingListenVpnState());
@@ -102,17 +111,5 @@ class HomeCubit extends Cubit<HomeState> {
       systemInfoService.connectionStatus = await vpniosManager.getStatus();
     }
     emit(SuccessListenVpnState());
-  }
-
-  StreamSubscription<dynamic>? _vpnStatusSubscription;
-
-  bool _active = true;
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-  bool get active => _active;
-
-  void toggleActiveVpn() {
-    emit(LoadingActiveVpnHomeState());
-    _active = !_active;
-    emit(SuccessActiveVpnHomeState());
   }
 }

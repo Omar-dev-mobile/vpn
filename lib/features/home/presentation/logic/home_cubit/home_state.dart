@@ -7,6 +7,8 @@ class HomeInitial extends HomeState {}
 
 class LoadingActiveVpnHomeState extends HomeState {}
 
+class ProgressVpnHomeState extends HomeState {}
+
 class SuccessActiveVpnHomeState extends HomeState {}
 
 class LoadingInitialStatusHomeState extends HomeState {}

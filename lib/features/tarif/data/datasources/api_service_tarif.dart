@@ -32,4 +32,29 @@ class ApiServiceTarif extends ApiBase {
       return res;
     });
   }
+
+  Future<bool> buyTarif(String transactionId, String productId) async {
+    return executeAndHandleErrorServer<bool>(() async {
+      final cacheHelper =
+          await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();
+      final rsaKeyHelper = locator<RsaKeyHelper>();
+      final rnd = rsaKeyHelper.generateRandomUUID;
+      final signature = await rsaKeyHelper.getSignature(
+          rnd + transactionId, cacheHelper?.udid ?? "");
+      final queryParams = rsaKeyHelper.buildQueryString({
+        "oper": "init_buy",
+        "udid": cacheHelper?.udid ?? "",
+        "rnd": rnd,
+        "transaction_id": transactionId,
+        "product_id": productId,
+        "signature": signature,
+      });
+      final response = await post('$BASE_URL?$queryParams');
+      log(response.json.toString());
+      if (response.json.containsKey("error_status")) {
+        throw "${response.json["error_status"]}";
+      }
+      return true;
+    });
+  }
 }

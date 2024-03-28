@@ -15,6 +15,7 @@ const Color kDarkBluishGray = Color(0xFF222828);
 const Color kLightCyanColor = Color(0xFFA5F4FF);
 const Color kVibrantCyanColor = Color(0xFF00E0FF);
 const Color kDarkTealColor = Color(0xFF006072);
+const Color kLightTealColor = Color(0xFF20899B);
 const Color kDeepPurpleColor = Color(0xFF7513A4);
 const Color kOrangeColor = Color(0xFFF5990F);
 const Color kGreenColor = Color(0xFF10BD6A);
@@ -31,11 +32,11 @@ const Color kStarIconOn = Color(0xffF2994A);
 const Color kFlagDivider = Color(0xffEAEAEA);
 const Color kSilver = Color(0xffE5E5E5);
 
-List<List<Color>> gradient = [
-  [kDarkTealColor, kDarkTealColor],
-  [kDeepPurpleColor, kDarkTealColor],
-  [kDeepPurpleColor, kOrangeColor],
-];
+Map<String, List<Color>> gradient = {
+  "week": [kDeepPurpleColor, kDarkTealColor],
+  "month": [kDeepPurpleColor, kOrangeColor],
+  "3month": [kDeepPurpleColor, kDarkTealColor],
+};
 
 class MyThemeData {
   static ThemeData lightTheme() {
@@ -99,7 +100,7 @@ class CustomTextThemeDark extends TextTheme {
           titleSmall: const TextStyle(fontSize: 8),
           bodyLarge: const TextStyle(fontSize: 35, color: kWhite),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
-          bodyMedium:const TextStyle(fontSize: 11, color: kWhite) ,
+          bodyMedium: const TextStyle(fontSize: 11, color: kWhite),
           labelLarge: const TextStyle(fontSize: 11, color: kWhite),
           labelMedium: const TextStyle(fontSize: 17),
           labelSmall: const TextStyle(fontSize: 5, color: kSilver),

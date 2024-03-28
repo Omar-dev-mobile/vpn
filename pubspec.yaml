@@ -52,7 +52,7 @@ dependencies:
   cloud_firestore:
   flutter_local_notifications: ^9.7.0
   flutter_vpn:
-    path: "flutter_vpn"
+    # path: "flutter_vpn"
       
   in_app_purchase: ^3.1.11
   flutter_secure_storage: ^9.0.0

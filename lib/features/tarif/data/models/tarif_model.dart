@@ -27,9 +27,11 @@ class WorkStatusModel extends WorkStatusEntity {
 
   WorkStatusModel.fromJson(Map<String, dynamic> json) {
     udid = json['udid'];
-    tarifList = List.from(json['tarif_list'])
-        .map((e) => TarifListModel.fromJson(e))
-        .toList();
+    tarifList = json['tarif_list'] != null
+        ? List.from(json['tarif_list'])
+            .map((e) => TarifListModel.fromJson(e))
+            .toList()
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -47,12 +49,14 @@ class TarifListModel extends TarifListEntity {
     super.tarifDays,
     super.tarifCostActivation,
     super.tarifCostPerMb,
+    super.tarifBuy,
   });
   TarifListModel.fromJson(Map<String, dynamic> json) {
     tarifId = json['tarif_id'];
     tarifName = json['tarif_name'];
     tarifDays = json['tarif_days'];
     tarifCostActivation = json['tarif_cost_activation'];
+    tarifBuy = json['tarif_buy'];
     tarifCostPerMb = json['tarif_cost_per_mb'];
   }
 
@@ -60,6 +64,7 @@ class TarifListModel extends TarifListEntity {
     final data = <String, dynamic>{};
     data['tarif_id'] = tarifId;
     data['tarif_name'] = tarifName;
+    data['tarif_buy'] = tarifBuy;
     data['tarif_days'] = tarifDays;
     data['tarif_cost_activation'] = tarifCostActivation;
     data['tarif_cost_per_mb'] = tarifCostPerMb;

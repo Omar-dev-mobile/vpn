@@ -24,3 +24,7 @@ class CountriesErrorState extends CountryState {
 
   const CountriesErrorState(this.error);
 }
+
+class CountriesSelectVpnLoadingState extends CountryState {}
+
+class CountriesSelectVpnEndState extends CountryState {}
