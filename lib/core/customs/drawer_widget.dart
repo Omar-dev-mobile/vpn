@@ -7,6 +7,7 @@ import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
 import 'package:vpn/core/theme/assets.dart';
+import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/locator.dart';
@@ -21,6 +22,7 @@ class DrawerWidget extends StatelessWidget {
     Color primaryColor = Theme.of(context).primaryColor;
     String activeRouteName = AutoRouter.of(context).topRoute.name;
     final systemInfoService = locator<SystemInfoService>();
+    print(activeRouteName);
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       width: double.infinity,
@@ -32,7 +34,7 @@ class DrawerWidget extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    context.popRoute();
+                    Scaffold.of(context).closeDrawer();
                   },
                   icon: Icon(
                     Icons.clear,
@@ -50,11 +52,14 @@ class DrawerWidget extends StatelessWidget {
             ),
             screenUtil.setHeight(25).ph,
             ListTitleDrawerWidget(
-              title: 'Home',
+              title: 'Home', //MainCubit.get(context).getDataServiceAcc();
               onTap: () {
+                if (activeRouteName != MainRoute.name) {
+                  MainCubit.get(context).getDataServiceAcc();
+                }
                 context.pushRoute(const MainRoute());
               },
-              isActive: activeRouteName == HomeRoute.name,
+              isActive: activeRouteName == MainRoute.name,
             ),
             if (systemInfoService.isLogin)
               ListTitleDrawerWidget(
@@ -68,7 +73,9 @@ class DrawerWidget extends StatelessWidget {
               ListTitleDrawerWidget(
                 title: 'Select country',
                 onTap: () {
-                  locator<CountryCubit>().getCountriesList();
+                  if (activeRouteName != SelectCountryRoute.name) {
+                    locator<CountryCubit>().getCountriesList();
+                  }
                   context.pushRoute(const SelectCountryRoute());
                 },
                 isActive: activeRouteName == SelectCountryRoute.name,
@@ -81,10 +88,6 @@ class DrawerWidget extends StatelessWidget {
                 },
                 isActive: activeRouteName == TarifRoute.name,
               ),
-            ListTitleDrawerWidget(
-              title: 'Safety',
-              onTap: () {},
-            ),
             ListTitleDrawerWidget(
               title: 'About',
               onTap: () {

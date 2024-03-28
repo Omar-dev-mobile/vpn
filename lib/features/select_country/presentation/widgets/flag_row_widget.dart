@@ -44,6 +44,7 @@ class FlagRowWidget extends StatelessWidget {
             ),
             if (isSelected)
               Stack(
+                alignment: Alignment.center,
                 children: [
                   Container(
                     height: 34,

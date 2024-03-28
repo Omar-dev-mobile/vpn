@@ -14,7 +14,6 @@ extension ParseStringToInt on String {
   String fixDouble() {
     if (isEmpty) return "";
     double d = double.tryParse(this) ?? 0.0;
-    print("profileModel :  s $d");
     if (d == d.truncateToDouble()) {
       return d.toInt().toString();
     } else {

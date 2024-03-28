@@ -46,7 +46,7 @@ class UserInfo {
   String? dateLastLogin;
   String? balance;
   String? flBlock;
-  String? vpnTimeExpire;
+  DateTime? vpnTimeExpire;
   String? vpnTimeExpireUnixtime;
   String? clientDateCreate;
   String? clientDateCreateUnixtime;

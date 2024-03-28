@@ -93,6 +93,7 @@ class SystemInfoService {
     user = await locator<CacheHelper>().getUser();
     isLogin = user != null;
     vpnServer = await locator<CacheHelper>().getVpnServer();
+    print("vpnServer${vpnServer?.toJson()}");
     themeMode = await locator<CacheHelper>().getThemeMode();
   }
 

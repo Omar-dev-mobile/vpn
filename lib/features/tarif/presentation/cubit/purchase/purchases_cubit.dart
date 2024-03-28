@@ -9,22 +9,17 @@ import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/shared/usecases/IAPConnectionPurchase.dart';
 import 'package:vpn/core/shared/usecases/consumable_store.dart';
+import 'package:vpn/features/tarif/data/datasources/api_service_tarif.dart';
+import 'package:vpn/features/tarif/domain/usecases/traif_usecases.dart';
 part 'purchases_state.dart';
 
 class PurchasesCubit extends Cubit<PurchasesStatus> {
-  PurchasesCubit() : super(PurchasesInitial()) {
-    print("objectobjectobjectobjectobjectobject");
-    Stream<List<PurchaseDetails>>? purchaseUpdated =
-        inAppPurchase.purchaseStream;
-    subscription =
-        purchaseUpdated.listen((List<PurchaseDetails> purchaseDetailsList) {
-      _listenToPurchaseUpdated(purchaseDetailsList);
-      return;
-    }, onDone: () {
-      subscription.cancel();
-    }, onError: (Object error) {});
+  PurchasesCubit(this.traifUsecases) : super(PurchasesInitial()) {
+    subscriptionInit();
     initStoreInfo();
   }
+  TraifUsecases traifUsecases;
+  Stream<List<PurchaseDetails>>? purchaseUpdated;
   static PurchasesCubit get(context) => BlocProvider.of(context);
   final InAppPurchase inAppPurchase = InAppPurchase.instance;
   late StreamSubscription<List<PurchaseDetails>> subscription;
@@ -52,6 +47,18 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   }
 
   final isAndroid = Platform.isAndroid;
+
+  void subscriptionInit() {
+    Stream<List<PurchaseDetails>>? purchaseUpdated =
+        inAppPurchase.purchaseStream;
+    subscription =
+        purchaseUpdated.listen((List<PurchaseDetails> purchaseDetailsList) {
+      _listenToPurchaseUpdated(purchaseDetailsList);
+      return;
+    }, onDone: () {
+      subscription.cancel();
+    }, onError: (Object error) {});
+  }
 
   Future<void> initStoreInfo() async {
     emit(LoadingInitStoreInfoState());
@@ -126,9 +133,11 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       rawPrice: 0,
       title: '');
 
-  Future buyTarif() async {
+  Future buyTarif(productId) async {
     late PurchaseParam purchaseParam;
-    ProductDetails productDetail = first(tarifs) ?? emptyProductDetails;
+    ProductDetails productDetail =
+        tarifs.firstWhere((element) => element.id == productId);
+
     if (tarifs.isEmpty) return;
     if (isAndroid) {
       purchaseParam = GooglePlayPurchaseParam(
@@ -141,64 +150,48 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
         applicationUserName: null,
       );
     }
-
-    inAppPurchase.buyConsumable(purchaseParam: purchaseParam);
+    inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
   }
 
 //buy tarif with receipt or server(api) verification
-  Future purchaseTarif(String receipt) async {}
+  Future purchaseTarifIos(
+      String transactionIdentifier, String productID) async {
+    final res = await traifUsecases.buyTarif(transactionIdentifier, productID);
+    emit(res.fold((failure) => ErrorPurchaseState(error: failure),
+        (r) => SuccessPurchaseState()));
+  }
 
   Future<void> _listenToPurchaseUpdated(
       List<PurchaseDetails> purchaseDetailsList) async {
-    for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
-      var purchaseID = purchaseDetails.purchaseID;
-      print(purchaseDetails.status);
-      if (purchaseDetails is AppStorePurchaseDetails) {
-        final originalTransaction =
-            purchaseDetails.skPaymentTransaction.originalTransaction;
-        if (originalTransaction != null) {
-          purchaseID = originalTransaction.transactionIdentifier;
-          print("purchaseDetails$purchaseID");
-          print("purchaseDetails${originalTransaction.toFinishMap()}");
+    try {
+      for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
+        if (purchaseDetails.status == PurchaseStatus.pending) {
+          showPendingUI();
+        } else if (purchaseDetails.status == PurchaseStatus.canceled) {
+          checkCompletePurchase(purchaseDetails);
+          emit(EndPendingPurchaseState());
+        } else {
+          if (purchaseDetails.status == PurchaseStatus.error) {
+            checkCompletePurchase(purchaseDetails);
+            handleError(purchaseDetails.error!);
+          } else if (purchaseDetails.status == PurchaseStatus.purchased) {
+            if (isAndroid) {
+              // purchaseTarif(purchaseDetails.purchaseID ?? "");
+            } else {
+              if (purchaseDetails is AppStorePurchaseDetails) {
+                final originalTransaction =
+                    purchaseDetails.skPaymentTransaction.originalTransaction;
+                purchaseTarifIos(
+                    originalTransaction?.transactionIdentifier ?? "",
+                    purchaseDetails.productID);
+              }
+            }
+            checkCompletePurchase(purchaseDetails);
+          }
         }
-      }
-      // print("purchaseDetails${purchaseDetails.status}");
-      // final originalTransaction =
-      //     purchaseDetails.skPaymentTransaction.originalTransaction;
-
-      // print("purchaseDetails${purchaseDetails.transactionDate}");
-      if (purchaseDetails.status == PurchaseStatus.pending) {
-        showPendingUI();
-      } else if (purchaseDetails.status == PurchaseStatus.canceled) {
         checkCompletePurchase(purchaseDetails);
-        emit(EndPendingPurchaseState());
-      } else {
-        if (purchaseDetails.status == PurchaseStatus.error) {
-          checkCompletePurchase(purchaseDetails);
-          handleError(purchaseDetails.error!);
-        } else if (purchaseDetails.status == PurchaseStatus.purchased ||
-            purchaseDetails.status == PurchaseStatus.restored) {
-          if (isAndroid) {
-            purchaseTarif(purchaseDetails.purchaseID ?? "");
-          } else {
-            print(
-                "Succ${purchaseDetails.verificationData.localVerificationData}");
-            print(
-                "Succ${purchaseDetails.verificationData.serverVerificationData}");
-            print("Succ${purchaseDetails.verificationData.source}");
-            purchaseTarif(
-                purchaseDetails.verificationData.serverVerificationData);
-          }
-          final bool valid = await verifyPurchase(purchaseDetails);
-          if (valid) {
-            deliverProduct(purchaseDetails);
-          }
-          checkCompletePurchase(purchaseDetails);
-          subscription.cancel();
-        }
       }
-      checkCompletePurchase(purchaseDetails);
-    }
+    } catch (e) {}
   }
 
   Future checkCompletePurchase(PurchaseDetails purchaseDetails) async {

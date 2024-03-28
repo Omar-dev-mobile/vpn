@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
@@ -42,8 +44,21 @@ int getNumberOfDecimalDigits(double number) {
 const tarifCost = {
   "week": 7,
   "month": 30,
-  "year": 365,
+  "3month": 90,
 };
+
+double getPercent(DateTime? vpnTimeExpire, String tarifName) {
+  if (vpnTimeExpire == null) {
+    return 1;
+  }
+  int difference = vpnTimeExpire.difference(DateTime.now()).inDays;
+  double percentTry = (difference / (tarifCost[tarifName] ?? 0));
+  return (percentTry > 1 && percentTry < 0) ? 1 : (1 - percentTry);
+}
+
+int random(int min, int max) {
+  return min + Random().nextInt(max - min);
+}
 
 String? validateEmail(String? value) {
   const pattern = r"(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'"

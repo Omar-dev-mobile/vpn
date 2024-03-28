@@ -11,7 +11,9 @@ class ProfileModel {
 
   ProfileModel.fromJson(Map<String, dynamic> json) {
     errorCode = json['error_code'];
-    workStatus = WorkStatus.fromJson(json['work_status']);
+    workStatus = json['work_status'] != null
+        ? WorkStatus.fromJson(json['work_status'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -32,7 +34,8 @@ class WorkStatus {
 
   WorkStatus.fromJson(Map<String, dynamic> json) {
     udid = json['udid'];
-    userInfo = UserInfo.fromJson(json['user_info']);
+    userInfo =
+        json['user_info'] != null ? UserInfo.fromJson(json['user_info']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -67,10 +70,10 @@ class UserInfo {
   String? dateLastLogin;
   String? balance;
   String? flBlock;
-  String? vpnTimeExpire;
+  DateTime? vpnTimeExpire;
   String? vpnTimeExpireUnixtime;
   TarifInfo? tarifInfo;
-
+  double? percent;
   UserInfo.fromJson(Map<String, dynamic> json) {
     login = json['login'];
     id = json['id'];
@@ -81,9 +84,14 @@ class UserInfo {
     dateLastLogin = json['date_last_login'];
     balance = json['balance'];
     flBlock = json['fl_block'];
-    vpnTimeExpire = json['vpn_time_expire'];
+    vpnTimeExpire = json['vpn_time_expire'] != null
+        ? DateTime.tryParse(json['vpn_time_expire'])
+        : null;
     vpnTimeExpireUnixtime = json['vpn_time_expire_unixtime'];
-    tarifInfo = TarifInfo.fromJson(json['tarif_info']);
+    tarifInfo = json['tarif_info'] != null
+        ? TarifInfo.fromJson(json['tarif_info'])
+        : null;
+    percent = getPercent(vpnTimeExpire, tarifInfo?.tarifName ?? "");
   }
 
   Map<String, dynamic> toJson() {
@@ -117,7 +125,6 @@ class TarifInfo {
   String? tarifCostActivation;
   String? tarifCostPerMb;
   String? tarifDays;
-  double? percent;
 
   TarifInfo.fromJson(Map<String, dynamic> json) {
     tarifId = json['tarif_id'];
@@ -125,14 +132,6 @@ class TarifInfo {
     tarifCostActivation = json['tarif_cost_activation'];
     tarifCostPerMb = json['tarif_cost_per_mb'];
     tarifDays = json['tarif_days'];
-    percent = getPercent();
-    print(percent);
-  }
-
-  double getPercent() {
-    double percentTry =
-        (tarifDays!.safeParseToInt()) / ((tarifCost[tarifName] ?? 0));
-    return percentTry > 1 ? 1 : percentTry;
   }
 
   Map<String, dynamic> toJson() {

@@ -32,7 +32,6 @@ class AppealScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-
             const Spacer(),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +51,7 @@ class AppealScreen extends StatelessWidget {
             ),
             screenUtil.setHeight(30).ph,
             Padding(
-              padding: const EdgeInsets.only( bottom: 10),
+              padding: const EdgeInsets.only(bottom: 10),
               child: RoundedButton(
                 name: "Thanks",
                 color: kGreenColor,

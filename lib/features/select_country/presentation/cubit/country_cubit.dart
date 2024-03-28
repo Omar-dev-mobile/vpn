@@ -1,8 +1,11 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/extensions/extension.dart';
+import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
+import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/select_country/data/models/countries_model.dart';
 import 'package:vpn/features/select_country/domain/entities/countries_entity.dart';
 import 'package:vpn/features/select_country/domain/usecases/country_usecases.dart';
@@ -34,12 +37,20 @@ class CountryCubit extends Cubit<CountryState> {
 
   bool selectedVpn(String ip) => systemInfoService.vpnServer?.ip == ip;
 
-  void selectVpn(VpnList? vpnList) {
+  Future selectVpn(VpnList? vpnList, BuildContext context) async {
     if (vpnList != null) {
-      emit(CountriesChangeLoadingState());
-      cacheHelper.saveVpnServer(vpnList);
+      emit(CountriesSelectVpnLoadingState());
+      await cacheHelper.saveVpnServer(vpnList).then((value) {});
       systemInfoService.vpnServer = vpnList;
-      emit(CountriesChangeSuccessState());
+      await MainCubit.get(context).getDataServiceAcc().then((value) {
+        var homeCubit = HomeCubit.get(context);
+        if (homeCubit.isOnline) {
+          homeCubit.stopVpnConnecting(context, showDialog: false).then((value) {
+            homeCubit.getVpnConnecting(context);
+          });
+        }
+      });
+      emit(CountriesSelectVpnEndState());
     }
   }
 

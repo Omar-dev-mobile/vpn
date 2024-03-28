@@ -12,21 +12,24 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mainCubit = MainCubit.get(context);
-    return Scaffold(
-      drawer: const DrawerWidget(),
-      body: BlocConsumer<MainCubit, MainState>(
-        bloc: mainCubit..getDataServiceAcc(),
-        listener: (context, state) {},
-        builder: (context, state) {
-          if (state is ErrorGetDataServiceAccState) {
-            return CustomError(
-              error: state.error,
-            );
-          } else if (state is SuccessGetDataServiceAccState) {
-            return mainCubit.getWidgetMain(state.dataServiceAccModel, context);
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
+    return PopScope(
+      canPop: false,
+      child: Scaffold(
+        drawer: const DrawerWidget(),
+        body: BlocConsumer<MainCubit, MainState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            if (state is ErrorGetDataServiceAccState) {
+              return CustomError(
+                error: state.error,
+              );
+            } else if (state is SuccessGetDataServiceAccState) {
+              return mainCubit.getWidgetMain(
+                  state.dataServiceAccModel, context);
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        ),
       ),
     );
   }

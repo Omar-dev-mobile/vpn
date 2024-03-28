@@ -33,13 +33,13 @@ class ProfileScreen extends StatelessWidget {
               children: [
                 Container(
                   height: screenUtil.screenHeight * 0.85,
-                  decoration: ShapeDecoration(
+                  decoration: const ShapeDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
-                      end: const Alignment(0.1, 1.5),
-                      colors: gradient[1],
+                      end: Alignment(0.1, 1.5),
+                      colors: [kDeepPurpleColor, kDarkTealColor],
                     ),
-                    shape: const RoundedRectangleBorder(
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(20),
                         bottomRight: Radius.circular(20),
@@ -110,9 +110,10 @@ class ProfileScreen extends StatelessWidget {
                                   10.ph,
                                   LinearPercentIndicator(
                                     lineHeight: 14.0,
+                                    animation: true,
                                     barRadius: const Radius.circular(20),
-                                    percent: profileModel.workStatus?.userInfo
-                                            ?.tarifInfo?.percent ??
+                                    percent: profileModel
+                                            .workStatus?.userInfo?.percent ??
                                         0,
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 0),
@@ -128,6 +129,10 @@ class ProfileScreen extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 20),
                               child: RoundedButton(
                                 name: 'Upgrade',
+                                textColor: Theme.of(context)
+                                    .textTheme
+                                    .labelSmall!
+                                    .color!,
                                 colorRounded: Theme.of(context).primaryColor,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
@@ -145,12 +150,49 @@ class ProfileScreen extends StatelessWidget {
                             children: [
                               IconButton(
                                 onPressed: () {
-                                  context.popRoute();
+                                  context.maybePop();
                                 },
                                 icon: SvgPicture.asset(Assets.close),
                               ),
                               const Spacer(),
-                              const IconMode(),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: kLightTealColor,
+                                  borderRadius: BorderRadius.circular(15),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: kBlack.withOpacity(0.25),
+                                      spreadRadius: 1,
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 3),
+                                    ),
+                                    BoxShadow(
+                                      color: kBlack.withOpacity(0.15),
+                                      spreadRadius: 1,
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 18, right: 18, top: 7, bottom: 7),
+                                  child: Row(
+                                    children: [
+                                      SvgPicture.asset(Assets.key),
+                                      10.pw,
+                                      CommonTextWidget(
+                                        text: profileModel.workStatus?.udid
+                                                ?.substring(0, 6) ??
+                                            "",
+                                        size: 14,
+                                        color: kWhite,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ],
                           ),
                         ),
