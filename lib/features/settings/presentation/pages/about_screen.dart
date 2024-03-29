@@ -19,7 +19,6 @@ class AboutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Scaffold(
       drawer: const DrawerWidget(),
       body: Column(
@@ -104,7 +103,7 @@ class AboutScreen extends StatelessWidget {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          context.pushRoute(WebViewRoute(url: 'https://candodream.com/termsofservice'));
+                          context.pushRoute(WebViewRoute(url: termServiceUrl));
 
                         },
                         child: CommonTextWidget(text: 'Terms of Service',color:Theme.of(context)
@@ -121,7 +120,7 @@ class AboutScreen extends StatelessWidget {
                           .color,),
                       GestureDetector(
                         onTap: () {
-                          context.pushRoute(WebViewRoute(url: 'https://candodream.com/policy'));
+                          context.pushRoute(WebViewRoute(url: policyUrl));
                         },
                         child: CommonTextWidget(text: 'Privacy Policy',color:Theme.of(context)
                             .textTheme

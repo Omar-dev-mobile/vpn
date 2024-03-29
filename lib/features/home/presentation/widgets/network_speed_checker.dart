@@ -4,7 +4,6 @@ import 'package:speed_test_dart/classes/server.dart';
 import 'package:speed_test_dart/speed_test_dart.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
-import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
 
 class NetworkSpeedChecker extends StatefulWidget {
   const NetworkSpeedChecker({super.key, required this.isOnline});

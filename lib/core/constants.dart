@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 
 const BASE_URL = 'https://vp-line.aysec.org/ios.php';
+const termServiceUrl = 'https://candodream.com/termsofservice';
+const policyUrl = 'https://candodream.com/policy';
 
 extension EmptyPadding on num {
   SizedBox get ph => SizedBox(

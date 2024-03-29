@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/features/tarif/data/datasources/api_service_tarif.dart';
 import 'package:vpn/features/tarif/data/models/tarif_model.dart';
 import 'package:vpn/features/tarif/domain/repositories/tarif_repository.dart';
@@ -6,12 +7,22 @@ import '../../../../core/error/execute_and_handle_error.dart';
 
 class TarifImpRepository extends TarifRepository {
   ApiServiceTarif apiServiceTarif;
-  TarifImpRepository(this.apiServiceTarif);
+  CacheHelper cacheHelper;
+  TarifImpRepository(this.apiServiceTarif, this.cacheHelper);
 
   @override
   Future<Either<String, TarifModel>> getTarifs() async {
     return executeAndHandleError<TarifModel>(() async {
+      final tarifModel = await cacheHelper.getTarifModel();
+      final currentTime = DateTime.now();
+      print("tarifModel$tarifModel");
+      if (tarifModel != null &&
+          tarifModel.dateSave != null &&
+          currentTime.difference(tarifModel.dateSave!).inMinutes < 5) {
+        return tarifModel;
+      }
       final res = await apiServiceTarif.getTrials();
+      cacheHelper.saveTarifModel(res..dateSave = DateTime.now());
       return res;
     });
   }

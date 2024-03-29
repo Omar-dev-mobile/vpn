@@ -7,7 +7,6 @@ import 'package:vpn/core/shared/extensions/extension.dart';
 import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/select_country/data/models/countries_model.dart';
-import 'package:vpn/features/select_country/domain/entities/countries_entity.dart';
 import 'package:vpn/features/select_country/domain/usecases/country_usecases.dart';
 import 'package:vpn/locator.dart';
 
@@ -37,12 +36,13 @@ class CountryCubit extends Cubit<CountryState> {
 
   bool selectedVpn(String ip) => systemInfoService.vpnServer?.ip == ip;
 
-  Future selectVpn(VpnList? vpnList, BuildContext context) async {
+  Future selectVpn(VpnListModel? vpnList, BuildContext context) async {
     if (vpnList != null) {
       emit(CountriesSelectVpnLoadingState());
       await cacheHelper.saveVpnServer(vpnList).then((value) {});
       systemInfoService.vpnServer = vpnList;
-      await MainCubit.get(context).getDataServiceAcc().then((value) {
+      var mainCubit = MainCubit.get(context);
+      await mainCubit.getDataServiceAcc(isUpdateAcc: true).then((value) {
         var homeCubit = HomeCubit.get(context);
         if (homeCubit.isOnline) {
           homeCubit.stopVpnConnecting(context, showDialog: false).then((value) {

@@ -1,4 +1,6 @@
+import 'package:vpn/core/constants.dart';
 import 'package:vpn/features/auth/domain/entities/user_entity.dart';
+import 'package:vpn/features/profile/data/models/profile_model.dart';
 
 class UserModel extends UserEntity {
   UserModel({super.errorCode, super.workStatus});
@@ -48,6 +50,7 @@ class UserInfoModel extends UserInfo {
     super.clientDateCreate,
     super.clientDateCreateUnixtime,
     super.tarifInfo,
+    super.percent,
   });
 
   UserInfoModel.fromJson(Map<String, dynamic> json) {
@@ -67,7 +70,8 @@ class UserInfoModel extends UserInfo {
     vpnTimeExpireUnixtime = json['vpn_time_expire_unixtime'];
     clientDateCreate = json['client_date_create'];
     clientDateCreateUnixtime = json['client_date_create_unixtime'];
-    tarifInfo = TarifInfoModel.fromJson(json['tarif_info']);
+    tarifInfo = TarifInfo.fromJson(json['tarif_info']);
+    percent = getPercent(vpnTimeExpire, tarifInfo?.tarifName ?? "");
   }
 
   Map<String, dynamic> toJson() {
@@ -87,34 +91,6 @@ class UserInfoModel extends UserInfo {
     data['client_date_create'] = clientDateCreate;
     data['client_date_create_unixtime'] = clientDateCreateUnixtime;
     data['tarif_info'] = tarifInfo?.toJson();
-    return data;
-  }
-}
-
-class TarifInfoModel extends TarifInfo {
-  TarifInfoModel({
-    super.tarifId,
-    super.tarifName,
-    super.tarifCostActivation,
-    super.tarifCostPerMb,
-    super.tarifDays,
-  });
-
-  TarifInfoModel.fromJson(Map<String, dynamic> json) {
-    tarifId = json['tarif_id'];
-    tarifName = json['tarif_name'];
-    tarifCostActivation = json['tarif_cost_activation'];
-    tarifCostPerMb = json['tarif_cost_per_mb'];
-    tarifDays = json['tarif_days'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['tarif_id'] = tarifId;
-    data['tarif_name'] = tarifName;
-    data['tarif_cost_activation'] = tarifCostActivation;
-    data['tarif_cost_per_mb'] = tarifCostPerMb;
-    data['tarif_days'] = tarifDays;
     return data;
   }
 }

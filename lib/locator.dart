@@ -58,9 +58,9 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => SplashCubit());
   locator.registerLazySingleton(() => CountryCubit(locator()));
   locator.registerLazySingleton(() => ThemeModeCubit());
-  locator.registerLazySingleton(() => PurchasesCubit(locator()));
-  locator.registerLazySingleton(
-      () => MainCubit(locator(), locator(), locator())..getDataServiceAcc());
+  locator.registerLazySingleton(() => PurchasesCubit(locator(), locator()));
+  locator.registerLazySingleton(() => MainCubit(locator(), locator(), locator())
+    ..getDataServiceAcc(isUpdateAcc: true));
   locator.registerLazySingleton(() => ProfileCubit(locator()));
 
   locator.registerFactory(
@@ -85,7 +85,7 @@ Future<void> setupLocator() async {
 
   // //REPOSITORISE
   locator.registerLazySingleton<TarifRepository>(
-      () => TarifImpRepository(locator()));
+      () => TarifImpRepository(locator(), locator()));
   locator.registerLazySingleton<AuthRepository>(
       () => AuthImplRepository(authService: locator(), cacheHelper: locator()));
   locator.registerLazySingleton<CountryRepository>(

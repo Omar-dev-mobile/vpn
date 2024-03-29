@@ -10,7 +10,7 @@ import 'package:vpn/features/home/data/models/data_service_acc_model.dart';
 import 'package:vpn/features/home/domain/usecases/home_usecase.dart';
 import 'package:vpn/features/home/presentation/pages/activate_tarif_screen.dart';
 import 'package:vpn/features/home/presentation/pages/home_screen.dart';
-import 'package:vpn/features/select_country/domain/entities/countries_entity.dart';
+import 'package:vpn/features/select_country/data/models/countries_model.dart';
 
 part 'main_state.dart';
 
@@ -22,7 +22,10 @@ class MainCubit extends Cubit<MainState> {
   final CacheHelper cacheHelper;
 
   static MainCubit get(context) => BlocProvider.of(context);
-  Future getDataServiceAcc() async {
+  Future getDataServiceAcc({bool isUpdateAcc = false}) async {
+    if (!isUpdateAcc) {
+      return;
+    }
     emit(LoadingGetDataServiceAccState());
     final res = await _homeUseCase.getDataServiceAcc();
     emit(await res.fold((l) {
@@ -30,8 +33,8 @@ class MainCubit extends Cubit<MainState> {
       return ErrorGetDataServiceAccState(l);
     }, (data) async {
       _systemInfoService.vpnInfo = data.workStatus;
-      VpnList vpnList =
-          VpnList.fromJson(data.workStatus?.vpnInfo?.toJson() ?? {});
+      VpnListModel vpnList =
+          VpnListModel.fromJson(data.workStatus?.vpnInfo?.toJson() ?? {});
       await cacheHelper.saveVpnServer(vpnList);
       _systemInfoService.vpnServer = vpnList;
       return SuccessGetDataServiceAccState(data);
