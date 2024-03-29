@@ -7,7 +7,7 @@ import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/features/auth/data/models/user_model.dart';
 import 'package:vpn/features/home/data/models/data_service_acc_model.dart';
-import 'package:vpn/features/select_country/domain/entities/countries_entity.dart';
+import 'package:vpn/features/select_country/data/models/countries_model.dart';
 import 'package:vpn/locator.dart';
 
 class SystemInfoService {
@@ -32,14 +32,14 @@ class SystemInfoService {
   final BehaviorSubject<String?> _themeModeSubject =
       BehaviorSubject<String?>.seeded(null);
 
-  final BehaviorSubject<VpnList?> _vpnServerSubject =
-      BehaviorSubject<VpnList?>.seeded(null);
+  final BehaviorSubject<VpnListModel?> _vpnServerSubject =
+      BehaviorSubject<VpnListModel?>.seeded(null);
 
   final BehaviorSubject<WorkStatusAcc?> _vpnInfoSubject =
       BehaviorSubject<WorkStatusAcc?>.seeded(null);
 
   UserModel? get user => _userSubject.value;
-  VpnList? get vpnServer => _vpnServerSubject.value;
+  VpnListModel? get vpnServer => _vpnServerSubject.value;
   WorkStatusAcc? get vpnInfo => _vpnInfoSubject.value;
 
   ConnectionStatus? get connectionStatus => _connectionStatusSubject.value;
@@ -49,7 +49,7 @@ class SystemInfoService {
 
   set user(UserModel? value) => _userSubject.add(value);
   set isLogin(bool value) => _isLoginSubject.add(value);
-  set vpnServer(VpnList? value) => _vpnServerSubject.add(value);
+  set vpnServer(VpnListModel? value) => _vpnServerSubject.add(value);
   set vpnInfo(WorkStatusAcc? value) => _vpnInfoSubject.add(value);
   set connectionStatus(ConnectionStatus? value) =>
       _connectionStatusSubject.add(value);

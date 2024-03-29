@@ -6,7 +6,6 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/customs/custom_error.dart';
-import 'package:vpn/core/customs/icon_mode.dart';
 import 'package:vpn/core/customs/log_out.dart';
 import 'package:vpn/core/customs/roundedButton.dart';
 import 'package:vpn/core/shared/extensions/extension.dart';
@@ -23,6 +22,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
+          var profileCubit = ProfileCubit.get(context);
           if (state is ProfileErrorState) {
             return CustomError(
               error: state.error,
@@ -182,9 +182,7 @@ class ProfileScreen extends StatelessWidget {
                                       SvgPicture.asset(Assets.key),
                                       10.pw,
                                       CommonTextWidget(
-                                        text: profileModel.workStatus?.udid
-                                                ?.substring(0, 6) ??
-                                            "",
+                                        text: profileCubit.workStatus,
                                         size: 14,
                                         color: kWhite,
                                         fontWeight: FontWeight.w600,

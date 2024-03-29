@@ -14,7 +14,6 @@ class InfoVpnWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
-    Color? displaySmall = Theme.of(context).textTheme.displaySmall!.color;
     final homeCubit = HomeCubit.get(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),

@@ -28,6 +28,7 @@ class CardTarifWidget extends StatelessWidget {
     return Container(
       height: screenUtil.setHeight(160),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+      margin: const EdgeInsets.only(bottom: 20),
       decoration: ShapeDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,

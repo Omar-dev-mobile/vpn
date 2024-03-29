@@ -9,6 +9,7 @@ import 'package:vpn/core/customs/drawer_widget.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
+import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/features/tarif/presentation/widgets/card_tarif_widget.dart';
@@ -35,12 +36,12 @@ class TarifScreen extends StatelessWidget {
                     context,
                     "Successfully purchased",
                   );
+                  MainCubit.get(context).getDataServiceAcc(isUpdateAcc: true);
                   context.pushRoute(const MainRoute());
                 }
               },
               builder: (context, statePurchases) {
                 var tarifCubit = TarifCubit.get(context);
-
                 return Stack(
                   children: [
                     Column(
@@ -87,7 +88,7 @@ class TarifScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            ListView.separated(
+                                            ListView.builder(
                                               physics:
                                                   const NeverScrollableScrollPhysics(),
                                               itemBuilder: (context, index) {
@@ -112,6 +113,11 @@ class TarifScreen extends StatelessWidget {
                                                 }
                                                 var traif = tarifs.workStatus
                                                     ?.tarifList?[index - 1];
+                                                if (userInfo?.productId ==
+                                                    traif?.tarifBuy) {
+                                                  return const SizedBox
+                                                      .shrink();
+                                                }
                                                 return GestureDetector(
                                                   onTap: () {
                                                     if (statePurchases
@@ -138,10 +144,6 @@ class TarifScreen extends StatelessWidget {
                                                       0) +
                                                   (tarifUser ? 1 : 0)),
                                               shrinkWrap: true,
-                                              separatorBuilder:
-                                                  (BuildContext context,
-                                                          int index) =>
-                                                      20.ph,
                                             ),
                                             60.ph,
                                           ],

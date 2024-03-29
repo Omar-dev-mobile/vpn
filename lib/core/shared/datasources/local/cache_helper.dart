@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/extensions/extension.dart';
 import 'package:vpn/features/auth/data/models/user_model.dart';
 import 'package:vpn/features/select_country/data/models/countries_model.dart';
-import 'package:vpn/features/select_country/domain/entities/countries_entity.dart';
-import 'package:vpn/locator.dart';
+import 'package:vpn/features/tarif/data/models/tarif_model.dart';
 
 class CacheHelper {
   static SharedPreferences? sharedPreferences;
@@ -93,75 +91,138 @@ class CacheHelper {
   }
 
   Future saveVersionVpn(dynamic version) async {
-    await saveData(key: 'version_vpn', value: version);
-  }
-
-  Future<dynamic> getVersionVpn() async {
-    dynamic jsonString = await getData('version_vpn');
-    if (jsonString != null) {
-      return "$jsonString".safeParseToInt();
-    } else {
-      return 0;
+    try {
+      await saveData(key: 'version_vpn', value: version);
+    } catch (e) {
+      rethrow;
     }
   }
 
-  Future saveVpnServer(VpnList vpnList) async {
-    String jsonString = json.encode(vpnList.toJson());
-    await saveData(key: 'vpn_server', value: jsonString);
+  Future<dynamic> getVersionVpn() async {
+    try {
+      dynamic jsonString = await getData('version_vpn');
+      if (jsonString != null) {
+        return "$jsonString".safeParseToInt();
+      } else {
+        return 0;
+      }
+    } catch (e) {
+      rethrow;
+    }
   }
 
-  Future<VpnList?> getVpnServer() async {
-    String? jsonString = await getData('vpn_server');
-    if (jsonString != null) {
-      jsonString = jsonString.trim();
-      var res = VpnList.fromJson(json.decode(jsonString));
+  Future saveVpnServer(VpnListModel vpnList) async {
+    try {
+      String jsonString = json.encode(vpnList.toJson());
+      await saveData(key: 'vpn_server', value: jsonString);
+    } catch (e) {
+      rethrow;
+    }
+  }
 
-      return res;
-    } else {
-      return null;
+  Future<VpnListModel?> getVpnServer() async {
+    try {
+      String? jsonString = await getData('vpn_server');
+      if (jsonString != null) {
+        jsonString = jsonString.trim();
+        var res = VpnListModel.fromJson(json.decode(jsonString));
+
+        return res;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
   Future saveCountriesModel(CountriesModel countriesModel) async {
-    String jsonString = json.encode(countriesModel.toJson());
-    await saveData(key: 'countries_model', value: jsonString);
+    try {
+      String jsonString = json.encode(countriesModel.toJson());
+      await saveData(key: 'countries_model', value: jsonString);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<CountriesModel?> getCountriesModel() async {
-    String? jsonString = await getData('countries_model');
-    if (jsonString != null) {
-      var res = CountriesModel.fromJson(json.decode(jsonString));
-      return res;
-    } else {
-      return null;
+    try {
+      String? jsonString = await getData('countries_model');
+      if (jsonString != null) {
+        var res = CountriesModel.fromJson(json.decode(jsonString));
+        return res;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future saveTarifModel(TarifModel countriesModel) async {
+    try {
+      String jsonString = json.encode(countriesModel.toJson());
+      await saveData(key: 'tarif_model', value: jsonString);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<TarifModel?> getTarifModel() async {
+    try {
+      String? jsonString = await getData('tarif_model');
+      if (jsonString != null) {
+        var res = TarifModel.fromJson(json.decode(jsonString));
+        return res;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
   Future saveCountriesFavorite(List<String> favorite) async {
-    String jsonString = json.encode(favorite);
-    await saveData(key: 'save_countries_favorite', value: jsonString);
+    try {
+      String jsonString = json.encode(favorite);
+      await saveData(key: 'save_countries_favorite', value: jsonString);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<List<String>?> getCountriesFavorite() async {
-    String? jsonString = await getData('save_countries_favorite');
-    if (jsonString != null) {
-      var res = List<String>.from(json.decode(jsonString));
-      return res;
-    } else {
-      return null;
+    try {
+      String? jsonString = await getData('save_countries_favorite');
+      if (jsonString != null) {
+        var res = List<String>.from(json.decode(jsonString));
+        return res;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 
   Future saveThemeMode(String theme) async {
-    await saveData(key: 'theme_mode', value: theme);
+    try {
+      await saveData(key: 'theme_mode', value: theme);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   Future<String?> getThemeMode() async {
-    String? jsonString = await getData('theme_mode');
-    if (jsonString != null) {
-      return jsonString;
-    } else {
-      return null;
+    try {
+      String? jsonString = await getData('theme_mode');
+      if (jsonString != null) {
+        return jsonString;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      rethrow;
     }
   }
 }

@@ -4,9 +4,11 @@ class TarifEntity {
   TarifEntity({
     this.errorCode,
     this.workStatus,
+    this.dateSave,
   });
   int? errorCode;
   WorkStatusModel? workStatus;
+  DateTime? dateSave;
 }
 
 class WorkStatusEntity {

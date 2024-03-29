@@ -35,7 +35,7 @@ const Color kSilver = Color(0xffE5E5E5);
 Map<String, List<Color>> gradient = {
   "week": [kDeepPurpleColor, kDarkTealColor],
   "month": [kDeepPurpleColor, kOrangeColor],
-  "3month": [kDeepPurpleColor, kDarkTealColor],
+  "3month": [kDeepPurpleColor, kStarIconOn],
 };
 
 class MyThemeData {

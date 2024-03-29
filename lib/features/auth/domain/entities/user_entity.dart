@@ -1,4 +1,5 @@
 import 'package:vpn/features/auth/data/models/user_model.dart';
+import 'package:vpn/features/profile/data/models/profile_model.dart';
 
 class UserEntity {
   UserEntity({
@@ -35,6 +36,7 @@ class UserInfo {
     this.clientDateCreate,
     this.clientDateCreateUnixtime,
     this.tarifInfo,
+    this.percent,
   });
   String? login;
   String? userApiKey;
@@ -50,20 +52,6 @@ class UserInfo {
   String? vpnTimeExpireUnixtime;
   String? clientDateCreate;
   String? clientDateCreateUnixtime;
-  TarifInfoModel? tarifInfo;
-}
-
-class TarifInfo {
-  TarifInfo({
-    this.tarifId,
-    this.tarifName,
-    this.tarifCostActivation,
-    this.tarifCostPerMb,
-    this.tarifDays,
-  });
-  String? tarifId;
-  String? tarifName;
-  String? tarifCostActivation;
-  String? tarifCostPerMb;
-  String? tarifDays;
+  TarifInfo? tarifInfo;
+  double? percent;
 }

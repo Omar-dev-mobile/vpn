@@ -10,12 +10,15 @@ class CountriesModel extends CountriesEntity {
   CountriesModel.fromJson(Map<String, dynamic> json) {
     print('fromJson${json['dateSave']}');
     errorCode = json['error_code'];
-    dateSave = DateUtilsFormat.dateFormatWithTryParse(json['dateSave']);
-    workStatus = WorkStatusCountriesModel.fromJson(json['work_status']);
+    dateSave = json['dateSave'] == null
+        ? null
+        : DateUtilsFormat.dateFormatWithTryParse(json['dateSave']);
+    workStatus = json['work_status'] == null
+        ? null
+        : WorkStatusCountriesModel.fromJson(json['work_status']);
   }
 
   Map<String, dynamic> toJson() {
-    print('toJson$dateSave');
     final data = <String, dynamic>{};
     data['error_code'] = errorCode;
     data['work_status'] = workStatus?.toJson();
@@ -31,8 +34,11 @@ class WorkStatusCountriesModel extends WorkStatusCountriesEntity {
   });
   WorkStatusCountriesModel.fromJson(Map<String, dynamic> json) {
     ver = json['ver'];
-    vpnList =
-        List.from(json['vpn_list']).map((e) => VpnList.fromJson(e)).toList();
+    vpnList = json['vpn_list'] == null
+        ? []
+        : List.from(json['vpn_list'])
+            .map((e) => VpnListModel.fromJson(e))
+            .toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -62,7 +68,6 @@ class VpnListModel extends VpnList {
     name = json['name'];
   }
 
-  @override
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['id'] = id;

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,18 +8,22 @@ import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:vpn/core/constants.dart';
+import 'package:vpn/core/shared/components/system_info_service.dart';
+import 'package:vpn/core/shared/datasources/remote/api_base.dart';
 import 'package:vpn/core/shared/usecases/IAPConnectionPurchase.dart';
 import 'package:vpn/core/shared/usecases/consumable_store.dart';
-import 'package:vpn/features/tarif/data/datasources/api_service_tarif.dart';
 import 'package:vpn/features/tarif/domain/usecases/traif_usecases.dart';
 part 'purchases_state.dart';
 
 class PurchasesCubit extends Cubit<PurchasesStatus> {
-  PurchasesCubit(this.traifUsecases) : super(PurchasesInitial()) {
+  PurchasesCubit(this.traifUsecases, this._systemInfoService)
+      : super(PurchasesInitial()) {
     subscriptionInit();
     initStoreInfo();
   }
   TraifUsecases traifUsecases;
+  final SystemInfoService _systemInfoService;
+
   Stream<List<PurchaseDetails>>? purchaseUpdated;
   static PurchasesCubit get(context) => BlocProvider.of(context);
   final InAppPurchase inAppPurchase = InAppPurchase.instance;
@@ -48,7 +53,11 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
 
   final isAndroid = Platform.isAndroid;
 
+  String get currentProductId =>
+      _systemInfoService.vpnInfo?.userInfo?.tarifInfo?.productId ?? "";
+
   void subscriptionInit() {
+    print(_systemInfoService.vpnInfo?.userInfo?.tarifInfo?.productId ?? "");
     Stream<List<PurchaseDetails>>? purchaseUpdated =
         inAppPurchase.purchaseStream;
     subscription =
@@ -122,6 +131,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     consumables = consumableStore;
     purchasePending = false;
     loading = false;
+    print("purchaseDetailsList1111 $purchases");
     emit(EndInitStoreInfoState());
   }
 
@@ -157,14 +167,17 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   Future purchaseTarifIos(
       String transactionIdentifier, String productID) async {
     final res = await traifUsecases.buyTarif(transactionIdentifier, productID);
-    emit(res.fold((failure) => ErrorPurchaseState(error: failure),
-        (r) => SuccessPurchaseState()));
+    emit(res.fold((failure) => ErrorPurchaseState(error: failure), (r) {
+      subscription.cancel();
+      return SuccessPurchaseState();
+    }));
   }
 
   Future<void> _listenToPurchaseUpdated(
       List<PurchaseDetails> purchaseDetailsList) async {
     try {
       for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
+        print("purchaseDetailsList ${purchaseDetails.status}");
         if (purchaseDetails.status == PurchaseStatus.pending) {
           showPendingUI();
         } else if (purchaseDetails.status == PurchaseStatus.canceled) {
@@ -176,14 +189,15 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
             handleError(purchaseDetails.error!);
           } else if (purchaseDetails.status == PurchaseStatus.purchased) {
             if (isAndroid) {
-              // purchaseTarif(purchaseDetails.purchaseID ?? "");
             } else {
               if (purchaseDetails is AppStorePurchaseDetails) {
                 final originalTransaction =
                     purchaseDetails.skPaymentTransaction.originalTransaction;
-                purchaseTarifIos(
-                    originalTransaction?.transactionIdentifier ?? "",
-                    purchaseDetails.productID);
+                if (currentProductId != purchaseDetails.productID) {
+                  purchaseTarifIos(
+                      originalTransaction?.transactionIdentifier ?? "",
+                      purchaseDetails.productID);
+                }
               }
             }
             checkCompletePurchase(purchaseDetails);
