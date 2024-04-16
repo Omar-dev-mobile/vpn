@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/home/presentation/widgets/nav_bar_widget.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/locator.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({super.key});
@@ -42,7 +44,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
           ),
           const Spacer(),
           NavBarWidget(
-            title: 'Tarif',
+            title: LocaleKeys.plan.tr(),
             icons: SvgPicture.asset(Assets.person),
             onTap: () {
               context.pushRoute(const TarifRoute());

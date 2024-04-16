@@ -22,6 +22,9 @@ class MainScreen extends StatelessWidget {
             if (state is ErrorGetDataServiceAccState) {
               return CustomError(
                 error: state.error,
+                onPressed: () {
+                  MainCubit.get(context).getDataServiceAcc(isUpdateAcc: true);
+                },
               );
             } else if (state is SuccessGetDataServiceAccState) {
               return mainCubit.getWidgetMain(

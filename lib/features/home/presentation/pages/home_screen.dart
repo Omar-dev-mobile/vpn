@@ -53,12 +53,13 @@ class HomeScreen extends StatelessWidget {
             height: screenUtil.screenHeight,
             width: screenUtil.screenWidth,
             decoration: BoxDecoration(
-                image: DecorationImage(
-              fit: BoxFit.fill,
-              image: AssetImage(themeMode.themeMode == 'light'
-                  ? Assets.navBarLight
-                  : Assets.navBarDark),
-            )),
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage(themeMode.themeMode == 'light'
+                    ? Assets.navBarLight
+                    : Assets.navBarDark),
+              ),
+            ),
             child: const HomeWidget(),
           );
         },

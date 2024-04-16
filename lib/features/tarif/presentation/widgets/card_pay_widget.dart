@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
@@ -5,6 +6,7 @@ import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/customs/logo.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/tarif/presentation/widgets/text_field_widget.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 class CardPayWidget extends StatelessWidget {
   const CardPayWidget({super.key});
@@ -93,7 +95,7 @@ class CardPayWidget extends StatelessWidget {
                     ),
                     const Spacer(),
                     CommonTextWidget(
-                      text: 'Pay',
+                      text: LocaleKeys.pay.tr(),
                       color: Theme.of(context).disabledColor,
                       size: screenUtil.setSp(22),
                       fontWeight: FontWeight.w300,

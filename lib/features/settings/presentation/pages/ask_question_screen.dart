@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -9,6 +10,7 @@ import 'package:vpn/features/settings/presentation/cubit/setting_cubit.dart';
 import 'package:vpn/features/settings/presentation/cubit/setting_state.dart';
 import 'package:vpn/features/settings/presentation/widgets/text_field_widget.dart';
 import 'package:vpn/locator.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 import '../../../../core/constants.dart';
 import '../../../../core/customs/common_text_widget.dart';
@@ -19,7 +21,11 @@ import '../../../../core/theme/theme.dart';
 class AskQuestionScreen extends StatelessWidget {
   AskQuestionScreen({super.key});
 
-  final List<String> hintText = ["Message", "Your Name", "Your Mail"];
+  final List<String> hintText = [
+    LocaleKeys.message.tr(),
+    LocaleKeys.yourName.tr(),
+    LocaleKeys.yourEmail.tr()
+  ];
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final List<TextEditingController> controllers = List.generate(
@@ -64,7 +70,7 @@ class AskQuestionScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CommonTextWidget(
-                            text: "Ask a question",
+                            text: LocaleKeys.askAQuestion.tr(),
                             size: ScreenUtil().setSp(35.0),
                             color: Theme.of(context).textTheme.bodyLarge!.color,
                             fontWeight: FontWeight.w500,
@@ -83,7 +89,9 @@ class AskQuestionScreen extends StatelessWidget {
                                             print(value);
                                             if (value == null ||
                                                 value.isEmpty) {
-                                              return 'Please enter some text';
+                                              return LocaleKeys
+                                                  .pleaseEnterSomeText
+                                                  .tr();
                                             }
                                             return null;
                                           },
@@ -102,7 +110,7 @@ class AskQuestionScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 20, bottom: 30),
                   child: RoundedButton(
-                    name: "Send",
+                    name: LocaleKeys.send.tr(),
                     color: kPrimary,
                     width: 130,
                     isLoading: state is AskQuestionLoadingState,

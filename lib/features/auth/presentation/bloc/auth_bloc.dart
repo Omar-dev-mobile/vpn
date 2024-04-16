@@ -36,13 +36,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(AuthLoadingState());
       String id = '';
-      if (event.type == 'google') {
+      bool isGoogleLogin = event.type == 'google';
+      if (isGoogleLogin) {
         id = await signInWithGoogle();
       } else {
         final apple = await signInWithApple();
         id = apple.userIdentifier ?? '';
       }
-      final res = await authUseCase.call(id);
+      final res = await authUseCase.call(id, isGoogleLogin);
       emit(
         res.fold(
           (failure) => AuthErrorState(error: failure),

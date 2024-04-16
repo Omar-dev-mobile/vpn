@@ -7,7 +7,8 @@ class AuthUseCase {
 
   AuthUseCase(this._authRepository);
 
-  Future<Either<String, UserModel>> call(String appleID) async {
-    return await _authRepository.login(appleID);
+  Future<Either<String, UserModel>> call(
+      String appleID, bool isGoogleLogin) async {
+    return await _authRepository.login(appleID, isGoogleLogin);
   }
 }

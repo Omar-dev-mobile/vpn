@@ -26,6 +26,7 @@ class NavBarWidget extends StatelessWidget {
             text: title,
             size: screenUtil.setSp(12),
             color: theme!.color,
+            textAlign: TextAlign.center,
             fontWeight: FontWeight.w500,
           )
         ],

@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
-import 'package:flutter/services.dart';
+import 'package:vpn/core/constants.dart';
 
 class RequestResult {
   dynamic json;
@@ -16,7 +16,7 @@ abstract class ApiBase {
 
   final Dio _dio = Dio();
   ApiBase() {
-    _dio.interceptors.add(LogInterceptor(responseBody: true));
+    // _dio.interceptors.add(LogInterceptor(responseBody: true));
   }
 
   Future<RequestResult> request({
@@ -31,6 +31,7 @@ abstract class ApiBase {
     path = customPath ? endpoint : path;
     Response? resp;
     dynamic decodedJson;
+    headers.addAll({"lang": getlocaleName()});
     print(path);
     try {
       switch (method) {

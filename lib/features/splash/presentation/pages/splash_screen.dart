@@ -6,6 +6,7 @@ import 'package:lottie/lottie.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
+import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 
 @RoutePage()
 class SplashScreen extends StatefulWidget {

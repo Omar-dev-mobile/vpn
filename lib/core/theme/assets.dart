@@ -45,4 +45,6 @@ abstract class Assets {
   static const String whats = '$_assets/$_icons/whats.svg';
   static const String whatsPhone = '$_assets/$_icons/whatsPhone.svg';
   static const String key = '$_assets/$_icons/key.svg';
+  static const String profileKey = '$_assets/$_icons/profile_key.svg';
+  static const String time = '$_assets/$_icons/time.svg';
 }

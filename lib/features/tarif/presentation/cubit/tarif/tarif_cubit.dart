@@ -8,9 +8,9 @@ import 'package:vpn/features/tarif/domain/usecases/traif_usecases.dart';
 part 'tarif_state.dart';
 
 class TarifCubit extends Cubit<TarifState> {
-  TarifCubit(this._traifUsecases, this._systemInfoService)
+  TarifCubit(this._traifUsecases, this.systemInfoService)
       : super(TarifInitial());
-  final SystemInfoService _systemInfoService;
+  final SystemInfoService systemInfoService;
   final TraifUsecases _traifUsecases;
   static TarifCubit get(context) => BlocProvider.of(context);
   Future<void> getTrials() async {
@@ -22,5 +22,5 @@ class TarifCubit extends Cubit<TarifState> {
     );
   }
 
-  WorkStatusAcc? get vpnInfo => _systemInfoService.vpnInfo;
+  WorkStatusAcc? get vpnInfo => systemInfoService.vpnInfo;
 }

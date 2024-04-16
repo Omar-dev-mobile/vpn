@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:vpn/features/home/domain/usecases/home_usecase.dart';
 import 'package:vpn/features/home/presentation/pages/activate_tarif_screen.dart';
 import 'package:vpn/features/home/presentation/pages/home_screen.dart';
 import 'package:vpn/features/select_country/data/models/countries_model.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 part 'main_state.dart';
 
@@ -22,6 +24,8 @@ class MainCubit extends Cubit<MainState> {
   final CacheHelper cacheHelper;
 
   static MainCubit get(context) => BlocProvider.of(context);
+
+  String errorMessage = '';
   Future getDataServiceAcc({bool isUpdateAcc = false}) async {
     if (!isUpdateAcc) {
       return;
@@ -37,6 +41,7 @@ class MainCubit extends Cubit<MainState> {
           VpnListModel.fromJson(data.workStatus?.vpnInfo?.toJson() ?? {});
       await cacheHelper.saveVpnServer(vpnList);
       _systemInfoService.vpnServer = vpnList;
+      errorMessage = data.workStatus?.errorMessage ?? "";
       return SuccessGetDataServiceAccState(data);
     }));
   }
@@ -50,7 +55,7 @@ class MainCubit extends Cubit<MainState> {
       case "login":
         _systemInfoService.isLogin = false;
         return ActivateTarifScreen(
-          textButton: "Sing in",
+          textButton: LocaleKeys.signIn.tr(),
           title: dataServiceAccModel.workStatus?.errorMessage ?? "",
           onPressed: () async {
             context.pushRoute(const LoginRoute());
@@ -76,8 +81,9 @@ class MainCubit extends Cubit<MainState> {
           },
         );
       case "activate_tarif":
+        _systemInfoService.isLogin = true;
         return ActivateTarifScreen(
-          textButton: "Activate tarif",
+          textButton: LocaleKeys.activatePlan.tr(),
           title: dataServiceAccModel.workStatus?.errorMessage ?? "",
           onPressed: () {
             context.pushRoute(const TarifRoute());

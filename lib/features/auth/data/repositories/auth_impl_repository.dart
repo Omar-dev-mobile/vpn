@@ -16,9 +16,9 @@ class AuthImplRepository implements AuthRepository {
   });
 
   @override
-  Future<Either<String, UserModel>> login(String appleID) {
+  Future<Either<String, UserModel>> login(String appleID, bool isGoogleLogin) {
     return executeAndHandleError<UserModel>(() async {
-      final res = await authService.login(appleID);
+      final res = await authService.login(appleID, isGoogleLogin);
       cacheHelper.saveUser(res);
       locator<SystemInfoService>().user = res;
       return res;

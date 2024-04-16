@@ -1,6 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vpn/core/customs/custom_dialog.dart';
+import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/extensions/extension.dart';
@@ -37,6 +41,16 @@ class CountryCubit extends Cubit<CountryState> {
   bool selectedVpn(String ip) => systemInfoService.vpnServer?.ip == ip;
 
   Future selectVpn(VpnListModel? vpnList, BuildContext context) async {
+    var mainCubit = MainCubit.get(context);
+    if (mainCubit.errorMessage.isNotEmpty) {
+      await customDialog(context,
+          "Для использования VPN сервера необхоимо приобрести подписку! Приобрести?",
+          () async {
+        Navigator.pop(context);
+        context.pushRoute(const TarifRoute());
+      });
+      return;
+    }
     if (vpnList != null) {
       emit(CountriesSelectVpnLoadingState());
       await cacheHelper.saveVpnServer(vpnList).then((value) {});

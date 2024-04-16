@@ -17,39 +17,47 @@ class ActivateTarifScreen extends StatelessWidget {
   final Function() onPressed;
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Container(
+      height: screenUtil.screenHeight,
       alignment: Alignment.center,
-      children: [
-        Image.asset(
-          Assets.notActive,
-        ),
-        Image.asset(Assets.union),
-        const Align(alignment: Alignment.topCenter, child: AppBarHeader()),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CommonTextWidget(
-                    text: title,
-                    size: screenUtil.setSp(20),
-                    color: Theme.of(context).textTheme.displaySmall!.color,
-                    textAlign: TextAlign.center,
-                    fontWeight: FontWeight.w500),
-                screenUtil.setHeight(50).ph,
-                CustomButton(
-                  title: textButton,
-                  color: kPrimary,
-                  onPressed: onPressed,
-                ),
-                screenUtil.setHeight(10).ph,
-              ],
-            ),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(
+            Assets.union,
           ),
         ),
-      ],
+      ),
+      child: Column(
+        children: [
+          const AppBarHeader(),
+          screenUtil.setHeight(85).ph,
+          Image.asset(
+            Assets.notActive,
+          ),
+          const Spacer(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: CommonTextWidget(
+              text: title,
+              size: screenUtil.setSp(20),
+              color: Theme.of(context).textTheme.displaySmall!.color,
+              textAlign: TextAlign.center,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          screenUtil.setHeight(30).ph,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: CustomButton(
+              title: textButton,
+              color: kPrimary,
+              onPressed: onPressed,
+            ),
+          ),
+          screenUtil.setHeight(30).ph,
+        ],
+      ),
     );
   }
 }

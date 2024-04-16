@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -6,6 +7,7 @@ import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 class StatusVpn extends StatelessWidget {
   const StatusVpn({super.key});
@@ -16,7 +18,8 @@ class StatusVpn extends StatelessWidget {
     return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
       if (homeCubit.statusConnection.status == StatusConnection.Online &&
           state is SuccessListenVpnState) {
-        CustomSnackBar.goodSnackBar(context, "Success connect vpn");
+        CustomSnackBar.goodSnackBar(context,
+            LocaleKeys.vPNConnectionHasBeenSuccessfullyEstablished.tr());
       }
     }, builder: (context, state) {
       switch (homeCubit.statusConnection.status) {

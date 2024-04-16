@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -19,20 +20,26 @@ import '../locator.dart';
 class InitApp {
   static Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
+    await Future.value([
+      await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform,
+      ),
+      await EasyLocalization.ensureInitialized(),
+      await setupLocator(),
+      await locator<CacheHelper>().init(),
+      await locator<SystemInfoService>().getSystemInfo(),
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
+              alert: true, badge: true, sound: true),
+      await locator<InitUsecases>().initSecurityRequest(),
+      await FlutterVpn.prepare(),
+    ]);
 
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     HttpOverrides.global = MyHttpOverrides();
-    await setupLocator();
+
     Bloc.observer = BlocsObserver();
-    await locator<CacheHelper>().init();
-    await locator<SystemInfoService>().getSystemInfo();
-    await FirebaseMessaging.instance
-        .setForegroundNotificationPresentationOptions(
-            alert: true, badge: true, sound: true);
-    await locator<InitUsecases>().initSecurityRequest();
-    await FlutterVpn.prepare();
+
     final notification = locator<NotificationService>();
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {

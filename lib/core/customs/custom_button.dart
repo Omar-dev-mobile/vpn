@@ -49,8 +49,8 @@ class CustomButton extends StatelessWidget {
       child: FittedBox(
         child: isLoading
             ? const SizedBox(
-                height: 25.0,
-                width: 25.0,
+                height: 30.0,
+                width: 30.0,
                 child: CircularProgressIndicator(
                   color: kWhite,
                 ),
