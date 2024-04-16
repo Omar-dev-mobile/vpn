@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,13 +15,31 @@ import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.d
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/features/tarif/presentation/widgets/card_tarif_widget.dart';
 import 'package:vpn/locator.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 @RoutePage()
-class TarifScreen extends StatelessWidget {
+class TarifScreen extends StatefulWidget {
   const TarifScreen({super.key});
 
   @override
+  State<TarifScreen> createState() => _TarifScreenState();
+}
+
+class _TarifScreenState extends State<TarifScreen> {
+  @override
+  void dispose() {
+    if (mounted) {
+      var purchasesCubit = locator<PurchasesCubit>();
+      if (purchasesCubit.subscription != null) {
+        purchasesCubit.subscription!.cancel();
+      }
+    }
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var mainCubit = MainCubit.get(context);
     return Scaffold(
       drawer: const DrawerWidget(),
       body: BlocProvider(
@@ -34,9 +53,9 @@ class TarifScreen extends StatelessWidget {
                 } else if (statePurchases is SuccessPurchaseState) {
                   CustomSnackBar.goodSnackBar(
                     context,
-                    "Successfully purchased",
+                    LocaleKeys.successfullyPurchased.tr(),
                   );
-                  MainCubit.get(context).getDataServiceAcc(isUpdateAcc: true);
+                  mainCubit.getDataServiceAcc(isUpdateAcc: true);
                   context.pushRoute(const MainRoute());
                 }
               },
@@ -52,7 +71,7 @@ class TarifScreen extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 20),
                           child: CommonTextWidget(
-                            text: 'Tarif',
+                            text: LocaleKeys.plans.tr(),
                             color:
                                 Theme.of(context).textTheme.titleMedium!.color,
                             size: screenUtil.setSp(35),
@@ -75,7 +94,9 @@ class TarifScreen extends StatelessWidget {
                               var userInfo =
                                   tarifCubit.vpnInfo?.userInfo?.tarifInfo;
                               bool tarifUser = tarifCubit.vpnInfo != null &&
-                                  userInfo != null;
+                                  userInfo != null &&
+                                  userInfo.productId != null &&
+                                  mainCubit.errorMessage.isEmpty;
                               return Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
@@ -101,7 +122,7 @@ class TarifScreen extends StatelessWidget {
                                                     plan: userInfo.tarifName ??
                                                         "",
                                                     day:
-                                                        '${userInfo.tarifDays ?? ""} days',
+                                                        '${userInfo.tarifDays ?? ""} ${LocaleKeys.days.tr()}',
                                                     percent: getPercent(
                                                         tarifCubit
                                                             .vpnInfo
@@ -111,8 +132,10 @@ class TarifScreen extends StatelessWidget {
                                                             ""),
                                                   );
                                                 }
-                                                var traif = tarifs.workStatus
-                                                    ?.tarifList?[index - 1];
+                                                var traif = tarifs
+                                                        .workStatus?.tarifList?[
+                                                    index -
+                                                        (tarifUser ? 1 : 0)];
                                                 if (userInfo?.productId ==
                                                     traif?.tarifBuy) {
                                                   return const SizedBox
@@ -135,7 +158,7 @@ class TarifScreen extends StatelessWidget {
                                                     plan:
                                                         traif?.tarifName ?? "",
                                                     day:
-                                                        '${traif?.tarifDays ?? ""} days',
+                                                        '${traif?.tarifDays ?? ""} ${LocaleKeys.days.tr()}',
                                                   ),
                                                 );
                                               },

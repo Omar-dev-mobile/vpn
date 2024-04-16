@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,7 +8,6 @@ import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
-import 'package:vpn/core/shared/datasources/remote/api_base.dart';
 import 'package:vpn/core/shared/usecases/IAPConnectionPurchase.dart';
 import 'package:vpn/core/shared/usecases/consumable_store.dart';
 import 'package:vpn/features/tarif/domain/usecases/traif_usecases.dart';
@@ -18,7 +16,6 @@ part 'purchases_state.dart';
 class PurchasesCubit extends Cubit<PurchasesStatus> {
   PurchasesCubit(this.traifUsecases, this._systemInfoService)
       : super(PurchasesInitial()) {
-    subscriptionInit();
     initStoreInfo();
   }
   TraifUsecases traifUsecases;
@@ -27,7 +24,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   Stream<List<PurchaseDetails>>? purchaseUpdated;
   static PurchasesCubit get(context) => BlocProvider.of(context);
   final InAppPurchase inAppPurchase = InAppPurchase.instance;
-  late StreamSubscription<List<PurchaseDetails>> subscription;
+  StreamSubscription<List<PurchaseDetails>>? subscription;
   List<String> notFoundIds = <String>[];
   List<ProductDetails> tarifs = <ProductDetails>[];
   List<PurchaseDetails> purchases = <PurchaseDetails>[];
@@ -38,7 +35,6 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   String? queryProductError;
   bool isButtonPulsing = false;
   final iapConnection = IAPConnection.instance;
-
   @override
   Future<void> close() {
     if (!isAndroid) {
@@ -47,7 +43,8 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
               .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       iosPlatformAddition.setDelegate(null);
     }
-    subscription.cancel();
+    if (subscription != null) subscription!.cancel();
+    if (purchaseUpdated != null) purchaseUpdated!.distinct();
     return super.close();
   }
 
@@ -56,16 +53,19 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   String get currentProductId =>
       _systemInfoService.vpnInfo?.userInfo?.tarifInfo?.productId ?? "";
 
+  set currentProductId(String value) => value;
   void subscriptionInit() {
     print(_systemInfoService.vpnInfo?.userInfo?.tarifInfo?.productId ?? "");
-    Stream<List<PurchaseDetails>>? purchaseUpdated =
-        inAppPurchase.purchaseStream;
-    subscription =
-        purchaseUpdated.listen((List<PurchaseDetails> purchaseDetailsList) {
-      _listenToPurchaseUpdated(purchaseDetailsList);
+    purchaseUpdated = inAppPurchase.purchaseStream;
+    subscription = purchaseUpdated!.listen(
+        (List<PurchaseDetails> purchaseDetailsList) async {
+      print("subscription listen");
+      await _listenToPurchaseUpdated(purchaseDetailsList
+          .where((element) => element.productID != currentProductId)
+          .toList());
       return;
     }, onDone: () {
-      subscription.cancel();
+      if (subscription != null) subscription!.cancel();
     }, onError: (Object error) {});
   }
 
@@ -143,12 +143,16 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       rawPrice: 0,
       title: '');
 
+  //buy tarif with receipt or server(api) verification
+  String productIdToBuy = "";
+
   Future buyTarif(productId) async {
     late PurchaseParam purchaseParam;
+    productIdToBuy = productId;
+    if (tarifs.isEmpty) return;
     ProductDetails productDetail =
         tarifs.firstWhere((element) => element.id == productId);
 
-    if (tarifs.isEmpty) return;
     if (isAndroid) {
       purchaseParam = GooglePlayPurchaseParam(
         productDetails: productDetail,
@@ -161,27 +165,47 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       );
     }
     inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
+    subscriptionInit();
   }
 
-//buy tarif with receipt or server(api) verification
+  //buy tarif with receipt or server(api) verification
   Future purchaseTarifIos(
       String transactionIdentifier, String productID) async {
     final res = await traifUsecases.buyTarif(transactionIdentifier, productID);
-    emit(res.fold((failure) => ErrorPurchaseState(error: failure), (r) {
-      subscription.cancel();
-      return SuccessPurchaseState();
+    emit(await res.fold((failure) => ErrorPurchaseState(error: failure),
+        (r) async {
+      if (subscription != null) subscription!.cancel();
+      if (r.inProgress) {
+        return await checkTrans(transactionIdentifier);
+      } else {
+        currentProductId = r.workStatus?.userInfo?.tarifInfo?.productId ?? "";
+        return SuccessPurchaseState();
+      }
     }));
+  }
+
+  Future<PurchasesStatus> checkTrans(String transactionIdentifier) async {
+    final res = await traifUsecases.checkTrans(transactionIdentifier);
+    return res.fold((l) => ErrorPurchaseState(error: l), (r) async {
+      print("r $r");
+      if (r == '1') {
+        return SuccessPurchaseState();
+      } else {
+        await Future.delayed(const Duration(seconds: 2));
+        return await checkTrans(transactionIdentifier);
+      }
+    });
   }
 
   Future<void> _listenToPurchaseUpdated(
       List<PurchaseDetails> purchaseDetailsList) async {
     try {
       for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
-        print("purchaseDetailsList ${purchaseDetails.status}");
         if (purchaseDetails.status == PurchaseStatus.pending) {
           showPendingUI();
         } else if (purchaseDetails.status == PurchaseStatus.canceled) {
           checkCompletePurchase(purchaseDetails);
+          subscription!.cancel();
           emit(EndPendingPurchaseState());
         } else {
           if (purchaseDetails.status == PurchaseStatus.error) {
@@ -193,14 +217,15 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
               if (purchaseDetails is AppStorePurchaseDetails) {
                 final originalTransaction =
                     purchaseDetails.skPaymentTransaction.originalTransaction;
-                if (currentProductId != purchaseDetails.productID) {
-                  purchaseTarifIos(
+                if (currentProductId != purchaseDetails.productID &&
+                    productIdToBuy == purchaseDetails.productID) {
+                  await purchaseTarifIos(
                       originalTransaction?.transactionIdentifier ?? "",
                       purchaseDetails.productID);
                 }
               }
             }
-            checkCompletePurchase(purchaseDetails);
+            subscription!.cancel();
           }
         }
         checkCompletePurchase(purchaseDetails);
@@ -216,6 +241,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
 
   void handleError(IAPError error) {
     purchasePending = false;
+    subscription!.cancel();
     emit(ErrorPurchaseState(error: error.details.toString()));
   }
 

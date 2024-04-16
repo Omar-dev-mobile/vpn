@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,7 +37,6 @@ class VpnApp extends StatelessWidget {
                 color: kBlack,
                 title: 'VPN Line',
                 key: navigatorKey,
-                supportedLocales: const [Locale('en')],
                 debugShowCheckedModeBanner: false,
                 builder: (context, child) {
                   return MediaQuery(
@@ -45,6 +45,8 @@ class VpnApp extends StatelessWidget {
                     child: child!,
                   );
                 },
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
                 theme: MyThemeData.lightTheme(),
                 darkTheme: MyThemeData.darkTheme(),
                 themeMode: logicAppCubit.getThemeMode(context),

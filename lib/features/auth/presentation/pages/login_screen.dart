@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +12,8 @@ import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 @RoutePage()
 class LoginScreen extends StatelessWidget {
@@ -30,6 +33,7 @@ class LoginScreen extends StatelessWidget {
               child: BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
                   if (state is AuthSuccessState) {
+                    MainCubit.get(context).getDataServiceAcc(isUpdateAcc: true);
                     context.replaceRoute(const MainRoute());
                   }
                 },
@@ -37,14 +41,14 @@ class LoginScreen extends StatelessWidget {
                   return ListView(
                     children: [
                       CommonTextWidget(
-                        text: 'Unlock social media\nAnywhere\nAnytime',
+                        text: LocaleKeys.unlockSocialMediaAnywhereAnywhere.tr(),
                         size: screenUtil.setSp(35),
                         color: Theme.of(context).textTheme.displaySmall!.color,
                         height: 1.2,
                       ),
                       screenUtil.setHeight(100).ph,
                       CustomButton(
-                        title: 'Sign in with Apple',
+                        title: LocaleKeys.signInWithApple.tr(),
                         color: kBlack,
                         radius: 64,
                         onPressed: () {
@@ -57,9 +61,10 @@ class LoginScreen extends StatelessWidget {
                       ),
                       screenUtil.setHeight(20).ph,
                       CustomButton(
-                        title: 'Sign in with google',
+                        title: LocaleKeys.signInWithGoogle.tr(),
                         color: kPrimary,
                         radius: 64,
+                        isLoading: state is AuthLoadingState,
                         onPressed: () {
                           AuthBloc.get(context).add(
                               const LoginWithGoogleAndAppleAuthEvent(

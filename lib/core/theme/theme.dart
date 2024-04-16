@@ -32,6 +32,8 @@ const Color kStarIconOn = Color(0xffF2994A);
 const Color kFlagDivider = Color(0xffEAEAEA);
 const Color kSilver = Color(0xffE5E5E5);
 
+const Color kDarkGreen = Color(0xff006A7C);
+
 Map<String, List<Color>> gradient = {
   "week": [kDeepPurpleColor, kDarkTealColor],
   "month": [kDeepPurpleColor, kOrangeColor],

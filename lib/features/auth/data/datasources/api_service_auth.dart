@@ -7,7 +7,7 @@ import 'package:vpn/features/auth/data/models/user_model.dart';
 import 'package:vpn/locator.dart';
 
 class ApiServiceAuth extends ApiBase {
-  Future<UserModel> login(String appleId) async {
+  Future<UserModel> login(String appleId, bool isGoogleLogin) async {
     return executeAndHandleErrorServer<UserModel>(() async {
       final cacheHelper =
           await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();
@@ -18,7 +18,7 @@ class ApiServiceAuth extends ApiBase {
       final response = await post(
         BASE_URL,
         queryParameters: {
-          "oper": "login_apple_id",
+          "oper": isGoogleLogin ? "login_google" : "login_apple_id",
           "udid": cacheHelper?.udid ?? "",
           "rnd": rnd,
           "email": appleId,

@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
+import 'package:vpn/translations/codegen_loader.g.dart';
 
 const BASE_URL = 'https://vp-line.aysec.org/ios.php';
 const termServiceUrl = 'https://candodream.com/termsofservice';
@@ -78,6 +80,16 @@ String? validateEmail(String? value) {
 
 T? first<T>(List<T> list) {
   return list.isNotEmpty ? list.first : null;
+}
+
+String getlocaleName() {
+  final localeStr = Platform.localeName;
+  final loc = localeStr.split('_')[0];
+  if (CodegenLoader.mapLocales.containsKey(loc)) {
+    return loc;
+  } else {
+    return "en";
+  }
 }
 
 const kProductIds = [

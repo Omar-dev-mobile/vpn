@@ -55,7 +55,7 @@ class VPNIOSManager {
       });
       return;
     } catch (e) {
-      rethrow;
+      return;
     }
   }
 

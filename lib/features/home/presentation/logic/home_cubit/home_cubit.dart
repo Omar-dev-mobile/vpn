@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vpn/core/constants.dart';
@@ -9,6 +10,7 @@ import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/usecases/network_info.dart';
 import 'package:vpn/locator.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
@@ -48,13 +50,13 @@ class HomeCubit extends Cubit<HomeState> {
   String getStatusVpn() {
     switch (systemInfoService.connectionStatus?.status) {
       case StatusConnection.Online:
-        return "Online";
+        return LocaleKeys.online.tr();
       case StatusConnection.Stopped:
-        return "Stopin";
+        return LocaleKeys.disconnected.tr();
       case StatusConnection.Connecting:
-        return "Connecting";
+        return LocaleKeys.connecting.tr();
       default:
-        return "Offline";
+        return LocaleKeys.offline.tr();
     }
   }
 
@@ -89,7 +91,8 @@ class HomeCubit extends Cubit<HomeState> {
         CustomSnackBar.badSnackBar(context, l);
       }, (r) {
         if (showDialog) {
-          CustomSnackBar.goodSnackBar(context, "Success stop vpn");
+          CustomSnackBar.goodSnackBar(
+              context, LocaleKeys.vPNHasBeenDisconnected.tr());
         }
       });
     });

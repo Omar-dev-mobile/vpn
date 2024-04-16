@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/services.dart';
 import 'package:vpn/core/error/exception.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 class HandlerErrorNative {
   static Failure handle(dynamic error) {
@@ -8,11 +10,11 @@ class HandlerErrorNative {
     if (error is PlatformException) {
       return Failure(
         errorMessage: error.message ??
-            "Error connecting to the server, please try again later",
+            LocaleKeys.failedToConnectToTheServerPleaseTryAgainLater.tr(),
       );
     } else {
       return Failure(
-        errorMessage: "An unexpected error occurred",
+        errorMessage: LocaleKeys.anUnexpectedErrorOccurred.tr(),
       );
     }
   }
