@@ -5,6 +5,7 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/usecases/generate_keys.dart';
+import 'package:vpn/features/auth/data/models/auth_model.dart';
 import 'package:vpn/features/auth/domain/usecases/auth_usecases.dart';
 import 'package:vpn/locator.dart';
 
@@ -21,29 +22,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       : super(AuthInitial()) {
     on<AuthEvent>((event, emit) async {
       switch (event.runtimeType) {
-        case LoginWithGoogleAndAppleAuthEvent:
-          await _onLoginWithGoogleAndApple(
-              event as LoginWithGoogleAndAppleAuthEvent, emit);
+        case LoginWithAppleAuthEvent:
+          await _onLoginWithApple(event as LoginWithAppleAuthEvent, emit);
+          break;
+        case LoginWithGoogleAuthEvent:
+          await _onLoginWithGoogle(event as LoginWithGoogleAuthEvent, emit);
           break;
       }
     });
   }
 
-  Future<void> _onLoginWithGoogleAndApple(
-    LoginWithGoogleAndAppleAuthEvent event,
+  Future<void> _onLoginWithGoogle(
+    LoginWithGoogleAuthEvent event,
     Emitter<AuthState> emit,
   ) async {
     try {
-      emit(AuthLoadingState());
-      String id = '';
-      bool isGoogleLogin = event.type == 'google';
-      if (isGoogleLogin) {
-        id = await signInWithGoogle();
-      } else {
-        final apple = await signInWithApple();
-        id = apple.userIdentifier ?? '';
-      }
-      final res = await authUseCase.call(id, isGoogleLogin);
+      emit(AuthLoadingGoogleState());
+      GoogleSignInAccount? google = await signInWithGoogle();
+      AuthModel authModel = AuthModel(
+        login: google?.id ?? "",
+        email: google?.email ?? "",
+        isGoogleLogin: true,
+      );
+      final res = await authUseCase.call(authModel);
       emit(
         res.fold(
           (failure) => AuthErrorState(error: failure),
@@ -58,9 +59,36 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<String> signInWithGoogle() async {
+  Future<void> _onLoginWithApple(
+    LoginWithAppleAuthEvent event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      emit(AuthLoadingAppleState());
+      final apple = await signInWithApple();
+      AuthModel authModel = AuthModel(
+        login: apple.userIdentifier ?? '',
+        email: apple.email ?? "",
+        isGoogleLogin: true,
+      );
+      final res = await authUseCase.call(authModel);
+      emit(
+        res.fold(
+          (failure) => AuthErrorState(error: failure),
+          (data) {
+            locator<SystemInfoService>().isLogin = true;
+            return AuthSuccessState();
+          },
+        ),
+      );
+    } catch (e) {
+      emit(const AuthErrorState(error: 'An unexpected error occurred'));
+    }
+  }
+
+  Future<GoogleSignInAccount?> signInWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    return googleUser?.email ?? '';
+    return googleUser;
   }
 
   Future<AuthorizationCredentialAppleID> signInWithApple() async {

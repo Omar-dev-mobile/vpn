@@ -52,11 +52,11 @@ class LoginScreen extends StatelessWidget {
                         color: kBlack,
                         radius: 64,
                         onPressed: () {
-                          context.read<AuthBloc>().add(
-                              const LoginWithGoogleAndAppleAuthEvent(
-                                  type: 'apple'));
+                          context
+                              .read<AuthBloc>()
+                              .add(LoginWithAppleAuthEvent());
                         },
-                        isLoading: state is AuthLoadingState,
+                        isLoading: state is AuthLoadingAppleState,
                         widget: SvgPicture.asset(Assets.iconApple),
                       ),
                       screenUtil.setHeight(20).ph,
@@ -64,11 +64,9 @@ class LoginScreen extends StatelessWidget {
                         title: LocaleKeys.signInWithGoogle.tr(),
                         color: kPrimary,
                         radius: 64,
-                        isLoading: state is AuthLoadingState,
+                        isLoading: state is AuthLoadingGoogleState,
                         onPressed: () {
-                          AuthBloc.get(context).add(
-                              const LoginWithGoogleAndAppleAuthEvent(
-                                  type: 'google'));
+                          AuthBloc.get(context).add(LoginWithGoogleAuthEvent());
                         },
                         widget: SvgPicture.asset(Assets.iconGoogle),
                       ),
