@@ -9,7 +9,9 @@ abstract class AuthState extends Equatable {
 
 class AuthInitial extends AuthState {}
 
-class AuthLoadingState extends AuthState {}
+class AuthLoadingGoogleState extends AuthState {}
+
+class AuthLoadingAppleState extends AuthState {}
 
 class AuthErrorState extends AuthState {
   final String error;

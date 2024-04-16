@@ -16,7 +16,7 @@ abstract class ApiBase {
 
   final Dio _dio = Dio();
   ApiBase() {
-    // _dio.interceptors.add(LogInterceptor(responseBody: true));
+    _dio.interceptors.add(LogInterceptor(responseBody: true));
   }
 
   Future<RequestResult> request({

@@ -7,8 +7,6 @@ abstract class AuthEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoginWithGoogleAndAppleAuthEvent extends AuthEvent {
-  final String type;
+class LoginWithAppleAuthEvent extends AuthEvent {}
 
-  const LoginWithGoogleAndAppleAuthEvent({required this.type});
-}
+class LoginWithGoogleAuthEvent extends AuthEvent {}
