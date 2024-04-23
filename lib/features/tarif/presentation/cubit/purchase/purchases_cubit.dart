@@ -1,16 +1,21 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:auto_route/auto_route.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:vpn/core/constants.dart';
+import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/usecases/IAPConnectionPurchase.dart';
 import 'package:vpn/core/shared/usecases/consumable_store.dart';
+import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/tarif/domain/usecases/traif_usecases.dart';
+import 'package:vpn/locator.dart';
 part 'purchases_state.dart';
 
 class PurchasesCubit extends Cubit<PurchasesStatus> {
@@ -18,6 +23,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       : super(PurchasesInitial()) {
     initStoreInfo();
   }
+
   TraifUsecases traifUsecases;
   final SystemInfoService _systemInfoService;
 
@@ -35,17 +41,20 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   String? queryProductError;
   bool isButtonPulsing = false;
   final iapConnection = IAPConnection.instance;
-  @override
-  Future<void> close() {
+  Future closeSubscription() async {
     if (!isAndroid) {
       final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition =
           inAppPurchase
               .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       iosPlatformAddition.setDelegate(null);
     }
-    if (subscription != null) subscription!.cancel();
     if (purchaseUpdated != null) purchaseUpdated!.distinct();
-    return super.close();
+  }
+
+  void goToHome(BuildContext context) async {
+    context.pushRoute(const MainRoute());
+    locator<PurchasesCubit>().closeSubscription();
+    MainCubit.get(context).getDataServiceAcc(isUpdateAcc: true);
   }
 
   final isAndroid = Platform.isAndroid;
@@ -65,8 +74,10 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
           .toList());
       return;
     }, onDone: () {
-      if (subscription != null) subscription!.cancel();
-    }, onError: (Object error) {});
+      // if (subscription != null) subscription!.cancel();
+    }, onError: (Object error) {
+      dispose();
+    });
   }
 
   Future<void> initStoreInfo() async {
@@ -147,8 +158,10 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   String productIdToBuy = "";
 
   Future buyTarif(productId) async {
+    dispose();
     late PurchaseParam purchaseParam;
     productIdToBuy = productId;
+    print("tarifs $tarifs");
     if (tarifs.isEmpty) return;
     ProductDetails productDetail =
         tarifs.firstWhere((element) => element.id == productId);
@@ -164,7 +177,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
         applicationUserName: null,
       );
     }
-    inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
+    await inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
     subscriptionInit();
   }
 
@@ -174,11 +187,12 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     final res = await traifUsecases.buyTarif(transactionIdentifier, productID);
     emit(await res.fold((failure) => ErrorPurchaseState(error: failure),
         (r) async {
-      if (subscription != null) subscription!.cancel();
+      dispose();
       if (r.inProgress) {
         return await checkTrans(transactionIdentifier);
       } else {
         currentProductId = r.workStatus?.userInfo?.tarifInfo?.productId ?? "";
+        print("currentProductId $currentProductId");
         return SuccessPurchaseState();
       }
     }));
@@ -205,7 +219,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
           showPendingUI();
         } else if (purchaseDetails.status == PurchaseStatus.canceled) {
           checkCompletePurchase(purchaseDetails);
-          subscription!.cancel();
+          dispose();
           emit(EndPendingPurchaseState());
         } else {
           if (purchaseDetails.status == PurchaseStatus.error) {
@@ -217,6 +231,19 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
               if (purchaseDetails is AppStorePurchaseDetails) {
                 final originalTransaction =
                     purchaseDetails.skPaymentTransaction.originalTransaction;
+                // print({
+                //   'source': purchaseDetails.verificationData.source,
+                //   'productId': purchaseDetails.productID,
+                //   'verificationData':
+                //       purchaseDetails.verificationData.serverVerificationData,
+                // });
+                if ((originalTransaction?.transactionIdentifier ?? "")
+                    .isEmpty) {
+                  emit(ErrorOriginalTransactionPurchaseState(
+                      error:
+                          "При попытке платежа возникла ошибка ${originalTransaction?.error?.code ?? ""} ${originalTransaction?.error?.domain ?? ""}"));
+                  return;
+                }
                 if (currentProductId != purchaseDetails.productID &&
                     productIdToBuy == purchaseDetails.productID) {
                   await purchaseTarifIos(
@@ -225,7 +252,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
                 }
               }
             }
-            subscription!.cancel();
+            // subscription!.cancel();
           }
         }
         checkCompletePurchase(purchaseDetails);
@@ -239,9 +266,13 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     }
   }
 
+  void dispose() {
+    if (subscription != null) subscription!.cancel();
+  }
+
   void handleError(IAPError error) {
     purchasePending = false;
-    subscription!.cancel();
+    dispose();
     emit(ErrorPurchaseState(error: error.details.toString()));
   }
 

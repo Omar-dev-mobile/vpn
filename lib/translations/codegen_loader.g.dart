@@ -332,6 +332,8 @@ class CodegenLoader extends AssetLoader {
     "Pay": "Оплатить ",
     "Success": "Успешно",
     "Are you sure you want to log out": "Вы уверены, что хотите выйти?",
+    "An error occurred when trying to make a payment":
+        "При попытке платежа возникла ошибка",
   };
 
   static const Map<String, Map<String, dynamic>> mapLocales = {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/customs/custom_button.dart';
 import 'package:vpn/core/theme/theme.dart';
@@ -16,7 +15,7 @@ class CustomError extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        const AppBarHeader(),
+        // const AppBarHeader(),
         const Spacer(),
         SizedBox(
           width: screenUtil.screenWidth * 0.7,

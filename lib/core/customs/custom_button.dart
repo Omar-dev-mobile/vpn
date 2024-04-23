@@ -4,6 +4,7 @@ import 'package:vpn/core/theme/theme.dart';
 
 import 'common_text_widget.dart';
 
+// ignore: must_be_immutable
 class CustomButton extends StatelessWidget {
   final Function()? onPressed;
   final String title;
@@ -15,6 +16,7 @@ class CustomButton extends StatelessWidget {
   final double size;
   final double radius;
   final FontWeight fontWeight;
+  final EdgeInsets padding;
 
   CustomButton({
     super.key,
@@ -24,6 +26,7 @@ class CustomButton extends StatelessWidget {
     this.isLoading = false,
     this.textColor = kWhite,
     this.colorBorderSide,
+    this.padding = const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
     this.widget,
     this.size = 20,
     this.radius = 12,
@@ -44,7 +47,7 @@ class CustomButton extends StatelessWidget {
                   ? BorderSide(width: 1, color: colorBorderSide!)
                   : BorderSide.none,
               borderRadius: BorderRadius.all(Radius.circular(radius))),
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+          padding: padding,
           textStyle: const TextStyle(fontSize: 24)),
       child: FittedBox(
         child: isLoading

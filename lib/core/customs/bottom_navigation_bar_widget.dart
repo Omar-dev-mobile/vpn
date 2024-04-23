@@ -9,6 +9,7 @@ import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/home/presentation/widgets/nav_bar_widget.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
+import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
@@ -47,6 +48,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
             title: LocaleKeys.plan.tr(),
             icons: SvgPicture.asset(Assets.person),
             onTap: () {
+              TarifCubit.get(context).getTrials();
               context.pushRoute(const TarifRoute());
             },
           ),

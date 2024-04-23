@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vpn/core/customs/custom_button.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
@@ -23,6 +24,7 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const DrawerWidget(),
+      drawerEnableOpenDragGesture: false,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -43,6 +45,10 @@ class AboutScreen extends StatelessWidget {
                   CustomButton(
                     title: '${LocaleKeys.versionApp.tr()} 1.0.0',
                     color: kDarkTealColor,
+                    size: screenUtil.setSp(18),
+                    fontWeight: FontWeight.w500,
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 16),
                   ),
                   screenUtil.setHeight(30).ph,
                   CommonTextWidget(
@@ -55,23 +61,22 @@ class AboutScreen extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 70),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconWidget(
+                            onTap: () async {
+                              final Uri emailLaunchUri = Uri(
+                                scheme: 'mailto',
+                                path: 'info@candodream.com',
+                                query: encodeQueryParameters(<String, String>{
+                                  'subject': 'VPN Line Question',
+                                }),
+                              );
+
+                              await launchUrl(emailLaunchUri);
+                            },
                             icon: SvgPicture.asset(Assets.mail,
                                 fit: BoxFit.none)),
-                        IconWidget(
-                            icon: SvgPicture.asset(Assets.telegram,
-                                fit: BoxFit.none)),
-                        IconWidget(
-                            icon: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            SvgPicture.asset(Assets.whats, fit: BoxFit.none),
-                            SvgPicture.asset(Assets.whatsPhone,
-                                fit: BoxFit.none)
-                          ],
-                        )),
                       ],
                     ),
                   ),
@@ -82,7 +87,7 @@ class AboutScreen extends StatelessWidget {
                     size: screenUtil.setSp(18),
                     fontWeight: FontWeight.w500,
                   ),
-                  screenUtil.setHeight(5).ph,
+                  screenUtil.setHeight(10).ph,
                   CommonTextWidget(
                     text: LocaleKeys
                         .lineVpnProtectsYourOnlinePrivacyWithStateOfTheArtEncryption
@@ -90,7 +95,7 @@ class AboutScreen extends StatelessWidget {
                     color: Theme.of(context).textTheme.displaySmall!.color,
                     fontWeight: FontWeight.w400,
                     size: screenUtil.setSp(16),
-                    height: 1.2,
+                    height: 2,
                   ),
                   screenUtil.setHeight(25).ph,
                   Center(
@@ -145,18 +150,19 @@ class AboutScreen extends StatelessWidget {
                     ),
                   ),
                   screenUtil.setHeight(30).ph,
-                  SizedBox(
-                      width: screenUtil.setWidth(315),
-                      height: screenUtil.setHeight(48),
-                      child: CustomButton(
-                        title: LocaleKeys.askAQuestion.tr(),
-                        color: kPrimary,
-                        radius: 64,
-                        fontWeight: FontWeight.w500,
-                        onPressed: () {
-                          context.pushRoute(AskQuestionRoute());
-                        },
-                      )),
+                  CustomButton(
+                    title: LocaleKeys.askAQuestion.tr(),
+                    color: kPrimary,
+                    radius: 64,
+                    size: screenUtil.setSp(20),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 16),
+                    fontWeight: FontWeight.w500,
+                    onPressed: () {
+                      context.pushRoute(AskQuestionRoute());
+                    },
+                  ),
+                  screenUtil.setHeight(60).ph,
                 ],
               ),
             ),

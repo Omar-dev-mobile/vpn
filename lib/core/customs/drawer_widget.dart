@@ -11,6 +11,7 @@ import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
+import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
@@ -23,8 +24,9 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
     String activeRouteName = AutoRouter.of(context).topRoute.name;
-    final systemInfoService = locator<SystemInfoService>();
     print(activeRouteName);
+    final systemInfoService = locator<SystemInfoService>();
+
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       width: double.infinity,
@@ -60,7 +62,8 @@ class DrawerWidget extends StatelessWidget {
                 if (activeRouteName != MainRoute.name) {
                   MainCubit.get(context).getDataServiceAcc();
                 }
-                context.pushRoute(const MainRoute());
+                Navigator.pop(context);
+                context.replaceRoute(const MainRoute());
               },
               isActive: activeRouteName == MainRoute.name,
             ),
@@ -68,8 +71,9 @@ class DrawerWidget extends StatelessWidget {
               ListTitleDrawerWidget(
                 title: LocaleKeys.profile.tr(),
                 onTap: () {
+                  Navigator.pop(context);
                   locator<ProfileCubit>().getProfile();
-                  context.pushRoute(const ProfileRoute());
+                  context.replaceRoute(const ProfileRoute());
                 },
                 isActive: activeRouteName == ProfileRoute.name,
               ),
@@ -80,7 +84,8 @@ class DrawerWidget extends StatelessWidget {
                   if (activeRouteName != SelectCountryRoute.name) {
                     locator<CountryCubit>().getCountriesList();
                   }
-                  context.pushRoute(const SelectCountryRoute());
+                  Navigator.pop(context);
+                  context.replaceRoute(const SelectCountryRoute());
                 },
                 isActive: activeRouteName == SelectCountryRoute.name,
               ),
@@ -88,14 +93,17 @@ class DrawerWidget extends StatelessWidget {
               ListTitleDrawerWidget(
                 title: LocaleKeys.plans.tr(),
                 onTap: () {
-                  context.pushRoute(const TarifRoute());
+                  TarifCubit.get(context).getTrials();
+                  Navigator.pop(context);
+                  context.replaceRoute(const TarifRoute());
                 },
                 isActive: activeRouteName == TarifRoute.name,
               ),
             ListTitleDrawerWidget(
               title: LocaleKeys.about.tr(),
               onTap: () {
-                context.pushRoute(const AboutRoute());
+                Navigator.pop(context);
+                context.replaceRoute(const AboutRoute());
               },
               isActive: activeRouteName == AboutRoute.name,
             ),

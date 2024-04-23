@@ -18,12 +18,16 @@ class ProfileScreen extends StatelessWidget {
     var mainCubit = MainCubit.get(context);
     return Scaffold(
       drawer: mainCubit.errorMessage.isNotEmpty ? const DrawerWidget() : null,
+      drawerEnableOpenDragGesture: false,
       appBar: mainCubit.errorMessage.isNotEmpty ? const AppBarHeader() : null,
       body: BlocBuilder<ProfileCubit, ProfileState>(
         builder: (context, state) {
           if (state is ProfileErrorState) {
             return CustomError(
               error: state.error,
+              onPressed: () {
+                ProfileCubit.get(context).getProfile();
+              },
             );
           } else if (state is ProfileSuccessState) {
             final profileModel = state.profileModel;

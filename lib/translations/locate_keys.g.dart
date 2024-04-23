@@ -57,4 +57,6 @@ abstract class LocaleKeys {
   static const offline = 'Offline';
   static const signIn = 'Sign in';
   static const activatePlan = 'Activate Plan';
+  static const errorOccurredPayment =
+      'An error occurred when trying to make a payment';
 }

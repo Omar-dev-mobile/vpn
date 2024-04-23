@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
-import 'package:vpn/core/customs/common_text_widget.dart';
+import 'package:vpn/core/customs/custom_error.dart';
 import 'package:vpn/core/customs/drawer_widget.dart';
+import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/features/select_country/presentation/widgets/flag_row_widget.dart';
@@ -17,8 +17,13 @@ class SelectCountryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const DrawerWidget(),
+      drawerEnableOpenDragGesture: false,
       body: BlocConsumer<CountryCubit, CountryState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is CountriesSelectVpnEndState) {
+            context.pushRoute(const MainRoute());
+          }
+        },
         builder: (context, state) {
           return Column(
             children: [
@@ -36,13 +41,11 @@ class SelectCountryScreen extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                       } else if (state is CountriesErrorState) {
-                        return Center(
-                          child: CommonTextWidget(
-                            text: state.error,
-                            textAlign: TextAlign.center,
-                            size: screenUtil.setSp(16),
-                            fontWeight: FontWeight.w400,
-                          ),
+                        return CustomError(
+                          error: state.error,
+                          onPressed: () {
+                            CountryCubit.get(context).getCountriesList();
+                          },
                         );
                       }
                       var countriesModel = countryCubit.countriesModel;
