@@ -44,7 +44,7 @@ class LogOut extends StatelessWidget {
             locator<CacheHelper>().removeUser().then((value) async {
               final homeCubit = HomeCubit.get(context);
               if (homeCubit.isOnline && !homeCubit.inProgress) {
-                homeCubit.stopVpnConnecting(context);
+                homeCubit.stopVpnConnecting(context, showDialog: false);
               }
               locator<SystemInfoService>().dispose();
               MainCubit.get(context).getDataServiceAcc(isUpdateAcc: true);

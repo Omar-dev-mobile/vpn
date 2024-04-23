@@ -27,8 +27,8 @@ class ListTitleDrawerWidget extends StatelessWidget {
             color: isActive
                 ? Theme.of(context).textTheme.titleMedium!.color
                 : primaryColor,
-            size: screenUtil.setSp(30),
-            fontWeight: FontWeight.w300,
+            size: screenUtil.setSp(22),
+            fontWeight: FontWeight.w400,
           ),
           onTap: onTap,
         ),

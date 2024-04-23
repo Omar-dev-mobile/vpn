@@ -16,7 +16,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     emit(ProfileLoadingState());
     var getSecurityDataAlgithms =
         await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();
-    print(getSecurityDataAlgithms?.toJsonInit());
     workStatus = getSecurityDataAlgithms?.workStatus ?? '';
     final res = await profileUseCases.getProfile();
     emit(res.fold((l) => ProfileErrorState(l), (r) => ProfileSuccessState(r)));

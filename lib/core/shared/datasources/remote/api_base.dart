@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:dio/dio.dart';
@@ -16,7 +17,7 @@ abstract class ApiBase {
 
   final Dio _dio = Dio();
   ApiBase() {
-    _dio.interceptors.add(LogInterceptor(responseBody: true));
+    // _dio.interceptors.add(LogInterceptor(responseBody: true));
   }
 
   Future<RequestResult> request({
@@ -77,7 +78,7 @@ abstract class ApiBase {
               ));
           break;
       }
-      decodedJson = resp!.data;
+      decodedJson = resp?.data;
     } catch (e, st) {
       log("""HTTP Request error: 
             statusCode: ${resp?.statusCode}
@@ -89,7 +90,8 @@ abstract class ApiBase {
       decodedJson = Map.from(<String, dynamic>{});
       rethrow;
     }
-    return RequestResult(decodedJson, resp.statusCode);
+    print(decodedJson);
+    return RequestResult(decodedJson, resp?.statusCode ?? 404);
   }
 
   void initAdapter() {

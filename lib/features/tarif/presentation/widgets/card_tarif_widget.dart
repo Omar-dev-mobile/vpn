@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -13,12 +11,14 @@ class CardTarifWidget extends StatelessWidget {
     super.key,
     required this.prise,
     required this.plan,
+    required this.tarifDays,
     required this.day,
     this.percent,
     required this.index,
   });
   final String prise;
   final String plan;
+  final String tarifDays;
   final String day;
   final double? percent;
   final int index;
@@ -65,7 +65,7 @@ class CardTarifWidget extends StatelessWidget {
               child: Row(
                 children: [
                   CommonTextWidget(
-                    text: plan,
+                    text: tarifDays,
                     color: kWhite.withOpacity(0.7),
                     size: screenUtil.setSp(25),
                     fontWeight: FontWeight.w300,

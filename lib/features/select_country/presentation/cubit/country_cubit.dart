@@ -12,6 +12,7 @@ import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart'
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/select_country/data/models/countries_model.dart';
 import 'package:vpn/features/select_country/domain/usecases/country_usecases.dart';
+import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/locator.dart';
 
 part 'country_state.dart';
@@ -43,10 +44,9 @@ class CountryCubit extends Cubit<CountryState> {
   Future selectVpn(VpnListModel? vpnList, BuildContext context) async {
     var mainCubit = MainCubit.get(context);
     if (mainCubit.errorMessage.isNotEmpty) {
-      await customDialog(context,
-          "Для использования VPN сервера необхоимо приобрести подписку! Приобрести?",
-          () async {
+      await customDialog(context, mainCubit.errorMessage, () async {
         Navigator.pop(context);
+        TarifCubit.get(context).getTrials();
         context.pushRoute(const TarifRoute());
       });
       return;

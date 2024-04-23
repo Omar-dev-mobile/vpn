@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
     final homeCubit = HomeCubit.get(context);
     return Scaffold(
       drawer: const DrawerWidget(),
+      drawerEnableOpenDragGesture: false,
       floatingActionButton: KeyboardVisibilityBuilder(
         builder: (context, isKeyboardVisible) {
           return isKeyboardVisible

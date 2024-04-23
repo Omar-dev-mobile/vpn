@@ -13,6 +13,7 @@ import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/profile/data/models/profile_model.dart';
 import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
+import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
 class ProfileWithSub extends StatelessWidget {
@@ -117,6 +118,7 @@ class ProfileWithSub extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: RoundedButton(
                         onPressed: () {
+                          TarifCubit.get(context).getTrials();
                           context.pushRoute(const TarifRoute());
                         },
                         name: LocaleKeys.renewSubscription.tr(),
@@ -137,7 +139,7 @@ class ProfileWithSub extends StatelessWidget {
                     children: [
                       IconButton(
                         onPressed: () {
-                          context.maybePop();
+                          context.pushRoute(const MainRoute());
                         },
                         icon: SvgPicture.asset(Assets.close),
                       ),

@@ -39,21 +39,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(AuthLoadingGoogleState());
       GoogleSignInAccount? google = await signInWithGoogle();
-      AuthModel authModel = AuthModel(
-        login: google?.id ?? "",
-        email: google?.email ?? "",
-        isGoogleLogin: true,
-      );
-      final res = await authUseCase.call(authModel);
-      emit(
-        res.fold(
-          (failure) => AuthErrorState(error: failure),
-          (data) {
-            locator<SystemInfoService>().isLogin = true;
-            return AuthSuccessState();
-          },
-        ),
-      );
+
+      if (google?.id != null) {
+        AuthModel authModel = AuthModel(
+          login: google?.id ?? "",
+          email: google?.email ?? "",
+          isGoogleLogin: true,
+        );
+        final res = await authUseCase.call(authModel);
+        emit(
+          res.fold(
+            (failure) => AuthErrorState(error: failure),
+            (data) {
+              locator<SystemInfoService>().isLogin = true;
+              return AuthSuccessState();
+            },
+          ),
+        );
+      } else {
+        emit(StopAuthState());
+      }
     } catch (e) {
       emit(const AuthErrorState(error: 'An unexpected error occurred'));
     }
@@ -66,21 +71,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(AuthLoadingAppleState());
       final apple = await signInWithApple();
-      AuthModel authModel = AuthModel(
-        login: apple.userIdentifier ?? '',
-        email: apple.email ?? "",
-        isGoogleLogin: true,
-      );
-      final res = await authUseCase.call(authModel);
-      emit(
-        res.fold(
-          (failure) => AuthErrorState(error: failure),
-          (data) {
-            locator<SystemInfoService>().isLogin = true;
-            return AuthSuccessState();
-          },
-        ),
-      );
+      if (apple.userIdentifier != null) {
+        AuthModel authModel = AuthModel(
+          login: apple.userIdentifier ?? '',
+          email: apple.email ?? "",
+          isGoogleLogin: false,
+        );
+        final res = await authUseCase.call(authModel);
+        emit(
+          res.fold(
+            (failure) => AuthErrorState(error: failure),
+            (data) {
+              locator<SystemInfoService>().isLogin = true;
+              return AuthSuccessState();
+            },
+          ),
+        );
+      } else {
+        emit(StopAuthState());
+      }
     } catch (e) {
       emit(const AuthErrorState(error: 'An unexpected error occurred'));
     }

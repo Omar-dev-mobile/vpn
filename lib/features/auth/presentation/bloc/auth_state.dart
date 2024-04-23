@@ -19,3 +19,5 @@ class AuthErrorState extends AuthState {
 }
 
 class AuthSuccessState extends AuthState {}
+
+class StopAuthState extends AuthState {}

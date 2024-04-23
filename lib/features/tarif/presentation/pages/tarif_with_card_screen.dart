@@ -39,6 +39,7 @@ class TarifWithCardScreen extends StatelessWidget {
                         return CardTarifWidget(
                           prise: '5',
                           index: index,
+                          tarifDays: "",
                           plan: 'Week',
                           day: '30 days',
                           percent: index == 0 ? 0.7 : null,

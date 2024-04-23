@@ -11,6 +11,7 @@ import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/profile/data/models/profile_model.dart';
 import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vpn/features/profile/presentation/widgets/profile_widget.dart';
+import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
 class ProfileWithoutSub extends StatelessWidget {
@@ -52,6 +53,7 @@ class ProfileWithoutSub extends StatelessWidget {
               color: kDarkGreen,
               size: 20,
               onPressed: () {
+                TarifCubit.get(context).getTrials();
                 context.pushRoute(const TarifRoute());
               },
               fontWeight: FontWeight.w500,

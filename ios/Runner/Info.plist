@@ -2,7 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+	<string>sms</string>
+	<string>tel</string>
+	</array>
 	<key>GIDClientID</key>
 	<string>440899395030-vgpf3745gp91dld0r2g485e9hpl464na.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>

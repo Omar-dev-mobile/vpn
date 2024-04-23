@@ -26,4 +26,9 @@ class ErrorPurchaseState extends PurchasesStatus {
   const ErrorPurchaseState({required this.error});
 }
 
+class ErrorOriginalTransactionPurchaseState extends PurchasesStatus {
+  final String error;
+  const ErrorOriginalTransactionPurchaseState({required this.error});
+}
+
 class SuccessPurchaseState extends PurchasesStatus {}
