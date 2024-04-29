@@ -60,7 +60,7 @@ class DrawerWidget extends StatelessWidget {
                   .tr(), //MainCubit.get(context).getDataServiceAcc();
               onTap: () {
                 if (activeRouteName != MainRoute.name) {
-                  MainCubit.get(context).getDataServiceAcc();
+                  MainCubit.get(context).verifySubscription();
                 }
                 Navigator.pop(context);
                 context.replaceRoute(const MainRoute());

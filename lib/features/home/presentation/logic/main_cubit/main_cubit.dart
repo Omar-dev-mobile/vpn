@@ -27,10 +27,7 @@ class MainCubit extends Cubit<MainState> {
   static MainCubit get(context) => BlocProvider.of(context);
 
   String errorMessage = '';
-  Future getDataServiceAcc({bool isUpdateAcc = false}) async {
-    if (!isUpdateAcc) {
-      return;
-    }
+  Future getDataServiceAcc() async {
     emit(LoadingGetDataServiceAccState());
     final res = await _homeUseCase.getDataServiceAcc();
     emit(await res.fold((l) {
@@ -47,10 +44,22 @@ class MainCubit extends Cubit<MainState> {
     }));
   }
 
+  Future verifySubscription() async {
+    final res = await _homeUseCase.getDataServiceAcc();
+    res.fold((l) {}, (data) {
+      final mess = data.workStatus?.errorMessage ?? "";
+      if (errorMessage != mess) {
+        errorMessage = mess;
+        emit(LoadingGetDataServiceAccState());
+        emit(SuccessGetDataServiceAccState(data));
+      }
+    });
+  }
+
   Widget getWidgetMain(
       DataServiceAccModel dataServiceAccModel, BuildContext context) {
     switch (dataServiceAccModel.workStatus?.errorAction) {
-      case null:
+      case null || "":
         _systemInfoService.isLogin = true;
         return const HomeScreen();
       case "login":

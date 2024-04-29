@@ -52,12 +52,11 @@ dependencies:
   flutter_local_notifications: ^9.7.0
   flutter_vpn:
   url_launcher:
-  
-      
   in_app_purchase: ^3.1.11
   flutter_secure_storage: ^9.0.0
-  
   easy_localization: ^3.0.1
+  focus_detector: ^2.0.1
+  logger: ^2.2.0
   
 
 

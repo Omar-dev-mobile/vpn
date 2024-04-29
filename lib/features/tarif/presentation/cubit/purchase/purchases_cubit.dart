@@ -33,7 +33,6 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   StreamSubscription<List<PurchaseDetails>>? subscription;
   List<String> notFoundIds = <String>[];
   List<ProductDetails> tarifs = <ProductDetails>[];
-  List<PurchaseDetails> purchases = <PurchaseDetails>[];
   List<String> consumables = <String>[];
   bool isAvailable = false;
   bool purchasePending = false;
@@ -54,7 +53,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   void goToHome(BuildContext context) async {
     context.pushRoute(const MainRoute());
     locator<PurchasesCubit>().closeSubscription();
-    MainCubit.get(context).getDataServiceAcc(isUpdateAcc: true);
+    MainCubit.get(context).getDataServiceAcc();
   }
 
   final isAndroid = Platform.isAndroid;
@@ -86,14 +85,12 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     if (!isAvailable) {
       isAvailable = isAvailable;
       tarifs = <ProductDetails>[];
-      purchases = <PurchaseDetails>[];
       notFoundIds = <String>[];
       consumables = <String>[];
       purchasePending = false;
       loading = false;
       return;
     }
-
     if (!isAndroid) {
       var paymentWrapper = SKPaymentQueueWrapper();
       var transactions = await paymentWrapper.transactions();
@@ -114,7 +111,6 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       queryProductError = productDetailResponse.error!.message;
       isAvailable = isAvailable;
       tarifs = productDetailResponse.productDetails;
-      purchases = <PurchaseDetails>[];
       notFoundIds = productDetailResponse.notFoundIDs;
       consumables = <String>[];
       purchasePending = false;
@@ -126,7 +122,6 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       queryProductError = null;
       isAvailable = isAvailable;
       tarifs = productDetailResponse.productDetails;
-      purchases = <PurchaseDetails>[];
       notFoundIds = productDetailResponse.notFoundIDs;
       consumables = <String>[];
       purchasePending = false;
@@ -142,7 +137,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     consumables = consumableStore;
     purchasePending = false;
     loading = false;
-    print("purchaseDetailsList1111 $purchases");
+    print("purchaseDetailsList1111 $tarifs");
     emit(EndInitStoreInfoState());
   }
 
@@ -161,7 +156,6 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     dispose();
     late PurchaseParam purchaseParam;
     productIdToBuy = productId;
-    print("tarifs $tarifs");
     if (tarifs.isEmpty) return;
     ProductDetails productDetail =
         tarifs.firstWhere((element) => element.id == productId);
@@ -279,16 +273,6 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   void showPendingUI() {
     purchasePending = true;
     emit(LoadingPendingPurchaseState());
-  }
-
-  Future<void> deliverProduct(PurchaseDetails purchaseDetails) async {
-    purchases.add(purchaseDetails);
-    purchasePending = false;
-    emit(EndPendingPurchaseState());
-  }
-
-  Future<bool> verifyPurchase(PurchaseDetails purchaseDetails) {
-    return Future<bool>.value(true);
   }
 }
 

@@ -28,8 +28,7 @@ class MainScreen extends StatelessWidget {
                     child: CustomError(
                       error: state.error,
                       onPressed: () {
-                        MainCubit.get(context)
-                            .getDataServiceAcc(isUpdateAcc: true);
+                        MainCubit.get(context).getDataServiceAcc();
                       },
                     ),
                   ),

@@ -56,7 +56,7 @@ class CountryCubit extends Cubit<CountryState> {
       await cacheHelper.saveVpnServer(vpnList).then((value) {});
       systemInfoService.vpnServer = vpnList;
       var mainCubit = MainCubit.get(context);
-      await mainCubit.getDataServiceAcc(isUpdateAcc: true).then((value) {
+      await mainCubit.getDataServiceAcc().then((value) {
         var homeCubit = HomeCubit.get(context);
         if (homeCubit.isOnline) {
           homeCubit.stopVpnConnecting(context, showDialog: false).then((value) {
