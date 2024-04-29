@@ -48,8 +48,6 @@ class _TarifScreenState extends State<TarifScreen> {
             CustomSnackBar.badSnackBar(context, statePurchases.error);
             purchasesCubit.goToHome(context);
           } else if (statePurchases is SuccessPurchaseState) {
-            print(
-                "SuccessPurchaseStateSuccessPurchaseStateSuccessPurchaseStateSuccessPurchaseState");
             purchasesCubit.goToHome(context);
             CustomSnackBar.goodSnackBar(
               context,
@@ -81,13 +79,26 @@ class _TarifScreenState extends State<TarifScreen> {
                         child: Builder(
                           builder: (context) {
                             var purchasesCubit = PurchasesCubit.get(context);
-                            if (state is TarifLoadingState) {
+
+                            if (state is TarifLoadingState ||
+                                statePurchases is LoadingInitStoreInfoState) {
                               return const Center(
                                 child: CircularProgressIndicator(),
                               );
                             } else if (state is TarifErrorState) {
                               return CustomError(
                                 error: state.error,
+                                onPressed: () {
+                                  tarifCubit.getTrials();
+                                },
+                              );
+                            }
+                            if (statePurchases is EndInitStoreInfoState &&
+                                purchasesCubit.tarifs.isEmpty) {
+                              return CustomError(
+                                error: LocaleKeys
+                                    .somethingWentWrongPleaseTryAgain
+                                    .tr(),
                                 onPressed: () {
                                   tarifCubit.getTrials();
                                 },

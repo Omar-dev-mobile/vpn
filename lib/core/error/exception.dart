@@ -16,7 +16,7 @@ class Failure {
     if (message.isNotEmpty) {
       return message;
     } else {
-      return "Something went wrong, Please try again";
+      return LocaleKeys.somethingWentWrongPleaseTryAgain.tr();
     }
   }
 }

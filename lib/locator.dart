@@ -59,8 +59,8 @@ Future<void> setupLocator() async {
   locator.registerLazySingleton(() => CountryCubit(locator()));
   locator.registerLazySingleton(() => ThemeModeCubit());
   locator.registerLazySingleton(() => PurchasesCubit(locator(), locator()));
-  locator.registerLazySingleton(() => MainCubit(locator(), locator(), locator())
-    ..getDataServiceAcc(isUpdateAcc: true));
+  locator.registerLazySingleton(
+      () => MainCubit(locator(), locator(), locator())..getDataServiceAcc());
   locator.registerLazySingleton(() => ProfileCubit(locator()));
 
   locator.registerFactory(

@@ -47,7 +47,7 @@ class LogOut extends StatelessWidget {
                 homeCubit.stopVpnConnecting(context, showDialog: false);
               }
               locator<SystemInfoService>().dispose();
-              MainCubit.get(context).getDataServiceAcc(isUpdateAcc: true);
+              MainCubit.get(context).getDataServiceAcc();
               context.pushRoute(const MainRoute());
             });
           }

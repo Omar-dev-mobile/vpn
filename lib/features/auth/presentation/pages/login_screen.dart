@@ -34,7 +34,7 @@ class LoginScreen extends StatelessWidget {
               child: BlocConsumer<AuthBloc, AuthState>(
                 listener: (context, state) {
                   if (state is AuthSuccessState) {
-                    MainCubit.get(context).getDataServiceAcc(isUpdateAcc: true);
+                    MainCubit.get(context).getDataServiceAcc();
                     context.replaceRoute(const MainRoute());
                   }
                 },
