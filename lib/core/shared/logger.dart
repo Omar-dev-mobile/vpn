@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart' as logging;
+import 'package:vpn/translations/locate_keys.g.dart';
 
 /// Logger instance declared as global variable
 ///
@@ -138,7 +140,7 @@ abstract base class Logger {
     final description = details.exceptionAsString();
 
     error(
-      'Flutter Error: $description',
+      LocaleKeys.anUnexpectedErrorOccurred.tr() + description,
       error: details.exception,
       stackTrace: details.stack,
     );
@@ -147,7 +149,7 @@ abstract base class Logger {
   /// Handy method to log [PlatformDispatcher] error
   bool logPlatformDispatcherError(Object error, StackTrace stackTrace) {
     this.error(
-      'Platform Dispatcher Error: $error',
+      LocaleKeys.anUnexpectedErrorOccurred.tr() + error.toString(),
       error: error,
       stackTrace: stackTrace,
     );

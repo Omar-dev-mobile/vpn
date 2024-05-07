@@ -141,7 +141,7 @@ class ProfileWithSub extends StatelessWidget {
                       IconButton(
                         onPressed: () {
                           MainCubit.get(context).verifySubscription();
-                          context.pushRoute(const MainRoute());
+                          context.replaceRoute(const MainRoute());
                         },
                         icon: SvgPicture.asset(Assets.close),
                       ),

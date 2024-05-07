@@ -32,7 +32,6 @@ class VPNIOSManager {
     return _eventChannel.receiveBroadcastStream().map((result) {
       final status = convertStatusStringToEnum(result['status']);
       final lastMcc = result['lastMcc'];
-      print("objectobjectobject${result['dateConnection']}");
       final dateConnection = result['dateConnection'] != null
           ? DateTime.tryParse(result['dateConnection'])
           : null;
@@ -79,7 +78,6 @@ class VPNIOSManager {
       final result = await _channel.invokeMethod('getStatus');
       final status = convertStatusStringToEnum(result['status']);
       final lastMcc = result['lastMcc'];
-      print(result['dateConnection']);
       final dateConnection = result['dateConnection'] != null
           ? DateTime.tryParse(result['dateConnection'])
           : null;

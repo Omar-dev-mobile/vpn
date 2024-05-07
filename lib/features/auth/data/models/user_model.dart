@@ -71,6 +71,8 @@ class UserInfoModel extends UserInfo {
     clientDateCreate = json['client_date_create'];
     clientDateCreateUnixtime = json['client_date_create_unixtime'];
     tarifInfo = TarifInfo.fromJson(json['tarif_info']);
+    print(vpnTimeExpire);
+    print(tarifInfo?.tarifName ?? "");
     percent = getPercent(vpnTimeExpire, tarifInfo?.tarifName ?? "");
   }
 

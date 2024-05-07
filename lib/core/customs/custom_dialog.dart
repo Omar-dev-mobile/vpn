@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
-Future customDialog(BuildContext context, String title, Function() function,
-    {String buttonLift = "No", String buttonRight = "Yes"}) async {
+Future customDialog(
+  BuildContext context,
+  String title,
+  Function() function,
+) async {
   await showDialog(
       context: context,
       builder: (context) {

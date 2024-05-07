@@ -19,7 +19,7 @@ class ThemeModeCubit extends Cubit<ThemeModeState> {
   static ThemeModeCubit get(context) => BlocProvider.of(context);
 
   final cacheHelper = locator<CacheHelper>();
-  final systemInfoService = locator<SystemInfoService>();
+  final systemInfoService = SystemInfoService();
 
   void toggleMode() {
     emit(LoadingThemeModeAppState());

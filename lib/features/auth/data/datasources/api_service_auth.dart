@@ -18,7 +18,7 @@ class ApiServiceAuth extends ApiBase {
           "$rnd${authModel.login}", cacheHelper?.udid ?? "");
       final response = await post(
         BASE_URL,
-        queryParameters: {
+        body: {
           "oper": authModel.isGoogleLogin ? "login_google" : "login_apple_id",
           "udid": cacheHelper?.udid ?? "",
           "rnd": rnd,

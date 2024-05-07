@@ -17,14 +17,14 @@ class ApiServiceCountry extends ApiBase {
 
       final signature = await rsaKeyHelper.getSignature(
           "$rnd${vers.toString()}", cacheHelper?.udid ?? "");
-      final queryParams = rsaKeyHelper.buildQueryString({
+      final body = rsaKeyHelper.buildQueryString({
         "oper": "get_vpn_list",
         "udid": cacheHelper?.udid ?? "",
         "rnd": rnd,
         "vers": vers.toString(),
         "signature": signature,
       });
-      final response = await post('$BASE_URL?$queryParams');
+      final response = await post(BASE_URL, body: body);
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
       }

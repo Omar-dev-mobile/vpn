@@ -47,7 +47,6 @@ import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 
 import 'core/router/app_router.dart';
 import 'core/shared/components/notification_service.dart';
-import 'features/splash/presentation/bloc/splash_cubit.dart';
 
 GetIt locator = GetIt.instance;
 
@@ -55,12 +54,11 @@ Future<void> setupLocator() async {
   //BLOC
 
   locator.registerFactory(() => HomeCubit());
-  locator.registerLazySingleton(() => SplashCubit());
   locator.registerLazySingleton(() => CountryCubit(locator()));
   locator.registerLazySingleton(() => ThemeModeCubit());
   locator.registerLazySingleton(() => PurchasesCubit(locator(), locator()));
   locator.registerLazySingleton(
-      () => MainCubit(locator(), locator(), locator())..getDataServiceAcc());
+      () => MainCubit(locator(), locator())..getDataServiceAcc());
   locator.registerLazySingleton(() => ProfileCubit(locator()));
 
   locator.registerFactory(

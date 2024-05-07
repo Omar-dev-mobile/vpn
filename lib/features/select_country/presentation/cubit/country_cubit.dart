@@ -22,7 +22,7 @@ class CountryCubit extends Cubit<CountryState> {
   CountryUseCases countryUseCases;
 
   static CountryCubit get(context) => BlocProvider.of(context);
-  final systemInfoService = locator<SystemInfoService>();
+  final systemInfoService = SystemInfoService();
   final cacheHelper = locator<CacheHelper>();
   CountriesModel? countriesModel;
 
@@ -53,7 +53,7 @@ class CountryCubit extends Cubit<CountryState> {
     }
     if (vpnList != null) {
       emit(CountriesSelectVpnLoadingState());
-      await cacheHelper.saveVpnServer(vpnList).then((value) {});
+      await cacheHelper.saveVpnServer(vpnList);
       systemInfoService.vpnServer = vpnList;
       var mainCubit = MainCubit.get(context);
       await mainCubit.getDataServiceAcc().then((value) {

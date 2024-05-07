@@ -10,10 +10,9 @@ import 'package:vpn/core/customs/custom_error.dart';
 import 'package:vpn/core/customs/drawer_widget.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
-import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
-import 'package:vpn/features/tarif/presentation/widgets/card_tarif_widget.dart';
+import 'package:vpn/features/tarif/presentation/widgets/list_tarif.dart';
 import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
@@ -34,11 +33,8 @@ class _TarifScreenState extends State<TarifScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var mainCubit = MainCubit.get(context);
-
     return Scaffold(
       drawer: const DrawerWidget(),
-      drawerEnableOpenDragGesture: false,
       body: BlocConsumer<PurchasesCubit, PurchasesStatus>(
         listener: (context, statePurchases) {
           var purchasesCubit = PurchasesCubit.get(context);
@@ -64,7 +60,9 @@ class _TarifScreenState extends State<TarifScreen> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const AppBarHeader(),
+                      const AppBarHeader(
+                        isClose: true,
+                      ),
                       screenUtil.setHeight(33).ph,
                       Padding(
                         padding: const EdgeInsets.only(left: 20),
@@ -106,12 +104,6 @@ class _TarifScreenState extends State<TarifScreen> {
                             }
                             var tarifs =
                                 (state as TarifSuccessState).tarifModel;
-                            var userInfo =
-                                tarifCubit.vpnInfo?.userInfo?.tarifInfo;
-                            bool tarifUser = tarifCubit.vpnInfo != null &&
-                                userInfo != null &&
-                                userInfo.productId != null &&
-                                mainCubit.errorMessage.isEmpty;
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20),
@@ -124,63 +116,9 @@ class _TarifScreenState extends State<TarifScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          ListView.builder(
-                                            physics:
-                                                const NeverScrollableScrollPhysics(),
-                                            itemBuilder: (context, index) {
-                                              if (tarifUser && index == 0) {
-                                                return CardTarifWidget(
-                                                  prise: userInfo
-                                                          .tarifCostActivation ??
-                                                      "",
-                                                  index: 0,
-                                                  plan:
-                                                      userInfo.tarifName ?? "",
-                                                  tarifDays:
-                                                      userInfo.tarifName ?? "",
-                                                  day:
-                                                      '${userInfo.tarifDays ?? ""} ${LocaleKeys.days.tr()}',
-                                                  percent: getPercent(
-                                                      tarifCubit
-                                                          .vpnInfo
-                                                          ?.userInfo
-                                                          ?.vpnTimeExpire,
-                                                      userInfo.tarifName ?? ""),
-                                                );
-                                              }
-                                              var traif = tarifs
-                                                      .workStatus?.tarifList?[
-                                                  index - (tarifUser ? 1 : 0)];
-                                              if (userInfo?.productId ==
-                                                  traif?.tarifBuy) {
-                                                return const SizedBox.shrink();
-                                              }
-                                              return GestureDetector(
-                                                onTap: () {
-                                                  if (statePurchases
-                                                      is! LoadingPendingPurchaseState) {
-                                                    purchasesCubit.buyTarif(
-                                                        traif!.tarifBuy ?? "");
-                                                  }
-                                                },
-                                                child: CardTarifWidget(
-                                                  prise: traif
-                                                          ?.tarifCostActivation ??
-                                                      "",
-                                                  index: index,
-                                                  tarifDays:
-                                                      userInfo?.tarifName ?? "",
-                                                  plan: traif?.tarifName ?? "",
-                                                  day:
-                                                      '${traif?.tarifDays ?? ""} ${LocaleKeys.days.tr()}',
-                                                ),
-                                              );
-                                            },
-                                            itemCount: ((tarifs.workStatus
-                                                        ?.tarifList?.length ??
-                                                    0) +
-                                                (tarifUser ? 1 : 0)),
-                                            shrinkWrap: true,
+                                          ListTariff(
+                                            statePurchases: statePurchases,
+                                            tarifs: tarifs,
                                           ),
                                           60.ph,
                                         ],

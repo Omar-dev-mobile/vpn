@@ -24,7 +24,6 @@ class AboutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const DrawerWidget(),
-      drawerEnableOpenDragGesture: false,
       body: SingleChildScrollView(
         child: Column(
           children: [

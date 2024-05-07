@@ -35,7 +35,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   static HomeCubit get(context) => BlocProvider.of(context);
   VPNIOSManager vpniosManager = locator<VPNIOSManager>();
-  SystemInfoService systemInfoService = locator<SystemInfoService>();
+  SystemInfoService systemInfoService = SystemInfoService();
   final HandlerErrorNative _handlerErrorNative = locator<HandlerErrorNative>();
   StreamSubscription<dynamic>? _vpnStatusSubscription;
   ConnectionStatus get statusConnection =>

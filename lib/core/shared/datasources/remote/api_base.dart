@@ -1,9 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
+import 'package:cupertino_http/cupertino_http.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:http/io_client.dart';
 import 'package:vpn/core/constants.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_interceptor/http_interceptor.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 class RequestResult {
   dynamic json;
@@ -14,10 +18,25 @@ class RequestResult {
 
 abstract class ApiBase {
   late String endpoint;
+  late http.Client httpClient; // Change: Declare httpClient here
 
-  final Dio _dio = Dio();
   ApiBase() {
-    // _dio.interceptors.add(LogInterceptor(responseBody: true));
+    initCer();
+  }
+
+  initCer() async {
+    http.Client client;
+    if (Platform.isIOS || Platform.isMacOS) {
+      final config = URLSessionConfiguration.ephemeralSessionConfiguration()
+        ..allowsCellularAccess = true
+        ..allowsExpensiveNetworkAccess = true
+        ..cache = URLCache.withCapacity(memoryCapacity: 2 * 1024 * 1024);
+      client = CupertinoClient.fromSessionConfiguration(config);
+    } else {
+      client = IOClient();
+    }
+    httpClient = InterceptedClient.build(
+        interceptors: [LoggerInterceptor()], client: client);
   }
 
   Future<RequestResult> request({
@@ -27,84 +46,49 @@ abstract class ApiBase {
     dynamic body,
     Map<String, String>? queryParameters,
     bool customPath = false,
-    String contentType = 'application/json',
+    String contentType = 'application/x-www-form-urlencoded',
   }) async {
     path = customPath ? endpoint : path;
-    Response? resp;
     dynamic decodedJson;
     headers.addAll({"lang": getlocaleName()});
-    print(path);
+    headers["Content-Type"] = "application/x-www-form-urlencoded";
+    final Uri uri = Uri.parse(path);
+    log('🚀🚀🚀---------------------------------🚀🚀🚀');
+    log('|  SENT $method:');
+    log('|    🟡 BODY: $body');
+    log('🚀🚀🚀---------------------------------🚀🚀🚀');
+    log('\n');
     try {
+      late http.Response response;
       switch (method) {
         case 'post':
-          resp = await _dio.post(path,
-              data: body,
-              options: Options(
-                contentType: contentType,
-                headers: headers,
-              ),
-              queryParameters: queryParameters);
+          response = await httpClient.post(uri, headers: headers, body: body);
           break;
         case 'get':
-          resp = await _dio.get(path,
-              queryParameters: queryParameters,
-              options: Options(
-                headers: headers,
-              ));
+          response = await httpClient.get(uri, headers: headers);
           break;
         case 'delete':
-          resp = await _dio.delete(path,
-              queryParameters: queryParameters,
-              options: Options(
-                headers: headers,
-              ));
+          response = await httpClient.delete(uri, headers: headers);
           break;
-        case "put":
-          resp = await _dio.put(path,
-              data: body,
-              queryParameters: queryParameters,
-              options: Options(
-                contentType: contentType,
-                headers: headers,
-              ));
+        case 'put':
+          response = await httpClient.put(uri, headers: headers, body: body);
           break;
-        case "patch":
-          resp = await _dio.patch(path,
-              data: body,
-              queryParameters: queryParameters,
-              options: Options(
-                contentType: contentType,
-                headers: headers,
-              ));
+        case 'patch':
+          response = await httpClient.patch(uri, headers: headers, body: body);
           break;
+        default:
+          throw Exception(LocaleKeys.anUnexpectedErrorOccurred.tr());
       }
-      decodedJson = resp?.data;
+      decodedJson = json.decode(response.body);
+      return RequestResult(decodedJson, response.statusCode);
     } catch (e, st) {
-      log("""HTTP Request error: 
-            statusCode: ${resp?.statusCode}
-            body: ${resp?.data}
+      print("""HTTP Request error: 
             exception: $e
             stackTrace: $st
             """);
-
-      decodedJson = Map.from(<String, dynamic>{});
+      decodedJson = <String, dynamic>{};
       rethrow;
     }
-    print(decodedJson);
-    return RequestResult(decodedJson, resp?.statusCode ?? 404);
-  }
-
-  void initAdapter() {
-    _dio.httpClientAdapter = IOHttpClientAdapter(
-      createHttpClient: () {
-        final client = HttpClient();
-        client.badCertificateCallback =
-            (X509Certificate cert, String host, int port) {
-          return true;
-        };
-        return client;
-      },
-    );
   }
 
   Future<RequestResult> post(
@@ -201,24 +185,33 @@ abstract class ApiBase {
   }
 }
 
-class CustomInterceptors extends Interceptor {
+class LoggerInterceptor extends InterceptorContract {
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    print('REQUEST[${options.method}] => PATH: ${options.path}');
-    super.onRequest(options, handler);
+  Future<BaseRequest> interceptRequest({
+    required BaseRequest request,
+  }) async {
+    log('🚀🚀🚀---------------------------------🚀🚀🚀');
+    log('| REQUEST SENT:');
+    log('|    🟡 FULL URL: ${request.url.toString()}');
+    log('|    🟡 request: ${request.toString()}');
+    log('|    🟡 HEADERS: ${request.headers.toString()}');
+    log('🚀🚀🚀---------------------------------🚀🚀🚀');
+    log('\n');
+    return request;
   }
 
   @override
-  void onResponse(Response response, ResponseInterceptorHandler handler) {
-    print(
-        'RESPONSE[${response.statusCode}] => PATH: ${response.requestOptions.path}');
-    super.onResponse(response, handler);
-  }
-
-  @override
-  Future onError(DioException err, ErrorInterceptorHandler handler) async {
-    print(
-        'ERROR[${err.response?.statusCode}] => PATH: ${err.requestOptions.path}');
-    super.onError(err, handler);
+  Future<BaseResponse> interceptResponse({
+    required BaseResponse response,
+  }) async {
+    log('-----------------✅✅✅✅✅-----------------');
+    log('| RESPONSE RECEIVED:');
+    log('|    🟢 REQUEST: ${response.request?.url.toString()}');
+    if (response is Response) {
+      log('|    🟢 DATA: ${(response).body}');
+    }
+    log('-----------------✅✅✅✅✅-----------------');
+    log('\n');
+    return response;
   }
 }

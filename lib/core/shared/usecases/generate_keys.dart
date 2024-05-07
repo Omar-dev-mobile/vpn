@@ -29,9 +29,6 @@ class RsaKeyHelper {
 
     String signature = base64Encode(CryptoUtils.rsaSign(privateKey, hash));
     var token = await FirebaseMessaging.instance.getToken();
-
-    print('The FCM Token: ');
-    print(token);
     return {
       ...getDeviceInfo,
       "oper": "init",
@@ -60,7 +57,6 @@ class RsaKeyHelper {
   Future<String> getSignature(String rnd, String udid) async {
     try {
       final d = udid + rnd;
-      print(d);
       Uint8List hash = generateSHA1Digest(d);
       RSAPrivateKey? privateKey = await cacheHelper.getSavedRSAPrivateKey();
       if (privateKey != null) {
@@ -70,7 +66,6 @@ class RsaKeyHelper {
         return "";
       }
     } catch (e) {
-      print("objectdbfbfd$e");
       rethrow;
     }
   }

@@ -53,6 +53,7 @@ class CacheHelper {
     try {
       await sharedPreferences?.clear();
     } catch (e) {
+      print("error clear data");
       rethrow;
     }
   }
@@ -107,7 +108,7 @@ class CacheHelper {
         return 0;
       }
     } catch (e) {
-      rethrow;
+      return null;
     }
   }
 
@@ -126,13 +127,12 @@ class CacheHelper {
       if (jsonString != null) {
         jsonString = jsonString.trim();
         var res = VpnListModel.fromJson(json.decode(jsonString));
-
         return res;
       } else {
         return null;
       }
     } catch (e) {
-      rethrow;
+      return null;
     }
   }
 
@@ -155,7 +155,7 @@ class CacheHelper {
         return null;
       }
     } catch (e) {
-      rethrow;
+      return null;
     }
   }
 
@@ -178,7 +178,7 @@ class CacheHelper {
         return null;
       }
     } catch (e) {
-      rethrow;
+      return null;
     }
   }
 
@@ -201,7 +201,7 @@ class CacheHelper {
         return null;
       }
     } catch (e) {
-      rethrow;
+      return null;
     }
   }
 
@@ -222,7 +222,7 @@ class CacheHelper {
         return null;
       }
     } catch (e) {
-      rethrow;
+      return null;
     }
   }
 }

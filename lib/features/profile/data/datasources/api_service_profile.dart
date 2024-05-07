@@ -17,13 +17,13 @@ class ApiServiceProfile extends ApiBase {
 
       final signature =
           await rsaKeyHelper.getSignature(rnd, cacheHelper?.udid ?? "");
-      final queryParams = rsaKeyHelper.buildQueryString({
+      final body = rsaKeyHelper.buildQueryString({
         "oper": "get_user_info",
         "udid": cacheHelper?.udid ?? "",
         "rnd": rnd,
         "signature": signature,
       });
-      final response = await post('$BASE_URL?$queryParams');
+      final response = await post(BASE_URL, body: body);
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
       }

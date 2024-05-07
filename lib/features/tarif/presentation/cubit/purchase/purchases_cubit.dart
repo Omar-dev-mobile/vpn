@@ -33,6 +33,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   StreamSubscription<List<PurchaseDetails>>? subscription;
   List<String> notFoundIds = <String>[];
   List<ProductDetails> tarifs = <ProductDetails>[];
+  List<PurchaseDetails> purchases = <PurchaseDetails>[];
   List<String> consumables = <String>[];
   bool isAvailable = false;
   bool purchasePending = false;
@@ -85,12 +86,14 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     if (!isAvailable) {
       isAvailable = isAvailable;
       tarifs = <ProductDetails>[];
+      purchases = <PurchaseDetails>[];
       notFoundIds = <String>[];
       consumables = <String>[];
       purchasePending = false;
       loading = false;
       return;
     }
+
     if (!isAndroid) {
       var paymentWrapper = SKPaymentQueueWrapper();
       var transactions = await paymentWrapper.transactions();
@@ -111,6 +114,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       queryProductError = productDetailResponse.error!.message;
       isAvailable = isAvailable;
       tarifs = productDetailResponse.productDetails;
+      purchases = <PurchaseDetails>[];
       notFoundIds = productDetailResponse.notFoundIDs;
       consumables = <String>[];
       purchasePending = false;
@@ -122,6 +126,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       queryProductError = null;
       isAvailable = isAvailable;
       tarifs = productDetailResponse.productDetails;
+      purchases = <PurchaseDetails>[];
       notFoundIds = productDetailResponse.notFoundIDs;
       consumables = <String>[];
       purchasePending = false;
@@ -137,7 +142,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     consumables = consumableStore;
     purchasePending = false;
     loading = false;
-    print("purchaseDetailsList1111 $tarifs");
+    print("purchaseDetailsList1111 $purchases");
     emit(EndInitStoreInfoState());
   }
 
@@ -153,7 +158,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   String productIdToBuy = "";
 
   Future buyTarif(productId) async {
-    dispose();
+    emit(LoadingPendingPurchaseState());
     late PurchaseParam purchaseParam;
     productIdToBuy = productId;
     if (tarifs.isEmpty) return;
@@ -181,11 +186,11 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     final res = await traifUsecases.buyTarif(transactionIdentifier, productID);
     emit(await res.fold((failure) => ErrorPurchaseState(error: failure),
         (r) async {
+      currentProductId = r.workStatus?.userInfo?.tarifInfo?.productId ?? "";
       dispose();
       if (r.inProgress) {
         return await checkTrans(transactionIdentifier);
       } else {
-        currentProductId = r.workStatus?.userInfo?.tarifInfo?.productId ?? "";
         print("currentProductId $currentProductId");
         return SuccessPurchaseState();
       }
@@ -225,19 +230,6 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
               if (purchaseDetails is AppStorePurchaseDetails) {
                 final originalTransaction =
                     purchaseDetails.skPaymentTransaction.originalTransaction;
-                // print({
-                //   'source': purchaseDetails.verificationData.source,
-                //   'productId': purchaseDetails.productID,
-                //   'verificationData':
-                //       purchaseDetails.verificationData.serverVerificationData,
-                // });
-                if ((originalTransaction?.transactionIdentifier ?? "")
-                    .isEmpty) {
-                  emit(ErrorOriginalTransactionPurchaseState(
-                      error:
-                          "При попытке платежа возникла ошибка ${originalTransaction?.error?.code ?? ""} ${originalTransaction?.error?.domain ?? ""}"));
-                  return;
-                }
                 if (currentProductId != purchaseDetails.productID &&
                     productIdToBuy == purchaseDetails.productID) {
                   await purchaseTarifIos(
@@ -273,6 +265,16 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   void showPendingUI() {
     purchasePending = true;
     emit(LoadingPendingPurchaseState());
+  }
+
+  Future<void> deliverProduct(PurchaseDetails purchaseDetails) async {
+    purchases.add(purchaseDetails);
+    purchasePending = false;
+    emit(EndPendingPurchaseState());
+  }
+
+  Future<bool> verifyPurchase(PurchaseDetails purchaseDetails) {
+    return Future<bool>.value(true);
   }
 }
 

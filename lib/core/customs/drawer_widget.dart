@@ -24,8 +24,7 @@ class DrawerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Color primaryColor = Theme.of(context).primaryColor;
     String activeRouteName = AutoRouter.of(context).topRoute.name;
-    print(activeRouteName);
-    final systemInfoService = locator<SystemInfoService>();
+    final systemInfoService = SystemInfoService();
 
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -56,8 +55,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             screenUtil.setHeight(25).ph,
             ListTitleDrawerWidget(
-              title: LocaleKeys.home
-                  .tr(), //MainCubit.get(context).getDataServiceAcc();
+              title: LocaleKeys.home.tr(),
               onTap: () {
                 if (activeRouteName != MainRoute.name) {
                   MainCubit.get(context).verifySubscription();
@@ -71,7 +69,7 @@ class DrawerWidget extends StatelessWidget {
               ListTitleDrawerWidget(
                 title: LocaleKeys.profile.tr(),
                 onTap: () {
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                   locator<ProfileCubit>().getProfile();
                   context.replaceRoute(const ProfileRoute());
                 },
@@ -94,7 +92,7 @@ class DrawerWidget extends StatelessWidget {
                 title: LocaleKeys.plans.tr(),
                 onTap: () {
                   TarifCubit.get(context).getTrials();
-                  Navigator.pop(context);
+                  // Navigator.pop(context);
                   context.replaceRoute(const TarifRoute());
                 },
                 isActive: activeRouteName == TarifRoute.name,

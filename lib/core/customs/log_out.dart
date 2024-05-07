@@ -39,13 +39,13 @@ class LogOut extends StatelessWidget {
             () async {
           Navigator.pop(context);
           var res = await SettingCubit.get(context).logout(context);
-          print(res);
           if (res) {
             locator<CacheHelper>().removeUser().then((value) async {
               final homeCubit = HomeCubit.get(context);
               if (homeCubit.isOnline && !homeCubit.inProgress) {
                 homeCubit.stopVpnConnecting(context, showDialog: false);
               }
+              locator<CacheHelper>().clearData();
               locator<SystemInfoService>().dispose();
               MainCubit.get(context).getDataServiceAcc();
               context.pushRoute(const MainRoute());

@@ -1,5 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/error/exception.dart';
 import 'package:vpn/core/shared/usecases/network_info.dart';
 import 'package:vpn/locator.dart';
@@ -22,8 +24,7 @@ Future<Either<String, T>> executeAndHandleError<T>(
     final result = await function();
     return Right(result);
   } catch (e, s) {
-    print('Exception in executeAndHandleError$e');
-    print('Stack trace in executeAndHandleError$s');
+    print('Stack trace in execute And Handle Error$s');
     if (e is String) return Left(e);
     final failure = ErrorHandler.handle(e);
     return Left(failure.errorMessage ?? "");
@@ -39,9 +40,16 @@ Future<T> executeAndHandleErrorServer<T>(
     final result = await function();
     return result;
   } on DioException catch (error) {
-    print("objectcsvdsvdsv");
     if (error.response?.statusCode == 401) {
-      // homeKey.currentState?.pushNamed('/login');
+      BuildContext? context = navigatorKey.currentState?.context;
+      if (context != null) {
+        navigatorKey.currentState?.popUntil((route) {
+          if (route.settings.name != '/login') {
+            navigatorKey.currentState?.pushNamed('/login');
+          }
+          return true;
+        });
+      }
     }
     throw DioException(
         message: error.response?.data?["error_status"].toString(),

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
-
-import '../../../../core/constants.dart';
 
 class IconWidget extends StatelessWidget {
   Widget icon;

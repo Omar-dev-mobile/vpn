@@ -1,11 +1,5 @@
-import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
-import '../../../locator.dart';
-import '../../constants.dart';
-import '../datasources/local/cache_helper.dart';
 
 class NotificationService {
   static final NotificationService _notificationService =

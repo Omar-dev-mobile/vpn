@@ -4,9 +4,6 @@ import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/features/home/data/models/data_service_acc_model.dart';
 import 'package:vpn/features/tarif/data/models/tarif_model.dart';
 import 'package:vpn/features/tarif/domain/usecases/traif_usecases.dart';
-import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
-import 'package:vpn/locator.dart';
-
 part 'tarif_state.dart';
 
 class TarifCubit extends Cubit<TarifState> {
@@ -17,7 +14,6 @@ class TarifCubit extends Cubit<TarifState> {
   static TarifCubit get(context) => BlocProvider.of(context);
   Future<void> getTrials() async {
     emit(TarifLoadingState());
-    locator<PurchasesCubit>().initStoreInfo();
     final res = await _traifUsecases.getTarifs();
     emit(
       res.fold((failure) => TarifErrorState(error: failure),

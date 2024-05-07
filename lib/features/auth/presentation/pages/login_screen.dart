@@ -23,7 +23,6 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const DrawerWidget(),
-      drawerEnableOpenDragGesture: false,
       body: Column(
         children: [
           const AppBarHeader(),
