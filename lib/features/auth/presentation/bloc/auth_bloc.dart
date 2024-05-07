@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -7,16 +8,16 @@ import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/usecases/generate_keys.dart';
 import 'package:vpn/features/auth/data/models/auth_model.dart';
 import 'package:vpn/features/auth/domain/usecases/auth_usecases.dart';
-import 'package:vpn/locator.dart';
-
+import 'package:vpn/translations/locate_keys.g.dart';
 part 'auth_event.dart';
-
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthUseCase authUseCase;
   CacheHelper cacheHelper;
   static AuthBloc get(context) => BlocProvider.of(context);
+
+  SystemInfoService systemInfoService = SystemInfoService();
 
   AuthBloc({required this.authUseCase, required this.cacheHelper})
       : super(AuthInitial()) {
@@ -51,7 +52,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           res.fold(
             (failure) => AuthErrorState(error: failure),
             (data) {
-              locator<SystemInfoService>().isLogin = true;
+              systemInfoService.isLogin = true;
               return AuthSuccessState();
             },
           ),
@@ -60,7 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(StopAuthState());
       }
     } catch (e) {
-      emit(const AuthErrorState(error: 'An unexpected error occurred'));
+      emit(AuthErrorState(error: LocaleKeys.anUnexpectedErrorOccurred.tr()));
     }
   }
 
@@ -82,7 +83,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           res.fold(
             (failure) => AuthErrorState(error: failure),
             (data) {
-              locator<SystemInfoService>().isLogin = true;
+              systemInfoService.isLogin = true;
               return AuthSuccessState();
             },
           ),
@@ -91,7 +92,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(StopAuthState());
       }
     } catch (e) {
-      emit(const AuthErrorState(error: 'An unexpected error occurred'));
+      emit(AuthErrorState(error: LocaleKeys.anUnexpectedErrorOccurred.tr()));
     }
   }
 

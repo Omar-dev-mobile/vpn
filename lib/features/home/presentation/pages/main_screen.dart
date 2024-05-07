@@ -13,34 +13,30 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mainCubit = MainCubit.get(context);
-    return PopScope(
-      canPop: false,
-      child: Scaffold(
-        drawer: const DrawerWidget(),
-        body: BlocConsumer<MainCubit, MainState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            if (state is ErrorGetDataServiceAccState) {
-              return Column(
-                children: [
-                  const AppBarHeader(),
-                  Expanded(
-                    child: CustomError(
-                      error: state.error,
-                      onPressed: () {
-                        MainCubit.get(context).getDataServiceAcc();
-                      },
-                    ),
+    return Scaffold(
+      drawer: const DrawerWidget(),
+      body: BlocConsumer<MainCubit, MainState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state is ErrorGetDataServiceAccState) {
+            return Column(
+              children: [
+                const AppBarHeader(),
+                Expanded(
+                  child: CustomError(
+                    error: state.error,
+                    onPressed: () {
+                      MainCubit.get(context).getDataServiceAcc();
+                    },
                   ),
-                ],
-              );
-            } else if (state is SuccessGetDataServiceAccState) {
-              return mainCubit.getWidgetMain(
-                  state.dataServiceAccModel, context);
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ),
+                ),
+              ],
+            );
+          } else if (state is SuccessGetDataServiceAccState) {
+            return mainCubit.getWidgetMain(state.dataServiceAccModel, context);
+          }
+          return const Center(child: CircularProgressIndicator());
+        },
       ),
     );
   }

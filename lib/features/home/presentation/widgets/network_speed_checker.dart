@@ -50,7 +50,6 @@ class _NetworkSpeedCheckerState extends State<NetworkSpeedChecker> {
     final upload = await tester.testUploadSpeed(servers: bestServersList);
     setState(() {
       uploadRate = upload;
-      print("download$upload");
       loadingUpload = false;
     });
   }

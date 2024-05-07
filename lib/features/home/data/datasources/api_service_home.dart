@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/error/execute_and_handle_error.dart';
 import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
@@ -17,14 +19,14 @@ class ApiServiceHome extends ApiBase {
       final rnd = rsaKeyHelper.generateRandomUUID;
       final signature =
           await rsaKeyHelper.getSignature(rnd, cacheGenAlgorithm?.udid ?? "");
-      final queryParams = rsaKeyHelper.buildQueryString({
+      final body = rsaKeyHelper.buildQueryString({
         "oper": "acc",
         "udid": cacheGenAlgorithm?.udid ?? "",
         "rnd": rnd,
         "id_server": idServer?.id?.toString() ?? "1",
         "signature": signature,
       });
-      final response = await post('$BASE_URL?$queryParams');
+      final response = await post(BASE_URL, body: body);
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
       }

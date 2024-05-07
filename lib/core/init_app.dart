@@ -36,7 +36,7 @@ class InitApp {
     ]);
 
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-    HttpOverrides.global = MyHttpOverrides();
+    // HttpOverrides.global = MyHttpOverrides();
 
     Bloc.observer = BlocsObserver();
 

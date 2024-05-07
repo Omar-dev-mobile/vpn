@@ -56,7 +56,7 @@ double getPercent(DateTime? vpnTimeExpire, String tarifName) {
     return 1;
   }
   int difference = vpnTimeExpire.difference(DateTime.now()).inDays;
-  double percentTry = (difference / (tarifCost[tarifName] ?? 0));
+  double percentTry = (difference / (tarifCost[tarifName.toLowerCase()] ?? 0));
   return (percentTry > 1 && percentTry < 0) ? 1 : (1 - percentTry);
 }
 

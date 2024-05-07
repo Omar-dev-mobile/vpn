@@ -18,10 +18,9 @@ import 'package:vpn/translations/locate_keys.g.dart';
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
-  MainCubit(this._homeUseCase, this._systemInfoService, this.cacheHelper)
-      : super(MainInitial());
+  MainCubit(this._homeUseCase, this.cacheHelper) : super(MainInitial());
   final HomeUseCase _homeUseCase;
-  final SystemInfoService _systemInfoService;
+  final SystemInfoService _systemInfoService = SystemInfoService();
   final CacheHelper cacheHelper;
 
   static MainCubit get(context) => BlocProvider.of(context);
@@ -46,10 +45,16 @@ class MainCubit extends Cubit<MainState> {
 
   Future verifySubscription() async {
     final res = await _homeUseCase.getDataServiceAcc();
-    res.fold((l) {}, (data) {
+    res.fold((l) {}, (data) async {
       final mess = data.workStatus?.errorMessage ?? "";
       if (errorMessage != mess) {
         errorMessage = mess;
+        _systemInfoService.vpnInfo = data.workStatus;
+        VpnListModel vpnList =
+            VpnListModel.fromJson(data.workStatus?.vpnInfo?.toJson() ?? {});
+        await cacheHelper.saveVpnServer(vpnList);
+        _systemInfoService.vpnServer = vpnList;
+        errorMessage = data.workStatus?.errorMessage ?? "";
         emit(LoadingGetDataServiceAccState());
         emit(SuccessGetDataServiceAccState(data));
       }

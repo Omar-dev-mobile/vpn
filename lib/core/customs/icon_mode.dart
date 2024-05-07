@@ -10,12 +10,13 @@ class IconMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeModeCubit = ThemeModeCubit.get(context);
-    print(ThemeMode.system == ThemeMode.light);
     return BlocBuilder<ThemeModeCubit, ThemeModeState>(
       builder: (context, state) {
         return GestureDetector(
-          onTap: () {
-            themeModeCubit.toggleMode();
+          onTap: () async {
+            Future.delayed(const Duration(microseconds: 20), () {
+              themeModeCubit.toggleMode();
+            });
           },
           child: Stack(
             alignment: Alignment.center,
@@ -23,7 +24,7 @@ class IconMode extends StatelessWidget {
               SvgPicture.asset(
                 Assets.sun,
                 colorFilter: ColorFilter.mode(
-                    Theme.of(context).textTheme.displaySmall!.color ??
+                    Theme.of(context).textTheme.displaySmall?.color ??
                         Colors.white,
                     BlendMode.srcIn),
               ),

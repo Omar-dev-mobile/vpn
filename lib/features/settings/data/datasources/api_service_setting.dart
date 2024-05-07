@@ -17,7 +17,7 @@ class ApiServiceSetting extends ApiBase {
       final rnd = rsaKeyHelper.generateRandomUUID;
       final signature = await rsaKeyHelper.getSignature(
           "$rnd${model.email}", cacheHelper?.udid ?? "");
-      final queryParams = rsaKeyHelper.buildQueryString({
+      final body = rsaKeyHelper.buildQueryString({
         "oper": "back_user",
         "udid": cacheHelper?.udid ?? "",
         "rnd": rnd,
@@ -26,7 +26,7 @@ class ApiServiceSetting extends ApiBase {
         "message": model.message,
         "signature": signature,
       });
-      final response = await post('$BASE_URL?$queryParams');
+      final response = await post(BASE_URL, body: body);
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
       }
@@ -45,14 +45,14 @@ class ApiServiceSetting extends ApiBase {
               "";
       final signature = await rsaKeyHelper.getSignature(
           rnd + userApiKey, cacheHelper?.udid ?? "");
-      final queryParams = rsaKeyHelper.buildQueryString({
+      final body = rsaKeyHelper.buildQueryString({
         "oper": "logout",
         "udid": cacheHelper?.udid ?? "",
         "rnd": rnd,
         "token": userApiKey,
         "signature": signature,
       });
-      final response = await post('$BASE_URL?$queryParams');
+      final response = await post(BASE_URL, body: body);
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
       }

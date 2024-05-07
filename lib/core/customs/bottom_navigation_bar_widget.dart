@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/router/app_router.dart';
-import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/home/presentation/widgets/nav_bar_widget.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
-import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
@@ -18,26 +16,27 @@ class BottomNavigationBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var countryCubit = CountryCubit.get(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
       child: Row(
         children: [
           BlocBuilder<CountryCubit, CountryState>(
             builder: (context, state) {
-              var vpnServer = locator<SystemInfoService>().vpnServer;
+              var vpnServer = countryCubit.systemInfoService.vpnServer;
               return NavBarWidget(
                 title: vpnServer?.countryName ?? "",
                 icons: vpnServer != null &&
                         (vpnServer.countryId?.isNotEmpty ?? false)
                     ? Flag.fromString(
-                        vpnServer.countryId ?? "",
+                        vpnServer.countryId ?? "de",
                         height: 32,
                         width: 32,
                         borderRadius: 10,
                       )
                     : const SizedBox(),
                 onTap: () {
-                  locator<CountryCubit>().getCountriesList();
+                  countryCubit.getCountriesList();
                   context.pushRoute(const SelectCountryRoute());
                 },
               );

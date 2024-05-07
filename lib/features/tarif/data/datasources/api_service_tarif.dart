@@ -18,13 +18,13 @@ class ApiServiceTarif extends ApiBase {
       final rnd = rsaKeyHelper.generateRandomUUID;
       final signature =
           await rsaKeyHelper.getSignature(rnd, cacheHelper?.udid ?? "");
-      final queryParams = rsaKeyHelper.buildQueryString({
+      final body = rsaKeyHelper.buildQueryString({
         "oper": "get_tarif_list",
         "udid": cacheHelper?.udid ?? "",
         "rnd": rnd,
         "signature": signature,
       });
-      final response = await post('$BASE_URL?$queryParams');
+      final response = await post(BASE_URL, body: body);
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
       }
@@ -42,7 +42,7 @@ class ApiServiceTarif extends ApiBase {
       final rnd = rsaKeyHelper.generateRandomUUID;
       final signature = await rsaKeyHelper.getSignature(
           rnd + transactionId, cacheHelper?.udid ?? "");
-      final queryParams = rsaKeyHelper.buildQueryString({
+      final body = rsaKeyHelper.buildQueryString({
         "oper": "init_buy",
         "udid": cacheHelper?.udid ?? "",
         "rnd": rnd,
@@ -50,7 +50,7 @@ class ApiServiceTarif extends ApiBase {
         "product_id": productId,
         "signature": signature,
       });
-      final response = await post('$BASE_URL?$queryParams');
+      final response = await post(BASE_URL, body: body);
       log(response.json.toString());
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
@@ -67,14 +67,14 @@ class ApiServiceTarif extends ApiBase {
       final rnd = rsaKeyHelper.generateRandomUUID;
       final signature = await rsaKeyHelper.getSignature(
           rnd + transactionId, cacheHelper?.udid ?? "");
-      final queryParams = rsaKeyHelper.buildQueryString({
+      final body = rsaKeyHelper.buildQueryString({
         "oper": "check_trans",
         "udid": cacheHelper?.udid ?? "",
         "rnd": rnd,
         "transaction_id": transactionId,
         "signature": signature,
       });
-      final response = await post('$BASE_URL?$queryParams');
+      final response = await post(BASE_URL, body: body);
       log(response.json.toString());
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";

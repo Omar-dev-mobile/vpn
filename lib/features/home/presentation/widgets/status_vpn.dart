@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vpn/core/customs/lottie_widget.dart';
@@ -22,54 +23,78 @@ class StatusVpn extends StatelessWidget {
             LocaleKeys.vPNConnectionHasBeenSuccessfullyEstablished.tr());
       }
     }, builder: (context, state) {
-      switch (homeCubit.statusConnection.status) {
-        case StatusConnection.Online:
-          return GestureDetector(
-            onTap: () async {
-              if (homeCubit.isOnline && !homeCubit.inProgress) {
-                await homeCubit.stopVpnConnecting(context);
-              }
-            },
-            child: Lottie.asset(
-              Assets.stopeToVpn,
-              repeat: state is LoadingStopVpnState,
-              reverse: state is LoadingStopVpnState,
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          Builder(builder: (context) {
+            switch (homeCubit.statusConnection.status) {
+              case StatusConnection.Online:
+                return Lottie.asset(
+                  Assets.stopeToVpn,
+                  repeat: state is LoadingStopVpnState,
+                  reverse: state is LoadingStopVpnState,
+                );
+              case StatusConnection.Stopped:
+                return LottieWidget(
+                  asset: Assets.disconnecting,
+                  repeat: false,
+                );
+              case StatusConnection.Connecting:
+                return LottieWidget(
+                  asset: Assets.connecting,
+                  reverse: state is LoadingStopVpnState,
+                  animate: homeCubit.isConnecting,
+                );
+              case StatusConnection.Offline:
+                return Image.asset(
+                  Assets.offline,
+                );
+              default:
+                return Image.asset(
+                  Assets.notActive,
+                );
+            }
+          }),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 60),
+            child: GestureDetector(
+              onTap: () => onTap(context, state),
+              child: Container(
+                width: 180,
+                height: 180,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+              ),
             ),
-          );
-        case StatusConnection.Stopped:
-          return GestureDetector(
-            onTap: () async {
-              if (!homeCubit.isConnecting && !homeCubit.inProgress) {
-                await homeCubit.getVpnConnecting(context);
-              }
-            },
-            child: LottieWidget(
-              asset: Assets.disconnecting,
-              repeat: false,
-            ),
-          );
-        case StatusConnection.Connecting:
-          return LottieWidget(
-            asset: Assets.connecting,
-            reverse: state is LoadingStopVpnState,
-            animate: homeCubit.isConnecting,
-          );
-        case StatusConnection.Offline:
-          return GestureDetector(
-            onTap: () async {
-              if (!homeCubit.isConnecting && !homeCubit.inProgress) {
-                await homeCubit.getVpnConnecting(context);
-              }
-            },
-            child: Image.asset(
-              Assets.offline,
-            ),
-          );
-        default:
-          return Image.asset(
-            Assets.notActive,
-          );
-      }
+          ),
+        ],
+      );
     });
+  }
+
+  onTap(context, HomeState state) async {
+    final homeCubit = HomeCubit.get(context);
+    switch (homeCubit.statusConnection.status) {
+      case StatusConnection.Online:
+        if (homeCubit.isOnline && !homeCubit.inProgress) {
+          await homeCubit.stopVpnConnecting(context);
+        }
+        break;
+      case StatusConnection.Stopped:
+        if (!homeCubit.isConnecting && !homeCubit.inProgress) {
+          await homeCubit.getVpnConnecting(context);
+        }
+        break;
+      case StatusConnection.Connecting:
+        break;
+      case StatusConnection.Offline:
+        if (!homeCubit.isConnecting && !homeCubit.inProgress) {
+          await homeCubit.getVpnConnecting(context);
+        }
+        break;
+      default:
+        break;
+    }
   }
 }
