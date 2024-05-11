@@ -73,7 +73,8 @@ class UserInfoModel extends UserInfo {
     tarifInfo = TarifInfo.fromJson(json['tarif_info']);
     print(vpnTimeExpire);
     print(tarifInfo?.tarifName ?? "");
-    percent = getPercent(vpnTimeExpire, tarifInfo?.tarifName ?? "");
+    percent = getPercent(vpnTimeExpire, tarifInfo?.productId ?? "");
+    print(percent);
   }
 
   Map<String, dynamic> toJson() {

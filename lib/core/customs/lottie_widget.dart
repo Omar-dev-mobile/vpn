@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:vpn/core/theme/assets.dart';
 
+// ignore: must_be_immutable
 class LottieWidget extends StatefulWidget {
   LottieWidget({
     super.key,

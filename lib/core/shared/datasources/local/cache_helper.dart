@@ -219,10 +219,31 @@ class CacheHelper {
       if (jsonString != null) {
         return jsonString;
       } else {
-        return null;
+        return "";
       }
     } catch (e) {
-      return null;
+      return "";
+    }
+  }
+
+  Future saveBaySubscription(String isBay) async {
+    try {
+      await saveData(key: 'bay_subscription', value: isBay);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<String?> getBaySubscription() async {
+    try {
+      String? jsonString = await getData('bay_subscription');
+      if (jsonString != null) {
+        return jsonString;
+      } else {
+        return "";
+      }
+    } catch (e) {
+      return "";
     }
   }
 }

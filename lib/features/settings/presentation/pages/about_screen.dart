@@ -68,7 +68,7 @@ class AboutScreen extends StatelessWidget {
                                 scheme: 'mailto',
                                 path: 'info@candodream.com',
                                 query: encodeQueryParameters(<String, String>{
-                                  'subject': 'VPN Line Question',
+                                  'subject': LocaleKeys.VPNLineQuestion.tr(),
                                 }),
                               );
 

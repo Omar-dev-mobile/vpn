@@ -55,7 +55,9 @@ class _TarifScreenState extends State<TarifScreen> {
           return BlocBuilder<TarifCubit, TarifState>(
             builder: (context, state) {
               var tarifCubit = TarifCubit.get(context);
+              var purchasesCubit = PurchasesCubit.get(context);
               return Stack(
+                alignment: Alignment.center,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,8 +78,6 @@ class _TarifScreenState extends State<TarifScreen> {
                       Expanded(
                         child: Builder(
                           builder: (context) {
-                            var purchasesCubit = PurchasesCubit.get(context);
-
                             if (state is TarifLoadingState ||
                                 statePurchases is LoadingInitStoreInfoState) {
                               return const Center(
@@ -134,10 +134,18 @@ class _TarifScreenState extends State<TarifScreen> {
                     ],
                   ),
                   if (statePurchases is LoadingPendingPurchaseState)
-                    BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                      child: const Center(
-                        child: CircularProgressIndicator(),
+                    Positioned.fill(
+                      child: InkWell(
+                        onTap: () {
+                          print("endSubscriptionLoading");
+                          purchasesCubit.endSubscriptionLoading();
+                        },
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        ),
                       ),
                     ),
                 ],

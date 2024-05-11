@@ -97,6 +97,9 @@ class MainCubit extends Cubit<MainState> {
         );
       case "activate_tarif":
         _systemInfoService.isLogin = true;
+        cacheHelper.saveBaySubscription(
+            dataServiceAccModel.workStatus?.userInfo?.tarifInfo?.productId ??
+                "");
         return ActivateTarifScreen(
           textButton: LocaleKeys.activatePlan.tr(),
           title: dataServiceAccModel.workStatus?.errorMessage ?? "",

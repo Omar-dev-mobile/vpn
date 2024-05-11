@@ -41,8 +41,9 @@ abstract class LocaleKeys {
   static const pleaseEnterSomeText = 'Please enter some text';
   static const successfullyPurchased = 'Successfully purchased';
   static const days = 'days';
+  static const dayTime = 'dayTime';
   static const week = 'Week';
-  static const pay = 'Pay';
+  static const buy = 'Buy';
   static const yourKey = 'Your Key';
   static const lastLogin = 'Last Login';
   static const purchaseASubscriptionForContinuedAccessAndFunctionality =
@@ -59,4 +60,7 @@ abstract class LocaleKeys {
   static const activatePlan = 'Activate Plan';
   static const errorOccurredPayment =
       'An error occurred when trying to make a payment';
+  static const enterAValidEmailAddress = 'Enter a valid email address';
+  static const VPNLineQuestion = 'VPN Line Question';
+  static const day = 'day';
 }

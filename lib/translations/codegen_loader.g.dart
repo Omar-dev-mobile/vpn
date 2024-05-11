@@ -17,6 +17,9 @@ class CodegenLoader extends AssetLoader {
   }
 
   static const Map<String, String> en = {
+    "Enter a valid email address": "Enter a valid email address",
+    "VPN Line Question": "VPN Line Question",
+    "Buy": "Buy",
     "Your Key": "Your Key",
     "Last Login": "Last Login",
     "Purchase a subscription for continued access and functionality":
@@ -73,6 +76,8 @@ class CodegenLoader extends AssetLoader {
     "Please enter some text": "Please enter some text",
     "Successfully purchased": "Successfully purchased",
     "days": "days",
+    "day": "days",
+    "dayTime": "days",
     "Week": "Week",
     "Pay": "Pay",
     "": "",
@@ -80,6 +85,10 @@ class CodegenLoader extends AssetLoader {
 
 // #испания
   static const Map<String, String> es = {
+    "Enter a valid email address":
+        "Introduzca una dirección de correo electrónico válida",
+    "VPN Line Question": "VPN Line Pregunta",
+    "Buy": "Comprar",
     "Your Key": "Su Clave",
     "Success": "Con éxito",
     "Last Login": "Último inicio de sesión",
@@ -138,13 +147,17 @@ class CodegenLoader extends AssetLoader {
     "Please enter some text": "Introduzca un texto",
     "Successfully purchased": "Adquirido correctamente",
     "days": "días",
+    "day": "días",
+    "dayTime": "días",
     "Week": "Semana",
-    "Pay": "Paga",
     "": "",
   };
 
 // #китай
   static const Map<String, String> cn = {
+    "Enter a valid email address": "輸入一個有效的電子郵件地址",
+    "VPN Line Question": "VPN Line 問題",
+    "Buy": "购买",
     "Your key": "你的钥匙",
     "Last Login": "上次登录",
     "Success": "成功的",
@@ -198,13 +211,17 @@ class CodegenLoader extends AssetLoader {
     "Please enter some text": "请输入一些文字",
     "Successfully purchased": "购买成功",
     "days": "天数",
+    "day": "天数",
+    "dayTime": "天数",
     "Week": "周",
-    "Pay": "支付",
     "": "",
   };
 
 // #немецкий
   static const Map<String, String> de = {
+    "Enter a valid email address": "Geben Sie eine gültige email an",
+    "VPN Line Question": "VPN Line Frage",
+    "Buy": "Kaufen",
     "Your Key": "Ihr Schlüssel",
     "Success": "erfolgreich",
     "Last Login": "Letzte Anmeldung",
@@ -264,6 +281,8 @@ class CodegenLoader extends AssetLoader {
     "Please enter some text": "Bitte geben Sie einen Text ein",
     "Successfully purchased": "Erfolgreich gekauft",
     "days": "Tage",
+    "day": "Tage",
+    "dayTime": "Tage",
     "Week": "Woche",
     "Pay": "Bezahlen",
     "": "",
@@ -271,6 +290,9 @@ class CodegenLoader extends AssetLoader {
 
 // #русский
   static const Map<String, String> ru = {
+    "Enter a valid email address": "Введите корректный email адрес",
+    "VPN Line Question": "VPN Line вопрос",
+    "Buy": "Купить",
     "Your Key": "Ваш ключ",
     "Last Login": "Последний вход",
     "Purchase a subscription for continued access and functionality":
@@ -328,8 +350,9 @@ class CodegenLoader extends AssetLoader {
     "Please enter some text": "Введите любой текст",
     "Successfully purchased": "Оплата прошла успешна",
     "days": "дней",
+    "day": "дня",
+    "dayTime": "день",
     "Week": "Неделя",
-    "Pay": "Оплатить ",
     "Success": "Успешно",
     "Are you sure you want to log out": "Вы уверены, что хотите выйти?",
     "An error occurred when trying to make a payment":

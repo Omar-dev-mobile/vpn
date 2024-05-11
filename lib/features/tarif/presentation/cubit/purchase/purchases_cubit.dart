@@ -11,6 +11,8 @@ import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
+import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
+import 'package:vpn/core/shared/logger.dart';
 import 'package:vpn/core/shared/usecases/IAPConnectionPurchase.dart';
 import 'package:vpn/core/shared/usecases/consumable_store.dart';
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
@@ -26,6 +28,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
 
   TraifUsecases traifUsecases;
   final SystemInfoService _systemInfoService;
+  CacheHelper cacheHelper = locator<CacheHelper>();
 
   Stream<List<PurchaseDetails>>? purchaseUpdated;
   static PurchasesCubit get(context) => BlocProvider.of(context);
@@ -52,7 +55,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   }
 
   void goToHome(BuildContext context) async {
-    context.pushRoute(const MainRoute());
+    context.replaceRoute(const MainRoute());
     locator<PurchasesCubit>().closeSubscription();
     MainCubit.get(context).getDataServiceAcc();
   }
@@ -76,7 +79,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     }, onDone: () {
       // if (subscription != null) subscription!.cancel();
     }, onError: (Object error) {
-      dispose();
+      // dispose();
     });
   }
 
@@ -146,6 +149,11 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     emit(EndInitStoreInfoState());
   }
 
+  PurchaseDetails? currentPurchaseDetails;
+  endSubscriptionLoading() async {
+    emit(EndPendingPurchaseState());
+  }
+
   final emptyProductDetails = ProductDetails(
       currencyCode: '',
       description: '',
@@ -177,35 +185,45 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       );
     }
     await inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
-    subscriptionInit();
+    if (subscription == null) {
+      subscriptionInit();
+    }
   }
 
   //buy tarif with receipt or server(api) verification
   Future purchaseTarifIos(
       String transactionIdentifier, String productID) async {
-    final res = await traifUsecases.buyTarif(transactionIdentifier, productID);
-    emit(await res.fold((failure) => ErrorPurchaseState(error: failure),
-        (r) async {
-      currentProductId = r.workStatus?.userInfo?.tarifInfo?.productId ?? "";
-      dispose();
-      if (r.inProgress) {
-        return await checkTrans(transactionIdentifier);
-      } else {
-        print("currentProductId $currentProductId");
-        return SuccessPurchaseState();
-      }
-    }));
+    var bay = await cacheHelper.getBaySubscription();
+    logger.info('init purchase tarif ios');
+    logger.info('locale $bay');
+    logger.info('sub $productID');
+    if (bay != productID) {
+      final res =
+          await traifUsecases.buyTarif(transactionIdentifier, productID);
+      emit(await res.fold((failure) => ErrorPurchaseState(error: failure),
+          (r) async {
+        currentProductId = r.workStatus?.userInfo?.tarifInfo?.productId ?? "";
+        if (r.inProgress) {
+          return await checkTrans(transactionIdentifier, productID);
+        } else {
+          await cacheHelper.saveBaySubscription(productID);
+          return SuccessPurchaseState();
+        }
+      }));
+    }
   }
 
-  Future<PurchasesStatus> checkTrans(String transactionIdentifier) async {
+  Future<PurchasesStatus> checkTrans(
+      String transactionIdentifier, productID) async {
     final res = await traifUsecases.checkTrans(transactionIdentifier);
     return res.fold((l) => ErrorPurchaseState(error: l), (r) async {
       print("r $r");
       if (r == '1') {
+        await cacheHelper.saveBaySubscription(productID);
         return SuccessPurchaseState();
       } else {
         await Future.delayed(const Duration(seconds: 2));
-        return await checkTrans(transactionIdentifier);
+        return await checkTrans(transactionIdentifier, productID);
       }
     });
   }
@@ -214,11 +232,12 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       List<PurchaseDetails> purchaseDetailsList) async {
     try {
       for (final PurchaseDetails purchaseDetails in purchaseDetailsList) {
+        logger.info('listenToPurchaseUpdated   ${purchaseDetails.status}');
         if (purchaseDetails.status == PurchaseStatus.pending) {
           showPendingUI();
+          currentPurchaseDetails = purchaseDetails;
         } else if (purchaseDetails.status == PurchaseStatus.canceled) {
           checkCompletePurchase(purchaseDetails);
-          dispose();
           emit(EndPendingPurchaseState());
         } else {
           if (purchaseDetails.status == PurchaseStatus.error) {
@@ -232,16 +251,17 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
                     purchaseDetails.skPaymentTransaction.originalTransaction;
                 if (currentProductId != purchaseDetails.productID &&
                     productIdToBuy == purchaseDetails.productID) {
+                  // print(
+                  //     purchaseDetails.verificationData.serverVerificationData);
                   await purchaseTarifIos(
                       originalTransaction?.transactionIdentifier ?? "",
                       purchaseDetails.productID);
                 }
               }
             }
-            // subscription!.cancel();
           }
+          checkCompletePurchase(purchaseDetails);
         }
-        checkCompletePurchase(purchaseDetails);
       }
     } catch (e) {}
   }
@@ -252,13 +272,13 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     }
   }
 
-  void dispose() {
-    if (subscription != null) subscription!.cancel();
-  }
+  // void dispose() {
+  //   if (subscription != null) subscription!.cancel();
+  // }
 
   void handleError(IAPError error) {
     purchasePending = false;
-    dispose();
+    // dispose();
     emit(ErrorPurchaseState(error: error.details.toString()));
   }
 

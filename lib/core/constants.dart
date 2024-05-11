@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/translations/codegen_loader.g.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 const BASE_URL = 'https://vp-line.aysec.org/ios.php';
 const termServiceUrl = 'https://candodream.com/termsofservice';
@@ -46,17 +47,17 @@ int getNumberOfDecimalDigits(double number) {
 }
 
 const tarifCost = {
-  "week": 7,
-  "month": 30,
-  "3month": 90,
+  "org.cnddrm.vplineapp.pay.sub.week": 7,
+  "org.cnddrm.vplineapp.pay.sub.month": 30,
+  "org.cnddrm.vplineapp.pay.sub.triple.month": 90,
 };
 
-double getPercent(DateTime? vpnTimeExpire, String tarifName) {
+double getPercent(DateTime? vpnTimeExpire, String prodactId) {
   if (vpnTimeExpire == null) {
     return 1;
   }
   int difference = vpnTimeExpire.difference(DateTime.now()).inDays;
-  double percentTry = (difference / (tarifCost[tarifName.toLowerCase()] ?? 0));
+  double percentTry = (difference / (tarifCost[prodactId] ?? 0));
   return (percentTry > 1 && percentTry < 0) ? 1 : (1 - percentTry);
 }
 
@@ -74,7 +75,7 @@ String? validateEmail(String? value) {
       r'x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])';
   final regex = RegExp(pattern);
   return value == null || value.isEmpty || !regex.hasMatch(value)
-      ? 'Enter a valid email address'
+      ? LocaleKeys.enterAValidEmailAddress.tr()
       : null;
 }
 
@@ -104,3 +105,30 @@ const kProductIds = [
   'org.cnddrm.vplineapp.pay.sub.month',
   'org.cnddrm.vplineapp.pay.sub.triple.month'
 ];
+
+String getDaysRemainingText(int count) {
+  final plural = Intl.plural(
+    count,
+    zero:
+        '${LocaleKeys.no.tr()} ${LocaleKeys.days.tr()}', // Normally, for zero you would use the plural form
+    one: '$count ${LocaleKeys.dayTime.tr()}', // 1 день
+    few: '$count ${LocaleKeys.day.tr()}', // 2-4 дня
+    many:
+        '$count ${LocaleKeys.days.tr()}', // 5-20 дней, and all numbers ending in 5-9 or 0
+    other:
+        '$count ${LocaleKeys.days.tr()}', // Used for some exceptional cases if any
+    locale: getlocaleName(),
+  );
+  return plural;
+}
+
+int calculateDaysLeft(DateTime? expireDate) {
+  if (expireDate == null) {
+    return 0;
+  }
+  DateTime now = DateTime.now();
+  Duration difference = expireDate.difference(now);
+
+  // Возвращает количество дней до истечения срока, или 1, если осталось менее 24 часов
+  return difference.inHours < 24 ? 1 : difference.inDays + 1;
+}

@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var mainCubit = MainCubit.get(context);
     return Scaffold(
-      drawer: mainCubit.errorMessage.isNotEmpty ? const DrawerWidget() : null,
+      drawer: const DrawerWidget(),
       appBar: mainCubit.errorMessage.isNotEmpty
           ? const AppBarHeader(
               isClose: true,

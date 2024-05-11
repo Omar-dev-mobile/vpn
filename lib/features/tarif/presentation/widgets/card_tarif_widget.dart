@@ -108,7 +108,7 @@ class CardTarifWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   CommonTextWidget(
-                    text: LocaleKeys.pay.tr(),
+                    text: LocaleKeys.buy.tr(),
                     fontFamily: 'Roboto',
                     color: kSilver,
                     size: screenUtil.setSp(12),

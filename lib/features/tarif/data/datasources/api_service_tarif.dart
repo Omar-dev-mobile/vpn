@@ -34,7 +34,6 @@ class ApiServiceTarif extends ApiBase {
   }
 
   Future<PurchaseModel> buyTarif(String transactionId, String productId) async {
-    print("buyTarif$transactionId$productId");
     return executeAndHandleErrorServer<PurchaseModel>(() async {
       final cacheHelper =
           await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();
