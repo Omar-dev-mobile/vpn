@@ -35,23 +35,30 @@ class _NetworkSpeedCheckerState extends State<NetworkSpeedChecker> {
     final best = await tester.getBestServers(
       servers: servers,
     );
-
-    setState(() {
+    setStateBinding(() {
       bestServersList = best;
       readyToTest = true;
     });
   }
 
   Future<void> _testUploadSpeed() async {
-    setState(() {
+    setStateBinding(() {
       loadingUpload = true;
     });
 
     final upload = await tester.testUploadSpeed(servers: bestServersList);
-    setState(() {
+    setStateBinding(() {
       uploadRate = upload;
       loadingUpload = false;
     });
+  }
+
+  void setStateBinding(Function() fn) {
+    if (mounted) {
+      setState(() {
+        fn();
+      });
+    }
   }
 
   @override

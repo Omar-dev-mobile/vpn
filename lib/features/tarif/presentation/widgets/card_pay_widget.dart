@@ -95,7 +95,7 @@ class CardPayWidget extends StatelessWidget {
                     ),
                     const Spacer(),
                     CommonTextWidget(
-                      text: LocaleKeys.pay.tr(),
+                      text: LocaleKeys.buy.tr(),
                       color: Theme.of(context).disabledColor,
                       size: screenUtil.setSp(22),
                       fontWeight: FontWeight.w300,

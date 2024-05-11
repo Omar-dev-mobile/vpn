@@ -1,13 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
+import 'package:vpn/core/customs/icon_mode.dart';
 import 'package:vpn/core/customs/log_out.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
-import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
-import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
@@ -45,12 +43,7 @@ class DrawerWidget extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    ThemeModeCubit.get(context).toggleMode();
-                  },
-                  child: SvgPicture.asset(Assets.sun),
-                ),
+                const IconMode(),
               ],
             ),
             screenUtil.setHeight(25).ph,

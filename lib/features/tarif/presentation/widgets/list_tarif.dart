@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vpn/core/constants.dart';
+import 'package:vpn/core/customs/ink_well_circle_custom.dart';
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/tarif/data/models/tarif_model.dart';
 import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
@@ -33,9 +34,10 @@ class ListTariff extends StatelessWidget {
               index: 0,
               plan: userInfo.tarifName ?? "",
               tarifDays: userInfo.tarifName ?? "",
-              day: '${userInfo.tarifDays ?? ""} ${LocaleKeys.days.tr()}',
+              day: getDaysRemainingText(calculateDaysLeft(
+                  tarifCubit.vpnInfo?.userInfo?.vpnTimeExpire)),
               percent: getPercent(tarifCubit.vpnInfo?.userInfo?.vpnTimeExpire,
-                  userInfo.tarifName ?? ""),
+                  userInfo.productId ?? ""),
             ),
           );
         }
@@ -46,19 +48,33 @@ class ListTariff extends StatelessWidget {
         }
         return Padding(
           padding: const EdgeInsets.only(bottom: 20),
-          child: InkWell(
-            onTap: () {
-              if (statePurchases is! LoadingPendingPurchaseState) {
-                purchasesCubit.buyTarif(traif!.tarifBuy ?? "");
-              }
-            },
-            child: CardTarifWidget(
-              prise: traif?.tarifCostActivation ?? "",
-              index: index,
-              tarifDays: userInfo?.tarifName ?? "",
-              plan: traif?.tarifName ?? "",
-              day: '${traif?.tarifDays ?? ""} ${LocaleKeys.days.tr()}',
-            ),
+          child: Stack(
+            children: <Widget>[
+              Positioned(
+                child: CardTarifWidget(
+                  prise: traif?.tarifCostActivation ?? "",
+                  index: index,
+                  tarifDays: userInfo?.tarifName ?? "",
+                  plan: traif?.tarifName ?? "",
+                  day: '${traif?.tarifDays ?? ""} ${LocaleKeys.days.tr()}',
+                ),
+              ),
+              Positioned.fill(
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    splashColor: Colors.white.withOpacity(0.5),
+                    highlightColor: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(20),
+                    onTap: () {
+                      if (statePurchases is! LoadingPendingPurchaseState) {
+                        purchasesCubit.buyTarif(traif!.tarifBuy ?? "");
+                      }
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
         );
       },

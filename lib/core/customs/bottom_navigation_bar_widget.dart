@@ -48,7 +48,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
             icons: SvgPicture.asset(Assets.person),
             onTap: () {
               TarifCubit.get(context).getTrials();
-              context.pushRoute(const TarifRoute());
+              context.replaceRoute(const TarifRoute());
             },
           ),
         ],

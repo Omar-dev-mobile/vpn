@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:vpn/core/constants.dart';
+import 'package:vpn/core/customs/ink_well_circle_custom.dart';
 import 'package:vpn/core/customs/lottie_widget.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
@@ -46,8 +48,11 @@ class StatusVpn extends StatelessWidget {
                   animate: homeCubit.isConnecting,
                 );
               case StatusConnection.Offline:
-                return Image.asset(
-                  Assets.offline,
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 50),
+                  child: Image.asset(
+                    Assets.offline,
+                  ),
                 );
               default:
                 return Image.asset(
@@ -56,13 +61,14 @@ class StatusVpn extends StatelessWidget {
             }
           }),
           Padding(
-            padding: const EdgeInsets.only(bottom: 60),
-            child: GestureDetector(
+            padding: const EdgeInsets.only(bottom: 55),
+            child: InkWellCircleCustom(
               onTap: () => onTap(context, state),
               child: Container(
-                width: 180,
-                height: 180,
+                width: screenUtil.screenWidth / 2.1,
+                height: screenUtil.screenWidth / 2.1,
                 decoration: const BoxDecoration(
+                  // color: kBGDark,
                   shape: BoxShape.circle,
                 ),
               ),
@@ -73,7 +79,7 @@ class StatusVpn extends StatelessWidget {
     });
   }
 
-  onTap(context, HomeState state) async {
+  void onTap(context, HomeState state) async {
     final homeCubit = HomeCubit.get(context);
     switch (homeCubit.statusConnection.status) {
       case StatusConnection.Online:

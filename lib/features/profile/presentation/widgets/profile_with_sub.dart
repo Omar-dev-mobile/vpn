@@ -92,8 +92,9 @@ class ProfileWithSub extends StatelessWidget {
                               ),
                               const Spacer(),
                               CommonTextWidget(
-                                text:
-                                    "${(profileModel.workStatus?.userInfo?.tarifInfo?.tarifDays ?? "")} ${LocaleKeys.days.tr()}",
+                                text: getDaysRemainingText(calculateDaysLeft(
+                                    profileModel
+                                        .workStatus?.userInfo?.vpnTimeExpire)),
                                 color: kWhite,
                                 size: screenUtil.setSp(15),
                                 fontWeight: FontWeight.w300,

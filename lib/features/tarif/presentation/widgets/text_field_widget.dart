@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/theme/theme.dart';
 
+// ignore: must_be_immutable
 class TextFieldWidget extends StatelessWidget {
   TextFieldWidget({
     super.key,
@@ -35,10 +36,7 @@ class TextFieldWidget extends StatelessWidget {
           hintStyle: TextStyle(
             fontSize: screenUtil.setSp(14),
             fontFamily: 'Inter',
-            color:Theme.of(context)
-                .textTheme
-                .bodyLarge!
-                .color,
+            color: Theme.of(context).textTheme.bodyLarge!.color,
           ),
           filled: true,
           focusedErrorBorder: InputBorder.none,
