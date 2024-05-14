@@ -46,7 +46,7 @@ class VPNIOSManager {
     required String password,
   }) async {
     try {
-      await _channel.invokeMethod('configureVPN', {
+      _channel.invokeMethod('configureVPN', {
         'username': username,
         'serverAddress': serverAddress,
         'sharedSecret': sharedSecret,

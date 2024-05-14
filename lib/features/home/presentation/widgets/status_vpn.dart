@@ -20,7 +20,8 @@ class StatusVpn extends StatelessWidget {
     final homeCubit = HomeCubit.get(context);
     return BlocConsumer<HomeCubit, HomeState>(listener: (context, state) {
       if (homeCubit.statusConnection.status == StatusConnection.Online &&
-          state is SuccessListenVpnState) {
+          state is SuccessListenVpnState &&
+          homeCubit.inProgress) {
         CustomSnackBar.goodSnackBar(context,
             LocaleKeys.vPNConnectionHasBeenSuccessfullyEstablished.tr());
       }

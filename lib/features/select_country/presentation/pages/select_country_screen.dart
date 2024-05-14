@@ -16,88 +16,93 @@ class SelectCountryScreen extends StatelessWidget {
   const SelectCountryScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const DrawerWidget(),
-      body: BlocConsumer<CountryCubit, CountryState>(
-        listener: (context, state) {
-          if (state is CountriesSelectVpnEndState) {
-            context.pushRoute(const MainRoute());
-          }
-        },
-        builder: (context, state) {
-          return Column(
-            children: [
-              const AppBarHeader(
-                isClose: true,
-              ),
-              ProgressIndicatorCountry(
-                  progressing: state is CountriesSelectVpnLoadingState),
-              Expanded(
-                child: Builder(
-                  builder: (context) {
-                    var countryCubit = CountryCubit.get(context);
-                    if (state is CountriesLoadingState) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else if (state is CountriesErrorState) {
-                      return CustomError(
-                        error: state.error,
-                        onPressed: () {
-                          CountryCubit.get(context).getCountriesList();
-                        },
-                      );
-                    }
-                    var countriesModel = countryCubit.countriesModel;
-                    return ListView.separated(
-                      shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final vpnList =
-                            countriesModel?.workStatus?.vpnList?[index];
-                        return InkWell(
-                          onTap: () {
-                            if (state is! CountriesSelectVpnLoadingState &&
-                                countryCubit.systemInfoService.vpnServer
-                                        ?.countryId !=
-                                    vpnList?.countryId) {
-                              countryCubit.selectVpn(vpnList, context);
-                            }
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 15, horizontal: 20),
-                            child: FlagRowWidget(
-                              ip: vpnList?.ip ?? "",
-                              countryCode: vpnList?.countryId ?? "",
-                              countryName: vpnList?.countryName ?? "",
-                              isSelected:
-                                  countryCubit.selectedVpn(vpnList?.ip ?? ""),
-                              isStared: countryCubit
-                                  .selectedFavoritesVpn(vpnList?.ip ?? ""),
-                            ),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (context, index) => Container(
-                        height: 1,
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        color: kFlagDivider,
-                      ),
-                      itemCount:
-                          countriesModel?.workStatus?.vpnList?.length ?? 0,
-                    );
-                  },
+    var countryCubit = CountryCubit.get(context);
+    return RefreshIndicator(
+      onRefresh: () async {
+        await countryCubit.getCountriesList(isRefresh: true);
+      },
+      child: Scaffold(
+        drawer: const DrawerWidget(),
+        body: BlocConsumer<CountryCubit, CountryState>(
+          listener: (context, state) {
+            if (state is CountriesSelectVpnEndState) {
+              context.pushRoute(const MainRoute());
+            }
+          },
+          builder: (context, state) {
+            return Column(
+              children: [
+                const AppBarHeader(
+                  isClose: true,
                 ),
-              ),
-              // const Padding(
-              //   padding: EdgeInsets.only(bottom: 20),
-              //   child: RoundedButton(
-              //       name: 'Send', color: kSendButton, width: 130.0),
-              // ),
-            ],
-          );
-        },
+                ProgressIndicatorCountry(
+                    progressing: state is CountriesSelectVpnLoadingState),
+                Expanded(
+                  child: Builder(
+                    builder: (context) {
+                      if (state is CountriesLoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state is CountriesErrorState) {
+                        return CustomError(
+                          error: state.error,
+                          onPressed: () {
+                            CountryCubit.get(context).getCountriesList();
+                          },
+                        );
+                      }
+                      var countriesModel = countryCubit.countriesModel;
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        // physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final vpnList =
+                              countriesModel?.workStatus?.vpnList?[index];
+                          return InkWell(
+                            onTap: () {
+                              if (state is! CountriesSelectVpnLoadingState &&
+                                  countryCubit.systemInfoService.vpnServer
+                                          ?.countryId !=
+                                      vpnList?.countryId) {
+                                countryCubit.selectVpn(vpnList, context);
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 20),
+                              child: FlagRowWidget(
+                                ip: vpnList?.ip ?? "",
+                                countryCode: vpnList?.countryId ?? "",
+                                countryName: vpnList?.countryName ?? "",
+                                isSelected:
+                                    countryCubit.selectedVpn(vpnList?.ip ?? ""),
+                                isStared: countryCubit
+                                    .selectedFavoritesVpn(vpnList?.ip ?? ""),
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => Container(
+                          height: 1,
+                          margin: const EdgeInsets.symmetric(horizontal: 20),
+                          color: kFlagDivider,
+                        ),
+                        itemCount:
+                            countriesModel?.workStatus?.vpnList?.length ?? 0,
+                      );
+                    },
+                  ),
+                ),
+                // const Padding(
+                //   padding: EdgeInsets.only(bottom: 20),
+                //   child: RoundedButton(
+                //       name: 'Send', color: kSendButton, width: 130.0),
+                // ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
