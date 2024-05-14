@@ -23,7 +23,7 @@ Future customDialog(
             ),
             CupertinoDialogAction(
               onPressed: function,
-              child: Text(LocaleKeys.yes.tr()),
+              child: Text(LocaleKeys.buy.tr()),
             ),
           ],
         );

@@ -6,7 +6,8 @@ class CountryUseCases {
   CountryRepository countryRepository;
   CountryUseCases({required this.countryRepository});
 
-  Future<Either<String, CountriesModel>> getCountriesList() async {
-    return countryRepository.getCountriesList();
+  Future<Either<String, CountriesModel>> getCountriesList(
+      bool isRefresh) async {
+    return countryRepository.getCountriesList(isRefresh);
   }
 }

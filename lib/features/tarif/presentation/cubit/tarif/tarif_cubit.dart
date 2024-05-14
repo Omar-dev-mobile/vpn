@@ -12,9 +12,9 @@ class TarifCubit extends Cubit<TarifState> {
   final SystemInfoService systemInfoService;
   final TraifUsecases _traifUsecases;
   static TarifCubit get(context) => BlocProvider.of(context);
-  Future<void> getTrials() async {
+  Future<void> getTrials({bool isRefresh = false}) async {
     emit(TarifLoadingState());
-    final res = await _traifUsecases.getTarifs();
+    final res = await _traifUsecases.getTarifs(isRefresh);
     emit(
       res.fold((failure) => TarifErrorState(error: failure),
           (data) => TarifSuccessState(tarifModel: data)),

@@ -26,11 +26,11 @@ class CountryCubit extends Cubit<CountryState> {
   final cacheHelper = locator<CacheHelper>();
   CountriesModel? countriesModel;
 
-  Future getCountriesList() async {
+  Future getCountriesList({bool isRefresh = false}) async {
     emit(CountriesLoadingState());
     favorites.addAll((await cacheHelper.getCountriesFavorite()) ?? []);
     favorites.unique();
-    final res = await countryUseCases.getCountriesList();
+    final res = await countryUseCases.getCountriesList(isRefresh);
     emit(
       res.fold((failure) => CountriesErrorState(failure), (data) {
         countriesModel = data;

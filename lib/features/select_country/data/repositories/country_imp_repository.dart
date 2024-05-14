@@ -12,14 +12,16 @@ class CountryImpRepository extends CountryRepository {
   CountryImpRepository(this.apiServiceCountry, this.cacheHelper);
 
   @override
-  Future<Either<String, CountriesModel>> getCountriesList() async {
+  Future<Either<String, CountriesModel>> getCountriesList(
+      bool isRefresh) async {
     return executeAndHandleError<CountriesModel>(() async {
       final ver = await cacheHelper.getVersionVpn();
       final countriesModel = await cacheHelper.getCountriesModel();
       final currentTime = DateTime.now();
       if (countriesModel != null &&
           countriesModel.dateSave != null &&
-          currentTime.difference(countriesModel.dateSave!).inMinutes < 5) {
+          currentTime.difference(countriesModel.dateSave!).inMinutes < 5 &&
+          !isRefresh) {
         return countriesModel;
       }
       var res = await apiServiceCountry.getCountriesList(ver);

@@ -8,7 +8,7 @@ class HomeImplRepository implements HomeRepository {
   HomeImplRepository(this.apiServiceHome);
   ApiServiceHome apiServiceHome;
   @override
-  Future<Either<String, DataServiceAccModel>> getDataServiceAcc() {
+  Future<Either<String, DataServiceAccModel>> getDataServiceAcc() async {
     return executeAndHandleError<DataServiceAccModel>(() async {
       final res = await apiServiceHome.getDataServiceAcc();
       return res;

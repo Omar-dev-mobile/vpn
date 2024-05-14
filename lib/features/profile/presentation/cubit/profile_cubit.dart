@@ -12,7 +12,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(this.profileUseCases) : super(ProfileInitial());
   String workStatus = '';
   static ProfileCubit get(context) => BlocProvider.of(context);
-  void getProfile() async {
+  Future getProfile() async {
     emit(ProfileLoadingState());
     var getSecurityDataAlgithms =
         await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();

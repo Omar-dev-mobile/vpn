@@ -7,7 +7,8 @@ import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/translations/codegen_loader.g.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
-const BASE_URL = 'https://vp-line.aysec.org/ios.php';
+// const BASE_URL = 'https://vp-line.aysec.org/ios.php';
+const BASE_URL = 'https://app.candodream.com/ios.php';
 const termServiceUrl = 'https://candodream.com/termsofservice';
 const policyUrl = 'https://candodream.com/policy';
 

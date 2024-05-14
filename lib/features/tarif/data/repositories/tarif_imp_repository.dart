@@ -12,14 +12,15 @@ class TarifImpRepository extends TarifRepository {
   TarifImpRepository(this.apiServiceTarif, this.cacheHelper);
 
   @override
-  Future<Either<String, TarifModel>> getTarifs() async {
+  Future<Either<String, TarifModel>> getTarifs(bool isRefresh) async {
     return executeAndHandleError<TarifModel>(() async {
       final tarifModel = await cacheHelper.getTarifModel();
       final currentTime = DateTime.now();
       print("tarifModel$tarifModel");
       if ((tarifModel != null &&
           tarifModel.dateSave != null &&
-          currentTime.difference(tarifModel.dateSave!).inMinutes < 5)) {
+          currentTime.difference(tarifModel.dateSave!).inMinutes < 5 &&
+          !isRefresh)) {
         return tarifModel;
       }
       final res = await apiServiceTarif.getTrials();

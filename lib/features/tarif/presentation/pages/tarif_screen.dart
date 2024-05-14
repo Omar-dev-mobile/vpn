@@ -52,105 +52,110 @@ class _TarifScreenState extends State<TarifScreen> {
           }
         },
         builder: (context, statePurchases) {
-          return BlocBuilder<TarifCubit, TarifState>(
-            builder: (context, state) {
-              var tarifCubit = TarifCubit.get(context);
-              var purchasesCubit = PurchasesCubit.get(context);
-              return Stack(
-                alignment: Alignment.center,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const AppBarHeader(
-                        isClose: true,
-                      ),
-                      screenUtil.setHeight(33).ph,
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20),
-                        child: CommonTextWidget(
-                          text: LocaleKeys.plans.tr(),
-                          color: Theme.of(context).textTheme.titleMedium!.color,
-                          size: screenUtil.setSp(35),
-                          fontWeight: FontWeight.w500,
+          var tarifCubit = TarifCubit.get(context);
+          return RefreshIndicator(
+            onRefresh: () async {
+              await tarifCubit.getTrials(isRefresh: true);
+            },
+            child: BlocBuilder<TarifCubit, TarifState>(
+              builder: (context, state) {
+                var purchasesCubit = PurchasesCubit.get(context);
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const AppBarHeader(
+                          isClose: true,
                         ),
-                      ),
-                      Expanded(
-                        child: Builder(
-                          builder: (context) {
-                            if (state is TarifLoadingState ||
-                                statePurchases is LoadingInitStoreInfoState) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else if (state is TarifErrorState) {
-                              return CustomError(
-                                error: state.error,
-                                onPressed: () {
-                                  tarifCubit.getTrials();
-                                },
-                              );
-                            }
-                            if (statePurchases is EndInitStoreInfoState &&
-                                purchasesCubit.tarifs.isEmpty) {
-                              return CustomError(
-                                error: LocaleKeys
-                                    .somethingWentWrongPleaseTryAgain
-                                    .tr(),
-                                onPressed: () {
-                                  tarifCubit.getTrials();
-                                },
-                              );
-                            }
-                            var tarifs =
-                                (state as TarifSuccessState).tarifModel;
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          ListTariff(
-                                            statePurchases: statePurchases,
-                                            tarifs: tarifs,
-                                          ),
-                                          60.ph,
-                                        ],
+                        screenUtil.setHeight(33).ph,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: CommonTextWidget(
+                            text: LocaleKeys.plans.tr(),
+                            color:
+                                Theme.of(context).textTheme.titleMedium!.color,
+                            size: screenUtil.setSp(35),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Expanded(
+                          child: Builder(
+                            builder: (context) {
+                              if (state is TarifLoadingState ||
+                                  statePurchases is LoadingInitStoreInfoState) {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              } else if (state is TarifErrorState) {
+                                return CustomError(
+                                  error: state.error,
+                                  onPressed: () {
+                                    tarifCubit.getTrials();
+                                  },
+                                );
+                              }
+                              if (statePurchases is EndInitStoreInfoState &&
+                                  purchasesCubit.tarifs.isEmpty) {
+                                return CustomError(
+                                  error: LocaleKeys
+                                      .somethingWentWrongPleaseTryAgain
+                                      .tr(),
+                                  onPressed: () {
+                                    tarifCubit.getTrials();
+                                  },
+                                );
+                              }
+                              var tarifs =
+                                  (state as TarifSuccessState).tarifModel;
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            ListTariff(
+                                              statePurchases: statePurchases,
+                                              tarifs: tarifs,
+                                            ),
+                                            60.ph,
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  if (statePurchases is LoadingPendingPurchaseState)
-                    Positioned.fill(
-                      child: InkWell(
-                        onTap: () {
-                          print("endSubscriptionLoading");
-                          purchasesCubit.endSubscriptionLoading();
-                        },
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
+                      ],
+                    ),
+                    if (statePurchases is LoadingPendingPurchaseState)
+                      Positioned.fill(
+                        child: InkWell(
+                          onTap: () {
+                            purchasesCubit.endSubscriptionLoading();
+                          },
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                            child: const Center(
+                              child: CircularProgressIndicator(),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                ],
-              );
-            },
+                  ],
+                );
+              },
+            ),
           );
         },
       ),

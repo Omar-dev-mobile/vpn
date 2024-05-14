@@ -56,7 +56,7 @@ Future<T> executeAndHandleErrorServer<T>(
         requestOptions: error.requestOptions);
   } on NoInternetException {
     throw NoInternetException();
-  } on Exception catch (error, s) {
+  } on Exception catch (error) {
     throw Exception(error.toString());
   }
 }
