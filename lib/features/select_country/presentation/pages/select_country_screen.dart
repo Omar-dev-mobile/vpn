@@ -26,7 +26,7 @@ class SelectCountryScreen extends StatelessWidget {
         body: BlocConsumer<CountryCubit, CountryState>(
           listener: (context, state) {
             if (state is CountriesSelectVpnEndState) {
-              context.pushRoute(const MainRoute());
+              context.replaceRoute(const MainRoute());
             }
           },
           builder: (context, state) {

@@ -29,8 +29,7 @@ class MainScreen extends StatelessWidget {
                   return const Center(child: CircularProgressIndicator());
                 }
                 if (LocaleKeys.itSeemsYoureNotConnectedToTheInternet.tr() ==
-                        state.error &&
-                    HomeCubit.get(context).isOnline) {
+                    state.error) {
                   return const HomeScreen();
                 }
                 return Column(
