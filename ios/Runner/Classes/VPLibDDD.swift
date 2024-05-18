@@ -211,7 +211,8 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
     }
     
     
-    
+    var perAppManager = NETunnelProviderManager()
+
     public func configureVPN(username: String, serverAddress: String, sharedSecret: String, password: String, flutterResult: @escaping FlutterResult) {
 
         
@@ -229,6 +230,34 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         self.vpnMan.protocolConfiguration = p
         self.vpnMan.localizedDescription = self.nameTun
         self.vpnMan.isEnabled = true
+        print(serverAddress)
+        
+        let onDemandRule = NEOnDemandRuleEvaluateConnection()
+        
+        let instagram = NEEvaluateConnectionRule(matchDomains: ["*.instagram.com"],
+                                                                 andAction: NEEvaluateConnectionRuleAction.connectIfNeeded)
+        
+        instagram.probeURL = URL(string: "https://www.instagram.com")
+        let messenger = NEEvaluateConnectionRule(matchDomains: ["*.messenger.com"],
+                                                                 andAction: NEEvaluateConnectionRuleAction.connectIfNeeded)
+
+        messenger.probeURL = URL(string: "https://www.messenger.com")
+        
+        let facebook = NEEvaluateConnectionRule(matchDomains: ["*.facebook.com"],
+                                                                 andAction: NEEvaluateConnectionRuleAction.connectIfNeeded)
+        facebook.probeURL = URL(string: "https://www.facebook.com")
+        onDemandRule.connectionRules = [instagram,facebook,messenger]
+        onDemandRule.interfaceTypeMatch = NEOnDemandRuleInterfaceType.any
+        onDemandRule.probeURL?.stopAccessingSecurityScopedResource()
+        self.vpnMan.onDemandRules = [onDemandRule]
+        
+        
+        
+       
+       
+       
+        self.vpnMan.isOnDemandEnabled = true
+        
         
         self.vpnMan.saveToPreferences { [flutterResult] error in
                 self.tunSaveHandler(error, flutterResult)

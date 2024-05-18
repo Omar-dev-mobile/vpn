@@ -106,13 +106,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   getInitStatus() async {
     emit(LoadingListenVpnState());
-    final internet = await locator<NetworkChecker>().isConnected;
-    if (!internet) {
-      print("no internet");
-      systemInfoService.connectionStatus = deInternetConnectionStatus;
-    } else {
-      systemInfoService.connectionStatus = await vpniosManager.getStatus();
-    }
+    print("no internet ${systemInfoService.connectionStatus?.status}");
+    systemInfoService.connectionStatus = await vpniosManager.getStatus();
+    print("no internet ${systemInfoService.connectionStatus?.status}");
     emit(SuccessListenVpnState());
   }
 }
