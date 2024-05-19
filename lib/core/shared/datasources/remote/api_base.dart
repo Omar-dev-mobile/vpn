@@ -53,6 +53,7 @@ abstract class ApiBase {
     headers.addAll({"lang": getlocaleName()});
     headers["Content-Type"] = "application/x-www-form-urlencoded";
     final Uri uri = Uri.parse(path);
+    var timeout = const Duration(seconds: 5);
     log('🚀🚀🚀---------------------------------🚀🚀🚀');
     log('|  SENT $method:');
     log('|    🟡 BODY: $body');
@@ -62,19 +63,32 @@ abstract class ApiBase {
       late http.Response response;
       switch (method) {
         case 'post':
-          response = await httpClient.post(uri, headers: headers, body: body);
+          response = await httpClient
+              .post(uri, headers: headers, body: body)
+              .timeout(timeout);
+          {}
           break;
         case 'get':
-          response = await httpClient.get(uri, headers: headers);
+          response =
+              await httpClient.get(uri, headers: headers).timeout(timeout);
+          {}
           break;
         case 'delete':
-          response = await httpClient.delete(uri, headers: headers);
+          response =
+              await httpClient.delete(uri, headers: headers).timeout(timeout);
+          {}
           break;
         case 'put':
-          response = await httpClient.put(uri, headers: headers, body: body);
+          response = await httpClient
+              .put(uri, headers: headers, body: body)
+              .timeout(timeout);
+          {}
           break;
         case 'patch':
-          response = await httpClient.patch(uri, headers: headers, body: body);
+          response = await httpClient
+              .patch(uri, headers: headers, body: body)
+              .timeout(timeout);
+          {}
           break;
         default:
           throw Exception(LocaleKeys.anUnexpectedErrorOccurred.tr());

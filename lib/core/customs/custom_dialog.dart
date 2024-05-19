@@ -3,11 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
-Future customDialog(
-  BuildContext context,
-  String title,
-  Function() function,
-) async {
+Future customDialog(BuildContext context, String title, Function() function,
+    {String? buttonText}) async {
   await showDialog(
       context: context,
       builder: (context) {
@@ -23,7 +20,7 @@ Future customDialog(
             ),
             CupertinoDialogAction(
               onPressed: function,
-              child: Text(LocaleKeys.buy.tr()),
+              child: Text(buttonText ?? LocaleKeys.yes.tr()),
             ),
           ],
         );
