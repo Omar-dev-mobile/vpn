@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -32,8 +34,8 @@ class StatusVpn extends StatelessWidget {
           Builder(builder: (context) {
             switch (homeCubit.statusConnection.status) {
               case StatusConnection.Online:
-                return Lottie.asset(
-                  Assets.stopeToVpn,
+                return LottieWidget(
+                  asset: Assets.stopeToVpn,
                   repeat: state is LoadingStopVpnState,
                   reverse: state is LoadingStopVpnState,
                 );
@@ -53,6 +55,8 @@ class StatusVpn extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 50),
                   child: Image.asset(
                     Assets.offline,
+                    width: Platform.isMacOS ? 370 : null,
+                    height: Platform.isMacOS ? 370 : null,
                   ),
                 );
               default:
@@ -66,8 +70,8 @@ class StatusVpn extends StatelessWidget {
             child: InkWellCircleCustom(
               onTap: () => onTap(context, state),
               child: Container(
-                width: screenUtil.screenWidth / 2.1,
-                height: screenUtil.screenWidth / 2.1,
+                width: Platform.isMacOS ? 170 : screenUtil.screenWidth / 2.1,
+                height: Platform.isMacOS ? 170 : screenUtil.screenWidth / 2.1,
                 decoration: const BoxDecoration(
                   // color: kBGDark,
                   shape: BoxShape.circle,

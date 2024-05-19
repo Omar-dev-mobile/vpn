@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import "package:asn1lib/asn1lib.dart";
 import 'package:basic_utils/basic_utils.dart';
@@ -28,7 +29,7 @@ class RsaKeyHelper {
     Uint8List hash = generateSHA1Digest(udid + rnd);
 
     String signature = base64Encode(CryptoUtils.rsaSign(privateKey, hash));
-    var token = await FirebaseMessaging.instance.getToken();
+
     return {
       ...getDeviceInfo,
       "oper": "init",
@@ -36,8 +37,19 @@ class RsaKeyHelper {
       "rnd": rnd,
       "pmk": base64Encode(pmk.codeUnits),
       "signature": signature,
-      "fcm_key": token ?? ""
+      "fcm_key": await getFCMToken
     };
+  }
+
+  Future<String> get getFCMToken async {
+    String? token = '';
+    if (Platform.isMacOS || Platform.isIOS) {
+      token = await FirebaseMessaging.instance.getAPNSToken();
+    } else {
+      token = await FirebaseMessaging.instance.getToken();
+    }
+    print("getAPNSToken$token");
+    return token ?? "";
   }
 
   String buildQueryString(Map<String, String> parameters) {

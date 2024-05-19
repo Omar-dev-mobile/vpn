@@ -53,6 +53,7 @@ class SelectCountryScreen extends StatelessWidget {
                         );
                       }
                       var countriesModel = countryCubit.countriesModel;
+                      print(countriesModel?.workStatus?.vpnList?.length);
                       return ListView.separated(
                         shrinkWrap: true,
                         // physics: const NeverScrollableScrollPhysics(),

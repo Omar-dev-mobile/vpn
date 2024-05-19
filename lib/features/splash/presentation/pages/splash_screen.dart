@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:lottie/lottie.dart';
+import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
@@ -34,9 +35,12 @@ class _SplashScreenState extends State<SplashScreen> {
         duration: const Duration(seconds: 4),
         backgroundColor: kPrimary,
         onEnd: route,
-        splashScreenBody: Center(
-          child: Lottie.asset(
-            Assets.lottieSplashAnimation,
+        splashScreenBody: SizedBox(
+          width: screenUtil.screenWidth,
+          child: Center(
+            child: Lottie.asset(
+              Assets.lottieSplashAnimation,
+            ),
           ),
         ),
       )),

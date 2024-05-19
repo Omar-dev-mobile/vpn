@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -10,12 +12,16 @@ class LottieWidget extends StatefulWidget {
     this.plaseholder = const CircularProgressIndicator(),
     this.reverse = false,
     this.animate = true,
+    this.width,
+    this.height,
   });
   final String asset;
   bool repeat;
   bool reverse;
   bool animate;
   Widget plaseholder;
+  double? width;
+  double? height;
   @override
   State<LottieWidget> createState() => _LottieWidgetState();
 }
@@ -42,6 +48,8 @@ class _LottieWidgetState extends State<LottieWidget> {
             repeat: widget.repeat,
             reverse: widget.reverse,
             animate: widget.animate,
+            width: Platform.isMacOS ? 370 : widget.width,
+            height: Platform.isMacOS ? 370 : widget.height,
           );
         } else {
           return widget.plaseholder;

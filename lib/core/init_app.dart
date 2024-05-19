@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_vpn/flutter_vpn.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vpn/blocs_observer.dart';
+import 'package:vpn/core/shared/components/desktop_window_size.dart';
 import 'package:vpn/core/shared/components/notification_service.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
@@ -20,6 +21,7 @@ import '../locator.dart';
 class InitApp {
   static Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
+    await setWindowFunctions();
     await Future.value([
       await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform,
@@ -31,8 +33,9 @@ class InitApp {
       await FirebaseMessaging.instance
           .setForegroundNotificationPresentationOptions(
               alert: true, badge: true, sound: true),
+
       await locator<InitUsecases>().initSecurityRequest(),
-      await FlutterVpn.prepare(),
+      // await FlutterVpn.prepare(),
     ]);
 
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

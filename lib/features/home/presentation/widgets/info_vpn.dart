@@ -42,9 +42,9 @@ class InfoVpnWidget extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              NetworkSpeedChecker(
-                isOnline: homeCubit.isOnline,
-              )
+              // NetworkSpeedChecker(
+              //   isOnline: homeCubit.isOnline,
+              // )
             ],
           );
         },

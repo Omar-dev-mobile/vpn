@@ -73,7 +73,7 @@ class DrawerWidget extends StatelessWidget {
                 title: LocaleKeys.selectCountry.tr(),
                 onTap: () {
                   if (activeRouteName != SelectCountryRoute.name) {
-                    locator<CountryCubit>().getCountriesList();
+                    locator<CountryCubit>().getCountriesList(isRefresh: true);
                   }
                   Navigator.pop(context);
                   context.replaceRoute(const SelectCountryRoute());

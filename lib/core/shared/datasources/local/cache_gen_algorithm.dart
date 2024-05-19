@@ -10,11 +10,13 @@ class CacheGenAlgorithm {
 
   Future saveSecurityDataAlgithms(SecurityModel securityModel) async {
     String jsonString = json.encode(securityModel.toJsonInit());
+    print("saveSecurityDataAlgithms  $jsonString");
     await _secureStorage.saveData(key: 'security', value: jsonString);
   }
 
   Future<SecurityModel?> getSecurityDataAlgithms() async {
     String? jsonString = await _secureStorage.getData('security');
+    print("getSecurityDataAlgithms  $jsonString");
     if (jsonString != null) {
       var res = SecurityModel.fromJson(json.decode(jsonString));
       return res;

@@ -23,6 +23,7 @@ class ApiServiceInit extends ApiBase {
         };
         final securityModel = SecurityModel.fromJson(data);
         locator<CacheGenAlgorithm>().saveSecurityDataAlgithms(securityModel);
+
         return true;
       } else {
         return false;

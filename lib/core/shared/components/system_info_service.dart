@@ -89,11 +89,19 @@ class SystemInfoService {
       _hardName = iosInfo.name;
       _hardLModel = iosInfo.localizedModel;
       _hardFModel = iosInfo.identifierForVendor ?? "";
+    } else if (Platform.isMacOS) {
+      MacOsDeviceInfo macOsInfo = await deviceInfo.macOsInfo;
+      _lang = language;
+      _hardModel = macOsInfo.model;
+      _hardOS = macOsInfo.patchVersion.toString();
+      _hardName = macOsInfo.computerName;
+      _hardLModel = macOsInfo.model;
+      _hardFModel = macOsInfo.model;
     }
     user = await locator<CacheHelper>().getUser();
     isLogin = user != null;
     vpnServer = await locator<CacheHelper>().getVpnServer();
-    print("vpnServer${vpnServer?.toJson()}");
+    print("vpnServer${vpnServer?.ip}");
     themeMode = await locator<CacheHelper>().getThemeMode();
   }
 

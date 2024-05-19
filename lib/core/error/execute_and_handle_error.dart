@@ -24,7 +24,7 @@ Future<Either<String, T>> executeAndHandleError<T>(
     final result = await function();
     return Right(result);
   } catch (e, s) {
-    print('Stack trace in execute And Handle Error$s');
+    print('Stack trace in execute And Handle Error$s $e');
     if (e is String) return Left(e);
     final failure = ErrorHandler.handle(e);
     return Left(failure.errorMessage ?? "");

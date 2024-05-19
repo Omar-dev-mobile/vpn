@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/ink_well_circle_custom.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
@@ -14,7 +15,7 @@ class ButtonCenter extends StatelessWidget {
     final homeCubit = HomeCubit.get(context);
 
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(20.0),
       child: Stack(
         alignment: Alignment.center,
         children: [

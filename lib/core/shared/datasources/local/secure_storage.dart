@@ -6,14 +6,16 @@ class SecureStorage {
   SecureStorage._internal() {
     _secureStorage = FlutterSecureStorage(
       aOptions: _getAndroidOptions(),
+      iOptions: _getIOSOptions(),
+      mOptions: _getMacOSOptions(),
     );
   }
 
   late FlutterSecureStorage _secureStorage;
 
-  saveData({
+  Future<void> saveData({
     required String key,
-    required dynamic value,
+    required String value,
   }) async {
     try {
       await _secureStorage.write(key: key, value: value);
@@ -22,11 +24,7 @@ class SecureStorage {
     }
   }
 
-  AndroidOptions _getAndroidOptions() => const AndroidOptions(
-        encryptedSharedPreferences: true,
-      );
-
-  dynamic getData(String key) async {
+  Future<String?> getData(String key) async {
     try {
       return await _secureStorage.read(key: key);
     } catch (e) {
@@ -34,17 +32,28 @@ class SecureStorage {
     }
   }
 
-  deleteSecureData(String key) async {
+  Future<void> deleteSecureData(String key) async {
     await _secureStorage.delete(key: key);
   }
 
   Future<void> deleteAllSecureData() async {
-    await _secureStorage.deleteAll(aOptions: _getAndroidOptions());
+    await _secureStorage.deleteAll();
   }
 
   Future<bool> containsKeyInSecureData(String key) async {
-    var containsKey = await _secureStorage.containsKey(
-        key: key, aOptions: _getAndroidOptions());
+    var containsKey = await _secureStorage.containsKey(key: key);
     return containsKey;
   }
+
+  AndroidOptions _getAndroidOptions() => const AndroidOptions(
+        encryptedSharedPreferences: true,
+      );
+
+  IOSOptions _getIOSOptions() => const IOSOptions(
+        accessibility: KeychainAccessibility.first_unlock,
+      );
+
+  MacOsOptions _getMacOSOptions() => const MacOsOptions(
+        accessibility: KeychainAccessibility.unlocked,
+      );
 }
