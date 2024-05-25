@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/ink_well_circle_custom.dart';
 import 'package:vpn/core/customs/lottie_widget.dart';
@@ -28,60 +27,105 @@ class StatusVpn extends StatelessWidget {
             LocaleKeys.vPNConnectionHasBeenSuccessfullyEstablished.tr());
       }
     }, builder: (context, state) {
-      return Stack(
-        alignment: Alignment.center,
-        children: [
-          Builder(builder: (context) {
-            switch (homeCubit.statusConnection.status) {
-              case StatusConnection.Online:
-                return LottieWidget(
-                  asset: Assets.stopeToVpn,
-                  repeat: state is LoadingStopVpnState,
-                  reverse: state is LoadingStopVpnState,
-                );
-              case StatusConnection.Stopped:
-                return LottieWidget(
-                  asset: Assets.disconnecting,
-                  repeat: false,
-                );
-              case StatusConnection.Connecting:
-                return LottieWidget(
-                  asset: Assets.connecting,
-                  reverse: state is LoadingStopVpnState,
-                  animate: homeCubit.isConnecting,
-                );
-              case StatusConnection.Offline:
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 50),
-                  child: Image.asset(
-                    Assets.offline,
-                    width: Platform.isMacOS ? 370 : null,
-                    height: Platform.isMacOS ? 370 : null,
-                  ),
-                );
-              default:
-                return Image.asset(
-                  Assets.notActive,
-                );
-            }
-          }),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 55),
-            child: InkWellCircleCustom(
-              onTap: () => onTap(context, state),
-              child: Container(
-                width: Platform.isMacOS ? 170 : screenUtil.screenWidth / 2.1,
-                height: Platform.isMacOS ? 170 : screenUtil.screenWidth / 2.1,
-                decoration: const BoxDecoration(
-                  // color: kBGDark,
-                  shape: BoxShape.circle,
-                ),
+      return OrientationLayoutBuilder(
+        portrait: (context) => buildDesktop(context, state, homeCubit),
+        landscape: (context) => buildMobile(context, state, homeCubit),
+        mode: OrientationLayoutBuilderMode.portrait,
+      );
+    });
+  }
+
+  Widget buildDesktop(
+      BuildContext context, HomeState state, HomeCubit homeCubit) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Builder(builder: (context) {
+          return buildAnimation(
+              homeCubit.statusConnection.status, true, state, homeCubit);
+        }),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 55),
+          child: InkWellCircleCustom(
+            onTap: () => onTap(context, state),
+            child: Container(
+              width: 170,
+              height: 170,
+              decoration: const BoxDecoration(
+                // color: kBGDark,
+                shape: BoxShape.circle,
               ),
             ),
           ),
-        ],
-      );
-    });
+        ),
+      ],
+    );
+  }
+
+  Widget buildMobile(BuildContext context, state, HomeCubit homeCubit) {
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Builder(builder: (context) {
+          return buildAnimation(
+              homeCubit.statusConnection.status, false, state, homeCubit);
+        }),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 55),
+          child: InkWellCircleCustom(
+            onTap: () => onTap(context, state),
+            child: Container(
+              width: screenUtil.screenWidth / 2.1,
+              height: screenUtil.screenWidth / 2.1,
+              decoration: const BoxDecoration(
+                // color: kBGDark,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildAnimation(
+      StatusConnection? status, bool isDesktop, state, HomeCubit homeCubit) {
+    final size = isDesktop ? 370.0 : null;
+    return switch (status) {
+      StatusConnection.Online => Lottie.asset(
+          Assets.stopeToVpn,
+          repeat: state is LoadingStopVpnState,
+          reverse: state is LoadingStopVpnState,
+          width: size,
+          height: size,
+        ),
+      StatusConnection.Stopped => LottieWidget(
+          asset: Assets.disconnecting,
+          width: size,
+          height: size,
+          repeat: false,
+        ),
+      StatusConnection.Connecting => LottieWidget(
+          asset: Assets.connecting,
+          reverse: state is LoadingStopVpnState,
+          animate: homeCubit.isConnecting,
+          width: size,
+          height: size,
+        ),
+      StatusConnection.Offline => Padding(
+          padding: const EdgeInsets.only(bottom: 50),
+          child: Image.asset(
+            Assets.offline,
+            width: size,
+            height: size,
+          ),
+        ),
+      null => Image.asset(
+          Assets.notActive,
+          width: size,
+          height: size,
+        ),
+    };
   }
 
   void onTap(context, HomeState state) async {

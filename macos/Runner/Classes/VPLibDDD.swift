@@ -97,7 +97,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
                 if let connectedDate = dateConnection {
                     dateString = dateFormatter.string(from: connectedDate)
                 }
-                result(["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateString ?? "" ])
+                result(["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateString ])
             }
         default:
             result(FlutterMethodNotImplemented)
@@ -220,19 +220,66 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         let p : NEVPNProtocolIPSec = self.getBaseProtocol()
         p.username = username
         p.serverAddress = serverAddress;
+        
         p.authenticationMethod = NEVPNIKEAuthenticationMethod.sharedSecret
         
         let kcs = KeychainService();
-        kcs.save(key: "SHARED", value: sharedSecret)
-        kcs.save(key: "VPN_PASSWORD", value: password)
-        p.sharedSecretReference = kcs.load(key: "SHARED")
-        p.passwordReference = kcs.load(key: "VPN_PASSWORD")
+        let success = kcs.save(key: "VPN_PASSWORD", value: password)
+        if !success {
+            print("Failed to save VPN_PASSWORD")
+            // Handle the error, e.g., by showing an error message to the user or retrying
+        }
+
+        let sharedSecretSaved = kcs.save(key: "SHARED_SECRET", value: sharedSecret)
+        if !sharedSecretSaved {
+            print("Failed to save SHARED_SECRET")
+            // Handle the error similarly
+        }
+
+
+        let persistentRefPassword = kcs.loadPersistentRef(forKey: "VPN_PASSWORD")
+        let persistentRefSharedSecret = kcs.loadPersistentRef(forKey: "SHARED_SECRET")
+        p.sharedSecretReference = persistentRefSharedSecret
+        p.passwordReference = persistentRefPassword
+
+        // Optional: Debugging output to check if references are loaded
+        print("Shared Secret Reference: \(String(describing: persistentRefSharedSecret))")
+        print("Password Reference: \(String(describing: persistentRefPassword))")
+
+        
         
         self.vpnMan.protocolConfiguration = p
         self.vpnMan.localizedDescription = self.nameTun
         self.vpnMan.isEnabled = true
         print(serverAddress)
+        print(sharedSecret)
         print(password)
+        
+//        let onDemandRule = NEOnDemandRuleEvaluateConnection()
+//
+//        let instagram = NEEvaluateConnectionRule(matchDomains: ["*.instagram.com"],
+//                                                                 andAction: NEEvaluateConnectionRuleAction.connectIfNeeded)
+//
+//        instagram.probeURL = URL(string: "https://www.instagram.com")
+//        let messenger = NEEvaluateConnectionRule(matchDomains: ["*.messenger.com"],
+//                                                                 andAction: NEEvaluateConnectionRuleAction.connectIfNeeded)
+//
+//        messenger.probeURL = URL(string: "https://www.messenger.com")
+//
+//        let facebook = NEEvaluateConnectionRule(matchDomains: ["*.facebook.com"],
+//                                                                 andAction: NEEvaluateConnectionRuleAction.connectIfNeeded)
+//        facebook.probeURL = URL(string: "https://www.facebook.com")
+//        onDemandRule.connectionRules = [instagram,facebook,messenger]
+//        onDemandRule.interfaceTypeMatch = NEOnDemandRuleInterfaceType.any
+//        onDemandRule.probeURL?.stopAccessingSecurityScopedResource()
+//        self.vpnMan.onDemandRules = [onDemandRule]
+//
+//
+//
+//
+//
+//
+//        self.vpnMan.isOnDemandEnabled = true
         
         
         self.vpnMan.saveToPreferences { [flutterResult] error in
@@ -263,74 +310,43 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         }
     }
     
-    
-    public class KeychainService: NSObject {
-        
-        // Identifiers
-        let serviceIdentifier = "MySerivice"
-        let userAccount = "authenticatedUser"
-        let accessGroup = "MySerivice"
-        
-        // Arguments for the keychain queries
-        var kSecAttrAccessGroupSwift = NSString(format: kSecClass)
-        
-        public let kSecClassValue = kSecClass as CFString
-        let kSecAttrAccountValue = kSecAttrAccount as CFString
-        let kSecValueDataValue = kSecValueData as CFString
-        let kSecClassGenericPasswordValue = kSecClassGenericPassword as CFString
-        let kSecAttrServiceValue = kSecAttrService as CFString
-        let kSecMatchLimitValue = kSecMatchLimit as CFString
-        let kSecReturnDataValue = kSecReturnData as CFString
-        let kSecMatchLimitOneValue = kSecMatchLimitOne as CFString
-        let kSecAttrGenericValue = kSecAttrGeneric as CFString
-        let kSecAttrAccessibleValue = kSecAttrAccessible as CFString
-        
-        func save(key:String, value:String) {
-            let keyData: Data = key.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue), allowLossyConversion: false)!
-            let valueData: Data = value.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue), allowLossyConversion: false)!
-            
-            let keychainQuery = NSMutableDictionary();
-            keychainQuery[kSecClassValue as! NSCopying] = kSecClassGenericPasswordValue
-            keychainQuery[kSecAttrGenericValue as! NSCopying] = keyData
-            keychainQuery[kSecAttrAccountValue as! NSCopying] = keyData
-            keychainQuery[kSecAttrServiceValue as! NSCopying] = "VPN Line"
-            keychainQuery[kSecAttrAccessibleValue as! NSCopying] = kSecAttrAccessibleAlwaysThisDeviceOnly
-            keychainQuery[kSecValueData as! NSCopying] = valueData;
-            // Delete any existing items
-            SecItemDelete(keychainQuery as CFDictionary)
-            SecItemAdd(keychainQuery as CFDictionary, nil)
-        }
-        
-        func load(key: String)->Data {
-            
-            let keyData: Data = key.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue), allowLossyConversion: false)!
-            let keychainQuery = NSMutableDictionary();
-            keychainQuery[kSecClassValue as! NSCopying] = kSecClassGenericPasswordValue
-            keychainQuery[kSecAttrGenericValue as! NSCopying] = keyData
-            keychainQuery[kSecAttrAccountValue as! NSCopying] = keyData
-            keychainQuery[kSecAttrServiceValue as! NSCopying] = "VPN Line"
-            keychainQuery[kSecAttrAccessibleValue as! NSCopying] = kSecAttrAccessibleAlwaysThisDeviceOnly
-            keychainQuery[kSecMatchLimit] = kSecMatchLimitOne
-            keychainQuery[kSecReturnPersistentRef] = kCFBooleanTrue
-            
-            var result: AnyObject?
-            let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(keychainQuery, UnsafeMutablePointer($0)) }
-            
-            
-            if status == errSecSuccess {
-                if let data = result as! NSData? {
-                    if let value = NSString(data: data as Data, encoding: String.Encoding.utf8.rawValue) {
-                    }
-                    return data as Data;
-                }
-            }
-            return "".data(using: .utf8)!;
+import Security
+
+class KeychainService {
+    func save(key: String, value: String) -> Bool {
+        let data = Data(value.utf8)
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecAttrService as String: "YourVPNService",
+            kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        ]
+
+        // Delete any existing item with the same key
+        SecItemDelete(query as CFDictionary)
+
+        // Add new item to the keychain
+        let status = SecItemAdd(query as CFDictionary, nil)
+        return status == errSecSuccess
+    }
+
+    func loadPersistentRef(forKey key: String) -> Data? {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecAttrService as String: "YourVPNService",
+            kSecReturnPersistentRef as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        if status == errSecSuccess {
+            return item as? Data
+        } else {
+            print("Failed to load persistent ref with status: \(status)")
+            return nil
         }
     }
-    
-
-        
-
-
-
-
+}

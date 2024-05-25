@@ -28,7 +28,7 @@ class LogOut extends StatelessWidget {
           14.pw,
           CommonTextWidget(
             text: LocaleKeys.logOut.tr().toUpperCase(),
-            size: screenUtil.setSp(18),
+            size: 18,
             color: Theme.of(context).textTheme.labelLarge!.color,
             fontWeight: FontWeight.w300,
           ),

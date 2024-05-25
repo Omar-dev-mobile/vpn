@@ -25,51 +25,63 @@ class ActivateTarifScreen extends StatelessWidget {
     );
   }
 
-  Widget buildDesktop(BuildContext context) => Container(
-        height: MediaQuery.of(context).size.height,
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage(
-              Assets.union,
-            ),
+  Widget buildDesktop(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    return Container(
+      height: screenHeight,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: AssetImage(
+            Assets.union,
           ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const AppBarHeader(),
-            const Spacer(),
-            Image.asset(
-              Assets.notActive,
-              width: 350,
-              height: 350,
-            ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: CommonTextWidget(
-                text: title,
-                size: screenUtil.setSp(20),
-                color: Theme.of(context).textTheme.displaySmall!.color,
-                textAlign: TextAlign.center,
-                fontWeight: FontWeight.w500,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const AppBarHeader(),
+          Expanded(
+            // Adjust to use Expanded instead of Spacer to fill available space
+            child: Center(
+              // Explicitly center the image
+              child: Image.asset(
+                Assets.notActive,
+                width: screenWidth * 0.6, // Make image width responsive
+                height: screenHeight * 0.6, // Make image height responsive
               ),
             ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: CustomButton(
-                title: textButton,
-                color: kPrimary,
-                onPressed: onPressed,
-              ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal:
+                    screenWidth * 0.05), // Responsive horizontal padding
+            child: CommonTextWidget(
+              text: title,
+              size: screenHeight *
+                  0.02, // Responsive font size based on screen height
+              color: Theme.of(context).textTheme.displaySmall!.color,
+              textAlign: TextAlign.center,
+              fontWeight: FontWeight.w500,
             ),
-            const SizedBox(height: 30),
-          ],
-        ),
-      );
+          ),
+          SizedBox(height: screenHeight * 0.02), // Responsive spacing
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+            child: CustomButton(
+              title: textButton,
+              color: kPrimary,
+              onPressed: onPressed,
+            ),
+          ),
+          SizedBox(height: screenHeight * 0.03), // Responsive bottom spacing
+        ],
+      ),
+    );
+  }
 
   Widget buildMobile(BuildContext context) => Container(
         height: screenUtil.screenHeight,

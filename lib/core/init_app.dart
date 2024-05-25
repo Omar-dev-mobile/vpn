@@ -6,7 +6,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_vpn/flutter_vpn.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vpn/blocs_observer.dart';
 import 'package:vpn/core/shared/components/desktop_window_size.dart';

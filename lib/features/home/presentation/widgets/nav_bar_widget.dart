@@ -27,7 +27,7 @@ class NavBarWidget extends StatelessWidget {
             5.ph,
             CommonTextWidget(
               text: title,
-              size: screenUtil.setSp(12),
+              size: 12,
               color: theme!.color,
               textAlign: TextAlign.center,
               fontWeight: FontWeight.w500,

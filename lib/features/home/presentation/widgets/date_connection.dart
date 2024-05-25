@@ -38,7 +38,7 @@ class _DateConnectionState extends State<DateConnection> {
     String formattedWorkDuration = formatDuration(workDuration);
     return CommonTextWidget(
       text: formattedWorkDuration,
-      size: screenUtil.setSp(18),
+      size: 18,
       color: Theme.of(context).textTheme.labelLarge!.color,
       fontWeight: FontWeight.w400,
     );

@@ -12,7 +12,7 @@ Future setWindowFunctions() async {
     titleBarStyle: TitleBarStyle.normal,
     windowButtonVisibility: true,
     minimumSize: Size(700, 800),
-    maximumSize: Size(700, 800),
+    // maximumSize: Size(700, 800),
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();

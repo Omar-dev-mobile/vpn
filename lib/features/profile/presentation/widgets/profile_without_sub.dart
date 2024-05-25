@@ -52,6 +52,7 @@ class ProfileWithoutSub extends StatelessWidget {
                       .purchaseASubscriptionForContinuedAccessAndFunctionality
                       .tr(),
                   size: 23,
+                  textAlign: TextAlign.center,
                   color: Theme.of(context).textTheme.displaySmall!.color,
                 ),
                 20.ph,

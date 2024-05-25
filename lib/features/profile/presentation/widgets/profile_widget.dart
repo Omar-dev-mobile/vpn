@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/theme/theme.dart';
 
@@ -16,48 +15,70 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CommonTextWidget(
-          text: title,
-          fontWeight: FontWeight.w500,
-          color: Theme.of(context).textTheme.bodyLarge!.color,
-        ),
-        10.ph,
-        Container(
-          decoration: BoxDecoration(
-            color: kDarkGreen,
-            borderRadius: BorderRadius.circular(7),
+    // Determine screen width for responsiveness
+    double screenWidth = MediaQuery.of(context).size.width;
+    double paddingHorizontal =
+        screenWidth > 600 ? 30 : 20; // Adjust padding for desktop
+    double fontSize =
+        screenWidth > 600 ? 22 : 18; // Adjust font size for desktop
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CommonTextWidget(
+            text: title,
+            fontWeight: FontWeight.w500,
+            color: Theme.of(context).textTheme.bodyLarge!.color,
+            size: screenWidth > 600
+                ? 20
+                : 16, // Adjust title font size for desktop
           ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: IntrinsicHeight(
-              child: Row(
-                children: [
-                  SvgPicture.asset(
-                    asset,
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20, right: 30),
-                    child: VerticalDivider(
-                      width: 10,
-                      thickness: 2,
-                      color: kWhite,
+          SizedBox(
+              height: screenWidth > 600 ? 20 : 10), // Adjust vertical spacing
+          Container(
+            decoration: BoxDecoration(
+              color: kDarkGreen,
+              borderRadius: BorderRadius.circular(7),
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: paddingHorizontal,
+                  vertical: screenWidth > 600 ? 20 : 15),
+              child: IntrinsicHeight(
+                child: Row(
+                  children: [
+                    SvgPicture.asset(
+                      asset,
+                      width: screenWidth > 600
+                          ? 60
+                          : 40, // Adjust SVG size for desktop
                     ),
-                  ),
-                  CommonTextWidget(
-                    text: text,
-                    color: kWhite,
-                    fontWeight: FontWeight.w500,
-                    size: 18,
-                  ),
-                ],
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, right: 30),
+                      child: VerticalDivider(
+                        width: 10,
+                        thickness: 2,
+                        color: kWhite,
+                      ),
+                    ),
+                    Expanded(
+                      // Make text expandable to fit remaining space
+                      child: CommonTextWidget(
+                        text: text,
+                        color: kWhite,
+                        overflow: TextOverflow.ellipsis,
+                        fontWeight: FontWeight.w500,
+                        size: fontSize, // Use adjusted font size
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

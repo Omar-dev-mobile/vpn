@@ -3,6 +3,7 @@ import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/theme/theme.dart';
 
+// ignore: must_be_immutable
 class BuilderBloc<S, E> extends StatelessWidget {
   BuilderBloc({super.key, required this.child, required this.state});
   Widget child;

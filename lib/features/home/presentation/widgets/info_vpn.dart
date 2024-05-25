@@ -26,7 +26,7 @@ class InfoVpnWidget extends StatelessWidget {
                 children: [
                   CommonTextWidget(
                     text: homeCubit.getStatusVpn(),
-                    size: screenUtil.setSp(35),
+                    size: 35,
                     color: primaryColor,
                   ),
                   if (homeCubit.statusConnection.dateConnection != null)
@@ -36,15 +36,15 @@ class InfoVpnWidget extends StatelessWidget {
                   if (homeCubit.isOnline)
                     CommonTextWidget(
                       text: homeCubit.systemInfoService.vpnInfo?.s ?? "",
-                      size: screenUtil.setSp(16),
+                      size: 16,
                       color: kShadeOfGray,
                     ),
                 ],
               ),
               const Spacer(),
-              // NetworkSpeedChecker(
-              //   isOnline: homeCubit.isOnline,
-              // )
+              NetworkSpeedChecker(
+                isOnline: homeCubit.isOnline,
+              )
             ],
           );
         },

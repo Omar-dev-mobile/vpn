@@ -86,12 +86,12 @@ class _NetworkSpeedCheckerState extends State<NetworkSpeedChecker> {
                   children: [
                     CommonTextWidget(
                       text: snapshot.data?.toStringAsFixed(1) ?? "",
-                      size: screenUtil.setSp(28),
+                      size: 28,
                       color: primaryColor,
                     ),
                     CommonTextWidget(
                       text: 'MBps',
-                      size: screenUtil.setSp(16),
+                      size: 16,
                       color: displaySmall,
                     ),
                   ],

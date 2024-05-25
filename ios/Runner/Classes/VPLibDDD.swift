@@ -317,7 +317,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
             keychainQuery[kSecClassValue as! NSCopying] = kSecClassGenericPasswordValue
             keychainQuery[kSecAttrGenericValue as! NSCopying] = keyData
             keychainQuery[kSecAttrAccountValue as! NSCopying] = keyData
-            keychainQuery[kSecAttrServiceValue as! NSCopying] = "VPN Line"
+            keychainQuery[kSecAttrServiceValue as! NSCopying] = "VPN"
             keychainQuery[kSecAttrAccessibleValue as! NSCopying] = kSecAttrAccessibleAlwaysThisDeviceOnly
             keychainQuery[kSecValueData as! NSCopying] = valueData;
             // Delete any existing items
@@ -332,7 +332,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
             keychainQuery[kSecClassValue as! NSCopying] = kSecClassGenericPasswordValue
             keychainQuery[kSecAttrGenericValue as! NSCopying] = keyData
             keychainQuery[kSecAttrAccountValue as! NSCopying] = keyData
-            keychainQuery[kSecAttrServiceValue as! NSCopying] = "VPN Line"
+            keychainQuery[kSecAttrServiceValue as! NSCopying] = "VPN"
             keychainQuery[kSecAttrAccessibleValue as! NSCopying] = kSecAttrAccessibleAlwaysThisDeviceOnly
             keychainQuery[kSecMatchLimit] = kSecMatchLimitOne
             keychainQuery[kSecReturnPersistentRef] = kCFBooleanTrue
