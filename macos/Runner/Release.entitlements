@@ -7,7 +7,7 @@
 		<string>Default</string>
 	</array>
 	<key>com.apple.developer.aps-environment</key>
-	<string>development</string>
+	<string>production</string>
 	<key>com.apple.developer.networking.custom-protocol</key>
 	<true/>
 	<key>com.apple.developer.networking.networkextension</key>
@@ -18,9 +18,13 @@
 	<array>
 		<string>allow-vpn</string>
 	</array>
-	<key>com.apple.developer.networking.vpn.configuration</key>
-	<true/>
 	<key>com.apple.security.app-sandbox</key>
+	<true/>
+	<key>com.apple.security.cs.allow-jit</key>
+	<true/>
+	<key>com.apple.security.network.client</key>
+	<true/>
+	<key>com.apple.security.network.server</key>
 	<true/>
 	<key>keychain-access-groups</key>
 	<array/>
