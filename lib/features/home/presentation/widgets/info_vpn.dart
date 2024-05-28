@@ -35,7 +35,9 @@ class InfoVpnWidget extends StatelessWidget {
                     ),
                   if (homeCubit.isOnline)
                     CommonTextWidget(
-                      text: homeCubit.systemInfoService.vpnInfo?.s ?? "",
+                      text:
+                          homeCubit.systemInfoService.vpnInfo?.vpnInfo?.vsip ??
+                              "",
                       size: screenUtil.setSp(16),
                       color: kShadeOfGray,
                     ),

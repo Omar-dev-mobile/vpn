@@ -77,6 +77,7 @@ class VpnInfo {
     this.countryId,
     this.ping,
     this.name,
+    this.vsip,
   });
   int? id;
   String? ip;
@@ -85,6 +86,7 @@ class VpnInfo {
   String? countryId;
   String? ping;
   String? name;
+  String? vsip;
 
   VpnInfo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -94,6 +96,7 @@ class VpnInfo {
     countryId = json['country_id'];
     ping = json['ping'];
     name = json['name'];
+    vsip = json['vsip'];
   }
 
   Map<String, dynamic> toJson() {
@@ -105,6 +108,7 @@ class VpnInfo {
     data['country_id'] = countryId;
     data['ping'] = ping;
     data['name'] = name;
+    data['vsip'] = vsip;
     return data;
   }
 }

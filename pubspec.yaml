@@ -83,7 +83,6 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/animation/
-    - assets/cert/
   fonts:
     - family: Roboto
       fonts:
