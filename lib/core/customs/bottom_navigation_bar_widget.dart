@@ -25,7 +25,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
             builder: (context, state) {
               var vpnServer = countryCubit.systemInfoService.vpnServer;
               return NavBarWidget(
-                title: vpnServer?.countryName ?? "",
+                title: vpnServer?.name ?? "",
                 icons: vpnServer != null &&
                         (vpnServer.countryId?.isNotEmpty ?? false)
                     ? Flag.fromString(
