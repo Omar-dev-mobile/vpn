@@ -63,9 +63,9 @@ class SelectCountryScreen extends StatelessWidget {
                           return InkWell(
                             onTap: () {
                               if (state is! CountriesSelectVpnLoadingState &&
-                                  countryCubit.systemInfoService.vpnServer
-                                          ?.countryId !=
-                                      vpnList?.countryId) {
+                                  countryCubit
+                                          .systemInfoService.vpnServer?.id !=
+                                      vpnList?.id) {
                                 countryCubit.selectVpn(vpnList, context);
                               }
                             },

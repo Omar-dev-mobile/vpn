@@ -20,6 +20,7 @@ import '../locator.dart';
 class InitApp {
   static Future<void> initialize() async {
     WidgetsFlutterBinding.ensureInitialized();
+
     await setWindowFunctions();
     await Future.value([
       await Firebase.initializeApp(

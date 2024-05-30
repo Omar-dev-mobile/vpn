@@ -35,8 +35,6 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
             return "Connecting"
         case .Stopped:
             return "Stopped"
-         default:
-            return "Offline"
         }
     }
 
@@ -53,7 +51,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
             }
 
             print(vpnStatusString);
-            let data: [String: Any] = ["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateString]
+            let data: [String: Any] = ["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateString ?? ""]
             self.eventSink?(data)
         }
         
@@ -97,7 +95,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
                 if let connectedDate = dateConnection {
                     dateString = dateFormatter.string(from: connectedDate)
                 }
-                result(["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateString ])
+                result(["status": vpnStatusString, "lastMcc": lastMcc, "dateConnection": dateString ?? "" ])
             }
         default:
             result(FlutterMethodNotImplemented)

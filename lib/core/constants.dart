@@ -47,10 +47,10 @@ int getNumberOfDecimalDigits(double number) {
   return 0;
 }
 
-const tarifCost = {
-  "org.cnddrm.vplineapp.pay.sub.week": 7,
-  "org.cnddrm.vplineapp.pay.sub.month": 30,
-  "org.cnddrm.vplineapp.pay.sub.triple.month": 90,
+Map tarifCost = {
+  kProductIds[0]: 7,
+  kProductIds[1]: 30,
+  kProductIds[2]: 90,
 };
 
 double getPercent(DateTime? vpnTimeExpire, String prodactId) {
@@ -59,7 +59,7 @@ double getPercent(DateTime? vpnTimeExpire, String prodactId) {
   }
   int difference = vpnTimeExpire.difference(DateTime.now()).inDays;
   double percentTry = (difference / (tarifCost[prodactId] ?? 0));
-  return (percentTry > 1 && percentTry < 0) ? 1 : (1 - percentTry);
+  return (percentTry > 1 || percentTry < 0) ? 1 : (1 - percentTry);
 }
 
 int random(int min, int max) {

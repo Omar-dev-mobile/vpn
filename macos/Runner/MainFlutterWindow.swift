@@ -4,11 +4,17 @@ import window_manager
 
 class MainFlutterWindow: NSWindow {
     override func awakeFromNib() {
-        let flutterViewController = FlutterViewController()
-        let windowFrame = self.frame
-        self.contentViewController = flutterViewController
-        self.setFrame(windowFrame, display: true)
-        
+        let flutterViewController = FlutterViewController.init()
+            let windowFrame = self.frame
+            self.contentViewController = flutterViewController
+            self.setFrame(windowFrame, display: true)
+
+            // Set the initial window size
+            self.setContentSize(NSSize(width: 450, height: 600))
+            
+            // Set the minimum and maximum window sizes
+            self.minSize = NSSize(width: 450, height: 550)
+            self.maxSize = NSSize(width: 550, height: 700)
         // Set up the VPN Method Channel
         let vpnChannel = FlutterMethodChannel(name: "vpn_manager", binaryMessenger: flutterViewController.engine.binaryMessenger)
         let streamHandler = VPLibDDD()
@@ -23,10 +29,5 @@ class MainFlutterWindow: NSWindow {
         RegisterGeneratedPlugins(registry: flutterViewController)
         super.awakeFromNib()
     }
-
-    override public func order(_ place: NSWindow.OrderingMode, relativeTo otherWin: Int) {
-         super.order(place, relativeTo: otherWin)
-         hiddenWindowAtLaunch()
-     }
 }
 

@@ -17,17 +17,20 @@ class CardTarifWidget extends StatelessWidget {
     required this.tarifDays,
     required this.day,
     this.percent,
+    this.productId = "",
     required this.index,
   });
   final String prise;
   final String plan;
   final String tarifDays;
   final String day;
+  final String productId;
   final double? percent;
   final int index;
 
   @override
   Widget build(BuildContext context) {
+    print(plan);
     return OrientationLayoutBuilder(
       portrait: (context) => buildDesktop(context),
       landscape: (context) => buildMobile(context),
@@ -36,15 +39,15 @@ class CardTarifWidget extends StatelessWidget {
   }
 
   Widget buildDesktop(BuildContext context) => Container(
-        height: screenUtil.setHeight(260),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+        height: screenUtil.setHeight(210),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
         decoration: ShapeDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: const Alignment(0.1, 1.4),
             colors: index == 0
                 ? [kDarkTealColor, kDarkTealColor]
-                : (gradient[plan] ?? gradient['7']!),
+                : (gradient[productId] ?? gradient[kProductIds[0]]!),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -63,7 +66,7 @@ class CardTarifWidget extends StatelessWidget {
                 CommonTextWidget(
                   text: '\$$prise',
                   color: kWhite.withOpacity(0.7),
-                  size: screenUtil.setSp(30),
+                  size: 40,
                   fontWeight: FontWeight.w300,
                 ),
               ],
@@ -76,14 +79,14 @@ class CardTarifWidget extends StatelessWidget {
                     CommonTextWidget(
                       text: tarifDays,
                       color: kWhite.withOpacity(0.7),
-                      size: screenUtil.setSp(25),
+                      size: 35,
                       fontWeight: FontWeight.w300,
                     ),
                     const Spacer(),
                     CommonTextWidget(
                       text: day,
                       color: kSilver,
-                      size: screenUtil.setSp(12),
+                      size: 20,
                       fontWeight: FontWeight.w300,
                     ),
                   ],
@@ -91,7 +94,7 @@ class CardTarifWidget extends StatelessWidget {
               )
             else
               Padding(
-                padding: const EdgeInsets.only(top: 22),
+                padding: const EdgeInsets.only(top: 10),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -102,14 +105,14 @@ class CardTarifWidget extends StatelessWidget {
                           text: plan,
                           fontFamily: 'Roboto',
                           color: kWhite.withOpacity(0.7),
-                          size: screenUtil.setSp(25),
+                          size: 35,
                           fontWeight: FontWeight.w300,
                         ),
                         CommonTextWidget(
                           text: day,
                           color: kWhite.withOpacity(0.7),
                           fontFamily: 'Roboto',
-                          size: screenUtil.setSp(17),
+                          size: 20,
                           fontWeight: FontWeight.w300,
                         ),
                       ],
@@ -149,7 +152,7 @@ class CardTarifWidget extends StatelessWidget {
             end: const Alignment(0.1, 1.4),
             colors: index == 0
                 ? [kDarkTealColor, kDarkTealColor]
-                : (gradient[plan] ?? gradient['7']!),
+                : (gradient[productId] ?? gradient['7']!),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),

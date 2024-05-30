@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
@@ -37,23 +39,23 @@ class AboutScreen extends StatelessWidget {
                   CommonTextWidget(
                     text: LocaleKeys.about.tr(),
                     color: Theme.of(context).textTheme.bodyLarge!.color,
-                    size: screenUtil.setSp(35),
+                    size: 35,
                     fontWeight: FontWeight.w500,
                   ),
                   screenUtil.setHeight(10).ph,
                   CustomButton(
                     title: '${LocaleKeys.versionApp.tr()} 1.0.0',
                     color: kDarkTealColor,
-                    size: screenUtil.setSp(18),
+                    size: 18,
                     fontWeight: FontWeight.w500,
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 16),
+                        vertical: 16, horizontal: 16),
                   ),
                   screenUtil.setHeight(30).ph,
                   CommonTextWidget(
                     text: LocaleKeys.contactUs.tr(),
                     color: Theme.of(context).textTheme.titleMedium!.color,
-                    size: screenUtil.setSp(18),
+                    size: 18,
                     fontWeight: FontWeight.w500,
                   ),
                   screenUtil.setHeight(10).ph,
@@ -83,7 +85,7 @@ class AboutScreen extends StatelessWidget {
                   CommonTextWidget(
                     text: LocaleKeys.description.tr(),
                     color: Theme.of(context).textTheme.titleMedium!.color,
-                    size: screenUtil.setSp(18),
+                    size: 18,
                     fontWeight: FontWeight.w500,
                   ),
                   screenUtil.setHeight(10).ph,
@@ -93,7 +95,7 @@ class AboutScreen extends StatelessWidget {
                         .tr(),
                     color: Theme.of(context).textTheme.displaySmall!.color,
                     fontWeight: FontWeight.w400,
-                    size: screenUtil.setSp(16),
+                    size: 16,
                     height: 2,
                   ),
                   screenUtil.setHeight(25).ph,
@@ -106,6 +108,10 @@ class AboutScreen extends StatelessWidget {
                           children: [
                             GestureDetector(
                               onTap: () {
+                                if (Platform.isWindows || Platform.isMacOS) {
+                                  launchUrl(Uri.parse(termServiceUrl));
+                                  return;
+                                }
                                 context.pushRoute(
                                     WebViewRoute(url: termServiceUrl));
                               },
@@ -116,7 +122,7 @@ class AboutScreen extends StatelessWidget {
                                     .bodyLarge!
                                     .color,
                                 fontWeight: FontWeight.w400,
-                                size: screenUtil.setSp(15),
+                                size: 15,
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -130,6 +136,10 @@ class AboutScreen extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
+                                if (Platform.isWindows || Platform.isMacOS) {
+                                  launchUrl(Uri.parse(policyUrl));
+                                  return;
+                                }
                                 context.pushRoute(WebViewRoute(url: policyUrl));
                               },
                               child: CommonTextWidget(
@@ -140,7 +150,7 @@ class AboutScreen extends StatelessWidget {
                                     .color,
                                 fontWeight: FontWeight.w400,
                                 textAlign: TextAlign.center,
-                                size: screenUtil.setSp(15),
+                                size: 15,
                               ),
                             ),
                           ],
@@ -153,9 +163,9 @@ class AboutScreen extends StatelessWidget {
                     title: LocaleKeys.askAQuestion.tr(),
                     color: kPrimary,
                     radius: 64,
-                    size: screenUtil.setSp(20),
+                    size: 20,
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 16),
+                        vertical: 16, horizontal: 16),
                     fontWeight: FontWeight.w500,
                     onPressed: () {
                       context.pushRoute(AskQuestionRoute());
