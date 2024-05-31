@@ -16,13 +16,16 @@ class CardTarifWidget extends StatelessWidget {
     required this.tarifDays,
     required this.day,
     this.percent,
+    this.productId = "",
     required this.index,
   });
   final String prise;
   final String plan;
   final String tarifDays;
   final String day;
+  final String productId;
   final double? percent;
+
   final int index;
 
   @override
@@ -36,7 +39,7 @@ class CardTarifWidget extends StatelessWidget {
           end: const Alignment(0.1, 1.4),
           colors: index == 0
               ? [kDarkTealColor, kDarkTealColor]
-              : (gradient[plan] ?? gradient['7']!),
+              : (gradient[productId] ?? gradient['7']!),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
