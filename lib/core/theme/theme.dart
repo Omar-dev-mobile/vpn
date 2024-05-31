@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vpn/core/constants.dart';
 
 const Color kWhite = Color(0xffFFFFFF);
 const Color kBlack = Colors.black;
@@ -35,9 +36,9 @@ const Color kSilver = Color(0xffE5E5E5);
 const Color kDarkGreen = Color(0xff006A7C);
 
 Map<String, List<Color>> gradient = {
-  "7": [kDeepPurpleColor, kDarkTealColor],
-  "30": [kDeepPurpleColor, kOrangeColor],
-  "99": [kDeepPurpleColor, kStarIconOn],
+  kProductIds[0]: [kDeepPurpleColor, kDarkTealColor],
+  kProductIds[1]: [kDeepPurpleColor, kOrangeColor],
+  kProductIds[2]: [kDeepPurpleColor, kStarIconOn],
 };
 
 class MyThemeData {

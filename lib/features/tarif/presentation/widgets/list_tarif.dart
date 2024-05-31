@@ -31,6 +31,7 @@ class ListTariff extends StatelessWidget {
             child: CardTarifWidget(
               prise: userInfo.tarifCostActivation ?? "",
               index: 0,
+              productId: userInfo.productId ?? "",
               plan: userInfo.tarifName ?? "",
               tarifDays: userInfo.tarifName ?? "",
               day: getDaysRemainingText(calculateDaysLeft(
@@ -53,6 +54,7 @@ class ListTariff extends StatelessWidget {
                 child: CardTarifWidget(
                   prise: traif?.tarifCostActivation ?? "",
                   index: index,
+                  productId: traif?.tarifBuy ?? "",
                   tarifDays: userInfo?.tarifName ?? "",
                   plan: traif?.tarifName ?? "",
                   day: '${traif?.tarifDays ?? ""} ${LocaleKeys.days.tr()}',
