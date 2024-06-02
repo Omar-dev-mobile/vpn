@@ -18,7 +18,7 @@ class BottomNavigationBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var countryCubit = CountryCubit.get(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      padding: const EdgeInsets.only(left: 40, right: 40, bottom: 5),
       child: Row(
         children: [
           BlocBuilder<CountryCubit, CountryState>(
@@ -30,8 +30,8 @@ class BottomNavigationBarWidget extends StatelessWidget {
                         (vpnServer.countryId?.isNotEmpty ?? false)
                     ? Flag.fromString(
                         vpnServer.countryId ?? "de",
-                        height: 32,
-                        width: 32,
+                        height: 30,
+                        width: 30,
                         borderRadius: 10,
                       )
                     : const SizedBox(),

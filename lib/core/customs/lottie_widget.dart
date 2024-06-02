@@ -48,8 +48,8 @@ class _LottieWidgetState extends State<LottieWidget> {
             repeat: widget.repeat,
             reverse: widget.reverse,
             animate: widget.animate,
-            width: Platform.isMacOS ? 370 : widget.width,
-            height: Platform.isMacOS ? 370 : widget.height,
+            width: widget.width,
+            height: widget.height,
           );
         } else {
           return widget.plaseholder;

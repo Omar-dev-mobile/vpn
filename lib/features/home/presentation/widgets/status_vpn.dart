@@ -45,12 +45,14 @@ class StatusVpn extends StatelessWidget {
               homeCubit.statusConnection.status, true, state, homeCubit);
         }),
         Padding(
-          padding: const EdgeInsets.only(bottom: 55),
+          padding: const EdgeInsets.only(bottom: 45),
           child: InkWellCircleCustom(
             onTap: () => onTap(context, state),
             child: Container(
-              width: 170,
-              height: 170,
+              width:
+                  screenUtil.screenWidth * (screenUtil.screenHeight * 0.00045),
+              height:
+                  screenUtil.screenWidth * (screenUtil.screenHeight * 0.00045),
               decoration: const BoxDecoration(
                 // color: kBGDark,
                 shape: BoxShape.circle,
@@ -71,7 +73,7 @@ class StatusVpn extends StatelessWidget {
               homeCubit.statusConnection.status, false, state, homeCubit);
         }),
         Padding(
-          padding: const EdgeInsets.only(bottom: 55),
+          padding: const EdgeInsets.only(bottom: 0),
           child: InkWellCircleCustom(
             onTap: () => onTap(context, state),
             child: Container(
@@ -90,7 +92,9 @@ class StatusVpn extends StatelessWidget {
 
   Widget buildAnimation(
       StatusConnection? status, bool isDesktop, state, HomeCubit homeCubit) {
-    final size = isDesktop ? 370.0 : null;
+    final size = isDesktop
+        ? screenUtil.screenWidth * (screenUtil.screenHeight * 0.001)
+        : null;
     return switch (status) {
       StatusConnection.Online => Lottie.asset(
           Assets.stopeToVpn,

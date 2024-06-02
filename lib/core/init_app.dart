@@ -33,9 +33,7 @@ class InitApp {
       await FirebaseMessaging.instance
           .setForegroundNotificationPresentationOptions(
               alert: true, badge: true, sound: true),
-
       await locator<InitUsecases>().initSecurityRequest(),
-      // await FlutterVpn.prepare(),
     ]);
 
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);

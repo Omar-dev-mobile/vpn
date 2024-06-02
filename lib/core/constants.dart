@@ -9,8 +9,8 @@ import 'package:vpn/translations/locate_keys.g.dart';
 
 // const BASE_URL = 'https://vp-line.aysec.org/ios.php';
 const BASE_URL = 'https://app.candodream.com/ios.php';
-const termServiceUrl = 'https://candodream.com/termsofservice';
-const policyUrl = 'https://candodream.com/policy';
+const termServiceUrl = 'https://app.candodream.com/terms.php';
+const policyUrl = 'https://app.candodream.com/privacy.php';
 
 extension EmptyPadding on num {
   SizedBox get ph => SizedBox(

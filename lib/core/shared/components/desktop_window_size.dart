@@ -8,9 +8,8 @@ Future setWindowFunctions() async {
     // size: Size(700, 800),
     center: true,
     backgroundColor: Colors.transparent,
-    skipTaskbar: true,
+    skipTaskbar: false,
     titleBarStyle: TitleBarStyle.normal,
-    windowButtonVisibility: true,
     // minimumSize: Size(700, 800),
     // maximumSize: Size(700, 800),
   );

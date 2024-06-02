@@ -26,6 +26,7 @@ class CardTarifWidget extends StatelessWidget {
   final String day;
   final String productId;
   final double? percent;
+
   final int index;
 
   @override

@@ -51,7 +51,7 @@ dependencies:
   cloud_firestore: ^4.17.5
   flutter_local_notifications: ^9.7.0
   url_launcher: ^6.2.6
-  in_app_purchase: ^3.2.0
+  in_app_purchase: ^3.1.11
   flutter_secure_storage: ^9.2.2
   easy_localization: ^3.0.7
   focus_detector: ^2.0.1

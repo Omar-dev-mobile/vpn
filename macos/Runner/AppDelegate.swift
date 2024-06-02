@@ -28,7 +28,7 @@ class AppDelegate: FlutterAppDelegate, MessagingDelegate, UNUserNotificationCent
 
 
     override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
-        return true
+        return false
     }
 
    
