@@ -4,6 +4,7 @@ import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:vpn/core/customs/cis_widget.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/home/presentation/widgets/nav_bar_widget.dart';
@@ -28,12 +29,14 @@ class BottomNavigationBarWidget extends StatelessWidget {
                 title: vpnServer?.name ?? "",
                 icons: vpnServer != null &&
                         (vpnServer.countryId?.isNotEmpty ?? false)
-                    ? Flag.fromString(
-                        vpnServer.countryId ?? "de",
-                        height: 32,
-                        width: 32,
-                        borderRadius: 10,
-                      )
+                    ? (vpnServer.countryId ?? "de").toLowerCase() == 'country'
+                        ? const CisWidget()
+                        : Flag.fromString(
+                            vpnServer.countryId ?? "de",
+                            height: 32,
+                            width: 32,
+                            borderRadius: 10,
+                          )
                     : const SizedBox(),
                 onTap: () {
                   countryCubit.getCountriesList();

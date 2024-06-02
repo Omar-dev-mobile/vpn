@@ -1,6 +1,8 @@
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:vpn/core/customs/cis_widget.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dart';
@@ -34,12 +36,15 @@ class FlagRowWidget extends StatelessWidget {
                 const SizedBox(
                   width: 12,
                 ),
-                Flag.fromString(
-                  countryCode,
-                  height: 32,
-                  width: 32,
-                  borderRadius: 10,
-                ),
+                if (countryCode.toLowerCase() == 'country')
+                  const CisWidget()
+                else
+                  Flag.fromString(
+                    countryCode,
+                    height: 32,
+                    width: 32,
+                    borderRadius: 10,
+                  ),
               ],
             ),
             if (isSelected)
