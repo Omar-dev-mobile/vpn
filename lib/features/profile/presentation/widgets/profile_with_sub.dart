@@ -63,7 +63,7 @@ class ProfileWithSub extends StatelessWidget {
                                   .workStatus?.userInfo?.tarifInfo?.tarifName ??
                               "",
                           color: kWhite.withOpacity(0.7),
-                          size: screenUtil.setSp(45),
+                          size: 45,
                           fontWeight: FontWeight.w300,
                           height: 1,
                         ),
@@ -71,7 +71,7 @@ class ProfileWithSub extends StatelessWidget {
                           text:
                               "\$${(profileModel.workStatus?.userInfo?.tarifInfo?.tarifCostActivation ?? "").fixDouble()}",
                           color: kSilver,
-                          size: screenUtil.setSp(30),
+                          size: 30,
                           fontWeight: FontWeight.w300,
                         ),
                       ],
@@ -87,7 +87,7 @@ class ProfileWithSub extends StatelessWidget {
                                         ?.tarifInfo?.tarifName ??
                                     "",
                                 color: kWhite,
-                                size: screenUtil.setSp(25),
+                                size: 25,
                                 fontWeight: FontWeight.w300,
                               ),
                               const Spacer(),
@@ -96,7 +96,7 @@ class ProfileWithSub extends StatelessWidget {
                                     profileModel
                                         .workStatus?.userInfo?.vpnTimeExpire)),
                                 color: kWhite,
-                                size: screenUtil.setSp(15),
+                                size: 16,
                                 fontWeight: FontWeight.w300,
                               ),
                             ],

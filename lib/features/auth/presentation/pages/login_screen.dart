@@ -34,7 +34,8 @@ class LoginScreen extends StatelessWidget {
                 listener: (context, state) {
                   if (state is AuthSuccessState) {
                     MainCubit.get(context).getDataServiceAcc();
-                    context.replaceRoute(const MainRoute());
+                    AutoRouter.of(context).pushAndPopUntil(const MainRoute(),
+                        predicate: (_) => false);
                   }
                 },
                 builder: (context, state) {
@@ -59,17 +60,17 @@ class LoginScreen extends StatelessWidget {
                         isLoading: state is AuthLoadingAppleState,
                         widget: SvgPicture.asset(Assets.iconApple),
                       ),
-                      screenUtil.setHeight(20).ph,
-                      CustomButton(
-                        title: LocaleKeys.signInWithGoogle.tr(),
-                        color: kPrimary,
-                        radius: 64,
-                        isLoading: state is AuthLoadingGoogleState,
-                        onPressed: () {
-                          AuthBloc.get(context).add(LoginWithGoogleAuthEvent());
-                        },
-                        widget: SvgPicture.asset(Assets.iconGoogle),
-                      ),
+                      // screenUtil.setHeight(20).ph,
+                      // CustomButton(
+                      //   title: LocaleKeys.signInWithGoogle.tr(),
+                      //   color: kPrimary,
+                      //   radius: 64,
+                      //   isLoading: state is AuthLoadingGoogleState,
+                      //   onPressed: () {
+                      //     AuthBloc.get(context).add(LoginWithGoogleAuthEvent());
+                      //   },
+                      //   widget: SvgPicture.asset(Assets.iconGoogle),
+                      // ),
                     ],
                   );
                 },

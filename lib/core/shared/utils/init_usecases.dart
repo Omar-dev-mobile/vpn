@@ -16,4 +16,11 @@ class InitUsecases {
       });
     }
   }
+
+  Future<void> initSecurityRequestAndUpdateKeys() async {
+    await executeAndHandleError<bool>(() async {
+      final res = await apiServiceInit.initSecurityRequest();
+      return res;
+    });
+  }
 }

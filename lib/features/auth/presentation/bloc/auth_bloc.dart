@@ -5,7 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
-import 'package:vpn/core/shared/usecases/generate_keys.dart';
+import 'package:vpn/core/shared/utils/generate_keys.dart';
 import 'package:vpn/features/auth/data/models/auth_model.dart';
 import 'package:vpn/features/auth/domain/usecases/auth_usecases.dart';
 import 'package:vpn/translations/locate_keys.g.dart';

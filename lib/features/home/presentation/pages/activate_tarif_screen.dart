@@ -31,7 +31,8 @@ class ActivateTarifScreen extends StatelessWidget {
       child: Column(
         children: [
           const AppBarHeader(),
-          screenUtil.setHeight(85).ph,
+          const Spacer(),
+          // screenUtil.setHeight(85).ph,
           Image.asset(
             Assets.notActive,
           ),
@@ -46,7 +47,7 @@ class ActivateTarifScreen extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          screenUtil.setHeight(30).ph,
+          screenUtil.setHeight(20).ph,
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: CustomButton(
@@ -55,7 +56,7 @@ class ActivateTarifScreen extends StatelessWidget {
               onPressed: onPressed,
             ),
           ),
-          screenUtil.setHeight(30).ph,
+          screenUtil.setHeight(20).ph,
         ],
       ),
     );
