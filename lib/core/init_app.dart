@@ -12,7 +12,7 @@ import 'package:vpn/core/shared/components/desktop_window_size.dart';
 import 'package:vpn/core/shared/components/notification_service.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
-import 'package:vpn/core/shared/usecases/init_usecases.dart';
+import 'package:vpn/core/shared/utils/init_usecases.dart';
 import 'package:vpn/core/theme/assets.dart';
 import '../firebase_options.dart';
 import '../locator.dart';

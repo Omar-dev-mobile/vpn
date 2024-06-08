@@ -69,6 +69,7 @@ class ActivateTarifScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: screenHeight * 0.02), // Responsive spacing
+
           Padding(
             padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
             child: CustomButton(

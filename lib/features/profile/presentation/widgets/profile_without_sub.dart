@@ -66,7 +66,7 @@ class ProfileWithoutSub extends StatelessWidget {
                   },
                   fontWeight: FontWeight.w500,
                 ),
-                screenUtil.setHeight(30).ph,
+                screenUtil.setHeight(20).ph,
               ],
             ),
           ),

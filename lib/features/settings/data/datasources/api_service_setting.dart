@@ -5,7 +5,7 @@ import 'package:vpn/features/settings/data/models/ask_question_model.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/error/execute_and_handle_error.dart';
 import '../../../../core/shared/datasources/local/cache_gen_algorithm.dart';
-import '../../../../core/shared/usecases/generate_keys.dart';
+import '../../../../core/shared/utils/generate_keys.dart';
 import '../../../../locator.dart';
 
 class ApiServiceSetting extends ApiBase {
