@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:focus_detector/focus_detector.dart';
-import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/logger.dart';
 import 'package:vpn/core/shared/logic/theme_mode/theme_mode_cubit.dart';
@@ -48,7 +47,6 @@ class VpnApp extends StatelessWidget {
                 child: MaterialApp.router(
                   color: kBlack,
                   title: 'VPN Line',
-                  key: navigatorKey,
                   debugShowCheckedModeBanner: false,
                   builder: (context, child) {
                     return MediaQuery(

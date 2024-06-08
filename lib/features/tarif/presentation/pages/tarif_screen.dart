@@ -140,15 +140,10 @@ class _TarifScreenState extends State<TarifScreen> {
                     ),
                     if (statePurchases is LoadingPendingPurchaseState)
                       Positioned.fill(
-                        child: InkWell(
-                          onTap: () {
-                            purchasesCubit.endSubscriptionLoading();
-                          },
-                          child: BackdropFilter(
-                            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                            child: const Center(
-                              child: CircularProgressIndicator(),
-                            ),
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                          child: const Center(
+                            child: CircularProgressIndicator(),
                           ),
                         ),
                       ),

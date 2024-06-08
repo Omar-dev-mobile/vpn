@@ -3,7 +3,7 @@ import 'package:vpn/core/error/execute_and_handle_error.dart';
 import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/datasources/remote/api_base.dart';
-import 'package:vpn/core/shared/usecases/generate_keys.dart';
+import 'package:vpn/core/shared/utils/generate_keys.dart';
 import 'package:vpn/features/home/data/models/data_service_acc_model.dart';
 import 'package:vpn/locator.dart';
 

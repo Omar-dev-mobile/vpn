@@ -13,8 +13,8 @@ import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/logger.dart';
-import 'package:vpn/core/shared/usecases/IAPConnectionPurchase.dart';
-import 'package:vpn/core/shared/usecases/consumable_store.dart';
+import 'package:vpn/core/shared/utils/IAPConnectionPurchase.dart';
+import 'package:vpn/core/shared/utils/consumable_store.dart';
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/tarif/domain/usecases/traif_usecases.dart';
 import 'package:vpn/locator.dart';
@@ -29,6 +29,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   TraifUsecases traifUsecases;
   final SystemInfoService _systemInfoService;
   CacheHelper cacheHelper = locator<CacheHelper>();
+  MainCubit mainCubit = locator<MainCubit>();
 
   Stream<List<PurchaseDetails>>? purchaseUpdated;
   static PurchasesCubit get(context) => BlocProvider.of(context);
@@ -52,11 +53,13 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
       iosPlatformAddition.setDelegate(null);
     }
     if (purchaseUpdated != null) purchaseUpdated!.distinct();
+    emit(EndPendingPurchaseState());
   }
 
   void goToHome(BuildContext context) async {
     context.replaceRoute(const MainRoute());
-    locator<PurchasesCubit>().closeSubscription();
+    closeSubscription();
+    subscription?.cancel();
     MainCubit.get(context).getDataServiceAcc();
   }
 
@@ -197,7 +200,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     logger.info('init purchase tarif ios');
     logger.info('locale $bay');
     logger.info('sub $productID');
-    if (bay != productID) {
+    if (bay != productID || mainCubit.errorMessage.isEmpty) {
       final res =
           await traifUsecases.buyTarif(transactionIdentifier, productID);
       emit(await res.fold((failure) => ErrorPurchaseState(error: failure),

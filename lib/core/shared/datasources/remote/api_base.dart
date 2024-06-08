@@ -7,6 +7,9 @@ import 'package:http/io_client.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_interceptor/http_interceptor.dart';
+import 'package:vpn/core/router/app_router.dart';
+import 'package:vpn/core/shared/utils/generate_keys.dart';
+import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
 class RequestResult {
@@ -53,7 +56,7 @@ abstract class ApiBase {
     headers.addAll({"lang": getlocaleName()});
     headers["Content-Type"] = "application/x-www-form-urlencoded";
     final Uri uri = Uri.parse(path);
-    var timeout = const Duration(seconds: 5);
+    var timeout = const Duration(seconds: 10);
     log('🚀🚀🚀---------------------------------🚀🚀🚀');
     log('|  SENT $method:');
     log('|    🟡 BODY: $body');
@@ -66,29 +69,29 @@ abstract class ApiBase {
           response = await httpClient
               .post(uri, headers: headers, body: body)
               .timeout(timeout);
-          {}
+
           break;
         case 'get':
           response =
               await httpClient.get(uri, headers: headers).timeout(timeout);
-          {}
+
           break;
         case 'delete':
           response =
               await httpClient.delete(uri, headers: headers).timeout(timeout);
-          {}
+
           break;
         case 'put':
           response = await httpClient
               .put(uri, headers: headers, body: body)
               .timeout(timeout);
-          {}
+
           break;
         case 'patch':
           response = await httpClient
               .patch(uri, headers: headers, body: body)
               .timeout(timeout);
-          {}
+
           break;
         default:
           throw Exception(LocaleKeys.anUnexpectedErrorOccurred.tr());
@@ -218,6 +221,12 @@ class LoggerInterceptor extends InterceptorContract {
   Future<BaseResponse> interceptResponse({
     required BaseResponse response,
   }) async {
+    if (response.statusCode == 401 ||
+        ((response is Response) && (response).body.contains('-482'))) {
+      locator<AppRouter>()
+          .pushAndPopUntil(const LoginRoute(), predicate: (_) => false);
+      locator<RsaKeyHelper>().generateAlgorithmsForInitApp();
+    }
     log('-----------------✅✅✅✅✅-----------------');
     log('| RESPONSE RECEIVED:');
     log('|    🟢 REQUEST: ${response.request?.url.toString()}');

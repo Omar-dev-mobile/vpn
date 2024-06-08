@@ -16,7 +16,6 @@ class TarifImpRepository extends TarifRepository {
     return executeAndHandleError<TarifModel>(() async {
       final tarifModel = await cacheHelper.getTarifModel();
       final currentTime = DateTime.now();
-      print("tarifModel$tarifModel");
       if ((tarifModel != null &&
           tarifModel.dateSave != null &&
           currentTime.difference(tarifModel.dateSave!).inMinutes < 5 &&

@@ -23,7 +23,10 @@ class RsaKeyHelper {
 
     cacheHelper.saveRSAPrivateKey(privateKey);
     cacheHelper.saveRSAPublicKey(publicKey);
-
+    final udidLocally = await cacheHelper.getSecurityDataAlgithms();
+    if (udidLocally?.udid != null) {
+      udid = udidLocally!.udid!;
+    }
     String pmk = CryptoUtils.encodeRSAPublicKeyToPem(publicKey);
     Uint8List hash = generateSHA1Digest(udid + rnd);
 
@@ -159,7 +162,6 @@ class RsaKeyHelper {
 
       asn1Parser = ASN1Parser(privateKey.contentBytes());
       var pkSeq = asn1Parser.nextObject() as ASN1Sequence;
-      print('Private Key Seq Length: ${topLevelSeq.elements.length}');
       modulus = pkSeq.elements[1] as ASN1Integer;
       privateExponent = pkSeq.elements[3] as ASN1Integer;
       p = pkSeq.elements[4] as ASN1Integer;

@@ -48,7 +48,8 @@ class LogOut extends StatelessWidget {
               locator<CacheHelper>().clearData();
               locator<SystemInfoService>().dispose();
               MainCubit.get(context).getDataServiceAcc();
-              context.pushRoute(const MainRoute());
+              AutoRouter.of(context)
+                  .pushAndPopUntil(const MainRoute(), predicate: (_) => false);
             });
           }
         });

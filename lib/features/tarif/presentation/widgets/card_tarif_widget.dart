@@ -71,7 +71,7 @@ class CardTarifWidget extends StatelessWidget {
                   CommonTextWidget(
                     text: tarifDays,
                     color: kWhite.withOpacity(0.7),
-                    size: screenUtil.setSp(25),
+                    size: 25,
                     fontWeight: FontWeight.w300,
                   ),
                   const Spacer(),
@@ -97,7 +97,7 @@ class CardTarifWidget extends StatelessWidget {
                         text: plan,
                         fontFamily: 'Roboto',
                         color: kWhite.withOpacity(0.7),
-                        size: screenUtil.setSp(25),
+                        size: 25,
                         fontWeight: FontWeight.w300,
                       ),
                       CommonTextWidget(
