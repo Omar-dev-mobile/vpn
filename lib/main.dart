@@ -16,7 +16,7 @@ void main() async {
           Locale('en'),
           Locale('es'),
           Locale('de'),
-          Locale('cn')
+          Locale.fromSubtags(languageCode: 'zh'), // generic Chinese
         ],
         path: 'lib/translations',
         fallbackLocale: const Locale('en'),

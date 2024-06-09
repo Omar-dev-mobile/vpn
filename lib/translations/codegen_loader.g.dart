@@ -363,7 +363,7 @@ class CodegenLoader extends AssetLoader {
     "ru": ru,
     "en": en,
     "es": es,
-    "cn": cn,
+    "zh": cn,
     "de": de,
   };
 }
