@@ -52,14 +52,17 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
               .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       iosPlatformAddition.setDelegate(null);
     }
+    if (subscription != null) await subscription!.cancel();
+    subscription = null;
     if (purchaseUpdated != null) purchaseUpdated!.distinct();
     emit(EndPendingPurchaseState());
   }
 
   void goToHome(BuildContext context) async {
-    context.replaceRoute(const MainRoute());
-    closeSubscription();
-    subscription?.cancel();
+    await closeSubscription();
+    AutoRouter.of(context)
+        .pushAndPopUntil(const MainRoute(), predicate: (_) => false);
+
     MainCubit.get(context).getDataServiceAcc();
   }
 
@@ -187,10 +190,8 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
         applicationUserName: null,
       );
     }
-    await inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
-    if (subscription == null) {
-      subscriptionInit();
-    }
+    inAppPurchase.buyNonConsumable(purchaseParam: purchaseParam);
+    subscriptionInit();
   }
 
   //buy tarif with receipt or server(api) verification
@@ -200,7 +201,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     logger.info('init purchase tarif ios');
     logger.info('locale $bay');
     logger.info('sub $productID');
-    if (bay != productID || mainCubit.errorMessage.isEmpty) {
+    if (bay != productID) {
       final res =
           await traifUsecases.buyTarif(transactionIdentifier, productID);
       emit(await res.fold((failure) => ErrorPurchaseState(error: failure),
@@ -209,6 +210,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
         if (r.inProgress) {
           return await checkTrans(transactionIdentifier, productID);
         } else {
+          await closeSubscription();
           await cacheHelper.saveBaySubscription(productID);
           return SuccessPurchaseState();
         }
@@ -222,6 +224,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     return res.fold((l) => ErrorPurchaseState(error: l), (r) async {
       print("r $r");
       if (r == '1') {
+        await closeSubscription();
         await cacheHelper.saveBaySubscription(productID);
         return SuccessPurchaseState();
       } else {

@@ -80,7 +80,7 @@ class CodegenLoader extends AssetLoader {
     "dayTime": "days",
     "Week": "Week",
     "Pay": "Pay",
-    "": "",
+    "Waiting for a purchase": "Waiting for a purchase",
   };
 
 // #испания
@@ -150,7 +150,7 @@ class CodegenLoader extends AssetLoader {
     "day": "días",
     "dayTime": "días",
     "Week": "Semana",
-    "": "",
+    "Waiting for a purchase": "Esperando la compra",
   };
 
 // #китай
@@ -214,7 +214,7 @@ class CodegenLoader extends AssetLoader {
     "day": "天数",
     "dayTime": "天数",
     "Week": "周",
-    "": "",
+    "Waiting for a purchase": "等待购买",
   };
 
 // #немецкий
@@ -285,7 +285,7 @@ class CodegenLoader extends AssetLoader {
     "dayTime": "Tage",
     "Week": "Woche",
     "Pay": "Bezahlen",
-    "": "",
+    "Waiting for a purchase": "Warten auf den Kauf",
   };
 
 // #русский
@@ -357,6 +357,7 @@ class CodegenLoader extends AssetLoader {
     "Are you sure you want to log out": "Вы уверены, что хотите выйти?",
     "An error occurred when trying to make a payment":
         "При попытке платежа возникла ошибка",
+    "Waiting for a purchase": "Ожидание покупки",
   };
 
   static const Map<String, Map<String, dynamic>> mapLocales = {

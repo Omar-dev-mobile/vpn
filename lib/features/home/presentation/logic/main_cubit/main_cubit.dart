@@ -25,7 +25,7 @@ class MainCubit extends Cubit<MainState> {
 
   static MainCubit get(context) => BlocProvider.of(context);
 
-  String errorMessage = '';
+  String errorMessage = "";
   Future getDataServiceAcc() async {
     emit(LoadingGetDataServiceAccState());
     final res = await _homeUseCase.getDataServiceAcc();
@@ -47,17 +47,15 @@ class MainCubit extends Cubit<MainState> {
     final res = await _homeUseCase.getDataServiceAcc();
     res.fold((l) {}, (data) async {
       final mess = data.workStatus?.errorMessage ?? "";
-      if (errorMessage != mess) {
-        errorMessage = mess;
-        _systemInfoService.vpnInfo = data.workStatus;
-        VpnListModel vpnList =
-            VpnListModel.fromJson(data.workStatus?.vpnInfo?.toJson() ?? {});
-        await cacheHelper.saveVpnServer(vpnList);
-        _systemInfoService.vpnServer = vpnList;
-        errorMessage = data.workStatus?.errorMessage ?? "";
-        emit(LoadingGetDataServiceAccState());
-        emit(SuccessGetDataServiceAccState(data));
-      }
+      errorMessage = mess;
+      _systemInfoService.vpnInfo = data.workStatus;
+      VpnListModel vpnList =
+          VpnListModel.fromJson(data.workStatus?.vpnInfo?.toJson() ?? {});
+      await cacheHelper.saveVpnServer(vpnList);
+      _systemInfoService.vpnServer = vpnList;
+      errorMessage = data.workStatus?.errorMessage ?? "";
+      emit(LoadingGetDataServiceAccState());
+      emit(SuccessGetDataServiceAccState(data));
     });
   }
 
@@ -66,8 +64,12 @@ class MainCubit extends Cubit<MainState> {
     switch (dataServiceAccModel.workStatus?.errorAction) {
       case null || "":
         _systemInfoService.isLogin = true;
+        cacheHelper.saveBaySubscription(
+            dataServiceAccModel.workStatus?.userInfo?.tarifInfo?.productId ??
+                "");
         return const HomeScreen();
       case "login":
+        cacheHelper.saveBaySubscription('');
         _systemInfoService.isLogin = false;
         return ActivateTarifScreen(
           textButton: LocaleKeys.signIn.tr(),
@@ -97,9 +99,7 @@ class MainCubit extends Cubit<MainState> {
         );
       case "activate_tarif":
         _systemInfoService.isLogin = true;
-        cacheHelper.saveBaySubscription(
-            dataServiceAccModel.workStatus?.userInfo?.tarifInfo?.productId ??
-                "");
+        cacheHelper.saveBaySubscription("");
         return ActivateTarifScreen(
           textButton: LocaleKeys.activatePlan.tr(),
           title: dataServiceAccModel.workStatus?.errorMessage ?? "",
