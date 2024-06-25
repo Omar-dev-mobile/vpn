@@ -9,8 +9,7 @@
   "settings" : {
     "_applicationInternalID" : "6448959169",
     "_compatibilityTimeRate" : {
-      "3" : 6,
-      "5" : 1004
+      "3" : 3
     },
     "_developerTeamID" : "CJH7NJ7XNG",
     "_disableDialogs" : true,
@@ -68,7 +67,7 @@
         "name" : "Offer Code Redeem Sheet"
       }
     ],
-    "_timeRate" : 1005
+    "_timeRate" : 10
   },
   "subscriptionGroups" : [
     {
