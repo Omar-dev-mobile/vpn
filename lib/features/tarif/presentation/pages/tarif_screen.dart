@@ -10,6 +10,7 @@ import 'package:vpn/core/customs/custom_error.dart';
 import 'package:vpn/core/customs/drawer_widget.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
+import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/features/tarif/presentation/widgets/list_tarif.dart';
@@ -139,11 +140,28 @@ class _TarifScreenState extends State<TarifScreen> {
                       ],
                     ),
                     if (statePurchases is LoadingPendingPurchaseState)
+                      ModalBarrier(
+                        dismissible: false,
+                        color: Colors.black.withOpacity(0.3),
+                      ),
+                    if (statePurchases is LoadingPendingPurchaseState)
                       Positioned.fill(
                         child: BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                          child: const Center(
-                            child: CircularProgressIndicator(),
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CommonTextWidget(
+                                  text: LocaleKeys.waitingForAPurchase.tr(),
+                                  color: kBluishGray,
+                                  fontWeight: FontWeight.w500,
+                                  size: 25,
+                                ),
+                                20.ph,
+                                const CircularProgressIndicator(),
+                              ],
+                            ),
                           ),
                         ),
                       ),

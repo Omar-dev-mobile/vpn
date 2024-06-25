@@ -63,4 +63,5 @@ abstract class LocaleKeys {
   static const enterAValidEmailAddress = 'Enter a valid email address';
   static const VPNLineQuestion = 'VPN Line Question';
   static const day = 'day';
+  static const waitingForAPurchase = 'Waiting for a purchase';
 }
