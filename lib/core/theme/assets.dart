@@ -10,6 +10,8 @@ abstract class Assets {
   static const String navBarLight = '$_assets/$_images/nav_bar_light.png';
   static const String navBarDark = '$_assets/$_images/nav_bar_dark.png';
   static const String notActive = '$_assets/$_images/not_active.png';
+  static const String privacy = '$_assets/$_images/privacy.png';
+
   static const String circularProfile =
       '$_assets/$_images/circular_profile.png';
 
@@ -45,6 +47,9 @@ abstract class Assets {
   static const String whats = '$_assets/$_icons/whats.svg';
   static const String whatsPhone = '$_assets/$_icons/whatsPhone.svg';
   static const String key = '$_assets/$_icons/key.svg';
+  static const String key2 = '$_assets/$_icons/key2.svg';
+
   static const String profileKey = '$_assets/$_icons/profile_key.svg';
   static const String time = '$_assets/$_icons/time.svg';
+  static const String time2 = '$_assets/$_icons/time2.svg';
 }

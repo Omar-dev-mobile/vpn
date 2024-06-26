@@ -32,6 +32,7 @@ const Color kStarIconOff = Color(0xffE0E0E0);
 const Color kStarIconOn = Color(0xffF2994A);
 const Color kFlagDivider = Color(0xffEAEAEA);
 const Color kSilver = Color(0xffE5E5E5);
+const Color kCharcoal = Color(0xff313131);
 
 const Color kDarkGreen = Color(0xff006A7C);
 
@@ -52,6 +53,8 @@ class MyThemeData {
       disabledColor: kDarkBluishGray,
       indicatorColor: kYellowColor,
       scaffoldBackgroundColor: kBGLight,
+      cardColor: kWhite,
+      canvasColor: kWhite,
     );
   }
 
@@ -64,6 +67,8 @@ class MyThemeData {
       textTheme: const CustomTextThemeDark(),
       scaffoldBackgroundColor: kBGDark,
       indicatorColor: kYellowColor,
+      cardColor: kCharcoal,
+      canvasColor: kBGDark
     );
   }
 }
@@ -74,9 +79,9 @@ class CustomTextThemeLight extends TextTheme {
           displayLarge: const TextStyle(fontSize: 35, color: kPrimary),
           displayMedium: const TextStyle(fontSize: 25, color: kBlack),
           displaySmall: const TextStyle(fontSize: 12, color: kShadeOfGray),
-          headlineLarge: const TextStyle(fontSize: 30, color: kWhite),
-          headlineMedium: const TextStyle(fontSize: 20),
-          headlineSmall: const TextStyle(fontSize: 10),
+          headlineLarge: const TextStyle(fontSize: 30, color: kWhite,),
+          headlineMedium: const TextStyle(fontSize: 20 , color:  kDarkBluishGray),
+          headlineSmall: const TextStyle(fontSize: 10 , color: kDarkGrayColor,),
           titleLarge: const TextStyle(fontSize: 28),
           titleMedium: const TextStyle(fontSize: 18, color: kBlack),
           titleSmall: const TextStyle(fontSize: 8),
@@ -84,7 +89,7 @@ class CustomTextThemeLight extends TextTheme {
           bodyMedium: const TextStyle(fontSize: 16, color: kDarkGrayColor),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
           labelLarge: const TextStyle(fontSize: 12, color: kDarkBluishGray),
-          labelMedium: const TextStyle(fontSize: 17),
+          labelMedium: const TextStyle(fontSize: 17 , color: kDarkGrayColor),
           labelSmall: const TextStyle(fontSize: 5, color: kDarkTealColor),
         );
 }
@@ -96,8 +101,8 @@ class CustomTextThemeDark extends TextTheme {
           displayMedium: const TextStyle(fontSize: 25, color: kSlateGray),
           displaySmall: const TextStyle(fontSize: 12, color: kSilver),
           headlineLarge: const TextStyle(fontSize: 30),
-          headlineMedium: const TextStyle(fontSize: 20),
-          headlineSmall: const TextStyle(fontSize: 10),
+          headlineMedium: const TextStyle(fontSize: 20 , color: kSilver),
+          headlineSmall: const TextStyle(fontSize: 10 , color:  kSilver),
           titleLarge: const TextStyle(fontSize: 28),
           titleMedium: const TextStyle(fontSize: 18, color: kWhite),
           titleSmall: const TextStyle(fontSize: 8),
@@ -105,7 +110,8 @@ class CustomTextThemeDark extends TextTheme {
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
           bodyMedium: const TextStyle(fontSize: 11, color: kWhite),
           labelLarge: const TextStyle(fontSize: 11, color: kWhite),
-          labelMedium: const TextStyle(fontSize: 17),
+          labelMedium: const TextStyle(fontSize: 17 , color: kPrimary),
           labelSmall: const TextStyle(fontSize: 5, color: kSilver),
+          
         );
 }

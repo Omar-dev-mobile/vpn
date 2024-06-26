@@ -11,7 +11,7 @@ class RoundedButton extends StatelessWidget {
       required this.width,
       this.onPressed,
       this.isLoading = false,
-      super.key});
+      super.key, this.widget});
   final Function()? onPressed;
   final String name;
   final bool isLoading;
@@ -19,7 +19,7 @@ class RoundedButton extends StatelessWidget {
   final Color textColor;
   final Color colorRounded;
   final double width;
-
+  final Widget? widget;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -56,6 +56,7 @@ class RoundedButton extends StatelessWidget {
                   textColor: textColor,
                   fontWeight: FontWeight.w400,
                   size: 24,
+                  widget:widget ,
                 )),
           ],
         ),
