@@ -246,4 +246,25 @@ class CacheHelper {
       return "";
     }
   }
+
+  Future saveFirstRun(bool val) async {
+    try {
+      await saveData(key: 'first_run', value: val);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<bool> getFirstRun() async {
+    try {
+      bool? jsonString = await getData('first_run');
+      if (jsonString != null) {
+        return jsonString;
+      } else {
+        return true;
+      }
+    } catch (e) {
+      return true;
+    }
+  }
 }

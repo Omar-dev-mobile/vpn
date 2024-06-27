@@ -33,7 +33,6 @@ class _AnimatedToggleSwitchState extends State<AnimatedToggleSwitch> {
               decoration: BoxDecoration(
                 color: Theme.of(context).cardColor,
                 borderRadius: BorderRadius.circular(20),
-                
               ),
             ),
             Container(
@@ -43,7 +42,8 @@ class _AnimatedToggleSwitchState extends State<AnimatedToggleSwitch> {
                 shape: BoxShape.circle,
                 color: widget.isOn ? kPrimary : kShadeOfGray,
               ),
-              alignment: widget.isOn ? Alignment.centerRight : Alignment.centerLeft,
+              alignment:
+                  widget.isOn ? Alignment.centerRight : Alignment.centerLeft,
               padding: const EdgeInsets.symmetric(horizontal: 5),
             ),
           ],
