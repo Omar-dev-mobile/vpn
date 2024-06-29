@@ -33,6 +33,7 @@ const Color kStarIconOn = Color(0xffF2994A);
 const Color kFlagDivider = Color(0xffEAEAEA);
 const Color kSilver = Color(0xffE5E5E5);
 const Color kCharcoal = Color(0xff313131);
+const Color lightGray = Color(0xffD9D9D9);
 
 const Color kDarkGreen = Color(0xff006A7C);
 
@@ -55,6 +56,7 @@ class MyThemeData {
       scaffoldBackgroundColor: kBGLight,
       cardColor: kWhite,
       canvasColor: kWhite,
+      dividerColor: lightGray
     );
   }
 
@@ -68,7 +70,8 @@ class MyThemeData {
       scaffoldBackgroundColor: kBGDark,
       indicatorColor: kYellowColor,
       cardColor: kCharcoal,
-      canvasColor: kBGDark
+      canvasColor: kBGDark,
+      dividerColor: kCharcoal,
     );
   }
 }
@@ -82,9 +85,9 @@ class CustomTextThemeLight extends TextTheme {
           headlineLarge: const TextStyle(fontSize: 30, color: kWhite,),
           headlineMedium: const TextStyle(fontSize: 20 , color:  kDarkBluishGray),
           headlineSmall: const TextStyle(fontSize: 10 , color: kDarkGrayColor,),
-          titleLarge: const TextStyle(fontSize: 28),
+          titleLarge: const TextStyle(fontSize: 28 , color: kDarkGrayColor),
           titleMedium: const TextStyle(fontSize: 18, color: kBlack),
-          titleSmall: const TextStyle(fontSize: 8),
+          titleSmall: const TextStyle(fontSize: 8, color: kShadeOfGray),
           bodyLarge: const TextStyle(fontSize: 35, color: kDarkBluishGray),
           bodyMedium: const TextStyle(fontSize: 16, color: kDarkGrayColor),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
@@ -100,12 +103,12 @@ class CustomTextThemeDark extends TextTheme {
           displayLarge: const TextStyle(fontSize: 35, color: kPrimary),
           displayMedium: const TextStyle(fontSize: 25, color: kSlateGray),
           displaySmall: const TextStyle(fontSize: 12, color: kSilver),
-          headlineLarge: const TextStyle(fontSize: 30),
+          headlineLarge: const TextStyle(fontSize: 30 , ),
           headlineMedium: const TextStyle(fontSize: 20 , color: kSilver),
           headlineSmall: const TextStyle(fontSize: 10 , color:  kSilver),
-          titleLarge: const TextStyle(fontSize: 28),
+          titleLarge: const TextStyle(fontSize: 28 , color: kShadeOfGray),
           titleMedium: const TextStyle(fontSize: 18, color: kWhite),
-          titleSmall: const TextStyle(fontSize: 8),
+          titleSmall: const TextStyle(fontSize: 8 , color: kWhite),
           bodyLarge: const TextStyle(fontSize: 35, color: kWhite),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
           bodyMedium: const TextStyle(fontSize: 11, color: kWhite),

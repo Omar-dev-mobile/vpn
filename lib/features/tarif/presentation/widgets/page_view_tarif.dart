@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/shared/logger.dart';
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/tarif/data/models/tarif_model.dart';
 import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
@@ -10,11 +9,22 @@ import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/features/tarif/presentation/widgets/card_tarif_widget.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
-class ListTariff extends StatelessWidget {
-  const ListTariff(
+class PageViewTariff extends StatefulWidget {
+  const PageViewTariff(
       {super.key, required this.statePurchases, required this.tarifs});
   final PurchasesStatus statePurchases;
   final TarifModel tarifs;
+
+  @override
+  _ListTariffPageViewState createState() => _ListTariffPageViewState();
+}
+
+class _ListTariffPageViewState extends State<PageViewTariff> {
+  int _currentIndex = 0;
+  PageController _pageController = PageController(
+    viewportFraction: 0.8,
+  );
+
   @override
   Widget build(BuildContext context) {
     var tarifCubit = TarifCubit.get(context);
@@ -24,42 +34,45 @@ class ListTariff extends StatelessWidget {
         userInfo != null &&
         userInfo.productId != null &&
         MainCubit.get(context).errorMessage.isEmpty;
+
     return BlocBuilder<TarifCubit, TarifState>(
       builder: (context, state) {
-        return ListView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          itemBuilder: (context, index) {
-            if (tarifUser && index == 0) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 20),
-                child: CardTarifWidget(
-                  prise: userInfo.tarifCostActivation ?? "",
-                  index: 0,
-                  productId: userInfo.productId ?? "",
-                  plan: userInfo.tarifName ?? "",
-                  tarifDays: userInfo.tarifName ?? "",
-                  day: getDaysRemainingText(calculateDaysLeft(
-                      tarifCubit.vpnInfo?.userInfo?.vpnTimeExpire)),
-                  percent: getPercent(
-                      tarifCubit.vpnInfo?.userInfo?.vpnTimeExpire,
-                      userInfo.productId ?? ""),
-                ),
-              );
-            }
-            var traif =
-                tarifs.workStatus?.tarifList?[index - (tarifUser ? 1 : 0)];
+        List<Widget> pages = [];
+        if (tarifUser) {
+          pages.add(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: CardTarifWidget(
+                prise: userInfo.tarifCostActivation ?? "",
+                index: 0,
+                productId: userInfo.productId ?? "",
+                plan: userInfo.tarifName ?? "",
+                tarifDays: userInfo.tarifName ?? "",
+                day: getDaysRemainingText(calculateDaysLeft(
+                    tarifCubit.vpnInfo?.userInfo?.vpnTimeExpire)),
+                percent: getPercent(tarifCubit.vpnInfo?.userInfo?.vpnTimeExpire,
+                    userInfo.productId ?? ""),
+              ),
+            ),
+          );
+        }
 
-            if (userInfo?.productId == traif?.tarifBuy && tarifUser) {
-              return const SizedBox.shrink();
-            }
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 20),
+        for (var i = 0;
+            i < (widget.tarifs.workStatus?.tarifList?.length ?? 0);
+            i++) {
+          var traif = widget.tarifs.workStatus?.tarifList?[i];
+          if (userInfo?.productId == traif?.tarifBuy && tarifUser) {
+            continue;
+          }
+          pages.add(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Stack(
                 children: <Widget>[
                   Positioned(
                     child: CardTarifWidget(
                       prise: traif?.tarifCostActivation ?? "",
-                      index: index,
+                      index: i,
                       productId: traif?.tarifBuy ?? "",
                       tarifDays: userInfo?.tarifName ?? "",
                       plan: traif?.tarifName ?? "",
@@ -74,7 +87,8 @@ class ListTariff extends StatelessWidget {
                         highlightColor: Colors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
                         onTap: () {
-                          if (statePurchases is! LoadingPendingPurchaseState) {
+                          if (widget.statePurchases
+                              is! LoadingPendingPurchaseState) {
                             purchasesCubit.buyTarif(traif!.tarifBuy ?? "");
                           }
                         },
@@ -83,11 +97,24 @@ class ListTariff extends StatelessWidget {
                   ),
                 ],
               ),
-            );
-          },
-          itemCount: ((tarifs.workStatus?.tarifList?.length ?? 0) +
-              (tarifUser ? 1 : 0)),
-          shrinkWrap: true,
+            ),
+          );
+        }
+
+        return SizedBox(
+          height: screenUtil.setHeight(200),
+          child: PageView.builder(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            itemCount: pages.length,
+            itemBuilder: (context, index) {
+              return pages[index];
+            },
+          ),
         );
       },
     );

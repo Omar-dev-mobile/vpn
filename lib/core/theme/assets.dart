@@ -52,4 +52,9 @@ abstract class Assets {
   static const String profileKey = '$_assets/$_icons/profile_key.svg';
   static const String time = '$_assets/$_icons/time.svg';
   static const String time2 = '$_assets/$_icons/time2.svg';
+  static const String pageView1 = '$_assets/$_icons/pageview1.svg';
+  static const String pageView2 = '$_assets/$_icons/pageview2.svg';
+  static const String pageView3 = '$_assets/$_icons/pageview3.svg';
+  static const String pageView4 = '$_assets/$_icons/pageview4.svg';
+
 }

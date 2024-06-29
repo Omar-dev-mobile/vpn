@@ -31,9 +31,10 @@ class CardTarifWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenUtil.setHeight(160),
+      height: screenUtil.setHeight(200),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       decoration: ShapeDecoration(
+       
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: const Alignment(0.1, 1.4),
@@ -63,6 +64,7 @@ class CardTarifWidget extends StatelessWidget {
               ),
             ],
           ),
+          const Spacer(),
           if (percent != null)
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -111,7 +113,7 @@ class CardTarifWidget extends StatelessWidget {
                   ),
                   const Spacer(),
                   CommonTextWidget(
-                    text: LocaleKeys.buy.tr(),
+                    text: 'Subscribe',
                     fontFamily: 'Roboto',
                     color: kSilver,
                     size: screenUtil.setSp(12),
@@ -130,7 +132,7 @@ class CardTarifWidget extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColorLight,
               progressColor: Theme.of(context).indicatorColor,
             ),
-          ]
+          ],
         ],
       ),
     );
