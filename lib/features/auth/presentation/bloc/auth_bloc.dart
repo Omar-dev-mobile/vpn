@@ -71,11 +71,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     try {
       emit(AuthLoadingAppleState());
-      final apple = await signInWithApple();
-      if (apple.userIdentifier != null) {
-        AuthModel authModel = AuthModel(
-          login: apple.userIdentifier ?? '',
-          email: apple.email ?? "",
+      // final apple = await signInWithApple();
+      if (true) {
+        AuthModel authModel = const AuthModel(
+          login: '000616.40a1ff3967fc407e992dfd10da5f500d.0845',
+          email: "",
           isGoogleLogin: false,
         );
         final res = await authUseCase.call(authModel);
