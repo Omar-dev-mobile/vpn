@@ -20,10 +20,8 @@ class PageViewTariff extends StatefulWidget {
 }
 
 class _ListTariffPageViewState extends State<PageViewTariff> {
-  int _currentIndex = 0;
-  PageController _pageController = PageController(
-    viewportFraction: 0.8,
-  );
+  final PageController _pageController =
+      PageController(viewportFraction: 0.9, initialPage: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +64,7 @@ class _ListTariffPageViewState extends State<PageViewTariff> {
           }
           pages.add(
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
               child: Stack(
                 children: <Widget>[
                   Positioned(
@@ -106,9 +104,7 @@ class _ListTariffPageViewState extends State<PageViewTariff> {
           child: PageView.builder(
             controller: _pageController,
             onPageChanged: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
+              setState(() {});
             },
             itemCount: pages.length,
             itemBuilder: (context, index) {

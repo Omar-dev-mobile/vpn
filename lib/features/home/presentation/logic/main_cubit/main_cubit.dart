@@ -13,6 +13,7 @@ import 'package:vpn/features/home/presentation/pages/activate_tarif_screen.dart'
 import 'package:vpn/features/home/presentation/pages/home_screen.dart';
 import 'package:vpn/features/select_country/data/models/countries_model.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
+import 'package:vpn/features/tarif/presentation/pages/tarif_screen.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
 part 'main_state.dart';
@@ -100,14 +101,8 @@ class MainCubit extends Cubit<MainState> {
       case "activate_tarif":
         _systemInfoService.isLogin = true;
         cacheHelper.saveBaySubscription("");
-        return ActivateTarifScreen(
-          textButton: LocaleKeys.activatePlan.tr(),
-          title: dataServiceAccModel.workStatus?.errorMessage ?? "",
-          onPressed: () {
-            TarifCubit.get(context).getTrials();
-            context.pushRoute(const TarifRoute());
-          },
-        );
+        TarifCubit.get(context).getTrials();
+        return const TarifScreen();
       default:
         return Container();
     }

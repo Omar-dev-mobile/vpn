@@ -3,8 +3,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
+import 'package:vpn/core/customs/custom_button.dart';
+import 'package:vpn/core/customs/icon_mode.dart';
 import 'package:vpn/core/customs/log_out.dart';
 import 'package:vpn/core/customs/roundedButton.dart';
 import 'package:vpn/core/router/app_router.dart';
@@ -116,20 +119,28 @@ class ProfileWithSub extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: RoundedButton(
-                        onPressed: () {
-                          TarifCubit.get(context).getTrials();
-                          context.pushRoute(const TarifRoute());
-                        },
-                        name: LocaleKeys.renewSubscription.tr(),
-                        textColor:
-                            Theme.of(context).textTheme.labelSmall!.color!,
-                        colorRounded: Theme.of(context).primaryColor,
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        width: screenUtil.screenWidth * 0.8,
-                      ),
+                    CustomButton(
+                      title: 'Отменить подписку',
+                      color: kTransparent,
+                      textColor: kYellowColor,
+                      onPressed: () {
+                        launchUrl(
+                          Uri.parse(
+                              "https://apps.apple.com/account/subscriptions"),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      },
+                    ),
+                    RoundedButton(
+                      onPressed: () {
+                        TarifCubit.get(context).getTrials();
+                        context.pushRoute(const TarifRoute());
+                      },
+                      name: LocaleKeys.renewSubscription.tr(),
+                      textColor: Theme.of(context).textTheme.labelSmall!.color!,
+                      colorRounded: Theme.of(context).primaryColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      width: screenUtil.screenWidth * 0.8,
                     )
                   ],
                 ),
@@ -183,6 +194,8 @@ class ProfileWithSub extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const Spacer(),
+                      const IconMode(),
                     ],
                   ),
                 ),

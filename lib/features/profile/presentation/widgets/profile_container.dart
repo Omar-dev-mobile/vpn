@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/theme/theme.dart';
@@ -15,7 +16,8 @@ class ProfileContainer extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.text,
-    this.trailingIcon, required this.textSize,
+    this.trailingIcon,
+    required this.textSize,
   });
 
   @override
@@ -23,7 +25,7 @@ class ProfileContainer extends StatelessWidget {
     return Flexible(
       child: Container(
         height: screenUtil.setHeight(210),
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(20),
@@ -33,11 +35,21 @@ class ProfileContainer extends StatelessWidget {
           children: [
             if (trailingIcon != null)
               Align(
-                alignment: Alignment.topRight,
-                child: Icon(trailingIcon, color:kShadeOfGray),
-              ),
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    padding: EdgeInsets.zero,
+                    icon: Icon(
+                      trailingIcon,
+                      color: kShadeOfGray,
+                    ),
+                    onPressed: () {
+                      Clipboard.setData(
+                        ClipboardData(text: text),
+                      );
+                    },
+                  )),
             trailingIcon != null ? 0.ph : 30.ph,
-            Spacer(),
+            const Spacer(),
             Center(
               child: Column(
                 children: [
@@ -59,7 +71,7 @@ class ProfileContainer extends StatelessWidget {
                 ],
               ),
             ),
-            Spacer(),
+            const Spacer(),
           ],
         ),
       ),

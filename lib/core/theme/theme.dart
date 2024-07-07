@@ -46,18 +46,17 @@ Map<String, List<Color>> gradient = {
 class MyThemeData {
   static ThemeData lightTheme() {
     return ThemeData(
-      fontFamily: 'Saira',
-      primaryColor: kPrimary,
-      primaryColorLight: kBGLight,
-      brightness: Brightness.light,
-      textTheme: const CustomTextThemeLight(),
-      disabledColor: kDarkBluishGray,
-      indicatorColor: kYellowColor,
-      scaffoldBackgroundColor: kBGLight,
-      cardColor: kWhite,
-      canvasColor: kWhite,
-      dividerColor: lightGray
-    );
+        fontFamily: 'Saira',
+        primaryColor: kPrimary,
+        primaryColorLight: kBGLight,
+        brightness: Brightness.light,
+        textTheme: const CustomTextThemeLight(),
+        disabledColor: kDarkBluishGray,
+        indicatorColor: kYellowColor,
+        scaffoldBackgroundColor: kBGLight,
+        cardColor: kWhite,
+        canvasColor: kWhite,
+        dividerColor: lightGray);
   }
 
   static ThemeData darkTheme() {
@@ -82,17 +81,23 @@ class CustomTextThemeLight extends TextTheme {
           displayLarge: const TextStyle(fontSize: 35, color: kPrimary),
           displayMedium: const TextStyle(fontSize: 25, color: kBlack),
           displaySmall: const TextStyle(fontSize: 12, color: kShadeOfGray),
-          headlineLarge: const TextStyle(fontSize: 30, color: kWhite,),
-          headlineMedium: const TextStyle(fontSize: 20 , color:  kDarkBluishGray),
-          headlineSmall: const TextStyle(fontSize: 10 , color: kDarkGrayColor,),
-          titleLarge: const TextStyle(fontSize: 28 , color: kDarkGrayColor),
+          headlineLarge: const TextStyle(
+            fontSize: 30,
+            color: kWhite,
+          ),
+          headlineMedium: const TextStyle(fontSize: 20, color: kDarkBluishGray),
+          headlineSmall: const TextStyle(
+            fontSize: 10,
+            color: kDarkGrayColor,
+          ),
+          titleLarge: const TextStyle(fontSize: 28, color: kDarkGrayColor),
           titleMedium: const TextStyle(fontSize: 18, color: kBlack),
           titleSmall: const TextStyle(fontSize: 8, color: kShadeOfGray),
           bodyLarge: const TextStyle(fontSize: 35, color: kDarkBluishGray),
           bodyMedium: const TextStyle(fontSize: 16, color: kDarkGrayColor),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
           labelLarge: const TextStyle(fontSize: 12, color: kDarkBluishGray),
-          labelMedium: const TextStyle(fontSize: 17 , color: kDarkGrayColor),
+          labelMedium: const TextStyle(fontSize: 17, color: kDarkGrayColor),
           labelSmall: const TextStyle(fontSize: 5, color: kDarkTealColor),
         );
 }
@@ -103,18 +108,19 @@ class CustomTextThemeDark extends TextTheme {
           displayLarge: const TextStyle(fontSize: 35, color: kPrimary),
           displayMedium: const TextStyle(fontSize: 25, color: kSlateGray),
           displaySmall: const TextStyle(fontSize: 12, color: kSilver),
-          headlineLarge: const TextStyle(fontSize: 30 , ),
-          headlineMedium: const TextStyle(fontSize: 20 , color: kSilver),
-          headlineSmall: const TextStyle(fontSize: 10 , color:  kSilver),
-          titleLarge: const TextStyle(fontSize: 28 , color: kShadeOfGray),
+          headlineLarge: const TextStyle(
+            fontSize: 30,
+          ),
+          headlineMedium: const TextStyle(fontSize: 20, color: kSilver),
+          headlineSmall: const TextStyle(fontSize: 10, color: kSilver),
+          titleLarge: const TextStyle(fontSize: 28, color: kShadeOfGray),
           titleMedium: const TextStyle(fontSize: 18, color: kWhite),
-          titleSmall: const TextStyle(fontSize: 8 , color: kWhite),
+          titleSmall: const TextStyle(fontSize: 8, color: kWhite),
           bodyLarge: const TextStyle(fontSize: 35, color: kWhite),
           bodySmall: const TextStyle(fontSize: 15, color: kBlack),
           bodyMedium: const TextStyle(fontSize: 11, color: kWhite),
           labelLarge: const TextStyle(fontSize: 11, color: kWhite),
-          labelMedium: const TextStyle(fontSize: 17 , color: kPrimary),
+          labelMedium: const TextStyle(fontSize: 17, color: kPrimary),
           labelSmall: const TextStyle(fontSize: 5, color: kSilver),
-          
         );
 }

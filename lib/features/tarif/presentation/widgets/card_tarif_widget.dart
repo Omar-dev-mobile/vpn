@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -6,7 +5,6 @@ import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
-import 'package:vpn/translations/locate_keys.g.dart';
 
 class CardTarifWidget extends StatelessWidget {
   const CardTarifWidget({
@@ -31,10 +29,8 @@ class CardTarifWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenUtil.setHeight(200),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
       decoration: ShapeDecoration(
-       
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: const Alignment(0.1, 1.4),
@@ -116,7 +112,7 @@ class CardTarifWidget extends StatelessWidget {
                     text: 'Subscribe',
                     fontFamily: 'Roboto',
                     color: kSilver,
-                    size: screenUtil.setSp(12),
+                    size: screenUtil.setSp(17),
                     fontWeight: FontWeight.w300,
                   ),
                 ],

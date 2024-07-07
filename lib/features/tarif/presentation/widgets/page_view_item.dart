@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
-import 'package:vpn/core/theme/theme.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem({super.key, required this.icon, required this.title});
@@ -10,8 +9,9 @@ class PageViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration:
-          BoxDecoration(color: Theme.of(context).cardColor, borderRadius: BorderRadius.circular(20)),
+      decoration: BoxDecoration(
+          color: Theme.of(context).cardColor,
+          borderRadius: BorderRadius.circular(20)),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -24,7 +24,7 @@ class PageViewItem extends StatelessWidget {
             style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w300,
-                color: Theme.of(context).textTheme.headlineMedium?.color ),
+                color: Theme.of(context).textTheme.headlineMedium?.color),
           ),
           12.ph
         ],

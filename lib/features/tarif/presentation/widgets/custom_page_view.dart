@@ -13,13 +13,13 @@ class CustomPageView extends StatefulWidget {
 
 class _TopIconsPageViewState extends State<CustomPageView> {
   int _currentIndex = 0;
-  final PageController _pageController = PageController(viewportFraction: 1 / 3  );
+  final PageController _pageController =
+      PageController(viewportFraction: 1 / 3, initialPage: 1);
 
   final List<Map<String, String>> items = [
     {"icon": Assets.pageView1, "title": "Money back"},
-    {"icon":Assets.pageView2, "title": "Traffic"},
+    {"icon": Assets.pageView2, "title": "Traffic"},
     {"icon": Assets.pageView3, "title": "Open world"},
-
   ];
 
   @override
