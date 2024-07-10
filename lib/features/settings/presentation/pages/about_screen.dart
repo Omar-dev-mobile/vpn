@@ -5,8 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vpn/core/customs/custom_button.dart';
 import 'package:vpn/core/router/app_router.dart';
+import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/settings/presentation/widgets/icon_widget.dart';
+import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
 import '../../../../core/constants.dart';
@@ -34,21 +36,41 @@ class AboutScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CommonTextWidget(
-                    text: LocaleKeys.about.tr(),
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
-                    size: screenUtil.setSp(35),
-                    fontWeight: FontWeight.w500,
+                  Row(
+                    children: [
+                      CommonTextWidget(
+                        text: LocaleKeys.about.tr(),
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                        size: screenUtil.setSp(35),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      15.pw,
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: kDarkGreen),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 20),
+                        child: CommonTextWidget(
+                          text: 'v ${locator<SystemInfoService>().appVersion}',
+                          color: kDarkTealColor,
+                          size: screenUtil.setSp(18),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                   screenUtil.setHeight(10).ph,
-                  CustomButton(
-                    title: '${LocaleKeys.versionApp.tr()} 1.0.0',
-                    color: kDarkTealColor,
-                    size: screenUtil.setSp(18),
-                    fontWeight: FontWeight.w500,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 16),
-                  ),
+                  // CustomButton(
+                  //   title:
+                  //       '${LocaleKeys.versionApp.tr()} ${locator<SystemInfoService>().appVersion}',
+                  //   color: kDarkTealColor,
+                  //   size: screenUtil.setSp(18),
+                  //   fontWeight: FontWeight.w500,
+                  //   padding: const EdgeInsets.symmetric(
+                  //       vertical: 10, horizontal: 16),
+                  // ),
                   screenUtil.setHeight(30).ph,
                   CommonTextWidget(
                     text: LocaleKeys.contactUs.tr(),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
@@ -62,6 +63,7 @@ class SystemInfoService {
   String _hardName = '';
   String _hardLModel = '';
   String _hardFModel = '';
+  String _appVersion = '';
 
   String get getLang => _lang;
   String get getHardModel => _hardModel;
@@ -69,10 +71,13 @@ class SystemInfoService {
   String get getHardName => _hardName;
   String get getHardLModel => _hardLModel;
   String get getHardFModel => _hardFModel;
+  String get appVersion => _appVersion;
 
   Future<void> getSystemInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     final language = getLocaleName;
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       _lang = language;
@@ -83,6 +88,7 @@ class SystemInfoService {
       _hardFModel = androidInfo.hardware;
     } else if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+
       _lang = language;
       _hardModel = iosInfo.model;
       _hardOS = iosInfo.systemVersion;
@@ -91,9 +97,10 @@ class SystemInfoService {
       _hardFModel = iosInfo.identifierForVendor ?? "";
     }
     user = await locator<CacheHelper>().getUser();
+    _appVersion = packageInfo.version;
     isLogin = user != null;
     vpnServer = await locator<CacheHelper>().getVpnServer();
-    print("vpnServer${vpnServer?.toJson()}");
+    print("vpnServer$_appVersion");
     themeMode = await locator<CacheHelper>().getThemeMode();
   }
 
