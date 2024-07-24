@@ -58,6 +58,13 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     emit(EndPendingPurchaseState());
   }
 
+  int indexTariff = 1;
+  void changeIndexTariff(int index) {
+    emit(ChangePurchaseState());
+    indexTariff = index;
+    emit(StopChangePurchaseState());
+  }
+
   void goToHome(BuildContext context) async {
     await closeSubscription();
     AutoRouter.of(context)
@@ -172,6 +179,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   String productIdToBuy = "";
 
   Future buyTarif(productId) async {
+    print("productId$productId");
     emit(LoadingPendingPurchaseState());
     late PurchaseParam purchaseParam;
     productIdToBuy = productId;

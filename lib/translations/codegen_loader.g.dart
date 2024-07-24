@@ -17,7 +17,29 @@ class CodegenLoader extends AssetLoader {
   }
 
   static const Map<String, String> en = {
+    "Auto-renewal Plans for a week, a month or three months.":
+        "Auto-renewal Plans for a week, a month or three months.",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "A payment will be charged to your iTunes Account at confirmation of your purchase.",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "Your account will be charged for the renewal within 24 hours prior to the end of the current period.",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone.",
     "Enter a valid email address": "Enter a valid email address",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "You can manage and cancel your Subscription by going to your iTunes and App Store.",
+    "Start Subscription": "Start Subscription",
+    "Worldwide coverage, global Server Network":
+        "Worldwide coverage,\nglobal Server Network",
+    "Refund Policy": "Refund Policy",
+    "Open world": "Open world",
+    "Trafic": "Trafic",
+    "Money back": "Money back",
+    "All devices": "All devices",
+    "VPN Line Subscription": "VPN Line Subscription",
+    "High speed": "High speed",
     "VPN Line Question": "VPN Line Question",
     "Buy": "Buy",
     "Your Key": "Your Key",
@@ -85,6 +107,28 @@ class CodegenLoader extends AssetLoader {
 
 // #испания
   static const Map<String, String> es = {
+    "Auto-renewal Plans for a week, a month or three months.":
+        "Suscripción de renovación automática: semana, mes, tres meses.",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "El pago se cargará a tu cuenta de iTunes en la confirmación de la compra.",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "La suscripción se renueva automáticamente a menos que la renovación automática se desactive al menos 24 horas antes del final del período actual.",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "Las tarifas de renovación de la suscripción se cobrarán dentro de las 24 horas anteriores al vencimiento del período actual.",
+    "Open world": "mundial",
+    "Trafic": "Sin límites",
+    "Money back": "reembolso",
+    "All devices": "todos los dispositivos",
+    "VPN Line Subscription": "VPN Line suscripcion",
+    "Worldwide coverage, global Server Network":
+        "Servidores y ubicaciones\nen todo el mundo",
+    "High speed": "Alta velocidad",
+    "Refund Policy": "Se proporciona el reembolso",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "Puedes gestionar suscripciones y desactivar la renovación automática en cualquier momento en la configuración de tu cuenta de iTunes y App Store.",
+    "Start Subscription": "Suscribirse",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "Sus datos confidenciales están totalmente protegidos y no se comparten con terceros. Esta retroalimentación no es visible para nadie.",
     "Enter a valid email address":
         "Introduzca una dirección de correo electrónico válida",
     "VPN Line Question": "VPN Line Pregunta",
@@ -154,7 +198,27 @@ class CodegenLoader extends AssetLoader {
   };
 
 // #китай
-  static const Map<String, String> cn = {
+  static const Map<String, String> zh = {
+    "Auto-renewal Plans for a week, a month or three months.": "自动续订订阅：周,月,三个月",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "付款将在确认购买时记入您的iTunes帐户。",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "除非在当前期限结束前至少24小时关闭自动续订，否则订阅将自动续订。",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "订阅续订费将在当前期限到期前24小时内收取。",
+    "Open world": "全世界",
+    "Trafic": "無限",
+    "Money back": "退款",
+    "All devices": "所有設備",
+    "VPN Line Subscription": "VPN Line 訂閱",
+    "Worldwide coverage, global Server Network": "全球各地的服\n务器和位置",
+    "High speed": "高速的移动速度",
+    "Refund Policy": "已提供退款",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "您可以随时在iTunes和App Store帐户设置中管理订阅并关闭自动续订。",
+    "Start Subscription": "订阅",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "您的机密数据受到充分保护，不与第三方共享。这种反馈对任何人都不可见。",
     "Enter a valid email address": "輸入一個有效的電子郵件地址",
     "VPN Line Question": "VPN Line 問題",
     "Buy": "购买",
@@ -219,6 +283,28 @@ class CodegenLoader extends AssetLoader {
 
 // #немецкий
   static const Map<String, String> de = {
+    "Auto-renewal Plans for a week, a month or three months.":
+        "Automatisches Verlängerungsabonnement: Woche, Monat, drei Monate.",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "Die Zahlung wird Ihrem iTunes-Konto bei der Kaufbestätigung belastet.",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "Das Abonnement wird automatisch verlängert, es sei denn, die automatische Verlängerung wird mindestens 24 Stunden vor dem Ende des aktuellen Zeitraums deaktiviert.",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "Abonnementverlängerungsgebühren werden innerhalb von 24 Stunden vor Ablauf des aktuellen Zeitraums berechnet.",
+    "Open world": "weltweit",
+    "Trafic": "unbegrenzt",
+    "Money back": "Geld-zurück",
+    "All devices": "alle Geräte",
+    "VPN Line Subscription": "VPN Line Abo",
+    "Worldwide coverage, global Server Network":
+        "Weltweit Servers\nund Abdeckung",
+    "High speed": "Hohe\nGeschwindigkeit",
+    "Refund Policy": "Rückerstattung erfolgt",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "Sie können Abonnements verwalten und die automatische Verlängerung jederzeit in Ihren iTunes und App Store-Kontoeinstellungen deaktivieren.",
+    "Start Subscription": "Abonnieren",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "Ihre vertraulichen Daten sind vollständig geschützt und werden nicht an Dritte weitergegeben. Dieses Feedback ist für niemanden sichtbar.",
     "Enter a valid email address": "Geben Sie eine gültige email an",
     "VPN Line Question": "VPN Line Frage",
     "Buy": "Kaufen",
@@ -290,6 +376,28 @@ class CodegenLoader extends AssetLoader {
 
 // #русский
   static const Map<String, String> ru = {
+    "Auto-renewal Plans for a week, a month or three months.":
+        "Подписки с автоматическим продлением: неделя, месяц, три месяца.",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "Оплата будет снята с вашего аккаунта iTunes при подтверждении покупки.",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "Подписка автоматически продлевается, если автоматическое продление не было выключено по крайней мере за 24 часа до окончания текущего периода.",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "Плата за продление подписки взимается в течении 24 часов до окончания текущего периода.",
+    "Open world": "Весь мир",
+    "Trafic": "Безлимитный трафик",
+    "Money back": "Гарантия возврата",
+    "All devices": "Все устройства",
+    "VPN Line Subscription": "VPN Line Subscription",
+    "Worldwide coverage, global Server Network":
+        "Серверы и локации\nпо всему миру",
+    "High speed": "Высокая скорость",
+    "Refund Policy": "Гарантия возврата",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "Вы можете управлять подписками и отключить автоматическое продление в любое время в настройках учетной записи iTunes и App store.",
+    "Start Subscription": "Подписаться",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "Ваша конфиденциальная информация является нашим приоритетом и не передается третьим лицам. Эта обратная связь никому не видна.",
     "Enter a valid email address": "Введите корректный email адрес",
     "VPN Line Question": "VPN Line вопрос",
     "Buy": "Купить",
@@ -361,10 +469,10 @@ class CodegenLoader extends AssetLoader {
   };
 
   static const Map<String, Map<String, dynamic>> mapLocales = {
-    "ru": ru,
+    // "ru": ru,
     "en": en,
     "es": es,
-    "zh": cn,
+    "zh": zh,
     "de": de,
   };
 }

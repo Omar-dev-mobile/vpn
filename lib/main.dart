@@ -12,7 +12,7 @@ void main() async {
       EasyLocalization(
         assetLoader: const CodegenLoader(),
         supportedLocales: const [
-          Locale('ru'),
+          // Locale('ru'),
           Locale('en'),
           Locale('es'),
           Locale('de'),

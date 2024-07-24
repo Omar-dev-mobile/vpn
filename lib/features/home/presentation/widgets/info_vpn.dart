@@ -6,8 +6,6 @@ import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart'
 import 'package:vpn/features/home/presentation/widgets/date_connection.dart';
 import 'package:vpn/features/home/presentation/widgets/network_speed_checker.dart';
 
-import '../../../../core/constants.dart';
-
 class InfoVpnWidget extends StatelessWidget {
   const InfoVpnWidget({super.key});
 

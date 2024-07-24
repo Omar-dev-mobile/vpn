@@ -30,13 +30,16 @@ class ProfileWithSub extends StatelessWidget {
       children: [
         Container(
           height: screenUtil.screenHeight * 0.85,
-          decoration: const ShapeDecoration(
+          decoration: ShapeDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
-              end: Alignment(0.1, 1.5),
-              colors: [kDeepPurpleColor, kDarkTealColor],
+              end: const Alignment(0.1, 1.5),
+              colors: (gradient[
+                      profileModel.workStatus?.userInfo?.tarifInfo?.productId ??
+                          ''] ??
+                  gradient['org.cnddrm.vplineapp.pay.sub.week']!),
             ),
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),

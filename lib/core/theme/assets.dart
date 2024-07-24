@@ -52,9 +52,10 @@ abstract class Assets {
   static const String profileKey = '$_assets/$_icons/profile_key.svg';
   static const String time = '$_assets/$_icons/time.svg';
   static const String time2 = '$_assets/$_icons/time2.svg';
-  static const String pageView1 = '$_assets/$_icons/pageview1.svg';
-  static const String pageView2 = '$_assets/$_icons/pageview2.svg';
-  static const String pageView3 = '$_assets/$_icons/pageview3.svg';
-  static const String pageView4 = '$_assets/$_icons/pageview4.svg';
 
+  static const String trafic = '$_assets/$_icons/trafic.svg';
+  static const String openWorld = '$_assets/$_icons/openWorld.svg';
+  static const String moneyBack = '$_assets/$_icons/moneyBack.svg';
+  static const String allDevices = '$_assets/$_icons/allDevices.svg';
+  static const String highSpeed = '$_assets/$_icons/highSpeed.svg';
 }

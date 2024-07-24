@@ -1,8 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/tarif/presentation/widgets/page_view_item.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 class CustomPageView extends StatefulWidget {
   const CustomPageView({super.key});
@@ -12,14 +14,16 @@ class CustomPageView extends StatefulWidget {
 }
 
 class _TopIconsPageViewState extends State<CustomPageView> {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
   final PageController _pageController =
-      PageController(viewportFraction: 1 / 3, initialPage: 1);
+      PageController(viewportFraction: 1 / 3, initialPage: 2);
 
   final List<Map<String, String>> items = [
-    {"icon": Assets.pageView1, "title": "Money back"},
-    {"icon": Assets.pageView2, "title": "Traffic"},
-    {"icon": Assets.pageView3, "title": "Open world"},
+    {"icon": Assets.allDevices, "title": LocaleKeys.allDevices.tr()},
+    {"icon": Assets.highSpeed, "title": LocaleKeys.highSpeed.tr()},
+    {"icon": Assets.moneyBack, "title": LocaleKeys.moneyBack.tr()},
+    {"icon": Assets.trafic, "title": LocaleKeys.trafic.tr()},
+    {"icon": Assets.openWorld, "title": LocaleKeys.openWorld.tr()},
   ];
 
   @override
@@ -35,6 +39,7 @@ class _TopIconsPageViewState extends State<CustomPageView> {
                 _currentIndex = index;
               });
             },
+            padEnds: false,
             itemCount: items.length,
             itemBuilder: (context, index) {
               return Padding(

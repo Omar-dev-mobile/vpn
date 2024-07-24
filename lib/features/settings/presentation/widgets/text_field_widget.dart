@@ -5,7 +5,7 @@ import '../../../../core/constants.dart';
 import '../../../../core/theme/theme.dart';
 
 class TextFieldWidgetForAsk extends StatelessWidget {
-  TextFieldWidgetForAsk({
+  const TextFieldWidgetForAsk({
     super.key,
     required this.hintText,
     this.controller,
@@ -15,10 +15,10 @@ class TextFieldWidgetForAsk extends StatelessWidget {
   });
 
   final String hintText;
-  TextEditingController? controller;
-  TextAlign textAlign;
-  List<TextInputFormatter>? inputFormatters;
-  String? Function(String?)? validator;
+  final TextEditingController? controller;
+  final TextAlign textAlign;
+  final List<TextInputFormatter>? inputFormatters;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {

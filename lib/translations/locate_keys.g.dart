@@ -64,4 +64,28 @@ abstract class LocaleKeys {
   static const VPNLineQuestion = 'VPN Line Question';
   static const day = 'day';
   static const waitingForAPurchase = 'Waiting for a purchase';
+  static const startSubscription = 'Start Subscription';
+  static const refundPolicy = 'Refund Policy';
+  static const highSpeed = 'High speed';
+  static const worldwideCoverageGlobalServerNetwork =
+      'Worldwide coverage, global Server Network';
+  static const youCanManageAndAancelSubscription =
+      'You can manage and cancel your Subscription by going to your iTunes and App Store.';
+  static const yourPrivacyTopPriority =
+      'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone';
+
+  static const openWorld = 'Open world';
+  static const trafic = 'Trafic';
+  static const moneyBack = 'Money back';
+  static const allDevices = 'All devices';
+  static const VPNLineSubscription = 'VPN Line Subscription';
+
+  static const AutoRenewal =
+      "Auto-renewal Plans for a week, a month or three months.";
+  static const paymentWillBeCharged =
+      "A payment will be charged to your iTunes Account at confirmation of your purchase.";
+  static const subscriptionWillAutomatically =
+      "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.";
+  static const accountWillBeCharged =
+      "Your account will be charged for the renewal within 24 hours prior to the end of the current period.";
 }

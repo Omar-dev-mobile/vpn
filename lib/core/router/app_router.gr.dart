@@ -83,12 +83,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const TarifScreen(),
       );
     },
-    TarifWithCardRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const TarifWithCardScreen(),
-      );
-    },
     WebViewRoute.name: (routeData) {
       final args = routeData.argsAs<WebViewRouteArgs>();
       return AutoRoutePage<dynamic>(

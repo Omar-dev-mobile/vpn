@@ -36,12 +36,14 @@ const Color kCharcoal = Color(0xff313131);
 const Color lightGray = Color(0xffD9D9D9);
 
 const Color kDarkGreen = Color(0xff006A7C);
+const Color kGreyA4AAAA = Color(0xffA4AAAA);
 
 Map<String, List<Color>> gradient = {
-  kProductIds[0]: [kDeepPurpleColor, kDarkTealColor],
-  kProductIds[1]: [kDeepPurpleColor, kOrangeColor],
-  kProductIds[2]: [kDeepPurpleColor, kStarIconOn],
-};
+  kProductIds[0]: [kDarkTealColor, kDarkTealColor],
+  kProductIds[1]: [kDeepPurpleColor, kDarkTealColor],
+  kProductIds[2]: [kDeepPurpleColor, kOrangeColor],
+  // kProductIds[2]: [kDeepPurpleColor, kStarIconOn],
+}; //[kDarkTealColor, kDarkTealColor]
 
 class MyThemeData {
   static ThemeData lightTheme() {

@@ -18,13 +18,18 @@ class PageViewItem extends StatelessWidget {
           12.ph,
           SvgPicture.asset(icon),
           const Spacer(),
-          Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontSize: 15,
-                fontWeight: FontWeight.w300,
-                color: Theme.of(context).textTheme.headlineMedium?.color),
+          FittedBox(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w300,
+                    color: Theme.of(context).textTheme.headlineMedium?.color),
+              ),
+            ),
           ),
           12.ph
         ],

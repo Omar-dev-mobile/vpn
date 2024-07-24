@@ -78,7 +78,8 @@ class _TarifScreenState extends State<TarifScreen> {
                         Expanded(
                           child: Builder(
                             builder: (context) {
-                              if (state is TarifLoadingState || state is LoadingInitStoreInfoState) {
+                              if (state is TarifLoadingState ||
+                                  state is LoadingInitStoreInfoState) {
                                 return const Center(
                                   child: CircularProgressIndicator(),
                                 );
@@ -103,6 +104,9 @@ class _TarifScreenState extends State<TarifScreen> {
                               }
                               var tarifs =
                                   (state as TarifSuccessState).tarifModel;
+                              var traif = tarifs.workStatus
+                                  ?.tarifList?[purchasesCubit.indexTariff];
+
                               return SingleChildScrollView(
                                 child: Column(
                                   children: [
@@ -111,7 +115,8 @@ class _TarifScreenState extends State<TarifScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           vertical: 16, horizontal: 20),
                                       child: CommonTextWidget(
-                                        text: "VPN Line Subscription",
+                                        text:
+                                            LocaleKeys.VPNLineSubscription.tr(),
                                         fontWeight: FontWeight.w500,
                                         size: 28,
                                         color: Theme.of(context)
@@ -142,9 +147,11 @@ class _TarifScreenState extends State<TarifScreen> {
                                           left: 20, right: 20, top: 20),
                                       child: Center(
                                           child: CommonTextWidget(
-                                        text:
-                                            "You can manage subscriptions and disable auto-renewal anytime in your iTunes and App store account settings.",
+                                        text: LocaleKeys
+                                            .youCanManageAndAancelSubscription
+                                            .tr(),
                                         size: 12,
+                                        textAlign: TextAlign.center,
                                         fontWeight: FontWeight.w400,
                                         color: Theme.of(context)
                                             .textTheme
@@ -158,13 +165,6 @@ class _TarifScreenState extends State<TarifScreen> {
                                             horizontal: 20, vertical: 32),
                                         child: ServiceAndPrivacyRow(),
                                       ),
-                                    ),
-                                    RoundedButton(
-                                      name: LocaleKeys.send.tr(),
-                                      color: kPrimary,
-                                      width: screenUtil.setWidth(130),
-                                      colorRounded: kPrimary,
-                                      onPressed: () {},
                                     ),
                                     50.ph
                                   ],
