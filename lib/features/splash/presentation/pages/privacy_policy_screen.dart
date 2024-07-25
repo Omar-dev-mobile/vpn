@@ -1,11 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
+import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/core/customs/custom_switch_button.dart';
+import 'package:vpn/translations/locate_keys.g.dart';
 
 @RoutePage()
 class PrivacyPolicyScreen extends StatefulWidget {
@@ -18,6 +22,12 @@ class PrivacyPolicyScreen extends StatefulWidget {
 class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   bool isLicenseAccepted = false;
   bool isAnonymousDataEnabled = false;
+
+  void _checkConditions() {
+    if (isLicenseAccepted && isAnonymousDataEnabled) {
+      context.replaceRoute(const MainRoute());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +52,14 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 child: Column(
                   children: [
                     CommonTextWidget(
-                      text: 'Privacy Policy',
+                      text: LocaleKeys.privacyScreenTitle.tr(),
                       fontWeight: FontWeight.w500,
                       size: 28,
                       color: Theme.of(context).textTheme.labelLarge?.color,
                     ),
                     10.ph,
                     CommonTextWidget(
-                      text:
-                          'The payment will be charged from your iTunes account iTunes confirmation of purchase. The payment will be charged from your iTunes account iTunes confirmation of purchase.',
+                      text: LocaleKeys.privacyScreenText.tr(),
                       textAlign: TextAlign.center,
                       fontWeight: FontWeight.w400,
                       size: 15,
@@ -62,45 +71,41 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                         Expanded(
                           child: RichText(
                             text: TextSpan(
-                              text: 'I accept the ',
+                              text: LocaleKeys.collectData.tr(),
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
-                                color: isLicenseAccepted
+                                color: isAnonymousDataEnabled
                                     ? Theme.of(context)
                                         .textTheme
                                         .labelMedium
                                         ?.color
                                     : kShadeOfGray,
                               ),
-                              children: const [
+                              children: [
                                 TextSpan(
-                                  text: 'License Agreement',
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      context.pushRoute(AppUsageRoute());
+                                    },
+                                  text: LocaleKeys.appUsageData.tr(),
                                   style: TextStyle(
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' and the ',
-                                ),
-                                TextSpan(
-                                  text: 'Privacy Policy',
-                                  style: TextStyle(
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: ' AdGuard VPN',
+                                  text: LocaleKeys.makeExperienceBetter.tr(),
                                 ),
                               ],
                             ),
                           ),
                         ),
                         AnimatedToggleSwitch(
-                          isOn: isLicenseAccepted,
+                          isOn: isAnonymousDataEnabled,
                           onToggle: (value) {
                             setState(() {
-                              isLicenseAccepted = value;
+                              isAnonymousDataEnabled = value;
+                              _checkConditions();
                             });
                           },
                         ),
@@ -112,37 +117,56 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                         Expanded(
                           child: RichText(
                             text: TextSpan(
-                              text: 'Send anonymous',
+                              text: LocaleKeys.accept.tr(),
                               style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
-                                color: isAnonymousDataEnabled
+                                color: isLicenseAccepted
                                     ? Theme.of(context)
                                         .textTheme
                                         .labelMedium
                                         ?.color
                                     : kShadeOfGray,
                               ),
-                              children: const [
+                              children: [
                                 TextSpan(
-                                  text:
-                                      ' data about the use of the application',
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      context.pushRoute(
+                                          WebViewRoute(url: termServiceUrl));
+                                    },
+                                  text: LocaleKeys.licenceAgreement.tr(),
                                   style: TextStyle(
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
                                 TextSpan(
-                                  text: ' to help make AdGuard VPN better ',
+                                  text: LocaleKeys.and.tr(),
+                                ),
+                                TextSpan(
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {
+                                      context.pushRoute(
+                                          WebViewRoute(url: policyUrl));
+                                    },
+                                  text: LocaleKeys.privacyPolicy2.tr(),
+                                  style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: LocaleKeys.vpnLine.tr(),
                                 ),
                               ],
                             ),
                           ),
                         ),
                         AnimatedToggleSwitch(
-                          isOn: isAnonymousDataEnabled,
+                          isOn: isLicenseAccepted,
                           onToggle: (value) {
                             setState(() {
-                              isAnonymousDataEnabled = value;
+                              isLicenseAccepted = value;
+                              _checkConditions();
                             });
                           },
                         ),

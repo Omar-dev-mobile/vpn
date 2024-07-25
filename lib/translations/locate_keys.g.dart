@@ -88,4 +88,21 @@ abstract class LocaleKeys {
       "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.";
   static const accountWillBeCharged =
       "Your account will be charged for the renewal within 24 hours prior to the end of the current period.";
+  static const privacyScreenTitle = "Data and Privacy";
+  static const privacyScreenText =
+      "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.";
+  static const collectData = "We collect anonymous";
+  static const appUsageData = "app usage data";
+  static const makeExperienceBetter =
+      "to make the VPN Line experience even better.";
+  static const accept = "I accept VPN Line's";
+  static const licenceAgreement = "licence agreement";
+  static const and = "and";
+  static const privacyPolicy2 = "privacy policy.";
+  static const vpnLine = "VPN Line";
+  static const appUsage1 = "app usage 1";
+  static const appUsage2 = "app usage 2";
+  static const appUsage3 = "app usage 3";
+  static const appUsage4 = "app usage 4";
+
 }

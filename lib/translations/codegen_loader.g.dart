@@ -103,6 +103,26 @@ class CodegenLoader extends AssetLoader {
     "Week": "Week",
     "Pay": "Pay",
     "Waiting for a purchase": "Waiting for a purchase",
+    "Data and Privacy": "Data and Privacy",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.",
+    "We collect anonymous": "We collect anonymous ",
+    "app usage data": "app usage data ",
+    "to make the VPN Line experience even better. ":
+        "to make the VPN Line experience even better.",
+    "I accept VPN Line's": "I accept VPN Line's ",
+    "licence agreement": "licence agreement ",
+    "and": "and ",
+    "privacy policy.": "privacy policy. ",
+    "VPN Line": "",
+    "app usage 1":
+        "1. We keep your User email, registration date. They are used for signing in and to keep records of the accounts set to auto-renew.",
+    "app usage 2":
+        "2. We keep records of your Subscription status, payment methods, allocated packages, subscription duration and transaction IDs. This data is collected to provide basic app functionality and troubleshooting steps (e.g. refunds). We do NOT store your credit card or payment information.",
+    "app usage 3":
+        "3. We keep information about your Device, i.e. version of an operating System, hardware model and your IP address. This data is necessary to optimize the Network Connection and ensure high quality Technical Support.",
+    "app usage 4":
+        "4. We keep information about the consumed traffic Volume and total usage time of the VPN app to properly distribute the load on Servers.",
   };
 
 // #испания
@@ -195,6 +215,26 @@ class CodegenLoader extends AssetLoader {
     "dayTime": "días",
     "Week": "Semana",
     "Waiting for a purchase": "Esperando la compra",
+    "Data and Privacy": "Datos y confidencialidad",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Bienvenido a VPN Line. Para su comodidad proporcionamos aquí una parte de información que se refiere a su seguridad durante el uso de nuestra aplicación.",
+    "We collect anonymous": "Recogemos los datos anónimos ",
+    "app usage data": "de uso de la aplicación ",
+    "to make the VPN Line experience even better. ":
+        "para hacer el trabajo de VPN Line aun mejor.",
+    "I accept VPN Line's": "Acepto el ",
+    "licence agreement": "contrato de licencia ",
+    "and": "y ",
+    "privacy policy.": "la política de confidencialidad ",
+    "VPN Line": "de VPN Line. ",
+    "app usage 1":
+        "1. Guardamos su email de Usuario, la fecha de registro. Se usan para entrar en el sistema y gestionar el registro de inscripciones ajustadas para el prolongamiento autom√°tico.",
+    "app usage 2":
+        "2. Guardamos las inscripciones de su status de suscripci√≥n, los m√©todos de pago, los paquetes seleccionados, la duraci√≥n de la suscripci√≥n y transacci√≥n de ID. Estos datos se recogen para asegurar las funciones principales de la aplicaci√≥n y las acciones de eliminaci√≥n de los fallos (por ejemplo, devoluci√≥n de los fondos). NO guardamos la informaci√≥n sobre su tarjeta de cr√©dito o la informaci√≥n de pago.",
+    "app usage 3":
+        "3. Guardamos la informaci√≥n sobre su dispositivo, de hecho la versi√≥n del sistema operativo, el modelo de hardware y su direcci√≥n IP. Estos datos son necesarios para optimizar la conexi√≥n de red y asegurar el soporte t√©cnico de calidad.",
+    "app usage 4":
+        "4. Guardamos la informaci√≥n sobre el volumen de tr√°fico consumido y el tiempo de uso total de la aplicaci√≥n VPN para distribuir correctamente la carga sobre los servidores.",
   };
 
 // #китай
@@ -279,6 +319,25 @@ class CodegenLoader extends AssetLoader {
     "dayTime": "天数",
     "Week": "周",
     "Waiting for a purchase": "等待购买",
+    "Data and Privacy": "数据和隐私",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "欢迎访问 VPN Line。为您的方便，我们在此提供一些在使用应用程序期间与您的安全有关的信息。",
+    "We collect anonymous": "我们收集匿名",
+    "app usage data": "应用程序使用数据",
+    "to make the VPN Line experience even better.": "，以便让 VPN Line 体验更好。",
+    "I accept VPN Line's": "我接受 VPN Line",
+    "licence agreement": "的许可协议",
+    "and": "和",
+    "privacy policy.": "隐私政策。",
+    "VPN Line": "",
+    "app usage 1":
+        "1. жИСдїђдњЭзХЩжВ®зЪДзФ®жИЈзФµе≠РйВЃдїґеТМж≥®еЖМжЧ•жЬЯгАВеЃГдїђзФ®дЇОзЩїељХеТМдњЭе≠ШиЃЊзљЃдЄЇиЗ™еК®жЫіжЦ∞зЪДиі¶жИЈиЃ∞ељХгАВ",
+    "app usage 2":
+        "2. жИСдїђдЉЪиЃ∞ељХжВ®зЪДиЃҐйШЕзКґжАБгАБдїШжђЊжЦєеЉПгАБеИЖйЕНзЪДе•Чй§РгАБиЃҐйШЕжЬЯйЩРеТМдЇ§жШУ IDгАВжФґйЫЖињЩдЇЫжХ∞жНЃжШѓдЄЇдЇЖжПР дЊЫеЯЇжЬђзЪДеЇФзФ®з®ЛеЇПеКЯиГљеТМжХЕйЪЬжОТйЩ§ж≠•й™§пЉИе¶ВйААжђЊпЉЙгАВжИСдїђдЄНдЉЪе≠ШеВ®жВ®зЪДдњ°зФ®еН°жИЦдїШжђЊдњ°жБѓгАВ",
+    "app usage 3":
+        "3. жИСдїђдњЭе≠ШжЬЙеЕ≥жВ®иЃЊе§ЗзЪДдњ°жБѓпЉМеН≥жУНдљЬз≥їзїЯзЙИжЬђгАБз°ђдїґеЮЛеПЈеТМ IP еЬ∞еЭАгАВињЩдЇЫжХ∞жНЃжШѓдЉШеМЦзљСзїЬињЮжО•еТМз°ЃдњЭ йЂШиі®йЗПжКАжЬѓжФѓжМБжЙАењЕйЬАзЪДгАВ",
+    "app usage 4":
+        "4. жИСдїђдњЭе≠Ш VPN еЇФзФ®з®ЛеЇПзЪДжґИиАЧжµБйЗПеТМжАїдљњзФ®жЧґйЧідњ°жБѓпЉМдї•дЊњйАВељУеИЖйЕНжЬНеК°еЩ®зЪДиіЯиљљгАВ"
   };
 
 // #немецкий
@@ -372,6 +431,24 @@ class CodegenLoader extends AssetLoader {
     "Week": "Woche",
     "Pay": "Bezahlen",
     "Waiting for a purchase": "Warten auf den Kauf",
+    "Data and Privacy": "Daten und Datenschutz",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Willkommen bei VPN Line. Zur Benutzerfreundlichkeit stellen wir Ihnen hier einige Informationen zu Ihrer Sicherheit bei der Nutzung unserer Anwendung zur Verfugung.",
+    "We collect anonymous": "Wir erheben anonyme ",
+    "app usage data": "Daten uber die Nutzung der Anwendung ",
+    "to make the VPN Line experience even better. ":
+        "um die Arbeit von VPN Line zu verbessern. ",
+    "I accept VPN Line's": "Ich stimme dem ",
+    "licence agreement": "Lizenzvertrag ",
+    "and": "und den ",
+    "privacy policy.": "Datenschutzrichtlinien ",
+    "VPN Line": "von VPN Line zu. ",
+    "app usage 1":
+        "1. Wir speichern Ihre Benutzer-E-Mail und Ihr Registrierungsdatum. Diese Daten werden zum Anmelden und zum Aufzeichnen der Konten verwendet, die auf automatische Aktualisierung eingestellt sind.",
+    "app usage 2":
+        "2. Wir speichern Aufzeichnungen uber Ihren Abonnementstatus, Zahlungsmethoden, zugewiesene Pakete, Abonnementdauer und Transaktions-IDs. Diese Daten werden erhoben, um grundlegende App-Funktionen und Schritte zur Fehlerbehebung (z. B. Ruckerstattungen) bereitzustellen. Wir speichern NICHT Ihre Kreditkarten- oder Zahlungsinformationen.",
+    "app usage 3": "3. Wir speichern Informationen uber Ihr Gerat, d. h. die Version eines Betriebssystems, das Hardwaremodell und Ihre IP-Adresse. Diese Daten sind erforderlich, um die Netzwerkverbindung zu optimieren und einen qualitativ hochwertigen technischen Support sicherzustellen.",
+    "app usage 4" : "4. Wir speichern Informationen uber den verbrauchten Verkehrsumfang und die Gesamtnutzungsdauer der VPN-App, um die Belastung der Server richtig zu verteilen.",
   };
 
 // #русский
@@ -466,6 +543,18 @@ class CodegenLoader extends AssetLoader {
     "An error occurred when trying to make a payment":
         "При попытке платежа возникла ошибка",
     "Waiting for a purchase": "Ожидание покупки",
+    "Data and Privacy": "Данные и конфиденциальность,",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Добро пожаловать в VPN Line. Для вашего удобства мы предоставляем здесь часть информации, касающейся вашей безопасности при пользовании нашим приложением.",
+    "We collect anonymous": "Мы собираем анонимные ",
+    "app usage data": "данные об использовании приложения ",
+    "to make the VPN Line experience even better.":
+        ", чтобы сделать работу VPN Line еще лучше. ",
+    "I accept VPN Line's": "Я принимаю ",
+    "licence agreement": "лицензионное соглашение ",
+    "and": "и",
+    "privacy policy.": "политику конфиденциальности ",
+    "VPN Line": "VPN Line. "
   };
 
   static const Map<String, Map<String, dynamic>> mapLocales = {

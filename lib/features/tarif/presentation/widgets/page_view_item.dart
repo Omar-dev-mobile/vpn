@@ -8,7 +8,7 @@ class PageViewItem extends StatelessWidget {
   final String icon, title;
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return title == '' ? SizedBox() : Container(
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(20)),

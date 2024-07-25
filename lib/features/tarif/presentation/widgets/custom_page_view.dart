@@ -19,11 +19,13 @@ class _TopIconsPageViewState extends State<CustomPageView> {
       PageController(viewportFraction: 1 / 3, initialPage: 2);
 
   final List<Map<String, String>> items = [
+    {"icon": '', "title": ''},
     {"icon": Assets.allDevices, "title": LocaleKeys.allDevices.tr()},
     {"icon": Assets.highSpeed, "title": LocaleKeys.highSpeed.tr()},
     {"icon": Assets.moneyBack, "title": LocaleKeys.moneyBack.tr()},
     {"icon": Assets.trafic, "title": LocaleKeys.trafic.tr()},
     {"icon": Assets.openWorld, "title": LocaleKeys.openWorld.tr()},
+    {"icon": '', "title": ''},
   ];
 
   @override
@@ -34,6 +36,7 @@ class _TopIconsPageViewState extends State<CustomPageView> {
           height: screenUtil.setHeight(115),
           child: PageView.builder(
             controller: _pageController,
+            physics: ClampingScrollPhysics(),
             onPageChanged: (index) {
               setState(() {
                 _currentIndex = index;
@@ -55,7 +58,7 @@ class _TopIconsPageViewState extends State<CustomPageView> {
         12.ph,
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(items.length, (index) {
+          children: List.generate(items.length - 2, (index) {
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 4.0),
               width: 6,
