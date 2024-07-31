@@ -94,7 +94,7 @@ String getlocaleName() {
   final localeStr = Platform.localeName;
   final loc = localeStr.split('_')[0];
   if (CodegenLoader.mapLocales.containsKey(loc)) {
-    return loc;
+    return loc == "zh" ? "cn" : loc;
   } else {
     return "en";
   }

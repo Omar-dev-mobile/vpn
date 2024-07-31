@@ -12,11 +12,13 @@ class CodegenLoader extends AssetLoader {
   @override
   Future<Map<String, dynamic>> load(String fullPath, Locale locale) {
     print('CodegenLoader.load ${locale.languageCode}');
+
     return Future.value(
         mapLocales[locale.languageCode] ?? en); //locale.languageCode
   }
 
   static const Map<String, String> en = {
+    "Unsubscribe": "Unsubscribe",
     "Auto-renewal Plans for a week, a month or three months.":
         "Auto-renewal Plans for a week, a month or three months.",
     "A payment will be charged to your iTunes Account at confirmation of your purchase.":
@@ -127,6 +129,7 @@ class CodegenLoader extends AssetLoader {
 
 // #испания
   static const Map<String, String> es = {
+    "Unsubscribe": "Cancelar suscripción",
     "Auto-renewal Plans for a week, a month or three months.":
         "Suscripción de renovación automática: semana, mes, tres meses.",
     "A payment will be charged to your iTunes Account at confirmation of your purchase.":
@@ -239,6 +242,7 @@ class CodegenLoader extends AssetLoader {
 
 // #китай
   static const Map<String, String> zh = {
+    "Unsubscribe": "取消订阅",
     "Auto-renewal Plans for a week, a month or three months.": "自动续订订阅：周,月,三个月",
     "A payment will be charged to your iTunes Account at confirmation of your purchase.":
         "付款将在确认购买时记入您的iTunes帐户。",
@@ -262,7 +266,7 @@ class CodegenLoader extends AssetLoader {
     "Enter a valid email address": "輸入一個有效的電子郵件地址",
     "VPN Line Question": "VPN Line 問題",
     "Buy": "购买",
-    "Your key": "你的钥匙",
+    "Your Key": "你的钥匙",
     "Last Login": "上次登录",
     "Success": "成功的",
     "Purchase a subscription for continued access and functionality":
@@ -342,6 +346,7 @@ class CodegenLoader extends AssetLoader {
 
 // #немецкий
   static const Map<String, String> de = {
+    "Unsubscribe": "Abbestellen",
     "Auto-renewal Plans for a week, a month or three months.":
         "Automatisches Verlängerungsabonnement: Woche, Monat, drei Monate.",
     "A payment will be charged to your iTunes Account at confirmation of your purchase.":
@@ -447,8 +452,10 @@ class CodegenLoader extends AssetLoader {
         "1. Wir speichern Ihre Benutzer-E-Mail und Ihr Registrierungsdatum. Diese Daten werden zum Anmelden und zum Aufzeichnen der Konten verwendet, die auf automatische Aktualisierung eingestellt sind.",
     "app usage 2":
         "2. Wir speichern Aufzeichnungen uber Ihren Abonnementstatus, Zahlungsmethoden, zugewiesene Pakete, Abonnementdauer und Transaktions-IDs. Diese Daten werden erhoben, um grundlegende App-Funktionen und Schritte zur Fehlerbehebung (z. B. Ruckerstattungen) bereitzustellen. Wir speichern NICHT Ihre Kreditkarten- oder Zahlungsinformationen.",
-    "app usage 3": "3. Wir speichern Informationen uber Ihr Gerat, d. h. die Version eines Betriebssystems, das Hardwaremodell und Ihre IP-Adresse. Diese Daten sind erforderlich, um die Netzwerkverbindung zu optimieren und einen qualitativ hochwertigen technischen Support sicherzustellen.",
-    "app usage 4" : "4. Wir speichern Informationen uber den verbrauchten Verkehrsumfang und die Gesamtnutzungsdauer der VPN-App, um die Belastung der Server richtig zu verteilen.",
+    "app usage 3":
+        "3. Wir speichern Informationen uber Ihr Gerat, d. h. die Version eines Betriebssystems, das Hardwaremodell und Ihre IP-Adresse. Diese Daten sind erforderlich, um die Netzwerkverbindung zu optimieren und einen qualitativ hochwertigen technischen Support sicherzustellen.",
+    "app usage 4":
+        "4. Wir speichern Informationen uber den verbrauchten Verkehrsumfang und die Gesamtnutzungsdauer der VPN-App, um die Belastung der Server richtig zu verteilen.",
   };
 
 // #русский
@@ -554,7 +561,8 @@ class CodegenLoader extends AssetLoader {
     "licence agreement": "лицензионное соглашение ",
     "and": "и",
     "privacy policy.": "политику конфиденциальности ",
-    "VPN Line": "VPN Line. "
+    "VPN Line": "VPN Line. ",
+    "Unsubscribe": "Отменить подписку"
   };
 
   static const Map<String, Map<String, dynamic>> mapLocales = {

@@ -123,7 +123,7 @@ class ProfileWithSub extends StatelessWidget {
                       ),
                     ),
                     CustomButton(
-                      title: 'Отменить подписку',
+                      title: LocaleKeys.unsubscribe.tr(),
                       color: kTransparent,
                       textColor: kYellowColor,
                       onPressed: () {
