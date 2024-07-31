@@ -29,7 +29,8 @@ class InfoVpnWidget extends StatelessWidget {
                   ),
                   if (homeCubit.statusConnection.dateConnection != null)
                     DateConnection(
-                      date: homeCubit.statusConnection.dateConnection!,
+                      date: homeCubit.statusConnection.dateConnection ??
+                          DateTime.now(),
                     ),
                   if (homeCubit.isOnline)
                     CommonTextWidget(
