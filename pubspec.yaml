@@ -60,6 +60,7 @@ dependencies:
   # firebase_core_platform_interface: 5.0.0
   window_manager: ^0.3.9
   package_info_plus: ^8.0.0
+  device_preview: ^1.2.0
   
   
   

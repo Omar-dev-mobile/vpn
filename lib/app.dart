@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -56,6 +57,7 @@ class VpnApp extends StatelessWidget {
                     );
                   },
                   localizationsDelegates: context.localizationDelegates,
+                  locale: DevicePreview.locale(context),
                   supportedLocales: context.supportedLocales,
                   theme: MyThemeData.lightTheme(),
                   darkTheme: MyThemeData.darkTheme(),

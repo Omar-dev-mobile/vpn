@@ -32,20 +32,14 @@ class ActivateTarifScreen extends StatelessWidget {
         children: [
           const AppBarHeader(),
           const Spacer(),
-          // screenUtil.setHeight(85).ph,
-          ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: 350,
-              minWidth: 350,
-              maxHeight: 750,
-              maxWidth: 750,
-            ),
-            child: Flexible(
-              child: Image.asset(
-                Assets.notActive,
-              ),
-            ),
+          screenUtil.setHeight(85).ph,
+          Image.asset(
+            Assets.notActive,
+            width: MediaQuery.of(context).size.width * 0.8,
+                fit: BoxFit.contain, // Use fit property to handle how the image should be contained within the box
+                    
           ),
+
           const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),

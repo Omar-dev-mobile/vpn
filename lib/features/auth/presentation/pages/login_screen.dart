@@ -41,25 +41,28 @@ class LoginScreen extends StatelessWidget {
 
                   children: [
                     Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Icon(
-                            Icons.check,
-                            color: kGreenColor,
-                            size: 100,
-                          ),
-                          CommonTextWidget(
-                            text: LocaleKeys.unlockSocialMediaAnywhereAnywhere
-                                .tr(),
-                            size: screenUtil.setSp(35),
-                            color:
-                                Theme.of(context).textTheme.headlineMedium!.color,
-                            height: 1.2,
-                          ),
-                        ],
+                    Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Icon(
+                              Icons.check,
+                              color: kGreenColor,
+                              size: 100,
+                            ),
+                            CommonTextWidget(
+                              text: LocaleKeys.unlockSocialMediaAnywhereAnywhere
+                                  .tr(),
+                              size: 35,
+                              color:
+                                  Theme.of(context).textTheme.headlineMedium!.color,
+                              height: 1.2,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     screenUtil.setHeight(20).ph,
