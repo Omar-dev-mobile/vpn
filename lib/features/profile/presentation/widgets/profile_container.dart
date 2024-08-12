@@ -33,22 +33,22 @@ class ProfileContainer extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (trailingIcon != null)
-              Align(
-                  alignment: Alignment.topRight,
-                  child: IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: Icon(
-                      trailingIcon,
-                      color: kShadeOfGray,
-                    ),
-                    onPressed: () {
-                      Clipboard.setData(
-                        ClipboardData(text: text),
-                      );
-                    },
-                  )),
-            trailingIcon != null ? 0.ph : 30.ph,
+            // if (trailingIcon != null)
+            //   Align(
+            //       alignment: Alignment.topRight,
+            //       child: IconButton(
+            //         padding: EdgeInsets.zero,
+            //         icon: Icon(
+            //           trailingIcon,
+            //           color: kShadeOfGray,
+            //         ),
+            //         onPressed: () {
+            //           Clipboard.setData(
+            //             ClipboardData(text: text),
+            //           );
+            //         },
+            //       )),
+            // trailingIcon != null ? 0.ph : 30.ph,
             const Spacer(),
             Center(
               child: Column(

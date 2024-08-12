@@ -72,7 +72,7 @@ class _TarifScreenState extends State<TarifScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const AppBarHeader(
-                          isClose: true,
+                          isClose: false,
                         ),
                         screenUtil.setHeight(33).ph,
                         Expanded(

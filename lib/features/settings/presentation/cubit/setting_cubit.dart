@@ -21,9 +21,9 @@ class SettingCubit extends Cubit<SettingState> {
     );
   }
 
-  Future<bool> logout(context) async {
+  Future<bool> logout(context, {bool? isDelete}) async {
     emit(LogoutSuccessState());
-    final res = await _settingUsecases.logout();
+    final res = await _settingUsecases.logout(isDelete: isDelete ?? false);
     return res.fold((failure) {
       CustomSnackBar.badSnackBar(context, failure);
       return false;

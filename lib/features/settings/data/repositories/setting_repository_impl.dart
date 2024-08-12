@@ -18,9 +18,9 @@ class SettingRepositoryImpl extends SettingRepository {
   }
 
   @override
-  Future<Either<String, bool>> logout() {
+  Future<Either<String, bool>> logout({bool isDelete = false}) {
     return executeAndHandleError<bool>(() async {
-      final res = await apiServiceAskQuestion.logout();
+      final res = await apiServiceAskQuestion.logout(isDelete: isDelete);
       return res;
     });
   }

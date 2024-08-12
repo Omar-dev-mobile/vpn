@@ -34,7 +34,7 @@ class ApiServiceSetting extends ApiBase {
     });
   }
 
-  Future<bool> logout() async {
+  Future<bool> logout({bool isDelete = false}) async {
     return executeAndHandleErrorServer<bool>(() async {
       final cacheHelper =
           await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();
@@ -51,7 +51,9 @@ class ApiServiceSetting extends ApiBase {
         "rnd": rnd,
         "token": userApiKey,
         "signature": signature,
+        if (isDelete) "del_user": "1"
       });
+
       final response = await post(BASE_URL, body: body);
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";

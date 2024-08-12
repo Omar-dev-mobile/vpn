@@ -68,7 +68,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   void goToHome(BuildContext context) async {
     await closeSubscription();
     AutoRouter.of(context)
-        .pushAndPopUntil(const MainRoute(), predicate: (_) => false);
+        .pushAndPopUntil(const PrivacyPolicyRoute(), predicate: (_) => false);
 
     MainCubit.get(context).getDataServiceAcc();
   }

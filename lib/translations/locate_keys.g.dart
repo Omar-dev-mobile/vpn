@@ -105,4 +105,5 @@ abstract class LocaleKeys {
   static const appUsage3 = "app usage 3";
   static const appUsage4 = "app usage 4";
   static const unsubscribe = "Unsubscribe";
+  static const areYouSureYouWantToDeleteYourAccount = 'Are you sure you want to delete your account';
 }

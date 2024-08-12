@@ -125,6 +125,8 @@ class CodegenLoader extends AssetLoader {
         "3. We keep information about your Device, i.e. version of an operating System, hardware model and your IP address. This data is necessary to optimize the Network Connection and ensure high quality Technical Support.",
     "app usage 4":
         "4. We keep information about the consumed traffic Volume and total usage time of the VPN app to properly distribute the load on Servers.",
+    'Are you sure you want to delete your account':
+        'Are you sure you want to delete your account? This cannot be undone!'
   };
 
 // #испания
@@ -238,6 +240,8 @@ class CodegenLoader extends AssetLoader {
         "3. Guardamos la informaci√≥n sobre su dispositivo, de hecho la versi√≥n del sistema operativo, el modelo de hardware y su direcci√≥n IP. Estos datos son necesarios para optimizar la conexi√≥n de red y asegurar el soporte t√©cnico de calidad.",
     "app usage 4":
         "4. Guardamos la informaci√≥n sobre el volumen de tr√°fico consumido y el tiempo de uso total de la aplicaci√≥n VPN para distribuir correctamente la carga sobre los servidores.",
+    'Are you sure you want to delete your account':
+        '¿Estás seguro de que deseas eliminar tu cuenta? ¡Esto no se puede deshacer!',
   };
 
 // #китай
@@ -341,7 +345,8 @@ class CodegenLoader extends AssetLoader {
     "app usage 3":
         "3. жИСдїђдњЭе≠ШжЬЙеЕ≥жВ®иЃЊе§ЗзЪДдњ°жБѓпЉМеН≥жУНдљЬз≥їзїЯзЙИжЬђгАБз°ђдїґеЮЛеПЈеТМ IP еЬ∞еЭАгАВињЩдЇЫжХ∞жНЃжШѓдЉШеМЦзљСзїЬињЮжО•еТМз°ЃдњЭ йЂШиі®йЗПжКАжЬѓжФѓжМБжЙАењЕйЬАзЪДгАВ",
     "app usage 4":
-        "4. жИСдїђдњЭе≠Ш VPN еЇФзФ®з®ЛеЇПзЪДжґИиАЧжµБйЗПеТМжАїдљњзФ®жЧґйЧідњ°жБѓпЉМдї•дЊњйАВељУеИЖйЕНжЬНеК°еЩ®зЪДиіЯиљљгАВ"
+        "4. жИСдїђдњЭе≠Ш VPN еЇФзФ®з®ЛеЇПзЪДжґИиАЧжµБйЗПеТМжАїдљњзФ®жЧґйЧідњ°жБѓпЉМдї•дЊњйАВељУеИЖйЕНжЬНеК°еЩ®зЪДиіЯиљљгАВ",
+    'Are you sure you want to delete your account': '您确定要删除您的帐户吗? 这是无法挽回的!',
   };
 
 // #немецкий
@@ -456,6 +461,8 @@ class CodegenLoader extends AssetLoader {
         "3. Wir speichern Informationen uber Ihr Gerat, d. h. die Version eines Betriebssystems, das Hardwaremodell und Ihre IP-Adresse. Diese Daten sind erforderlich, um die Netzwerkverbindung zu optimieren und einen qualitativ hochwertigen technischen Support sicherzustellen.",
     "app usage 4":
         "4. Wir speichern Informationen uber den verbrauchten Verkehrsumfang und die Gesamtnutzungsdauer der VPN-App, um die Belastung der Server richtig zu verteilen.",
+    'Are you sure you want to delete your account':
+        'Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Dies kann nicht rückgängig gemacht werden!',
   };
 
 // #русский

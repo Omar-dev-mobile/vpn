@@ -22,6 +22,7 @@ class ProfileScreen extends StatelessWidget {
         await profileCubit.getProfile();
       },
       child: Scaffold(
+        backgroundColor: Theme.of(context).canvasColor,
         drawer: const DrawerWidget(),
         body: CustomScrollView(
           slivers: [
