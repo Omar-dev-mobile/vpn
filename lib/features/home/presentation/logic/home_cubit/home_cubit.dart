@@ -8,7 +8,6 @@ import 'package:vpn/core/error/exceotion_native.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
-import 'package:vpn/core/shared/utils/network_info.dart';
 import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 part 'home_state.dart';

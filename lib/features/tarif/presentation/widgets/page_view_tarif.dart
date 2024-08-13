@@ -6,7 +6,7 @@ import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart'
 import 'package:vpn/features/tarif/data/models/tarif_model.dart';
 import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
-import 'package:vpn/features/tarif/presentation/widgets/card_tarif_widget.dart';
+import 'package:vpn/features/tarif/presentation/widgets/small_card_tarif_widget.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
 class PageViewTariff extends StatefulWidget {
@@ -48,7 +48,7 @@ class _ListTariffPageViewState extends State<PageViewTariff> {
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: CardTarifWidget(
+                  child: SmallCardTarifWidget(
                     prise: userInfo.tarifCostActivation ?? "",
                     index: 0,
                     productId: userInfo.productId ?? "",
@@ -68,7 +68,7 @@ class _ListTariffPageViewState extends State<PageViewTariff> {
                 child: Stack(
                   children: <Widget>[
                     Positioned(
-                      child: CardTarifWidget(
+                      child: SmallCardTarifWidget(
                         prise: traif?.tarifCostActivation ?? "",
                         index: i,
                         productId: traif?.tarifBuy ?? "",

@@ -105,5 +105,15 @@ abstract class LocaleKeys {
   static const appUsage3 = "app usage 3";
   static const appUsage4 = "app usage 4";
   static const unsubscribe = "Unsubscribe";
-  static const areYouSureYouWantToDeleteYourAccount = 'Are you sure you want to delete your account';
+  static const areYouSureYouWantToDeleteYourAccount =
+      'Are you sure you want to delete your account';
+  static const youMayPurchaseAutoRenewingsubscriptionThroughInAppPurchase =
+      'You may purchase an auto-renewing subscription through an In-App Purchase';
+  static const autoRenewableSubscription = 'Auto-renewable subscription';
+  static const week1MonthAnd3MonthDurations =
+      '1 week, 1 month and 3 month durations';
+  static const yourSubscriptionWillBeChargedToYourITunesAccountAtConfirmationOfPurchase =
+      'Your subscription will be charged to your iTunes account at confirmation of purchase';
+  static const currentSubscriptionMayNotBeCancelledDuringTheActiveSubscriptionPeriod =
+      'Current subscription may not be cancelled during the active subscription period';
 }

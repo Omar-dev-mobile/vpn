@@ -9,15 +9,14 @@ import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/customs/custom_error.dart';
 import 'package:vpn/core/customs/drawer_widget.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
-import 'package:vpn/core/customs/roundedButton.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
-import 'package:vpn/features/tarif/presentation/widgets/custom_page_view.dart';
-import 'package:vpn/features/tarif/presentation/widgets/page_view_tarif.dart';
+import 'package:vpn/features/tarif/presentation/widgets/custom_column_container.dart';
+import 'package:vpn/features/tarif/presentation/widgets/list_view_tarif.dart';
 import 'package:vpn/features/tarif/presentation/widgets/service_and_privacy_row.dart';
-import 'package:vpn/features/tarif/presentation/widgets/text_container.dart';
+import 'package:vpn/features/tarif/presentation/widgets/subscription_info_widget.dart';
 import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
@@ -110,55 +109,36 @@ class _TarifScreenState extends State<TarifScreen> {
                               return SingleChildScrollView(
                                 child: Column(
                                   children: [
-                                    const CustomPageView(),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 16, horizontal: 20),
+                                          horizontal: 10),
+                                      child: CustomColumnContainer(),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8, horizontal: 20),
                                       child: CommonTextWidget(
                                         text:
                                             LocaleKeys.VPNLineSubscription.tr(),
                                         fontWeight: FontWeight.w500,
-                                        size: 28,
+                                        size: 17,
+                                        height: 45 / 17,
                                         color: Theme.of(context)
                                             .textTheme
                                             .headlineMedium
                                             ?.color,
                                       ),
                                     ),
-                                    SizedBox(
-                                      height: screenUtil.setHeight(300),
-                                      child: Stack(
-                                        children: [
-                                          const Align(
-                                              alignment: Alignment.bottomCenter,
-                                              child: TextContainer()),
-                                          Align(
-                                            alignment: Alignment.topCenter,
-                                            child: PageViewTariff(
-                                              statePurchases: statePurchases,
-                                              tarifs: tarifs,
-                                            ),
-                                          ),
-                                        ],
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 32),
+                                      child: ListViewTariff(
+                                        statePurchases: statePurchases,
+                                        tarifs: tarifs,
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 20, right: 20, top: 20),
-                                      child: Center(
-                                          child: CommonTextWidget(
-                                        text: LocaleKeys
-                                            .youCanManageAndAancelSubscription
-                                            .tr(),
-                                        size: 12,
-                                        textAlign: TextAlign.center,
-                                        fontWeight: FontWeight.w400,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .titleLarge
-                                            ?.color,
-                                      )),
-                                    ),
+                                    10.ph,
+                                    SubscriptionInfoWidget(),
                                     const Center(
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(

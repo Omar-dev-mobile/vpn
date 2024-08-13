@@ -60,4 +60,16 @@ abstract class Assets {
   static const String moneyBack = '$_assets/$_icons/moneyBack.svg';
   static const String allDevices = '$_assets/$_icons/allDevices.svg';
   static const String highSpeed = '$_assets/$_icons/highSpeed.svg';
+  static const String trafic2 = '$_assets/$_icons/trafic2.svg';
+  static const String openWorld2 = '$_assets/$_icons/openWorld2.svg';
+  static const String moneyBack2 = '$_assets/$_icons/moneyBack2.svg';
+  static const String allDevices2 = '$_assets/$_icons/allDevices2.svg';
+  static const String allDevices3 = '$_assets/$_icons/allDevices3.svg';
+  static const String highSpeed2 = '$_assets/$_icons/highSpeed2.svg';
+  static const String openWorld3 = '$_assets/$_icons/openWorld3.svg';
+  static const String moneyBack3 = '$_assets/$_icons/moneyBack3.svg';
+
+  static const String circle = '$_assets/$_icons/circle.svg';
+  static const String warningLight = '$_assets/$_icons/warningLight.svg';
+  static const String warningDark = '$_assets/$_icons/warningDark.svg';
 }

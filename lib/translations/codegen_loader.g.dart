@@ -126,7 +126,16 @@ class CodegenLoader extends AssetLoader {
     "app usage 4":
         "4. We keep information about the consumed traffic Volume and total usage time of the VPN app to properly distribute the load on Servers.",
     'Are you sure you want to delete your account':
-        'Are you sure you want to delete your account? This cannot be undone!'
+        'Are you sure you want to delete your account? This cannot be undone!',
+    'You may purchase an auto-renewing subscription through an In-App Purchase':
+        'You may purchase an auto-renewing subscription through an In-App Purchase.',
+    'Auto-renewable subscription': ' Auto-renewable subscription',
+    '1 week, 1 month and 3 month durations':
+        '1 week, 1 month and 3 month durations',
+    'Your subscription will be charged to your iTunes account at confirmation of purchase':
+        'Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.',
+    'Current subscription may not be cancelled during the active subscription period':
+        'Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase',
   };
 
 // #испания
@@ -242,6 +251,15 @@ class CodegenLoader extends AssetLoader {
         "4. Guardamos la informaci√≥n sobre el volumen de tr√°fico consumido y el tiempo de uso total de la aplicaci√≥n VPN para distribuir correctamente la carga sobre los servidores.",
     'Are you sure you want to delete your account':
         '¿Estás seguro de que deseas eliminar tu cuenta? ¡Esto no se puede deshacer!',
+    'You may purchase an auto-renewing subscription through an In-App Purchase':
+        'Puede comprar una suscripción de renovación automática a través de una compra en la aplicación.',
+    'Auto-renewable subscription': 'Suscripción renovable automáticamente',
+    '1 week, 1 month and 3 month durations':
+        'duraciones de 1 semana, 1 mes y 3 meses',
+    'Your subscription will be charged to your iTunes account at confirmation of purchase':
+        'Su suscripción se cargará a su cuenta de iTunes en la confirmación de la compra y se renovará automáticamente (con la duración seleccionada) a menos que la renovación automática se desactive al menos 24 horas antes del final del período actual.',
+    'Current subscription may not be cancelled during the active subscription period':
+        'La suscripción actual no se puede cancelar durante el período de suscripción activo; sin embargo, puede administrar su suscripción y/o desactivar la renovación automática visitando la Configuración de su cuenta de iTunes después de la compra',
   };
 
 // #китай
@@ -347,6 +365,14 @@ class CodegenLoader extends AssetLoader {
     "app usage 4":
         "4. жИСдїђдњЭе≠Ш VPN еЇФзФ®з®ЛеЇПзЪДжґИиАЧжµБйЗПеТМжАїдљњзФ®жЧґйЧідњ°жБѓпЉМдї•дЊњйАВељУеИЖйЕНжЬНеК°еЩ®зЪДиіЯиљљгАВ",
     'Are you sure you want to delete your account': '您确定要删除您的帐户吗? 这是无法挽回的!',
+    'You may purchase an auto-renewing subscription through an In-App Purchase':
+        '您可以透過應用程式內購買購買自動續訂訂閱。',
+    'Auto-renewable subscription': '自動續訂訂閱',
+    '1 week, 1 month and 3 month durations': '1 週、1 個月和 3 個月的持續時間',
+    'Your subscription will be charged to your iTunes account at confirmation of purchase':
+        '您的訂閱將在確認購買時從您的 iTunes 帳戶中扣除，並且將自動續訂（按照所選的期限），除非在當前期限結束前至少 24 小時關閉自動續訂。',
+    'Current subscription may not be cancelled during the active subscription period':
+        '目前訂閱在有效訂閱期間不得取消；但是，您可以在購買後訪問您的 iTunes 帳戶設定來管理您的訂閱和/或關閉自動續訂',
   };
 
 // #немецкий
@@ -463,6 +489,15 @@ class CodegenLoader extends AssetLoader {
         "4. Wir speichern Informationen uber den verbrauchten Verkehrsumfang und die Gesamtnutzungsdauer der VPN-App, um die Belastung der Server richtig zu verteilen.",
     'Are you sure you want to delete your account':
         'Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Dies kann nicht rückgängig gemacht werden!',
+    'You may purchase an auto-renewing subscription through an In-App Purchase':
+        'Sie können ein Abonnement mit automatischer Verlängerung über einen In-App-Kauf erwerben.',
+    'Auto-renewable subscription': 'Abonnement mit automatischer Verlängerung',
+    '1 week, 1 month and 3 month durations':
+        'dauer von 1 Woche, 1 Monat und 3 Monaten',
+    'Your subscription will be charged to your iTunes account at confirmation of purchase':
+        'Ihr Abonnement wird Ihrem iTunes-Konto bei Bestätigung des Kaufs belastet und verlängert sich automatisch (mit der ausgewählten Dauer), sofern die automatische Verlängerung nicht mindestens 24 Stunden vor Ablauf des aktuellen Zeitraums deaktiviert wird.',
+    'Current subscription may not be cancelled during the active subscription period':
+        'Das aktuelle Abonnement kann während des aktiven Abonnementzeitraums nicht gekündigt werden; Sie können Ihr Abonnement jedoch verwalten und / oder die automatische Verlängerung deaktivieren, indem Sie nach dem Kauf Ihre iTunes-Kontoeinstellungen aufrufen',
   };
 
 // #русский
