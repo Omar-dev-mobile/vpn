@@ -68,7 +68,7 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   void goToHome(BuildContext context) async {
     await closeSubscription();
     AutoRouter.of(context)
-        .pushAndPopUntil(const PrivacyPolicyRoute(), predicate: (_) => false);
+        .pushAndPopUntil(const MainRoute(), predicate: (_) => false);
 
     MainCubit.get(context).getDataServiceAcc();
   }
@@ -263,12 +263,14 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
               if (purchaseDetails is AppStorePurchaseDetails) {
                 final originalTransaction =
                     purchaseDetails.skPaymentTransaction.originalTransaction;
+
                 if (currentProductId != purchaseDetails.productID &&
                     productIdToBuy == purchaseDetails.productID) {
+                  print(purchaseDetails.purchaseID);
                   // print(
                   //     purchaseDetails.verificationData.serverVerificationData);
-                  await purchaseTarifIos(
-                      originalTransaction?.transactionIdentifier ?? "",
+                  // originalTransaction?.transactionIdentifier ??
+                  await purchaseTarifIos(purchaseDetails.purchaseID ?? "",
                       purchaseDetails.productID);
                 }
               }
@@ -278,6 +280,18 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
         }
       }
     } catch (e) {}
+  }
+
+  T first<T>(List<T> ts) {
+    // Do some initial work or error checking, then...
+    T tmp = ts[0];
+    // Do some additional checking or processing...
+    return tmp;
+  }
+
+  T? firstElement<T>(List<T>? data) {
+    if (data == null) return null;
+    return data.isNotEmpty ? data.first : null;
   }
 
   Future checkCompletePurchase(PurchaseDetails purchaseDetails) async {

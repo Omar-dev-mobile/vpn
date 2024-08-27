@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vpn/features/auth/presentation/pages/login_screen.dart';
+import 'package:vpn/features/home/presentation/pages/activate_tarif_screen.dart';
 import 'package:vpn/features/home/presentation/pages/main_screen.dart';
 import 'package:vpn/features/profile/presentation/pages/profile_screen.dart';
 import 'package:vpn/features/select_country/presentation/pages/select_country_screen.dart';
@@ -39,7 +40,7 @@ class AppRouter extends _$AppRouter {
           page: TarifRoute.page,
           path: '/',
         ),
-         AutoRoute(
+        AutoRoute(
           page: PrivacyPolicyRoute.page,
           path: '/',
         ),
@@ -59,7 +60,7 @@ class AppRouter extends _$AppRouter {
           page: ProfileRoute.page,
           path: '/',
         ),
-        AutoRoute(page: AppUsageRoute.page , path: '/')
-       
+        AutoRoute(page: AppUsageRoute.page, path: '/'),
+        AutoRoute(page: ActivateTarifRoute.page, path: '/')
       ];
 }

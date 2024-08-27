@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/custom_error.dart';
 import 'package:vpn/core/customs/drawer_widget.dart';
+import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart';
 import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vpn/features/profile/presentation/widgets/profile_with_sub.dart';
@@ -19,7 +20,7 @@ class ProfileScreen extends StatelessWidget {
     var profileCubit = ProfileCubit.get(context);
     return RefreshIndicator(
       onRefresh: () async {
-        await profileCubit.getProfile();
+        await profileCubit.getProfile(context);
       },
       child: Scaffold(
         backgroundColor: Theme.of(context).canvasColor,
@@ -29,13 +30,18 @@ class ProfileScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: SizedBox(
                 height: screenUtil.screenHeight,
-                child: BlocBuilder<ProfileCubit, ProfileState>(
+                child: BlocConsumer<ProfileCubit, ProfileState>(
+                  listener: (context, state) {
+                    if (state is ProfileNotAuthorizedState) {
+                      context.replaceRoute(const LoginRoute());
+                    }
+                  },
                   builder: (context, state) {
                     if (state is ProfileErrorState) {
                       return CustomError(
                         error: state.error,
                         onPressed: () {
-                          profileCubit.getProfile();
+                          profileCubit.getProfile(context);
                         },
                       );
                     } else if (state is ProfileSuccessState) {

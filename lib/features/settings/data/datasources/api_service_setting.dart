@@ -1,3 +1,4 @@
+import 'package:vpn/core/native/check_mode.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/remote/api_base.dart';
 import 'package:vpn/features/settings/data/models/ask_question_model.dart';
@@ -24,6 +25,7 @@ class ApiServiceSetting extends ApiBase {
         "username": model.name,
         "email": model.email,
         "message": model.message,
+        "type_run": await isSandboxOrProduct(),
         "signature": signature,
       });
       final response = await post(BASE_URL, body: body);
@@ -51,6 +53,7 @@ class ApiServiceSetting extends ApiBase {
         "rnd": rnd,
         "token": userApiKey,
         "signature": signature,
+        "type_run": await isSandboxOrProduct(),
         if (isDelete) "del_user": "1"
       });
 

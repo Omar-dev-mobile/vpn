@@ -39,10 +39,10 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  const AppBarHeader(
-                    topPadding: 20,
-                    isClose: false,
-                  ),
+                  // const AppBarHeader(
+                  //   topPadding: 20,
+                  //   isClose: false,
+                  // ),
                   Image.asset(
                     Assets.privacy,
                     width: double.infinity,
@@ -58,7 +58,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   children: [
-                    Spacer(),
+                    const Spacer(),
                     CommonTextWidget(
                       text: LocaleKeys.privacyScreenTitle.tr(),
                       fontWeight: FontWeight.w500,
@@ -94,10 +94,10 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                 TextSpan(
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () {
-                                      context.pushRoute(AppUsageRoute());
+                                      context.pushRoute(const AppUsageRoute());
                                     },
                                   text: LocaleKeys.appUsageData.tr(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
@@ -144,7 +144,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                           WebViewRoute(url: termServiceUrl));
                                     },
                                   text: LocaleKeys.licenceAgreement.tr(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
@@ -158,7 +158,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                                           WebViewRoute(url: policyUrl));
                                     },
                                   text: LocaleKeys.privacyPolicy2.tr(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),

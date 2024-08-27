@@ -11,12 +11,12 @@ import 'package:vpn/core/customs/log_out_and_delete_account.dart';
 import 'package:vpn/core/customs/roundedButton.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/date_utils_format.dart';
+import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/profile/data/models/profile_model.dart';
 import 'package:vpn/features/profile/presentation/cubit/profile_cubit.dart';
 import 'package:vpn/features/profile/presentation/widgets/profile_container.dart';
-import 'package:vpn/features/profile/presentation/widgets/profile_widget.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
@@ -27,6 +27,7 @@ class ProfileWithoutSub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var profileCubit = ProfileCubit.get(context);
+    final systemInfoService = SystemInfoService();
     return Column(
       children: [
         Container(
@@ -100,10 +101,11 @@ class ProfileWithoutSub extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: const LogOutAndDeleteAccount(),
-        ),
+        if (systemInfoService.isLogin)
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            child: LogOutAndDeleteAccount(),
+          ),
         const Spacer(),
       ],
     );

@@ -21,6 +21,24 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AboutScreen(),
       );
     },
+    ActivateTarifRoute.name: (routeData) {
+      final args = routeData.argsAs<ActivateTarifRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ActivateTarifScreen(
+          key: args.key,
+          title: args.title,
+          textButton: args.textButton,
+          onPressed: args.onPressed,
+        ),
+      );
+    },
+    AppUsageRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AppUsageScreen(),
+      );
+    },
     AppealRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -77,12 +95,6 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const SplashScreen(),
       );
     },
-    AppUsageRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const AppUsageScreen(),
-      );
-    },
     TarifRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -112,6 +124,68 @@ class AboutRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'AboutRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ActivateTarifScreen]
+class ActivateTarifRoute extends PageRouteInfo<ActivateTarifRouteArgs> {
+  ActivateTarifRoute({
+    Key? key,
+    required String title,
+    required String textButton,
+    required dynamic Function() onPressed,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ActivateTarifRoute.name,
+          args: ActivateTarifRouteArgs(
+            key: key,
+            title: title,
+            textButton: textButton,
+            onPressed: onPressed,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ActivateTarifRoute';
+
+  static const PageInfo<ActivateTarifRouteArgs> page =
+      PageInfo<ActivateTarifRouteArgs>(name);
+}
+
+class ActivateTarifRouteArgs {
+  const ActivateTarifRouteArgs({
+    this.key,
+    required this.title,
+    required this.textButton,
+    required this.onPressed,
+  });
+
+  final Key? key;
+
+  final String title;
+
+  final String textButton;
+
+  final dynamic Function() onPressed;
+
+  @override
+  String toString() {
+    return 'ActivateTarifRouteArgs{key: $key, title: $title, textButton: $textButton, onPressed: $onPressed}';
+  }
+}
+
+/// generated route for
+/// [AppUsageScreen]
+class AppUsageRoute extends PageRouteInfo<void> {
+  const AppUsageRoute({List<PageRouteInfo>? children})
+      : super(
+          AppUsageRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AppUsageRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -257,21 +331,6 @@ class SplashRoute extends PageRouteInfo<void> {
   static const PageInfo<void> page = PageInfo<void>(name);
 }
 
-
-/// generated route for
-/// [AppUsageScreen]
-class AppUsageRoute extends PageRouteInfo<void> {
-  const AppUsageRoute({List<PageRouteInfo>? children})
-      : super(
-          AppUsageRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'AppUsageRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
 /// generated route for
 /// [TarifScreen]
 class TarifRoute extends PageRouteInfo<void> {
@@ -282,20 +341,6 @@ class TarifRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'TarifRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [TarifWithCardScreen]
-class TarifWithCardRoute extends PageRouteInfo<void> {
-  const TarifWithCardRoute({List<PageRouteInfo>? children})
-      : super(
-          TarifWithCardRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'TarifWithCardRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
