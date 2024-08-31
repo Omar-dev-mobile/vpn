@@ -78,7 +78,8 @@ class _TarifScreenState extends State<TarifScreen> {
                           child: Builder(
                             builder: (context) {
                               if (state is TarifLoadingState ||
-                                  state is LoadingInitStoreInfoState) {
+                                  state is LoadingInitStoreInfoState ||
+                                  purchasesCubit.tarifs.isEmpty) {
                                 return const Center(
                                   child: CircularProgressIndicator(),
                                 );
@@ -103,15 +104,13 @@ class _TarifScreenState extends State<TarifScreen> {
                               }
                               var tarifs =
                                   (state as TarifSuccessState).tarifModel;
-                              var traif = tarifs.workStatus
-                                  ?.tarifList?[purchasesCubit.indexTariff];
 
                               return SingleChildScrollView(
                                 child: Column(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
                                       child: CustomColumnContainer(),
                                     ),
                                     Padding(
@@ -138,7 +137,7 @@ class _TarifScreenState extends State<TarifScreen> {
                                       ),
                                     ),
                                     10.ph,
-                                    SubscriptionInfoWidget(),
+                                    const SubscriptionInfoWidget(),
                                     const Center(
                                       child: Padding(
                                         padding: EdgeInsets.symmetric(

@@ -180,10 +180,12 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
 
   Future buyTarif(productId) async {
     print("productId$productId");
+    print("productId$tarifs");
     emit(LoadingPendingPurchaseState());
     late PurchaseParam purchaseParam;
     productIdToBuy = productId;
     if (tarifs.isEmpty) return;
+    print("productIdproductIdproductId$productId");
     ProductDetails productDetail =
         tarifs.firstWhere((element) => element.id == productId);
 
@@ -229,7 +231,10 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   Future<PurchasesStatus> checkTrans(
       String transactionIdentifier, productID) async {
     final res = await traifUsecases.checkTrans(transactionIdentifier);
-    return res.fold((l) => ErrorPurchaseState(error: l), (r) async {
+    return res.fold((l) async {
+      await closeSubscription();
+      return ErrorPurchaseState(error: l);
+    }, (r) async {
       print("r $r");
       if (r == '1') {
         await closeSubscription();

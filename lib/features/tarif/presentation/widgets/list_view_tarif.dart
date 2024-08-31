@@ -81,6 +81,7 @@ class _ListTariffState extends State<ListViewTariff> {
                         highlightColor: Colors.white.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(20),
                         onTap: () {
+                          print("objectobjectobjectobject");
                           if (widget.statePurchases
                               is! LoadingPendingPurchaseState) {
                             purchasesCubit.buyTarif(traif?.tarifBuy ?? "");
@@ -97,8 +98,8 @@ class _ListTariffState extends State<ListViewTariff> {
 
         return ListView.separated(
           shrinkWrap: true,
-          padding: EdgeInsets.all(0),
-          physics: NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.all(0),
+          physics: const NeverScrollableScrollPhysics(),
           separatorBuilder: (context, index) {
             return 10.ph;
           },
