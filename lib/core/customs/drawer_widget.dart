@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vpn/core/constants.dart';
+import 'package:vpn/core/customs/delete_account.dart';
 import 'package:vpn/core/customs/icon_mode.dart';
 import 'package:vpn/core/customs/log_out.dart';
 import 'package:vpn/core/router/app_router.dart';
@@ -106,6 +107,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             screenUtil.setHeight(30).ph,
             if (systemInfoService.isLogin) const LogOut(),
+            if (systemInfoService.isLogin) const DeleteAccount(),
           ],
         ),
       ),

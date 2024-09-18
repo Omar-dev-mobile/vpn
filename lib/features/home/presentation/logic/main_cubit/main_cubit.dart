@@ -55,15 +55,18 @@ class MainCubit extends Cubit<MainState> {
 
   Widget getWidgetMain(
       DataServiceAccModel dataServiceAccModel, BuildContext context) {
+    print(
+        dataServiceAccModel.workStatus?.userInfo?.userApiKey?.isEmpty ?? true);
+    _systemInfoService.isLogin =
+        !(dataServiceAccModel.workStatus?.userInfo?.userApiKey?.isEmpty ??
+            true);
     switch (dataServiceAccModel.workStatus?.errorAction) {
       case null || "":
-        _systemInfoService.isLogin = true;
         cacheHelper.saveBaySubscription(
             dataServiceAccModel.workStatus?.userInfo?.tarifInfo?.productId ??
                 "");
         return const HomeScreen();
-      case "login" || "activate_tarif":
-        _systemInfoService.isLogin = false;
+      case "activate_tarif":
         cacheHelper.saveBaySubscription("");
         TarifCubit.get(context).getTrials();
         return const TarifScreen();

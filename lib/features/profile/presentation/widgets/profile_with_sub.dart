@@ -208,9 +208,9 @@ class ProfileWithSub extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: const LogOutAndDeleteAccount(),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: LogOutAndDeleteAccount(),
         ),
         const Spacer(),
       ],

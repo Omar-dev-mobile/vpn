@@ -101,7 +101,7 @@ class ProfileWithoutSub extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        if (systemInfoService.isLogin)
+        if (!(profileModel.workStatus?.userInfo?.userApiKey?.isEmpty ?? true))
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 30),
             child: LogOutAndDeleteAccount(),

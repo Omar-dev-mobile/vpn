@@ -18,6 +18,7 @@ class CodegenLoader extends AssetLoader {
   }
 
   static const Map<String, String> en = {
+    "Delete Account": "Delete Account",
     "Unsubscribe": "Unsubscribe",
     "Auto-renewal Plans for a week, a month or three months.":
         "Auto-renewal Plans for a week, a month or three months.",
@@ -140,6 +141,7 @@ class CodegenLoader extends AssetLoader {
 
 // #испания
   static const Map<String, String> es = {
+    "Delete Account": "Eliminar cuenta",
     "Unsubscribe": "Cancelar suscripción",
     "Auto-renewal Plans for a week, a month or three months.":
         "Suscripción de renovación automática: semana, mes, tres meses.",
@@ -264,6 +266,7 @@ class CodegenLoader extends AssetLoader {
 
 // #китай
   static const Map<String, String> zh = {
+    "Delete Account": "删除账户",
     "Unsubscribe": "取消订阅",
     "Auto-renewal Plans for a week, a month or three months.": "自动续订订阅：周,月,三个月",
     "A payment will be charged to your iTunes Account at confirmation of your purchase.":
@@ -377,6 +380,7 @@ class CodegenLoader extends AssetLoader {
 
 // #немецкий
   static const Map<String, String> de = {
+    "Delete Account": "Konto löschen",
     "Unsubscribe": "Abbestellen",
     "Auto-renewal Plans for a week, a month or three months.":
         "Automatisches Verlängerungsabonnement: Woche, Monat, drei Monate.",
