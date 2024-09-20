@@ -8,7 +8,7 @@ import Foundation
     
     private let EVENT_CHANNEL = "vpn_manager_event"
     private let CHANNEL: String = "vpn_manager"
-    private var streamHandler: VPLibDDD?
+    private var streamHandler: VPNManager?
     
     override func application(
         _ application: UIApplication,
@@ -61,9 +61,9 @@ import Foundation
         let flutterViewController: FlutterViewController = window?.rootViewController as! FlutterViewController
         let vpnChannel = FlutterMethodChannel(name: CHANNEL, binaryMessenger: flutterViewController.binaryMessenger)
         if (self.streamHandler == nil) {
-            self.streamHandler = VPLibDDD()
+            self.streamHandler = VPNManager()
         }
-//        let vpnManager = VPLibDDD()
+//        let vpnManager = VPNManager()
         vpnChannel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
             self.streamHandler?.handle(call, result: result)
         }
@@ -77,7 +77,7 @@ import Foundation
         let eventChannel = FlutterEventChannel(name: EVENT_CHANNEL, binaryMessenger: controller.binaryMessenger)
         
         if (self.streamHandler == nil) {
-            self.streamHandler = VPLibDDD()
+            self.streamHandler = VPNManager()
         }
         eventChannel.setStreamHandler((self.streamHandler as! FlutterStreamHandler & NSObjectProtocol))
     }
