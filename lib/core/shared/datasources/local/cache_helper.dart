@@ -111,6 +111,22 @@ class CacheHelper {
       return null;
     }
   }
+  Future<void> saveVpnAgreementChoice(bool? choice) async {
+    try {
+      await saveData(key: 'vpn_agreement_choice', value: choice);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // Get VPN Agreement Choice
+  Future<bool?> getVpnAgreementChoice() async {
+    try {
+      return getData('vpn_agreement_choice');
+    } catch (e) {
+      return null; // Default value when no choice is saved
+    }
+  }
 
   Future saveVpnServer(VpnListModel vpnList) async {
     try {

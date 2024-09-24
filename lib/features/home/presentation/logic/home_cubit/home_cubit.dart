@@ -8,6 +8,8 @@ import 'package:vpn/core/error/exceotion_native.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/shared/components/system_info_service.dart';
+import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
+import 'package:vpn/features/settings/presentation/pages/app_usage_screen.dart';
 import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 part 'home_state.dart';
@@ -60,6 +62,15 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future getVpnConnecting(context) async {
+    bool? vpnChoice = await CacheHelper().getVpnAgreementChoice();
+    if (vpnChoice == null || vpnChoice == false) {
+      showAppUsageModal(context, confirmVpnConnecting);
+    } else {
+      confirmVpnConnecting(context);
+    }
+  }
+
+  Future confirmVpnConnecting(context) async {
     emit(LoadingConnectVpnState());
     inProgress = true;
     final res = await _handlerErrorNative.executeNativeHandleError(() async {

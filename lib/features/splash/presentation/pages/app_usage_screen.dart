@@ -19,8 +19,7 @@ class AppUsageScreen extends StatelessWidget {
           text: LocaleKeys.appUsageData.tr(),
           size: 20,
           fontWeight: FontWeight.bold,
-                            color: Theme.of(context).textTheme.titleMedium?.color,
-
+          color: Theme.of(context).textTheme.titleMedium?.color,
         ), // Ensure this key is translated
       ),
       body: SafeArea(
@@ -33,25 +32,25 @@ class AppUsageScreen extends StatelessWidget {
               children: [
                 10.ph,
                 CommonTextWidget(
-                  text: LocaleKeys.appUsage1.tr(),
+                  text: '1. ${LocaleKeys.appUsage1.tr()}',
                   size: 16,
                   color: Theme.of(context).textTheme.titleMedium?.color,
                 ),
                 10.ph,
                 CommonTextWidget(
-                  text: LocaleKeys.appUsage2.tr(),
+                  text: '2. ${LocaleKeys.appUsage2.tr()}',
                   size: 16,
                   color: Theme.of(context).textTheme.titleMedium?.color,
                 ),
                 10.ph,
                 CommonTextWidget(
-                  text: LocaleKeys.appUsage3.tr(),
+                  text: '3. ${LocaleKeys.appUsage3.tr()}',
                   size: 16,
                   color: Theme.of(context).textTheme.titleMedium?.color,
                 ),
                 10.ph,
                 CommonTextWidget(
-                  text: LocaleKeys.appUsage4.tr(),
+                  text: '4. ${LocaleKeys.appUsage4.tr()}',
                   size: 16,
                   color: Theme.of(context).textTheme.titleMedium?.color,
                 ),

@@ -119,13 +119,13 @@ class CodegenLoader extends AssetLoader {
     "privacy policy.": "privacy policy. ",
     "VPN Line": "",
     "app usage 1":
-        "1. We keep your User email, registration date. They are used for signing in and to keep records of the accounts set to auto-renew.",
+        "We keep your User email, registration date. They are used for signing in and to keep records of the accounts set to auto-renew.",
     "app usage 2":
-        "2. We keep records of your Subscription status, payment methods, allocated packages, subscription duration and transaction IDs. This data is collected to provide basic app functionality and troubleshooting steps (e.g. refunds). We do NOT store your credit card or payment information.",
+        "We keep records of your Subscription status, payment methods, allocated packages, subscription duration and transaction IDs. This data is collected to provide basic app functionality and troubleshooting steps (e.g. refunds). We do NOT store your credit card or payment information.",
     "app usage 3":
-        "3. We keep information about your Device, i.e. version of an operating System, hardware model and your IP address. This data is necessary to optimize the Network Connection and ensure high quality Technical Support.",
+        "We keep information about your Device, i.e. version of an operating System, hardware model and your IP address. This data is necessary to optimize the Network Connection and ensure high quality Technical Support.",
     "app usage 4":
-        "4. We keep information about the consumed traffic Volume and total usage time of the VPN app to properly distribute the load on Servers.",
+        "We keep information about the consumed traffic Volume and total usage time of the VPN app to properly distribute the load on Servers.",
     'Are you sure you want to delete your account':
         'Are you sure you want to delete your account? This cannot be undone!',
     'You may purchase an auto-renewing subscription through an In-App Purchase':
@@ -247,13 +247,13 @@ class CodegenLoader extends AssetLoader {
     "privacy policy.": "la política de confidencialidad ",
     "VPN Line": "de VPN Line. ",
     "app usage 1":
-        "1. Guardamos su email de Usuario, la fecha de registro. Se usan para entrar en el sistema y gestionar el registro de inscripciones ajustadas para el prolongamiento autom√°tico.",
+        "Guardamos su email de Usuario, la fecha de registro. Se usan para entrar en el sistema y gestionar el registro de inscripciones ajustadas para el prolongamiento autom√°tico.",
     "app usage 2":
-        "2. Guardamos las inscripciones de su status de suscripci√≥n, los m√©todos de pago, los paquetes seleccionados, la duraci√≥n de la suscripci√≥n y transacci√≥n de ID. Estos datos se recogen para asegurar las funciones principales de la aplicaci√≥n y las acciones de eliminaci√≥n de los fallos (por ejemplo, devoluci√≥n de los fondos). NO guardamos la informaci√≥n sobre su tarjeta de cr√©dito o la informaci√≥n de pago.",
+        "Guardamos las inscripciones de su status de suscripci√≥n, los m√©todos de pago, los paquetes seleccionados, la duraci√≥n de la suscripci√≥n y transacci√≥n de ID. Estos datos se recogen para asegurar las funciones principales de la aplicaci√≥n y las acciones de eliminaci√≥n de los fallos (por ejemplo, devoluci√≥n de los fondos). NO guardamos la informaci√≥n sobre su tarjeta de cr√©dito o la informaci√≥n de pago.",
     "app usage 3":
-        "3. Guardamos la informaci√≥n sobre su dispositivo, de hecho la versi√≥n del sistema operativo, el modelo de hardware y su direcci√≥n IP. Estos datos son necesarios para optimizar la conexi√≥n de red y asegurar el soporte t√©cnico de calidad.",
+        "Guardamos la informaci√≥n sobre su dispositivo, de hecho la versi√≥n del sistema operativo, el modelo de hardware y su direcci√≥n IP. Estos datos son necesarios para optimizar la conexi√≥n de red y asegurar el soporte t√©cnico de calidad.",
     "app usage 4":
-        "4. Guardamos la informaci√≥n sobre el volumen de tr√°fico consumido y el tiempo de uso total de la aplicaci√≥n VPN para distribuir correctamente la carga sobre los servidores.",
+        "Guardamos la informaci√≥n sobre el volumen de tr√°fico consumido y el tiempo de uso total de la aplicaci√≥n VPN para distribuir correctamente la carga sobre los servidores.",
     'Are you sure you want to delete your account':
         '¿Estás seguro de que deseas eliminar tu cuenta? ¡Esto no se puede deshacer!',
     'You may purchase an auto-renewing subscription through an In-App Purchase':
@@ -366,13 +366,13 @@ class CodegenLoader extends AssetLoader {
     "privacy policy.": "隐私政策。",
     "VPN Line": "",
     "app usage 1":
-        "1. жИСдїђдњЭзХЩжВ®зЪДзФ®жИЈзФµе≠РйВЃдїґеТМж≥®еЖМжЧ•жЬЯгАВеЃГдїђзФ®дЇОзЩїељХеТМдњЭе≠ШиЃЊзљЃдЄЇиЗ™еК®жЫіжЦ∞зЪДиі¶жИЈиЃ∞ељХгАВ",
+        "жИСдїђдњЭзХЩжВ®зЪДзФ®жИЈзФµе≠РйВЃдїґеТМж≥®еЖМжЧ•жЬЯгАВеЃГдїђзФ®дЇОзЩїељХеТМдњЭе≠ШиЃЊзљЃдЄЇиЗ™еК®жЫіжЦ∞зЪДиі¶жИЈиЃ∞ељХгАВ",
     "app usage 2":
-        "2. жИСдїђдЉЪиЃ∞ељХжВ®зЪДиЃҐйШЕзКґжАБгАБдїШжђЊжЦєеЉПгАБеИЖйЕНзЪДе•Чй§РгАБиЃҐйШЕжЬЯйЩРеТМдЇ§жШУ IDгАВжФґйЫЖињЩдЇЫжХ∞жНЃжШѓдЄЇдЇЖжПР дЊЫеЯЇжЬђзЪДеЇФзФ®з®ЛеЇПеКЯиГљеТМжХЕйЪЬжОТйЩ§ж≠•й™§пЉИе¶ВйААжђЊпЉЙгАВжИСдїђдЄНдЉЪе≠ШеВ®жВ®зЪДдњ°зФ®еН°жИЦдїШжђЊдњ°жБѓгАВ",
+        "жИСдїђдЉЪиЃ∞ељХжВ®зЪДиЃҐйШЕзКґжАБгАБдїШжђЊжЦєеЉПгАБеИЖйЕНзЪДе•Чй§РгАБиЃҐйШЕжЬЯйЩРеТМдЇ§жШУ IDгАВжФґйЫЖињЩдЇЫжХ∞жНЃжШѓдЄЇдЇЖжПР дЊЫеЯЇжЬђзЪДеЇФзФ®з®ЛеЇПеКЯиГљеТМжХЕйЪЬжОТйЩ§ж≠•й™§пЉИе¶ВйААжђЊпЉЙгАВжИСдїђдЄНдЉЪе≠ШеВ®жВ®зЪДдњ°зФ®еН°жИЦдїШжђЊдњ°жБѓгАВ",
     "app usage 3":
-        "3. жИСдїђдњЭе≠ШжЬЙеЕ≥жВ®иЃЊе§ЗзЪДдњ°жБѓпЉМеН≥жУНдљЬз≥їзїЯзЙИжЬђгАБз°ђдїґеЮЛеПЈеТМ IP еЬ∞еЭАгАВињЩдЇЫжХ∞жНЃжШѓдЉШеМЦзљСзїЬињЮжО•еТМз°ЃдњЭ йЂШиі®йЗПжКАжЬѓжФѓжМБжЙАењЕйЬАзЪДгАВ",
+        "жИСдїђдњЭе≠ШжЬЙеЕ≥жВ®иЃЊе§ЗзЪДдњ°жБѓпЉМеН≥жУНдљЬз≥їзїЯзЙИжЬђгАБз°ђдїґеЮЛеПЈеТМ IP еЬ∞еЭАгАВињЩдЇЫжХ∞жНЃжШѓдЉШеМЦзљСзїЬињЮжО•еТМз°ЃдњЭ йЂШиі®йЗПжКАжЬѓжФѓжМБжЙАењЕйЬАзЪДгАВ",
     "app usage 4":
-        "4. жИСдїђдњЭе≠Ш VPN еЇФзФ®з®ЛеЇПзЪДжґИиАЧжµБйЗПеТМжАїдљњзФ®жЧґйЧідњ°жБѓпЉМдї•дЊњйАВељУеИЖйЕНжЬНеК°еЩ®зЪДиіЯиљљгАВ",
+        "жИСдїђдњЭе≠Ш VPN еЇФзФ®з®ЛеЇПзЪДжґИиАЧжµБйЗПеТМжАїдљњзФ®жЧґйЧідњ°жБѓпЉМдї•дЊњйАВељУеИЖйЕНжЬНеК°еЩ®зЪДиіЯиљљгАВ",
     'Are you sure you want to delete your account': '您确定要删除您的帐户吗? 这是无法挽回的!',
     'You may purchase an auto-renewing subscription through an In-App Purchase':
         '您可以透過應用程式內購買購買自動續訂訂閱。',
@@ -493,13 +493,13 @@ class CodegenLoader extends AssetLoader {
     "privacy policy.": "Datenschutzrichtlinien ",
     "VPN Line": "von VPN Line zu. ",
     "app usage 1":
-        "1. Wir speichern Ihre Benutzer-E-Mail und Ihr Registrierungsdatum. Diese Daten werden zum Anmelden und zum Aufzeichnen der Konten verwendet, die auf automatische Aktualisierung eingestellt sind.",
+        "Wir speichern Ihre Benutzer-E-Mail und Ihr Registrierungsdatum. Diese Daten werden zum Anmelden und zum Aufzeichnen der Konten verwendet, die auf automatische Aktualisierung eingestellt sind.",
     "app usage 2":
-        "2. Wir speichern Aufzeichnungen uber Ihren Abonnementstatus, Zahlungsmethoden, zugewiesene Pakete, Abonnementdauer und Transaktions-IDs. Diese Daten werden erhoben, um grundlegende App-Funktionen und Schritte zur Fehlerbehebung (z. B. Ruckerstattungen) bereitzustellen. Wir speichern NICHT Ihre Kreditkarten- oder Zahlungsinformationen.",
+        "Wir speichern Aufzeichnungen uber Ihren Abonnementstatus, Zahlungsmethoden, zugewiesene Pakete, Abonnementdauer und Transaktions-IDs. Diese Daten werden erhoben, um grundlegende App-Funktionen und Schritte zur Fehlerbehebung (z. B. Ruckerstattungen) bereitzustellen. Wir speichern NICHT Ihre Kreditkarten- oder Zahlungsinformationen.",
     "app usage 3":
-        "3. Wir speichern Informationen uber Ihr Gerat, d. h. die Version eines Betriebssystems, das Hardwaremodell und Ihre IP-Adresse. Diese Daten sind erforderlich, um die Netzwerkverbindung zu optimieren und einen qualitativ hochwertigen technischen Support sicherzustellen.",
+        "Wir speichern Informationen uber Ihr Gerat, d. h. die Version eines Betriebssystems, das Hardwaremodell und Ihre IP-Adresse. Diese Daten sind erforderlich, um die Netzwerkverbindung zu optimieren und einen qualitativ hochwertigen technischen Support sicherzustellen.",
     "app usage 4":
-        "4. Wir speichern Informationen uber den verbrauchten Verkehrsumfang und die Gesamtnutzungsdauer der VPN-App, um die Belastung der Server richtig zu verteilen.",
+        "Wir speichern Informationen uber den verbrauchten Verkehrsumfang und die Gesamtnutzungsdauer der VPN-App, um die Belastung der Server richtig zu verteilen.",
     'Are you sure you want to delete your account':
         'Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Dies kann nicht rückgängig gemacht werden!',
     'You may purchase an auto-renewing subscription through an In-App Purchase':

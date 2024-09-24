@@ -27,7 +27,7 @@ class AppUsageWidget extends StatelessWidget {
               child: CommonTextWidget(
                 text: number,
                 color: kWhite,
-                                size: screenUtil.setSp(13),
+                size: screenUtil.setSp(13),
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -37,9 +37,9 @@ class AppUsageWidget extends StatelessWidget {
         CommonTextWidget(
           text: text,
           color: kWhite,
-                                size: screenUtil.setSp(13),
+          size: screenUtil.setSp(12),
           fontWeight: FontWeight.w400,
-          height: 20 / 13,
+          height: 20 / 12,
         ),
       ],
     );

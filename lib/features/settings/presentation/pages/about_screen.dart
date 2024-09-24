@@ -84,7 +84,7 @@ class AboutScreen extends StatelessWidget {
                       onTap: () async {
                         final Uri emailLaunchUri = Uri(
                           scheme: 'mailto',
-                          path: 'info@candodream.com',
+                          path: 'support@candodream.com',
                           query: encodeQueryParameters(<String, String>{
                             'subject': LocaleKeys.VPNLineQuestion.tr(),
                           }),
