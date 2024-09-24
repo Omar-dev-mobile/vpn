@@ -137,6 +137,9 @@ class CodegenLoader extends AssetLoader {
         'Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.',
     'Current subscription may not be cancelled during the active subscription period':
         'Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase',
+    'Remember the choice': 'Remember the choice',
+    'I agree': 'I agree',
+    'I disagree': 'I disagree',
   };
 
 // #испания
@@ -262,6 +265,9 @@ class CodegenLoader extends AssetLoader {
         'Su suscripción se cargará a su cuenta de iTunes en la confirmación de la compra y se renovará automáticamente (con la duración seleccionada) a menos que la renovación automática se desactive al menos 24 horas antes del final del período actual.',
     'Current subscription may not be cancelled during the active subscription period':
         'La suscripción actual no se puede cancelar durante el período de suscripción activo; sin embargo, puede administrar su suscripción y/o desactivar la renovación automática visitando la Configuración de su cuenta de iTunes después de la compra',
+    'Remember the choice': 'Recuerda mi elección',
+    'I agree': 'Coincido',
+    'I disagree': 'I disagree',
   };
 
 // #китай
@@ -376,6 +382,9 @@ class CodegenLoader extends AssetLoader {
         '您的訂閱將在確認購買時從您的 iTunes 帳戶中扣除，並且將自動續訂（按照所選的期限），除非在當前期限結束前至少 24 小時關閉自動續訂。',
     'Current subscription may not be cancelled during the active subscription period':
         '目前訂閱在有效訂閱期間不得取消；但是，您可以在購買後訪問您的 iTunes 帳戶設定來管理您的訂閱和/或關閉自動續訂',
+    'Remember the choice': '记住我的选择',
+    'I agree': '同意。',
+    'I disagree': '我不同意',
   };
 
 // #немецкий
@@ -502,6 +511,9 @@ class CodegenLoader extends AssetLoader {
         'Ihr Abonnement wird Ihrem iTunes-Konto bei Bestätigung des Kaufs belastet und verlängert sich automatisch (mit der ausgewählten Dauer), sofern die automatische Verlängerung nicht mindestens 24 Stunden vor Ablauf des aktuellen Zeitraums deaktiviert wird.',
     'Current subscription may not be cancelled during the active subscription period':
         'Das aktuelle Abonnement kann während des aktiven Abonnementzeitraums nicht gekündigt werden; Sie können Ihr Abonnement jedoch verwalten und / oder die automatische Verlängerung deaktivieren, indem Sie nach dem Kauf Ihre iTunes-Kontoeinstellungen aufrufen',
+    'Remember the choice': 'Auswahl merken',
+    'I agree': 'Einverstanden',
+    'I disagree': 'ich stimme nicht zu',
   };
 
 // #русский

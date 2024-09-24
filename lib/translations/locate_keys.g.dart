@@ -117,4 +117,7 @@ abstract class LocaleKeys {
       'Your subscription will be charged to your iTunes account at confirmation of purchase';
   static const currentSubscriptionMayNotBeCancelledDuringTheActiveSubscriptionPeriod =
       'Current subscription may not be cancelled during the active subscription period';
+  static const rememberTheChoice = 'Remember the choice';
+  static const iAgree = 'I agree';
+  static const iDisagree = 'I disagree';
 }

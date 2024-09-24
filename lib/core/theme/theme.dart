@@ -34,6 +34,7 @@ const Color kFlagDivider = Color(0xffEAEAEA);
 const Color kSilver = Color(0xffE5E5E5);
 const Color kCharcoal = Color(0xff313131);
 const Color lightGray = Color(0xffD9D9D9);
+const Color kDarkRed = Color(0xffFFCDCD);
 
 const Color kDarkGreen = Color(0xff006A7C);
 const Color kGreyA4AAAA = Color(0xffA4AAAA);
