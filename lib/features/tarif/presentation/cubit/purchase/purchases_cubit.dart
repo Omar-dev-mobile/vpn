@@ -266,8 +266,8 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
             if (isAndroid) {
             } else {
               if (purchaseDetails is AppStorePurchaseDetails) {
-                final originalTransaction =
-                    purchaseDetails.skPaymentTransaction.originalTransaction;
+                // final originalTransaction =
+                //     purchaseDetails.skPaymentTransaction.originalTransaction;
 
                 if (currentProductId != purchaseDetails.productID &&
                     productIdToBuy == purchaseDetails.productID) {

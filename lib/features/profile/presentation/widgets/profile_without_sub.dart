@@ -1,17 +1,14 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
-import 'package:vpn/core/customs/custom_button.dart';
 import 'package:vpn/core/customs/log_out_and_delete_account.dart';
 import 'package:vpn/core/customs/roundedButton.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/components/date_utils_format.dart';
-import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/profile/data/models/profile_model.dart';
@@ -27,7 +24,6 @@ class ProfileWithoutSub extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var profileCubit = ProfileCubit.get(context);
-    final systemInfoService = SystemInfoService();
     return Column(
       children: [
         Container(

@@ -62,7 +62,7 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future getVpnConnecting(context) async {
-    bool? vpnChoice = await CacheHelper().getVpnAgreementChoice();
+    bool? vpnChoice = await locator<CacheHelper>().getVpnAgreementChoice();
     if (vpnChoice == null || vpnChoice == false) {
       showAppUsageModal(context, confirmVpnConnecting);
     } else {
