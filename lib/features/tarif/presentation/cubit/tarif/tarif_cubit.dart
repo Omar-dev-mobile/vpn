@@ -13,6 +13,7 @@ class TarifCubit extends Cubit<TarifState> {
   final TraifUsecases _traifUsecases;
   static TarifCubit get(context) => BlocProvider.of(context);
   Future<void> getTrials({bool isRefresh = false}) async {
+    // print(locator<SystemInfoService>().vpnInfo?.toJson());
     emit(TarifLoadingState());
     final res = await _traifUsecases.getTarifs(isRefresh);
     emit(

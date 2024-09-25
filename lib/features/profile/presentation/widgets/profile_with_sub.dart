@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
+import 'package:vpn/core/customs/custom_button.dart';
+import 'package:vpn/core/customs/icon_mode.dart';
 import 'package:vpn/core/customs/log_out.dart';
+import 'package:vpn/core/customs/log_out_and_delete_account.dart';
 import 'package:vpn/core/customs/roundedButton.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/shared/extensions/extension.dart';
@@ -208,13 +212,16 @@ class ProfileWithSub extends StatelessWidget {
       children: [
         Container(
           height: screenUtil.screenHeight * 0.85,
-          decoration: const ShapeDecoration(
+          decoration: ShapeDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
-              end: Alignment(0.1, 1.5),
-              colors: [kDeepPurpleColor, kDarkTealColor],
+              end: const Alignment(0.1, 1.5),
+              colors: (gradient[
+                      profileModel.workStatus?.userInfo?.tarifInfo?.productId ??
+                          ''] ??
+                  gradient['org.cnddrm.vplineapp.pay.sub.week']!),
             ),
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(20),
                 bottomRight: Radius.circular(20),
@@ -297,20 +304,28 @@ class ProfileWithSub extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: RoundedButton(
-                        onPressed: () {
-                          TarifCubit.get(context).getTrials();
-                          context.pushRoute(const TarifRoute());
-                        },
-                        name: LocaleKeys.renewSubscription.tr(),
-                        textColor:
-                            Theme.of(context).textTheme.labelSmall!.color!,
-                        colorRounded: Theme.of(context).primaryColor,
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        width: screenUtil.screenWidth * 0.8,
-                      ),
+                    CustomButton(
+                      title: LocaleKeys.unsubscribe.tr(),
+                      color: kTransparent,
+                      textColor: kYellowColor,
+                      onPressed: () {
+                        launchUrl(
+                          Uri.parse(
+                              "https://apps.apple.com/account/subscriptions"),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      },
+                    ),
+                    RoundedButton(
+                      onPressed: () {
+                        TarifCubit.get(context).getTrials();
+                        context.pushRoute(const TarifRoute());
+                      },
+                      name: LocaleKeys.renewSubscription.tr(),
+                      textColor: Theme.of(context).textTheme.labelSmall!.color!,
+                      colorRounded: Theme.of(context).primaryColor,
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      width: screenUtil.screenWidth * 0.8,
                     )
                   ],
                 ),
@@ -364,6 +379,8 @@ class ProfileWithSub extends StatelessWidget {
                           ),
                         ),
                       ),
+                      const Spacer(),
+                      const IconMode(),
                     ],
                   ),
                 ),
@@ -372,7 +389,10 @@ class ProfileWithSub extends StatelessWidget {
           ),
         ),
         const Spacer(),
-        const LogOut(),
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 30),
+          child: LogOutAndDeleteAccount(),
+        ),
         const Spacer(),
       ],
     );

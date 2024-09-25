@@ -31,11 +31,109 @@ class CardTarifWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(plan);
-    return OrientationLayoutBuilder(
-      portrait: (context) => buildDesktop(context),
-      landscape: (context) => buildMobile(context),
-      mode: OrientationLayoutBuilderMode.portrait,
+    print(productId);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+      decoration: ShapeDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: const Alignment(0, 2),
+          colors: (gradient[productId] ??
+              gradient['org.cnddrm.vplineapp.pay.sub.week']!),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(Assets.tarifLogo),
+              10.pw,
+              CommonTextWidget(
+                text: '\$$prise',
+                color: kWhite.withOpacity(0.7),
+                size: screenUtil.setSp(30),
+                fontWeight: FontWeight.w300,
+              ),
+            ],
+          ),
+          const Spacer(),
+          if (percent != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Row(
+                children: [
+                  CommonTextWidget(
+                    text: tarifDays,
+                    color: kWhite.withOpacity(0.7),
+                    size: 25,
+                    fontWeight: FontWeight.w300,
+                  ),
+                  const Spacer(),
+                  CommonTextWidget(
+                    text: day,
+                    color: kSilver,
+                    size: screenUtil.setSp(12),
+                    fontWeight: FontWeight.w300,
+                  ),
+                ],
+              ),
+            )
+          else
+            Padding(
+              padding: const EdgeInsets.only(top: 22),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CommonTextWidget(
+                        text: plan,
+                        fontFamily: 'Roboto',
+                        color: kWhite.withOpacity(0.7),
+                        size: 25,
+                        fontWeight: FontWeight.w300,
+                      ),
+                      CommonTextWidget(
+                        text: day,
+                        color: kWhite.withOpacity(0.7),
+                        fontFamily: 'Roboto',
+                        size: screenUtil.setSp(17),
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  CommonTextWidget(
+                    text: LocaleKeys.startSubscription.tr(),
+                    fontFamily: 'Roboto',
+                    color: kSilver,
+                    size: screenUtil.setSp(17),
+                    fontWeight: FontWeight.w300,
+                  ),
+                ],
+              ),
+            ),
+          if (percent != null) ...[
+            const SizedBox(height: 10),
+            LinearPercentIndicator(
+              lineHeight: 14.0,
+              barRadius: const Radius.circular(20),
+              percent: percent!,
+              padding: const EdgeInsets.symmetric(horizontal: 0),
+              backgroundColor: Theme.of(context).primaryColorLight,
+              progressColor: Theme.of(context).indicatorColor,
+            ),
+          ],
+        ],
+      ),
     );
   }
 

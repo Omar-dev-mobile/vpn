@@ -10,7 +10,7 @@ class SettingUsecases {
     return askQuestionRepository.leaveFeedback(model);
   }
 
-  Future<Either<String, bool>> logout() async {
-    return askQuestionRepository.logout();
+  Future<Either<String, bool>> logout({bool isDelete = false}) async {
+    return askQuestionRepository.logout(isDelete: isDelete);
   }
 }

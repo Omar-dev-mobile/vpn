@@ -21,6 +21,24 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const AboutScreen(),
       );
     },
+    ActivateTarifRoute.name: (routeData) {
+      final args = routeData.argsAs<ActivateTarifRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ActivateTarifScreen(
+          key: args.key,
+          title: args.title,
+          textButton: args.textButton,
+          onPressed: args.onPressed,
+        ),
+      );
+    },
+    AppUsageRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AppUsageScreen(),
+      );
+    },
     AppealRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -53,6 +71,12 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const MainScreen(),
       );
     },
+    PrivacyPolicyRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const PrivacyPolicyScreen(),
+      );
+    },
     ProfileRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -75,12 +99,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const TarifScreen(),
-      );
-    },
-    TarifWithCardRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const TarifWithCardScreen(),
       );
     },
     WebViewRoute.name: (routeData) {
@@ -106,6 +124,68 @@ class AboutRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'AboutRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ActivateTarifScreen]
+class ActivateTarifRoute extends PageRouteInfo<ActivateTarifRouteArgs> {
+  ActivateTarifRoute({
+    Key? key,
+    required String title,
+    required String textButton,
+    required dynamic Function() onPressed,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ActivateTarifRoute.name,
+          args: ActivateTarifRouteArgs(
+            key: key,
+            title: title,
+            textButton: textButton,
+            onPressed: onPressed,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ActivateTarifRoute';
+
+  static const PageInfo<ActivateTarifRouteArgs> page =
+      PageInfo<ActivateTarifRouteArgs>(name);
+}
+
+class ActivateTarifRouteArgs {
+  const ActivateTarifRouteArgs({
+    this.key,
+    required this.title,
+    required this.textButton,
+    required this.onPressed,
+  });
+
+  final Key? key;
+
+  final String title;
+
+  final String textButton;
+
+  final dynamic Function() onPressed;
+
+  @override
+  String toString() {
+    return 'ActivateTarifRouteArgs{key: $key, title: $title, textButton: $textButton, onPressed: $onPressed}';
+  }
+}
+
+/// generated route for
+/// [AppUsageScreen]
+class AppUsageRoute extends PageRouteInfo<void> {
+  const AppUsageRoute({List<PageRouteInfo>? children})
+      : super(
+          AppUsageRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AppUsageRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
@@ -196,6 +276,20 @@ class MainRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [PrivacyPolicyScreen]
+class PrivacyPolicyRoute extends PageRouteInfo<void> {
+  const PrivacyPolicyRoute({List<PageRouteInfo>? children})
+      : super(
+          PrivacyPolicyRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PrivacyPolicyRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [ProfileScreen]
 class ProfileRoute extends PageRouteInfo<void> {
   const ProfileRoute({List<PageRouteInfo>? children})
@@ -247,20 +341,6 @@ class TarifRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'TarifRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [TarifWithCardScreen]
-class TarifWithCardRoute extends PageRouteInfo<void> {
-  const TarifWithCardRoute({List<PageRouteInfo>? children})
-      : super(
-          TarifWithCardRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'TarifWithCardRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

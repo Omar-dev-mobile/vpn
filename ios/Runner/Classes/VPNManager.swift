@@ -1,5 +1,5 @@
 //
-//  VPLibDDD.swift
+//  VPNManager.swift
 //  Runner
 //
 //  Created by mostafa omar on 13/02/2024.
@@ -10,7 +10,7 @@ import SystemConfiguration
 import NetworkExtension
 import Security
 import UIKit
-public class VPLibDDD: NSObject, FlutterStreamHandler {
+public class VPNManager: NSObject, FlutterStreamHandler {
     var eventSink: FlutterEventSink?
     private var vpnStatusObservation: NSKeyValueObservation?
     
@@ -22,7 +22,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         }
         return nil
     }
-    func getVpnStatusString(_ status: StatusConnection) -> String {
+    func getVpnStatusString(_ status: StatusConnectionVPN) -> String {
         print("Swift code")
         print(status)
         switch status {
@@ -40,11 +40,10 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
     }
 
     @objc func vpnStatusDidChange(_ notification: Notification) {
-        print(" onListen onListen onListen onListen onListen v onListenonListen")
         GetStatus { status, lastMcc, dateConnection in
             let vpnStatusString = self.getVpnStatusString(status)
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatter.dateFormat = VPNConstants.dateFormat
 
             var dateString: String?
             if let connectedDate = dateConnection {
@@ -83,14 +82,14 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
                 result(FlutterError(code: "INVALID_ARGUMENTS", message: "Invalid arguments", details: nil))
             }
         case "stopTun":
-            StopTun (flutterResult: result){ success in
+            stopVPN (flutterResult: result){ success in
                 result(success)
             }
         case "getStatus":
             GetStatus { status, lastMcc, dateConnection in
                 let vpnStatusString = self.getVpnStatusString(status)
                 let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                dateFormatter.dateFormat = VPNConstants.dateFormat
 
                 var dateString: String?
                 if let connectedDate = dateConnection {
@@ -112,14 +111,15 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
     }
     
     
-    public enum StatusConnection {
+    public enum StatusConnectionVPN {
         case Offline
         case Online
         case Connecting
         case Stopped
     }
-    private let nameTun = "VPN Line"
-    public var initTunProcessing : ((StatusInitTun, String?) -> ())?
+    private let nameTun = VPNConstants.serviceName
+    
+    
     
     
     private var tunSaveHandler: (Error?, @escaping FlutterResult) -> Void {
@@ -144,7 +144,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
                     } catch let startError {
                         LibSettings.mcc = 0
                         let errorMessage = "Error starting Tun-VPN Connection: \(startError.localizedDescription)"
-                        flutterResult(FlutterError(code: "START_TUNNEL_ERROR", message: errorMessage, details: nil))
+                        flutterResult(FlutterError(code: VPNConstants.startTunnelError, message: errorMessage, details: nil))
                     }
                 }
             }
@@ -152,8 +152,8 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
     }
 
     private let vpnMan = NEVPNManager.shared()
-    private var lastConnectionStatus : StatusConnection = .Stopped
-    public var LastConnectionStatus : StatusConnection {
+    private var lastConnectionStatus : StatusConnectionVPN = .Stopped
+    public var LastConnectionStatus : StatusConnectionVPN {
         get {
             return lastConnectionStatus
         }
@@ -167,15 +167,15 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
     }
     
     
-    public func GetStatus(listener: @escaping (_ status: StatusConnection, _ last_mcc: Int, _ dateConnection: Date?) -> Void) {
+    public func GetStatus(listener: @escaping (_ status: StatusConnectionVPN, _ last_mcc: Int, _ dateConnection: Date?) -> Void) {
         self.vpnMan.loadFromPreferences { (error : Error?) in
             let p = self.getBaseProtocol()
             self.vpnMan.protocolConfiguration = p
             self.vpnMan.localizedDescription = self.nameTun
             self.vpnMan.isEnabled = true
-            self.lastConnectionStatus = self.vpnMan.connection.status == NEVPNStatus.connected ? StatusConnection.Online : StatusConnection.Offline
+            self.lastConnectionStatus = self.vpnMan.connection.status == NEVPNStatus.connected ? StatusConnectionVPN.Online : StatusConnectionVPN.Offline
             let vpnStatus = self.vpnMan.connection.status
-            let status: StatusConnection
+            let status: StatusConnectionVPN
             switch vpnStatus {
             case .connected:
                 status = .Online
@@ -192,7 +192,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         }
     }
     
-    public func StopTun (flutterResult: @escaping FlutterResult,callback: @escaping (_ status: Bool) -> Void) -> Void {
+    public func stopVPN (flutterResult: @escaping FlutterResult,callback: @escaping (_ status: Bool) -> Void) -> Void {
         self.vpnMan.loadFromPreferences { (error : Error?) in
             let p = self.getBaseProtocol()
             self.vpnMan.protocolConfiguration = p
@@ -201,10 +201,10 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
             LibSettings.mcc = 0
             do {
                 try self.vpnMan.connection.stopVPNTunnel ()
-                flutterResult("VPN configuration successful")
+                flutterResult(VPNConstants.connectionSuccessful)
                 callback (true)
             } catch let error {
-                flutterResult(FlutterError(code: "START_TUNNEL_ERROR", message: "Error stoping Tun-VPN Connection \(error.localizedDescription)", details: nil))
+                flutterResult(FlutterError(code: VPNConstants.startTunnelError, message: "Error stoping Tun-VPN Connection \(error.localizedDescription)", details: nil))
                 callback (false)
             }
         }
@@ -221,11 +221,11 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         p.serverAddress = serverAddress;
         p.authenticationMethod = NEVPNIKEAuthenticationMethod.sharedSecret
         
-        let kcs = KeychainService();
-        kcs.save(key: "SHARED", value: sharedSecret)
-        kcs.save(key: "VPN_PASSWORD", value: password)
-        p.sharedSecretReference = kcs.load(key: "SHARED")
-        p.passwordReference = kcs.load(key: "VPN_PASSWORD")
+        let kcs = KeychainHelper();
+        kcs.save(key: VPNConstants.sharedSecretKey, value: sharedSecret)
+        kcs.save(key: VPNConstants.passwordKey, value: password)
+        p.sharedSecretReference = kcs.load(key: VPNConstants.sharedSecretKey)
+        p.passwordReference = kcs.load(key: VPNConstants.passwordKey)
         
         self.vpnMan.protocolConfiguration = p
         self.vpnMan.localizedDescription = self.nameTun
@@ -287,8 +287,15 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
         }
     }
     
-    
-    public class KeychainService: NSObject {
+private enum VPNConstants {
+    static let serviceName = "VPN Line"
+    static let sharedSecretKey = "SHARED"
+    static let passwordKey = "VPN_PASSWORD"
+    static let dateFormat = "yyyy-MM-dd HH:mm:ss"
+    static let connectionSuccessful = "VPN configuration successful"
+    static let startTunnelError = "START_TUNNEL_ERROR"
+}
+    public class KeychainHelper: NSObject {
         
         // Identifiers
         let serviceIdentifier = "MySerivice"
@@ -317,7 +324,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
             keychainQuery[kSecClassValue as! NSCopying] = kSecClassGenericPasswordValue
             keychainQuery[kSecAttrGenericValue as! NSCopying] = keyData
             keychainQuery[kSecAttrAccountValue as! NSCopying] = keyData
-            keychainQuery[kSecAttrServiceValue as! NSCopying] = "VPN"
+            keychainQuery[kSecAttrServiceValue as! NSCopying] = VPNConstants.serviceName
             keychainQuery[kSecAttrAccessibleValue as! NSCopying] = kSecAttrAccessibleAlwaysThisDeviceOnly
             keychainQuery[kSecValueData as! NSCopying] = valueData;
             // Delete any existing items
@@ -332,7 +339,7 @@ public class VPLibDDD: NSObject, FlutterStreamHandler {
             keychainQuery[kSecClassValue as! NSCopying] = kSecClassGenericPasswordValue
             keychainQuery[kSecAttrGenericValue as! NSCopying] = keyData
             keychainQuery[kSecAttrAccountValue as! NSCopying] = keyData
-            keychainQuery[kSecAttrServiceValue as! NSCopying] = "VPN"
+            keychainQuery[kSecAttrServiceValue as! NSCopying] = VPNConstants.serviceName
             keychainQuery[kSecAttrAccessibleValue as! NSCopying] = kSecAttrAccessibleAlwaysThisDeviceOnly
             keychainQuery[kSecMatchLimit] = kSecMatchLimitOne
             keychainQuery[kSecReturnPersistentRef] = kCFBooleanTrue

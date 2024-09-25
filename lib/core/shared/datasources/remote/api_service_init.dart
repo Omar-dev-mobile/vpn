@@ -12,7 +12,7 @@ class ApiServiceInit extends ApiBase {
       var rsaKeyHelper = locator<RsaKeyHelper>();
       var generateAlgorithmsForInitApp =
           await rsaKeyHelper.generateAlgorithmsForInitApp();
-
+      print(rsaKeyHelper.buildQueryString(generateAlgorithmsForInitApp));
       final response = await post(BASE_URL,
           body: rsaKeyHelper.buildQueryString(generateAlgorithmsForInitApp));
 

@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vpn/core/constants.dart';
+import 'package:vpn/core/customs/delete_account.dart';
 import 'package:vpn/core/customs/icon_mode.dart';
 import 'package:vpn/core/customs/log_out.dart';
 import 'package:vpn/core/router/app_router.dart';
@@ -12,7 +14,6 @@ import 'package:vpn/features/select_country/presentation/cubit/country_cubit.dar
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
-
 import 'list_title_drawer_widget.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -50,7 +51,8 @@ class DrawerWidget extends StatelessWidget {
             ListTitleDrawerWidget(
               title: LocaleKeys.home.tr(),
               onTap: () {
-                if (activeRouteName != MainRoute.name) {
+                if (activeRouteName != MainRoute.name &&
+                    systemInfoService.isLogin) {
                   MainCubit.get(context).verifySubscription();
                 }
                 Navigator.pop(context);
@@ -58,38 +60,43 @@ class DrawerWidget extends StatelessWidget {
               },
               isActive: activeRouteName == MainRoute.name,
             ),
-            if (systemInfoService.isLogin)
-              ListTitleDrawerWidget(
-                title: LocaleKeys.profile.tr(),
-                onTap: () {
-                  // Navigator.pop(context);
-                  locator<ProfileCubit>().getProfile();
-                  context.replaceRoute(const ProfileRoute());
-                },
-                isActive: activeRouteName == ProfileRoute.name,
-              ),
-            if (systemInfoService.isLogin)
-              ListTitleDrawerWidget(
-                title: LocaleKeys.selectCountry.tr(),
-                onTap: () {
-                  if (activeRouteName != SelectCountryRoute.name) {
-                    locator<CountryCubit>().getCountriesList(isRefresh: true);
-                  }
-                  Navigator.pop(context);
-                  context.replaceRoute(const SelectCountryRoute());
-                },
-                isActive: activeRouteName == SelectCountryRoute.name,
-              ),
-            if (systemInfoService.isLogin)
-              ListTitleDrawerWidget(
-                title: LocaleKeys.plans.tr(),
-                onTap: () {
-                  TarifCubit.get(context).getTrials();
-                  // Navigator.pop(context);
-                  context.replaceRoute(const TarifRoute());
-                },
-                isActive: activeRouteName == TarifRoute.name,
-              ),
+            // if (systemInfoService.isLogin)
+            BlocBuilder<MainCubit, MainState>(
+              builder: (context, state) {
+                return ListTitleDrawerWidget(
+                  title: LocaleKeys.profile.tr(),
+                  onTap: () {
+                    // Navigator.pop(context);
+                    locator<ProfileCubit>().getProfile(context);
+                    context.replaceRoute(const ProfileRoute());
+                  },
+                  isActive: activeRouteName == ProfileRoute.name ||
+                      activeRouteName == LoginRoute.name,
+                );
+              },
+            ),
+            // if (systemInfoService.isLogin)
+            ListTitleDrawerWidget(
+              title: LocaleKeys.selectCountry.tr(),
+              onTap: () {
+                if (activeRouteName != SelectCountryRoute.name) {
+                  locator<CountryCubit>().getCountriesList();
+                }
+                Navigator.pop(context);
+                context.replaceRoute(const SelectCountryRoute());
+              },
+              isActive: activeRouteName == SelectCountryRoute.name,
+            ),
+            // if (systemInfoService.isLogin)
+            ListTitleDrawerWidget(
+              title: LocaleKeys.plans.tr(),
+              onTap: () {
+                TarifCubit.get(context).getTrials();
+                // Navigator.pop(context);
+                context.replaceRoute(const TarifRoute());
+              },
+              isActive: activeRouteName == TarifRoute.name,
+            ),
             ListTitleDrawerWidget(
               title: LocaleKeys.about.tr(),
               onTap: () {
@@ -100,6 +107,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             screenUtil.setHeight(30).ph,
             if (systemInfoService.isLogin) const LogOut(),
+            if (systemInfoService.isLogin) const DeleteAccount(),
           ],
         ),
       ),

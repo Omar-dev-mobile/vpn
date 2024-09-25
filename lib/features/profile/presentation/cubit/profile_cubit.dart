@@ -12,12 +12,21 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit(this.profileUseCases) : super(ProfileInitial());
   String workStatus = '';
   static ProfileCubit get(context) => BlocProvider.of(context);
-  Future getProfile() async {
+  Future getProfile(context) async {
     emit(ProfileLoadingState());
     var getSecurityDataAlgithms =
         await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();
     workStatus = getSecurityDataAlgithms?.workStatus ?? '';
     final res = await profileUseCases.getProfile();
-    emit(res.fold((l) => ProfileErrorState(l), (r) => ProfileSuccessState(r)));
+    emit(res.fold((l) => ProfileErrorState(l), (r) {
+      print("userApiKey:${r.workStatus?.userInfo?.userApiKey}");
+      if (r.workStatus?.userInfo?.userApiKey?.isEmpty ?? true) {
+        // Пользователь не авторизован, показываем экран входа
+        return ProfileNotAuthorizedState();
+      } else {
+        // Пользователь авторизован, загружаем профиль
+        return ProfileSuccessState(r);
+      }
+    }));
   }
 }

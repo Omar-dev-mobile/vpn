@@ -12,12 +12,37 @@ class CodegenLoader extends AssetLoader {
   @override
   Future<Map<String, dynamic>> load(String fullPath, Locale locale) {
     print('CodegenLoader.load ${locale.languageCode}');
+
     return Future.value(
         mapLocales[locale.languageCode] ?? en); //locale.languageCode
   }
 
   static const Map<String, String> en = {
+    "Delete Account": "Delete Account",
+    "Unsubscribe": "Unsubscribe",
+    "Auto-renewal Plans for a week, a month or three months.":
+        "Auto-renewal Plans for a week, a month or three months.",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "A payment will be charged to your iTunes Account at confirmation of your purchase.",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "Your account will be charged for the renewal within 24 hours prior to the end of the current period.",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone.",
     "Enter a valid email address": "Enter a valid email address",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "You can manage and cancel your Subscription by going to your iTunes and App Store.",
+    "Start Subscription": "Start Subscription",
+    "Worldwide coverage, global Server Network":
+        "Worldwide coverage,\nglobal Server Network",
+    "Refund Policy": "Refund Policy",
+    "Open world": "Open world",
+    "Trafic": "Trafic",
+    "Money back": "Money back",
+    "All devices": "All devices",
+    "VPN Line Subscription": "VPN Line Subscription",
+    "High speed": "High speed",
     "VPN Line Question": "VPN Line Question",
     "Buy": "Buy",
     "Your Key": "Your Key",
@@ -80,11 +105,69 @@ class CodegenLoader extends AssetLoader {
     "dayTime": "days",
     "Week": "Week",
     "Pay": "Pay",
-    "": "",
+    "Waiting for a purchase": "Waiting for a purchase",
+    "Data and Privacy": "Data and Privacy",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.",
+    "We collect anonymous": "We collect anonymous ",
+    "app usage data": "app usage data ",
+    "to make the VPN Line experience even better. ":
+        "to make the VPN Line experience even better.",
+    "I accept VPN Line's": "I accept VPN Line's ",
+    "licence agreement": "licence agreement ",
+    "and": "and ",
+    "privacy policy.": "privacy policy. ",
+    "VPN Line": "",
+    "app usage 1":
+        "We keep your User email, registration date. They are used for signing in and to keep records of the accounts set to auto-renew.",
+    "app usage 2":
+        "We keep records of your Subscription status, payment methods, allocated packages, subscription duration and transaction IDs. This data is collected to provide basic app functionality and troubleshooting steps (e.g. refunds). We do NOT store your credit card or payment information.",
+    "app usage 3":
+        "We keep information about your Device, i.e. version of an operating System, hardware model and your IP address. This data is necessary to optimize the Network Connection and ensure high quality Technical Support.",
+    "app usage 4":
+        "We keep information about the consumed traffic Volume and total usage time of the VPN app to properly distribute the load on Servers.",
+    'Are you sure you want to delete your account':
+        'Are you sure you want to delete your account? This cannot be undone!',
+    'You may purchase an auto-renewing subscription through an In-App Purchase':
+        'You may purchase an auto-renewing subscription through an In-App Purchase.',
+    'Auto-renewable subscription': ' Auto-renewable subscription',
+    '1 week, 1 month and 3 month durations':
+        '1 week, 1 month and 3 month durations',
+    'Your subscription will be charged to your iTunes account at confirmation of purchase':
+        'Your subscription will be charged to your iTunes account at confirmation of purchase and will automatically renew (at the duration selected) unless auto-renew is turned off at least 24 hours before the end of the current period.',
+    'Current subscription may not be cancelled during the active subscription period':
+        'Current subscription may not be cancelled during the active subscription period; however, you can manage your subscription and/or turn off auto-renewal by visiting your iTunes Account Settings after purchase',
+    'Remember the choice': 'Remember the choice',
+    'I agree': 'I agree',
+    'I disagree': 'I disagree',
   };
 
 // #испания
   static const Map<String, String> es = {
+    "Delete Account": "Eliminar cuenta",
+    "Unsubscribe": "Cancelar suscripción",
+    "Auto-renewal Plans for a week, a month or three months.":
+        "Suscripción de renovación automática: semana, mes, tres meses.",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "El pago se cargará a tu cuenta de iTunes en la confirmación de la compra.",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "La suscripción se renueva automáticamente a menos que la renovación automática se desactive al menos 24 horas antes del final del período actual.",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "Las tarifas de renovación de la suscripción se cobrarán dentro de las 24 horas anteriores al vencimiento del período actual.",
+    "Open world": "mundial",
+    "Trafic": "Sin límites",
+    "Money back": "reembolso",
+    "All devices": "todos los dispositivos",
+    "VPN Line Subscription": "VPN Line suscripcion",
+    "Worldwide coverage, global Server Network":
+        "Servidores y ubicaciones\nen todo el mundo",
+    "High speed": "Alta velocidad",
+    "Refund Policy": "Se proporciona el reembolso",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "Puedes gestionar suscripciones y desactivar la renovación automática en cualquier momento en la configuración de tu cuenta de iTunes y App Store.",
+    "Start Subscription": "Suscribirse",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "Sus datos confidenciales están totalmente protegidos y no se comparten con terceros. Esta retroalimentación no es visible para nadie.",
     "Enter a valid email address":
         "Introduzca una dirección de correo electrónico válida",
     "VPN Line Question": "VPN Line Pregunta",
@@ -150,15 +233,71 @@ class CodegenLoader extends AssetLoader {
     "day": "días",
     "dayTime": "días",
     "Week": "Semana",
-    "": "",
+    "Waiting for a purchase": "Esperando la compra",
+    "Data and Privacy": "Datos y confidencialidad",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Bienvenido a VPN Line. Para su comodidad proporcionamos aquí una parte de información que se refiere a su seguridad durante el uso de nuestra aplicación.",
+    "We collect anonymous": "Recogemos los datos anónimos ",
+    "app usage data": "de uso de la aplicación ",
+    "to make the VPN Line experience even better. ":
+        "para hacer el trabajo de VPN Line aun mejor.",
+    "I accept VPN Line's": "Acepto el ",
+    "licence agreement": "contrato de licencia ",
+    "and": "y ",
+    "privacy policy.": "la política de confidencialidad ",
+    "VPN Line": "de VPN Line. ",
+    "app usage 1":
+        "Guardamos su email de Usuario, la fecha de registro. Se usan para entrar en el sistema y gestionar el registro de inscripciones ajustadas para el prolongamiento autom√°tico.",
+    "app usage 2":
+        "Guardamos las inscripciones de su status de suscripci√≥n, los m√©todos de pago, los paquetes seleccionados, la duraci√≥n de la suscripci√≥n y transacci√≥n de ID. Estos datos se recogen para asegurar las funciones principales de la aplicaci√≥n y las acciones de eliminaci√≥n de los fallos (por ejemplo, devoluci√≥n de los fondos). NO guardamos la informaci√≥n sobre su tarjeta de cr√©dito o la informaci√≥n de pago.",
+    "app usage 3":
+        "Guardamos la informaci√≥n sobre su dispositivo, de hecho la versi√≥n del sistema operativo, el modelo de hardware y su direcci√≥n IP. Estos datos son necesarios para optimizar la conexi√≥n de red y asegurar el soporte t√©cnico de calidad.",
+    "app usage 4":
+        "Guardamos la informaci√≥n sobre el volumen de tr√°fico consumido y el tiempo de uso total de la aplicaci√≥n VPN para distribuir correctamente la carga sobre los servidores.",
+    'Are you sure you want to delete your account':
+        '¿Estás seguro de que deseas eliminar tu cuenta? ¡Esto no se puede deshacer!',
+    'You may purchase an auto-renewing subscription through an In-App Purchase':
+        'Puede comprar una suscripción de renovación automática a través de una compra en la aplicación.',
+    'Auto-renewable subscription': 'Suscripción renovable automáticamente',
+    '1 week, 1 month and 3 month durations':
+        'duraciones de 1 semana, 1 mes y 3 meses',
+    'Your subscription will be charged to your iTunes account at confirmation of purchase':
+        'Su suscripción se cargará a su cuenta de iTunes en la confirmación de la compra y se renovará automáticamente (con la duración seleccionada) a menos que la renovación automática se desactive al menos 24 horas antes del final del período actual.',
+    'Current subscription may not be cancelled during the active subscription period':
+        'La suscripción actual no se puede cancelar durante el período de suscripción activo; sin embargo, puede administrar su suscripción y/o desactivar la renovación automática visitando la Configuración de su cuenta de iTunes después de la compra',
+    'Remember the choice': 'Recuerda mi elección',
+    'I agree': 'Coincido',
+    'I disagree': 'I disagree',
   };
 
 // #китай
-  static const Map<String, String> cn = {
+  static const Map<String, String> zh = {
+    "Delete Account": "删除账户",
+    "Unsubscribe": "取消订阅",
+    "Auto-renewal Plans for a week, a month or three months.": "自动续订订阅：周,月,三个月",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "付款将在确认购买时记入您的iTunes帐户。",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "除非在当前期限结束前至少24小时关闭自动续订，否则订阅将自动续订。",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "订阅续订费将在当前期限到期前24小时内收取。",
+    "Open world": "全世界",
+    "Trafic": "無限",
+    "Money back": "退款",
+    "All devices": "所有設備",
+    "VPN Line Subscription": "VPN Line 訂閱",
+    "Worldwide coverage, global Server Network": "全球各地的服\n务器和位置",
+    "High speed": "高速的移动速度",
+    "Refund Policy": "已提供退款",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "您可以随时在iTunes和App Store帐户设置中管理订阅并关闭自动续订。",
+    "Start Subscription": "订阅",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "您的机密数据受到充分保护，不与第三方共享。这种反馈对任何人都不可见。",
     "Enter a valid email address": "輸入一個有效的電子郵件地址",
     "VPN Line Question": "VPN Line 問題",
     "Buy": "购买",
-    "Your key": "你的钥匙",
+    "Your Key": "你的钥匙",
     "Last Login": "上次登录",
     "Success": "成功的",
     "Purchase a subscription for continued access and functionality":
@@ -214,11 +353,66 @@ class CodegenLoader extends AssetLoader {
     "day": "天数",
     "dayTime": "天数",
     "Week": "周",
-    "": "",
+    "Waiting for a purchase": "等待购买",
+    "Data and Privacy": "数据和隐私",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "欢迎访问 VPN Line。为您的方便，我们在此提供一些在使用应用程序期间与您的安全有关的信息。",
+    "We collect anonymous": "我们收集匿名",
+    "app usage data": "应用程序使用数据",
+    "to make the VPN Line experience even better.": "，以便让 VPN Line 体验更好。",
+    "I accept VPN Line's": "我接受 VPN Line",
+    "licence agreement": "的许可协议",
+    "and": "和",
+    "privacy policy.": "隐私政策。",
+    "VPN Line": "",
+    "app usage 1":
+        "жИСдїђдњЭзХЩжВ®зЪДзФ®жИЈзФµе≠РйВЃдїґеТМж≥®еЖМжЧ•жЬЯгАВеЃГдїђзФ®дЇОзЩїељХеТМдњЭе≠ШиЃЊзљЃдЄЇиЗ™еК®жЫіжЦ∞зЪДиі¶жИЈиЃ∞ељХгАВ",
+    "app usage 2":
+        "жИСдїђдЉЪиЃ∞ељХжВ®зЪДиЃҐйШЕзКґжАБгАБдїШжђЊжЦєеЉПгАБеИЖйЕНзЪДе•Чй§РгАБиЃҐйШЕжЬЯйЩРеТМдЇ§жШУ IDгАВжФґйЫЖињЩдЇЫжХ∞жНЃжШѓдЄЇдЇЖжПР дЊЫеЯЇжЬђзЪДеЇФзФ®з®ЛеЇПеКЯиГљеТМжХЕйЪЬжОТйЩ§ж≠•й™§пЉИе¶ВйААжђЊпЉЙгАВжИСдїђдЄНдЉЪе≠ШеВ®жВ®зЪДдњ°зФ®еН°жИЦдїШжђЊдњ°жБѓгАВ",
+    "app usage 3":
+        "жИСдїђдњЭе≠ШжЬЙеЕ≥жВ®иЃЊе§ЗзЪДдњ°жБѓпЉМеН≥жУНдљЬз≥їзїЯзЙИжЬђгАБз°ђдїґеЮЛеПЈеТМ IP еЬ∞еЭАгАВињЩдЇЫжХ∞жНЃжШѓдЉШеМЦзљСзїЬињЮжО•еТМз°ЃдњЭ йЂШиі®йЗПжКАжЬѓжФѓжМБжЙАењЕйЬАзЪДгАВ",
+    "app usage 4":
+        "жИСдїђдњЭе≠Ш VPN еЇФзФ®з®ЛеЇПзЪДжґИиАЧжµБйЗПеТМжАїдљњзФ®жЧґйЧідњ°жБѓпЉМдї•дЊњйАВељУеИЖйЕНжЬНеК°еЩ®зЪДиіЯиљљгАВ",
+    'Are you sure you want to delete your account': '您确定要删除您的帐户吗? 这是无法挽回的!',
+    'You may purchase an auto-renewing subscription through an In-App Purchase':
+        '您可以透過應用程式內購買購買自動續訂訂閱。',
+    'Auto-renewable subscription': '自動續訂訂閱',
+    '1 week, 1 month and 3 month durations': '1 週、1 個月和 3 個月的持續時間',
+    'Your subscription will be charged to your iTunes account at confirmation of purchase':
+        '您的訂閱將在確認購買時從您的 iTunes 帳戶中扣除，並且將自動續訂（按照所選的期限），除非在當前期限結束前至少 24 小時關閉自動續訂。',
+    'Current subscription may not be cancelled during the active subscription period':
+        '目前訂閱在有效訂閱期間不得取消；但是，您可以在購買後訪問您的 iTunes 帳戶設定來管理您的訂閱和/或關閉自動續訂',
+    'Remember the choice': '记住我的选择',
+    'I agree': '同意。',
+    'I disagree': '我不同意',
   };
 
 // #немецкий
   static const Map<String, String> de = {
+    "Delete Account": "Konto löschen",
+    "Unsubscribe": "Abbestellen",
+    "Auto-renewal Plans for a week, a month or three months.":
+        "Automatisches Verlängerungsabonnement: Woche, Monat, drei Monate.",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "Die Zahlung wird Ihrem iTunes-Konto bei der Kaufbestätigung belastet.",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "Das Abonnement wird automatisch verlängert, es sei denn, die automatische Verlängerung wird mindestens 24 Stunden vor dem Ende des aktuellen Zeitraums deaktiviert.",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "Abonnementverlängerungsgebühren werden innerhalb von 24 Stunden vor Ablauf des aktuellen Zeitraums berechnet.",
+    "Open world": "weltweit",
+    "Trafic": "unbegrenzt",
+    "Money back": "Geld-zurück",
+    "All devices": "alle Geräte",
+    "VPN Line Subscription": "VPN Line Abo",
+    "Worldwide coverage, global Server Network":
+        "Weltweit Servers\nund Abdeckung",
+    "High speed": "Hohe\nGeschwindigkeit",
+    "Refund Policy": "Rückerstattung erfolgt",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "Sie können Abonnements verwalten und die automatische Verlängerung jederzeit in Ihren iTunes und App Store-Kontoeinstellungen deaktivieren.",
+    "Start Subscription": "Abonnieren",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "Ihre vertraulichen Daten sind vollständig geschützt und werden nicht an Dritte weitergegeben. Dieses Feedback ist für niemanden sichtbar.",
     "Enter a valid email address": "Geben Sie eine gültige email an",
     "VPN Line Question": "VPN Line Frage",
     "Buy": "Kaufen",
@@ -285,11 +479,67 @@ class CodegenLoader extends AssetLoader {
     "dayTime": "Tage",
     "Week": "Woche",
     "Pay": "Bezahlen",
-    "": "",
+    "Waiting for a purchase": "Warten auf den Kauf",
+    "Data and Privacy": "Daten und Datenschutz",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Willkommen bei VPN Line. Zur Benutzerfreundlichkeit stellen wir Ihnen hier einige Informationen zu Ihrer Sicherheit bei der Nutzung unserer Anwendung zur Verfugung.",
+    "We collect anonymous": "Wir erheben anonyme ",
+    "app usage data": "Daten uber die Nutzung der Anwendung ",
+    "to make the VPN Line experience even better. ":
+        "um die Arbeit von VPN Line zu verbessern. ",
+    "I accept VPN Line's": "Ich stimme dem ",
+    "licence agreement": "Lizenzvertrag ",
+    "and": "und den ",
+    "privacy policy.": "Datenschutzrichtlinien ",
+    "VPN Line": "von VPN Line zu. ",
+    "app usage 1":
+        "Wir speichern Ihre Benutzer-E-Mail und Ihr Registrierungsdatum. Diese Daten werden zum Anmelden und zum Aufzeichnen der Konten verwendet, die auf automatische Aktualisierung eingestellt sind.",
+    "app usage 2":
+        "Wir speichern Aufzeichnungen uber Ihren Abonnementstatus, Zahlungsmethoden, zugewiesene Pakete, Abonnementdauer und Transaktions-IDs. Diese Daten werden erhoben, um grundlegende App-Funktionen und Schritte zur Fehlerbehebung (z. B. Ruckerstattungen) bereitzustellen. Wir speichern NICHT Ihre Kreditkarten- oder Zahlungsinformationen.",
+    "app usage 3":
+        "Wir speichern Informationen uber Ihr Gerat, d. h. die Version eines Betriebssystems, das Hardwaremodell und Ihre IP-Adresse. Diese Daten sind erforderlich, um die Netzwerkverbindung zu optimieren und einen qualitativ hochwertigen technischen Support sicherzustellen.",
+    "app usage 4":
+        "Wir speichern Informationen uber den verbrauchten Verkehrsumfang und die Gesamtnutzungsdauer der VPN-App, um die Belastung der Server richtig zu verteilen.",
+    'Are you sure you want to delete your account':
+        'Sind Sie sicher, dass Sie Ihr Konto löschen möchten? Dies kann nicht rückgängig gemacht werden!',
+    'You may purchase an auto-renewing subscription through an In-App Purchase':
+        'Sie können ein Abonnement mit automatischer Verlängerung über einen In-App-Kauf erwerben.',
+    'Auto-renewable subscription': 'Abonnement mit automatischer Verlängerung',
+    '1 week, 1 month and 3 month durations':
+        'dauer von 1 Woche, 1 Monat und 3 Monaten',
+    'Your subscription will be charged to your iTunes account at confirmation of purchase':
+        'Ihr Abonnement wird Ihrem iTunes-Konto bei Bestätigung des Kaufs belastet und verlängert sich automatisch (mit der ausgewählten Dauer), sofern die automatische Verlängerung nicht mindestens 24 Stunden vor Ablauf des aktuellen Zeitraums deaktiviert wird.',
+    'Current subscription may not be cancelled during the active subscription period':
+        'Das aktuelle Abonnement kann während des aktiven Abonnementzeitraums nicht gekündigt werden; Sie können Ihr Abonnement jedoch verwalten und / oder die automatische Verlängerung deaktivieren, indem Sie nach dem Kauf Ihre iTunes-Kontoeinstellungen aufrufen',
+    'Remember the choice': 'Auswahl merken',
+    'I agree': 'Einverstanden',
+    'I disagree': 'ich stimme nicht zu',
   };
 
 // #русский
   static const Map<String, String> ru = {
+    "Auto-renewal Plans for a week, a month or three months.":
+        "Подписки с автоматическим продлением: неделя, месяц, три месяца.",
+    "A payment will be charged to your iTunes Account at confirmation of your purchase.":
+        "Оплата будет снята с вашего аккаунта iTunes при подтверждении покупки.",
+    "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.":
+        "Подписка автоматически продлевается, если автоматическое продление не было выключено по крайней мере за 24 часа до окончания текущего периода.",
+    "Your account will be charged for the renewal within 24 hours prior to the end of the current period.":
+        "Плата за продление подписки взимается в течении 24 часов до окончания текущего периода.",
+    "Open world": "Весь мир",
+    "Trafic": "Безлимитный трафик",
+    "Money back": "Гарантия возврата",
+    "All devices": "Все устройства",
+    "VPN Line Subscription": "VPN Line Subscription",
+    "Worldwide coverage, global Server Network":
+        "Серверы и локации\nпо всему миру",
+    "High speed": "Высокая скорость",
+    "Refund Policy": "Гарантия возврата",
+    "You can manage and cancel your Subscription by going to your iTunes and App Store.":
+        "Вы можете управлять подписками и отключить автоматическое продление в любое время в настройках учетной записи iTunes и App store.",
+    "Start Subscription": "Подписаться",
+    'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
+        "Ваша конфиденциальная информация является нашим приоритетом и не передается третьим лицам. Эта обратная связь никому не видна.",
     "Enter a valid email address": "Введите корректный email адрес",
     "VPN Line Question": "VPN Line вопрос",
     "Buy": "Купить",
@@ -357,13 +607,27 @@ class CodegenLoader extends AssetLoader {
     "Are you sure you want to log out": "Вы уверены, что хотите выйти?",
     "An error occurred when trying to make a payment":
         "При попытке платежа возникла ошибка",
+    "Waiting for a purchase": "Ожидание покупки",
+    "Data and Privacy": "Данные и конфиденциальность,",
+    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Добро пожаловать в VPN Line. Для вашего удобства мы предоставляем здесь часть информации, касающейся вашей безопасности при пользовании нашим приложением.",
+    "We collect anonymous": "Мы собираем анонимные ",
+    "app usage data": "данные об использовании приложения ",
+    "to make the VPN Line experience even better.":
+        ", чтобы сделать работу VPN Line еще лучше. ",
+    "I accept VPN Line's": "Я принимаю ",
+    "licence agreement": "лицензионное соглашение ",
+    "and": "и",
+    "privacy policy.": "политику конфиденциальности ",
+    "VPN Line": "VPN Line. ",
+    "Unsubscribe": "Отменить подписку"
   };
 
   static const Map<String, Map<String, dynamic>> mapLocales = {
-    "ru": ru,
+    // "ru": ru,
     "en": en,
     "es": es,
-    "zh": cn,
+    "zh": zh,
     "de": de,
   };
 }

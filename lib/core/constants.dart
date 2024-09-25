@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
@@ -9,6 +10,11 @@ import 'package:vpn/translations/locate_keys.g.dart';
 
 // const BASE_URL = 'https://vp-line.aysec.org/ios.php';
 const BASE_URL = 'https://app.candodream.com/ios.php';
+
+const verifyReceiptUrl = kDebugMode
+    ? 'https://sandbox.itunes.apple.com/verifyReceipt'
+    : "https://buy.itunes.apple.com/verifyReceipt";
+
 const termServiceUrl = 'https://app.candodream.com/terms.php';
 const policyUrl = 'https://app.candodream.com/privacy.php';
 
@@ -94,7 +100,7 @@ String getlocaleName() {
   final localeStr = Platform.localeName;
   final loc = localeStr.split('_')[0];
   if (CodegenLoader.mapLocales.containsKey(loc)) {
-    return loc;
+    return loc == "zh" ? "cn" : loc;
   } else {
     return "en";
   }

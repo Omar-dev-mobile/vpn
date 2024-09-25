@@ -63,4 +63,61 @@ abstract class LocaleKeys {
   static const enterAValidEmailAddress = 'Enter a valid email address';
   static const VPNLineQuestion = 'VPN Line Question';
   static const day = 'day';
+  static const waitingForAPurchase = 'Waiting for a purchase';
+  static const startSubscription = 'Start Subscription';
+  static const refundPolicy = 'Refund Policy';
+  static const highSpeed = 'High speed';
+  static const worldwideCoverageGlobalServerNetwork =
+      'Worldwide coverage, global Server Network';
+  static const youCanManageAndAancelSubscription =
+      'You can manage and cancel your Subscription by going to your iTunes and App Store.';
+  static const yourPrivacyTopPriority =
+      'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone';
+
+  static const openWorld = 'Open world';
+  static const trafic = 'Trafic';
+  static const moneyBack = 'Money back';
+  static const allDevices = 'All devices';
+  static const VPNLineSubscription = 'VPN Line Subscription';
+
+  static const AutoRenewal =
+      "Auto-renewal Plans for a week, a month or three months.";
+  static const paymentWillBeCharged =
+      "A payment will be charged to your iTunes Account at confirmation of your purchase.";
+  static const subscriptionWillAutomatically =
+      "Your subscription will automatically renew unless it is canceled at least 24 hours before the end of the current period.";
+  static const accountWillBeCharged =
+      "Your account will be charged for the renewal within 24 hours prior to the end of the current period.";
+  static const privacyScreenTitle = "Data and Privacy";
+  static const privacyScreenText =
+      "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.";
+  static const collectData = "We collect anonymous";
+  static const appUsageData = "app usage data";
+  static const makeExperienceBetter =
+      "to make the VPN Line experience even better.";
+  static const accept = "I accept VPN Line's";
+  static const licenceAgreement = "licence agreement";
+  static const and = "and";
+  static const privacyPolicy2 = "privacy policy.";
+  static const vpnLine = "VPN Line";
+  static const appUsage1 = "app usage 1";
+  static const appUsage2 = "app usage 2";
+  static const appUsage3 = "app usage 3";
+  static const appUsage4 = "app usage 4";
+  static const unsubscribe = "Unsubscribe";
+  static const deleteAccount = "Delete Account";
+  static const areYouSureYouWantToDeleteYourAccount =
+      'Are you sure you want to delete your account';
+  static const youMayPurchaseAutoRenewingsubscriptionThroughInAppPurchase =
+      'You may purchase an auto-renewing subscription through an In-App Purchase';
+  static const autoRenewableSubscription = 'Auto-renewable subscription';
+  static const week1MonthAnd3MonthDurations =
+      '1 week, 1 month and 3 month durations';
+  static const yourSubscriptionWillBeChargedToYourITunesAccountAtConfirmationOfPurchase =
+      'Your subscription will be charged to your iTunes account at confirmation of purchase';
+  static const currentSubscriptionMayNotBeCancelledDuringTheActiveSubscriptionPeriod =
+      'Current subscription may not be cancelled during the active subscription period';
+  static const rememberTheChoice = 'Remember the choice';
+  static const iAgree = 'I agree';
+  static const iDisagree = 'I disagree';
 }

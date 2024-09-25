@@ -8,7 +8,7 @@ import Foundation
     
     private let EVENT_CHANNEL = "vpn_manager_event"
     private let CHANNEL: String = "vpn_manager"
-    private var streamHandler: VPLibDDD?
+    private var streamHandler: VPNManager?
     
     override func application(
         _ application: UIApplication,
@@ -31,6 +31,23 @@ import Foundation
     }
         setUpMethodChannel()
         setUpEventChannel()
+
+         let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
+    let testFlightChannel = FlutterMethodChannel(name: "app/testflight",
+                                                  binaryMessenger: controller.binaryMessenger)
+
+    testFlightChannel.setMethodCallHandler({
+      (call: FlutterMethodCall, result: @escaping FlutterResult) -> Void in
+      if (call.method == "isTestFlight") {
+        if let receiptUrl = Bundle.main.appStoreReceiptURL {
+          result(receiptUrl.lastPathComponent == "sandboxReceipt")
+        } else {
+          result(false)
+        }
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    })
         
         
         GeneratedPluginRegistrant.register(with: self)
@@ -44,9 +61,9 @@ import Foundation
         let flutterViewController: FlutterViewController = window?.rootViewController as! FlutterViewController
         let vpnChannel = FlutterMethodChannel(name: CHANNEL, binaryMessenger: flutterViewController.binaryMessenger)
         if (self.streamHandler == nil) {
-            self.streamHandler = VPLibDDD()
+            self.streamHandler = VPNManager()
         }
-//        let vpnManager = VPLibDDD()
+//        let vpnManager = VPNManager()
         vpnChannel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
             self.streamHandler?.handle(call, result: result)
         }
@@ -60,13 +77,10 @@ import Foundation
         let eventChannel = FlutterEventChannel(name: EVENT_CHANNEL, binaryMessenger: controller.binaryMessenger)
         
         if (self.streamHandler == nil) {
-            self.streamHandler = VPLibDDD()
+            self.streamHandler = VPNManager()
         }
         eventChannel.setStreamHandler((self.streamHandler as! FlutterStreamHandler & NSObjectProtocol))
     }
-    
-
-    
     
 }
 

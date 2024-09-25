@@ -68,6 +68,18 @@
 			<string>TLSv1.2</string>
 		</dict>
 	</dict>
+
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>AppIcon</string>
+			</array>
+		</dict>
+	</dict>
+
 	
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
