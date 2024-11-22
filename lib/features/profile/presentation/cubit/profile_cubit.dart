@@ -19,12 +19,9 @@ class ProfileCubit extends Cubit<ProfileState> {
     workStatus = getSecurityDataAlgithms?.workStatus ?? '';
     final res = await profileUseCases.getProfile();
     emit(res.fold((l) => ProfileErrorState(l), (r) {
-      print("userApiKey:${r.workStatus?.userInfo?.userApiKey}");
       if (r.workStatus?.userInfo?.userApiKey?.isEmpty ?? true) {
-        // Пользователь не авторизован, показываем экран входа
         return ProfileNotAuthorizedState();
       } else {
-        // Пользователь авторизован, загружаем профиль
         return ProfileSuccessState(r);
       }
     }));

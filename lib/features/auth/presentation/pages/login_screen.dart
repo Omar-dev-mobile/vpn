@@ -37,57 +37,11 @@ class LoginScreen extends StatelessWidget {
               },
               builder: (context, state) {
                 return Column(
-
                   children: [
-                    Spacer(),
-                    Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Icon(
-                              Icons.check,
-                              color: kGreenColor,
-                              size: 100,
-                            ),
-                            CommonTextWidget(
-                              text: LocaleKeys.unlockSocialMediaAnywhereAnywhere
-                                  .tr(),
-                              size: 35,
-                              color:
-                                  Theme.of(context).textTheme.headlineMedium!.color,
-                              height: 1.2,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    const Spacer(),
+                    _buildAuthContent(context, state),
                     screenUtil.setHeight(20).ph,
-                    RoundedButton(
-                      onPressed: () {
-                        context.read<AuthBloc>().add(LoginWithAppleAuthEvent());
-                      },
-                      width: screenUtil.setWidth(300),
-                      name: LocaleKeys.signInWithApple.tr(),
-                      widget: SvgPicture.asset(Assets.iconApple),
-                      color: kCharcoal,
-                      colorRounded: kCharcoal,
-                      isLoading: state is AuthLoadingAppleState,
-                    )
-                
-                    // screenUtil.setHeight(20).ph,
-                    // CustomButton(
-                    //   title: LocaleKeys.signInWithGoogle.tr(),
-                    //   color: kPrimary,
-                    //   radius: 64,
-                    //   isLoading: state is AuthLoadingGoogleState,
-                    //   onPressed: () {
-                    //     AuthBloc.get(context).add(LoginWithGoogleAuthEvent());
-                    //   },
-                    //   widget: SvgPicture.asset(Assets.iconGoogle),
-                    // ),
+                    _buildAppleSignInButton(context, state),
                   ],
                 );
               },
@@ -97,4 +51,41 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+
+  Widget _buildAppleSignInButton(BuildContext context, AuthState state) {
+    return RoundedButton(
+      onPressed: () {
+        context.read<AuthBloc>().add(LoginWithAppleAuthEvent());
+      },
+      width: screenUtil.setWidth(300),
+      name: LocaleKeys.signInWithApple.tr(),
+      widget: SvgPicture.asset(Assets.iconApple),
+      color: kCharcoal,
+      colorRounded: kCharcoal,
+      isLoading: state is AuthLoadingAppleState,
+    );
+  }
+
+  Widget _buildAuthContent(BuildContext context, AuthState state) => Align(
+        alignment: Alignment.bottomLeft,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(
+                Icons.check,
+                color: kGreenColor,
+                size: 100,
+              ),
+              CommonTextWidget(
+                text: LocaleKeys.unlockSocialMediaAnywhereAnywhere.tr(),
+                size: 35,
+                color: Theme.of(context).textTheme.headlineMedium!.color,
+                height: 1.2,
+              ),
+            ],
+          ),
+        ),
+      );
 }

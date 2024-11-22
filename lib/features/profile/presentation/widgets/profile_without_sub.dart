@@ -26,76 +26,7 @@ class ProfileWithoutSub extends StatelessWidget {
     var profileCubit = ProfileCubit.get(context);
     return Column(
       children: [
-        Container(
-          height: screenUtil.screenHeight * 0.85,
-          decoration: ShapeDecoration(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20),
-                bottomRight: Radius.circular(20),
-              ),
-            ),
-          ),
-          child: Column(
-            children: [
-              const AppBarHeader(
-                isClose: true,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // (screenUtil.screenHeight * 0.1).ph,
-                      14.ph,
-                      ProfileContainer(
-                        icon: SvgPicture.asset(Assets.key2),
-                        title: LocaleKeys.yourKey.tr(),
-                        text: profileCubit.workStatus,
-                        trailingIcon: Icons.copy,
-                        textSize: 35,
-                      ),
-                      40.ph,
-                      ProfileContainer(
-                        icon: SvgPicture.asset(Assets.time2),
-                        text: DateUtilsFormat.convertDateTime(DateTime.tryParse(
-                            profileModel.workStatus?.userInfo?.dateLastLogin ??
-                                "")),
-                        title: LocaleKeys.lastLogin.tr(),
-                        textSize: 18,
-                      ),
-                      20.ph,
-                      CommonTextWidget(
-                        text: LocaleKeys
-                            .purchaseASubscriptionForContinuedAccessAndFunctionality
-                            .tr(),
-                        size: 15,
-                        fontWeight: FontWeight.w400,
-                        color: kShadeOfGray,
-                        textAlign: TextAlign.center,
-                      ),
-                      20.ph,
-                    ],
-                  ),
-                ),
-              ),
-              RoundedButton(
-                name: LocaleKeys.viewPlans.tr(),
-                color: kSendButton,
-                colorRounded: kSendButton,
-                width: screenUtil.setWidth(280),
-                textColor: kWhite,
-                onPressed: () {
-                  TarifCubit.get(context).getTrials();
-                  context.pushRoute(const TarifRoute());
-                },
-              ),
-            ],
-          ),
-        ),
+        _buildProfileContent(context, profileCubit),
         const Spacer(),
         if (!(profileModel.workStatus?.userInfo?.userApiKey?.isEmpty ?? true))
           const Padding(
@@ -104,6 +35,87 @@ class ProfileWithoutSub extends StatelessWidget {
           ),
         const Spacer(),
       ],
+    );
+  }
+
+  Widget _buildProfileContent(BuildContext context, ProfileCubit profileCubit) {
+    return Container(
+      height: screenUtil.screenHeight * 0.85,
+      decoration: _buildContainerDecoration(context),
+      child: Column(
+        children: [
+          const AppBarHeader(isClose: true),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: _buildProfileDetails(context, profileCubit),
+            ),
+          ),
+          _buildViewPlansButton(context),
+        ],
+      ),
+    );
+  }
+
+  ShapeDecoration _buildContainerDecoration(BuildContext context) {
+    return ShapeDecoration(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildProfileDetails(BuildContext context, ProfileCubit profileCubit) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        14.ph,
+        ProfileContainer(
+          icon: SvgPicture.asset(Assets.key2),
+          title: LocaleKeys.yourKey.tr(),
+          text: profileCubit.workStatus,
+          trailingIcon: Icons.copy,
+          textSize: 35,
+        ),
+        40.ph,
+        ProfileContainer(
+          icon: SvgPicture.asset(Assets.time2),
+          text: DateUtilsFormat.convertDateTime(DateTime.tryParse(
+              profileModel.workStatus?.userInfo?.dateLastLogin ?? "")),
+          title: LocaleKeys.lastLogin.tr(),
+          textSize: 18,
+        ),
+        20.ph,
+        CommonTextWidget(
+          text: LocaleKeys
+              .purchaseASubscriptionForContinuedAccessAndFunctionality
+              .tr(),
+          size: 15,
+          fontWeight: FontWeight.w400,
+          color: kShadeOfGray,
+          textAlign: TextAlign.center,
+        ),
+        20.ph,
+      ],
+    );
+  }
+
+  Widget _buildViewPlansButton(BuildContext context) {
+    return RoundedButton(
+      name: LocaleKeys.viewPlans.tr(),
+      color: kSendButton,
+      colorRounded: kSendButton,
+      width: screenUtil.setWidth(280),
+      textColor: kWhite,
+      onPressed: () {
+        TarifCubit.get(context).getTrials();
+        context.pushRoute(const TarifRoute());
+      },
     );
   }
 }

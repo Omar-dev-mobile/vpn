@@ -288,7 +288,7 @@ public class VPNManager: NSObject, FlutterStreamHandler {
     }
     
 private enum VPNConstants {
-    static let serviceName = "VPN Line"
+    static let serviceName = "VPN Candodream"
     static let sharedSecretKey = "SHARED"
     static let passwordKey = "VPN_PASSWORD"
     static let dateFormat = "yyyy-MM-dd HH:mm:ss"

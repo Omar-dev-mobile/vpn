@@ -41,9 +41,9 @@ class CodegenLoader extends AssetLoader {
     "Trafic": "Trafic",
     "Money back": "Money back",
     "All devices": "All devices",
-    "VPN Line Subscription": "VPN Line Subscription",
+    "VPN Candodream Subscription": "VPN Candodream Subscription",
     "High speed": "High speed",
-    "VPN Line Question": "VPN Line Question",
+    "VPN Candodream Question": "VPN Candodream Question",
     "Buy": "Buy",
     "Your Key": "Your Key",
     "Last Login": "Last Login",
@@ -90,8 +90,8 @@ class CodegenLoader extends AssetLoader {
     "Version App": "Version App",
     "Contact us": "Contact us",
     "Description": "Description",
-    "Line VPN protects your online":
-        "Line VPN protects your online privacy with state-of-the-art encryption. Whether on public Wi-Fi or accessing sensitive data, our global servers ensure fast, reliable, and anonymous browsing, bypassing geo-blocks for unrestricted internet access.",
+    "VPN Candodream protects your online":
+        "VPN Candodream protects your online privacy with state-of-the-art encryption. Whether on public Wi-Fi or accessing sensitive data, our global servers ensure fast, reliable, and anonymous browsing, bypassing geo-blocks for unrestricted internet access.",
     "Terms of Service": "Terms of Service",
     "Privacy Policy": "Privacy Policy",
     "Ask a question": "Ask a question",
@@ -107,17 +107,17 @@ class CodegenLoader extends AssetLoader {
     "Pay": "Pay",
     "Waiting for a purchase": "Waiting for a purchase",
     "Data and Privacy": "Data and Privacy",
-    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
-        "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.",
+    "Welcome to VPN Candodream. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Welcome to VPN Candodream. For your convenience, we provide here some information regarding your safety when using our application.",
     "We collect anonymous": "We collect anonymous ",
     "app usage data": "app usage data ",
-    "to make the VPN Line experience even better. ":
-        "to make the VPN Line experience even better.",
-    "I accept VPN Line's": "I accept VPN Line's ",
+    "to make the VPN Candodream experience even better. ":
+        "to make the VPN Candodream experience even better.",
+    "I accept VPN Candodream's": "I accept VPN Candodream's ",
     "licence agreement": "licence agreement ",
     "and": "and ",
     "privacy policy.": "privacy policy. ",
-    "VPN Line": "",
+    "VPN Candodream": "",
     "app usage 1":
         "We keep your User email, registration date. They are used for signing in and to keep records of the accounts set to auto-renew.",
     "app usage 2":
@@ -158,7 +158,7 @@ class CodegenLoader extends AssetLoader {
     "Trafic": "Sin límites",
     "Money back": "reembolso",
     "All devices": "todos los dispositivos",
-    "VPN Line Subscription": "VPN Line suscripcion",
+    "VPN Candodream Subscription": "VPN Candodream suscripcion",
     "Worldwide coverage, global Server Network":
         "Servidores y ubicaciones\nen todo el mundo",
     "High speed": "Alta velocidad",
@@ -170,7 +170,7 @@ class CodegenLoader extends AssetLoader {
         "Sus datos confidenciales están totalmente protegidos y no se comparten con terceros. Esta retroalimentación no es visible para nadie.",
     "Enter a valid email address":
         "Introduzca una dirección de correo electrónico válida",
-    "VPN Line Question": "VPN Line Pregunta",
+    "VPN Candodream Question": "VPN Candodream Pregunta",
     "Buy": "Comprar",
     "Your Key": "Su Clave",
     "Success": "Con éxito",
@@ -219,8 +219,8 @@ class CodegenLoader extends AssetLoader {
     "Version App": "App Versión",
     "Contact us": "Contáctenos",
     "Description": "Descripción",
-    "Line VPN protects your online":
-        "Line VPN protege su privacidad en línea con cifrado de última generación. Ya sea en Wi-Fi público o protegiendo los datos confidenciales, nuestros servidores globales garantizan una navegación rápida, confiable y anónima, omitiendo los geogrupos para un acceso a Internet sin restricciones",
+    "VPN Candodream protects your online":
+        "VPN Candodream protege su privacidad en línea con cifrado de última generación. Ya sea en Wi-Fi público o protegiendo los datos confidenciales, nuestros servidores globales garantizan una navegación rápida, confiable y anónima, omitiendo los geogrupos para un acceso a Internet sin restricciones",
     "Terms of Service": "Términos y condiciones",
     "Privacy Policy": "Política de privacidad",
     "Ask a question": "Haz una consulta",
@@ -235,17 +235,17 @@ class CodegenLoader extends AssetLoader {
     "Week": "Semana",
     "Waiting for a purchase": "Esperando la compra",
     "Data and Privacy": "Datos y confidencialidad",
-    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
-        "Bienvenido a VPN Line. Para su comodidad proporcionamos aquí una parte de información que se refiere a su seguridad durante el uso de nuestra aplicación.",
+    "Welcome to VPN Candodream. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Bienvenido a VPN Candodream. Para su comodidad proporcionamos aquí una parte de información que se refiere a su seguridad durante el uso de nuestra aplicación.",
     "We collect anonymous": "Recogemos los datos anónimos ",
     "app usage data": "de uso de la aplicación ",
-    "to make the VPN Line experience even better. ":
-        "para hacer el trabajo de VPN Line aun mejor.",
-    "I accept VPN Line's": "Acepto el ",
+    "to make the VPN Candodream experience even better. ":
+        "para hacer el trabajo de VPN Candodream aun mejor.",
+    "I accept VPN Candodream's": "Acepto el ",
     "licence agreement": "contrato de licencia ",
     "and": "y ",
     "privacy policy.": "la política de confidencialidad ",
-    "VPN Line": "de VPN Line. ",
+    "VPN Candodream": "de VPN Candodream. ",
     "app usage 1":
         "Guardamos su email de Usuario, la fecha de registro. Se usan para entrar en el sistema y gestionar el registro de inscripciones ajustadas para el prolongamiento autom√°tico.",
     "app usage 2":
@@ -285,7 +285,7 @@ class CodegenLoader extends AssetLoader {
     "Trafic": "無限",
     "Money back": "退款",
     "All devices": "所有設備",
-    "VPN Line Subscription": "VPN Line 訂閱",
+    "VPN Candodream Subscription": "VPN Candodream 訂閱",
     "Worldwide coverage, global Server Network": "全球各地的服\n务器和位置",
     "High speed": "高速的移动速度",
     "Refund Policy": "已提供退款",
@@ -295,7 +295,7 @@ class CodegenLoader extends AssetLoader {
     'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
         "您的机密数据受到充分保护，不与第三方共享。这种反馈对任何人都不可见。",
     "Enter a valid email address": "輸入一個有效的電子郵件地址",
-    "VPN Line Question": "VPN Line 問題",
+    "VPN Candodream Question": "VPN Candodream 問題",
     "Buy": "购买",
     "Your Key": "你的钥匙",
     "Last Login": "上次登录",
@@ -339,8 +339,8 @@ class CodegenLoader extends AssetLoader {
     "Version App": "版本 应用程序",
     "Contact us": "与我们联系",
     "Description": "描述",
-    "Line VPN protects your online":
-        "Line VPN通过最先进的加密保护您的在线隐私。无论是在公共Wi-Fi上还是在保护敏感数据上,我们的全球服务器都能确保快速、可靠和匿名浏览,从而绕过地理块进行不受限制的互联网访问",
+    "VPN Candodream protects your online":
+        "VPN Candodream通过最先进的加密保护您的在线隐私。无论是在公共Wi-Fi上还是在保护敏感数据上,我们的全球服务器都能确保快速、可靠和匿名浏览,从而绕过地理块进行不受限制的互联网访问",
     "Terms of Service": "服务条款",
     "Privacy Policy": "私隐政策",
     "Ask a question": "问一个问题",
@@ -355,16 +355,17 @@ class CodegenLoader extends AssetLoader {
     "Week": "周",
     "Waiting for a purchase": "等待购买",
     "Data and Privacy": "数据和隐私",
-    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
-        "欢迎访问 VPN Line。为您的方便，我们在此提供一些在使用应用程序期间与您的安全有关的信息。",
+    "Welcome to VPN Candodream. For your convenience, we provide here some information regarding your safety when using our application.":
+        "欢迎访问 VPN Candodream。为您的方便，我们在此提供一些在使用应用程序期间与您的安全有关的信息。",
     "We collect anonymous": "我们收集匿名",
     "app usage data": "应用程序使用数据",
-    "to make the VPN Line experience even better.": "，以便让 VPN Line 体验更好。",
-    "I accept VPN Line's": "我接受 VPN Line",
+    "to make the VPN Candodream experience even better.":
+        "，以便让 VPN Candodream 体验更好。",
+    "I accept VPN Candodream's": "我接受 VPN Candodream",
     "licence agreement": "的许可协议",
     "and": "和",
     "privacy policy.": "隐私政策。",
-    "VPN Line": "",
+    "VPN Candodream": "",
     "app usage 1":
         "жИСдїђдњЭзХЩжВ®зЪДзФ®жИЈзФµе≠РйВЃдїґеТМж≥®еЖМжЧ•жЬЯгАВеЃГдїђзФ®дЇОзЩїељХеТМдњЭе≠ШиЃЊзљЃдЄЇиЗ™еК®жЫіжЦ∞зЪДиі¶жИЈиЃ∞ељХгАВ",
     "app usage 2":
@@ -403,7 +404,7 @@ class CodegenLoader extends AssetLoader {
     "Trafic": "unbegrenzt",
     "Money back": "Geld-zurück",
     "All devices": "alle Geräte",
-    "VPN Line Subscription": "VPN Line Abo",
+    "VPN Candodream Subscription": "VPN Candodream Abo",
     "Worldwide coverage, global Server Network":
         "Weltweit Servers\nund Abdeckung",
     "High speed": "Hohe\nGeschwindigkeit",
@@ -414,7 +415,7 @@ class CodegenLoader extends AssetLoader {
     'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
         "Ihre vertraulichen Daten sind vollständig geschützt und werden nicht an Dritte weitergegeben. Dieses Feedback ist für niemanden sichtbar.",
     "Enter a valid email address": "Geben Sie eine gültige email an",
-    "VPN Line Question": "VPN Line Frage",
+    "VPN Candodream Question": "VPN Candodream Frage",
     "Buy": "Kaufen",
     "Your Key": "Ihr Schlüssel",
     "Success": "erfolgreich",
@@ -464,8 +465,8 @@ class CodegenLoader extends AssetLoader {
     "Version App": "App Version",
     "Contact us": "Kontaktieren Sie uns",
     "Description": "Beschreibung",
-    "Line VPN protects your online":
-        "Line VPN schützt Ihre Online-Privatsphäre mit modernster Verschlüsselung. Ob beim öffentlichen Wi-Fi oder beim Schutz sensibler Daten - unsere globalen Server sorgen für schnelles, zuverlässiges und anonymes Surfen und umgehen Geoblöcke für einen uneingeschränkten Internetzugang.",
+    "VPN Candodream protects your online":
+        "VPN Candodream schützt Ihre Online-Privatsphäre mit modernster Verschlüsselung. Ob beim öffentlichen Wi-Fi oder beim Schutz sensibler Daten - unsere globalen Server sorgen für schnelles, zuverlässiges und anonymes Surfen und umgehen Geoblöcke für einen uneingeschränkten Internetzugang.",
     "Terms of Service": "Nutzungsbedingungen",
     "Privacy Policy": "Datenschutzerklärung",
     "Ask a question": "Stellen Sie eine Frage",
@@ -481,17 +482,17 @@ class CodegenLoader extends AssetLoader {
     "Pay": "Bezahlen",
     "Waiting for a purchase": "Warten auf den Kauf",
     "Data and Privacy": "Daten und Datenschutz",
-    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
-        "Willkommen bei VPN Line. Zur Benutzerfreundlichkeit stellen wir Ihnen hier einige Informationen zu Ihrer Sicherheit bei der Nutzung unserer Anwendung zur Verfugung.",
+    "Welcome to VPN Candodream. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Willkommen bei VPN Candodream. Zur Benutzerfreundlichkeit stellen wir Ihnen hier einige Informationen zu Ihrer Sicherheit bei der Nutzung unserer Anwendung zur Verfugung.",
     "We collect anonymous": "Wir erheben anonyme ",
     "app usage data": "Daten uber die Nutzung der Anwendung ",
-    "to make the VPN Line experience even better. ":
-        "um die Arbeit von VPN Line zu verbessern. ",
-    "I accept VPN Line's": "Ich stimme dem ",
+    "to make the VPN Candodream experience even better. ":
+        "um die Arbeit von VPN Candodream zu verbessern. ",
+    "I accept VPN Candodream's": "Ich stimme dem ",
     "licence agreement": "Lizenzvertrag ",
     "and": "und den ",
     "privacy policy.": "Datenschutzrichtlinien ",
-    "VPN Line": "von VPN Line zu. ",
+    "VPN Candodream": "von VPN Candodream zu. ",
     "app usage 1":
         "Wir speichern Ihre Benutzer-E-Mail und Ihr Registrierungsdatum. Diese Daten werden zum Anmelden und zum Aufzeichnen der Konten verwendet, die auf automatische Aktualisierung eingestellt sind.",
     "app usage 2":
@@ -530,7 +531,7 @@ class CodegenLoader extends AssetLoader {
     "Trafic": "Безлимитный трафик",
     "Money back": "Гарантия возврата",
     "All devices": "Все устройства",
-    "VPN Line Subscription": "VPN Line Subscription",
+    "VPN Candodream Subscription": "VPN Candodream Subscription",
     "Worldwide coverage, global Server Network":
         "Серверы и локации\nпо всему миру",
     "High speed": "Высокая скорость",
@@ -541,7 +542,7 @@ class CodegenLoader extends AssetLoader {
     'Your privacy is our top priority. No third party can get access to your personal and sensitive information. It is not visible to anyone':
         "Ваша конфиденциальная информация является нашим приоритетом и не передается третьим лицам. Эта обратная связь никому не видна.",
     "Enter a valid email address": "Введите корректный email адрес",
-    "VPN Line Question": "VPN Line вопрос",
+    "VPN Candodream Question": "VPN Candodream вопрос",
     "Buy": "Купить",
     "Your Key": "Ваш ключ",
     "Last Login": "Последний вход",
@@ -558,7 +559,7 @@ class CodegenLoader extends AssetLoader {
     "Sign in": "Войти",
     "Activate Plan": "Активировать тариф",
     "Unlock social media Anywhere Anytime":
-        "Безопасность и свобода в одном приложении - VPN Line для вашей защиты!",
+        "Безопасность и свобода в одном приложении - VPN Candodream для вашей защиты!",
     "Sign in with Apple": "Войти с помощью Apple",
     "Sign in with Google": "Войти с помощью Google",
     "An unexpected error occurred": "Произошла непредвиденная ошибка",
@@ -589,8 +590,8 @@ class CodegenLoader extends AssetLoader {
     "Version App": "Версия",
     "Contact us": "Связаться с нами",
     "Description": "Описание",
-    "Line VPN protects your online":
-        "Line VPN использует современные методы шифрования для защиты конфиденциальности пользователей в Интернете: от пользования публичными Wi Fi сетями до полной защиты персональных данных. Line VPN обеспечивает надежный, быстрый, анонимный и неограниченный доступ к Интернету в обход блокировок.",
+    "VPN Candodream protects your online":
+        "VPN Candodream использует современные методы шифрования для защиты конфиденциальности пользователей в Интернете: от пользования публичными Wi Fi сетями до полной защиты персональных данных. VPN Candodream обеспечивает надежный, быстрый, анонимный и неограниченный доступ к Интернету в обход блокировок.",
     "Terms of Service": "Пользовательское\nсоглашение",
     "Privacy Policy": "Политика\nконфиденциальности",
     "Ask a question": "Задайте вопрос",
@@ -609,17 +610,17 @@ class CodegenLoader extends AssetLoader {
         "При попытке платежа возникла ошибка",
     "Waiting for a purchase": "Ожидание покупки",
     "Data and Privacy": "Данные и конфиденциальность,",
-    "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.":
-        "Добро пожаловать в VPN Line. Для вашего удобства мы предоставляем здесь часть информации, касающейся вашей безопасности при пользовании нашим приложением.",
+    "Welcome to VPN Candodream. For your convenience, we provide here some information regarding your safety when using our application.":
+        "Добро пожаловать в VPN Candodream. Для вашего удобства мы предоставляем здесь часть информации, касающейся вашей безопасности при пользовании нашим приложением.",
     "We collect anonymous": "Мы собираем анонимные ",
     "app usage data": "данные об использовании приложения ",
-    "to make the VPN Line experience even better.":
-        ", чтобы сделать работу VPN Line еще лучше. ",
-    "I accept VPN Line's": "Я принимаю ",
+    "to make the VPN Candodream experience even better.":
+        ", чтобы сделать работу VPN Candodream еще лучше. ",
+    "I accept VPN Candodream's": "Я принимаю ",
     "licence agreement": "лицензионное соглашение ",
     "and": "и",
     "privacy policy.": "политику конфиденциальности ",
-    "VPN Line": "VPN Line. ",
+    "VPN Candodream": "VPN Candodream. ",
     "Unsubscribe": "Отменить подписку"
   };
 

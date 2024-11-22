@@ -84,6 +84,11 @@ android {
             //         }).toArray()
             //     }
             // }
+
+            minifyEnabled true // Enable Proguard here
+        shrinkResources true
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+   
         }
     }
 }

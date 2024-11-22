@@ -14,8 +14,7 @@ import 'package:vpn/translations/locate_keys.g.dart';
 import '../../../../core/constants.dart';
 import '../../../../core/customs/app_bar_header.dart';
 import '../../../../core/customs/drawer_widget.dart';
-import 'package:vpn/core/customs/common_text_widget.dart';
-
+import '../../../../core/customs/common_text_widget.dart';
 import '../../../../core/theme/theme.dart';
 
 @RoutePage()
@@ -88,7 +87,6 @@ class AboutScreen extends StatelessWidget {
                             'subject': LocaleKeys.VPNLineQuestion.tr(),
                           }),
                         );
-
                         await launchUrl(emailLaunchUri);
                       },
                       icon: SvgPicture.asset(Assets.mail, fit: BoxFit.none)),
@@ -155,5 +153,12 @@ class AboutScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((MapEntry<String, String> e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
   }
 }

@@ -16,44 +16,55 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mainCubit = MainCubit.get(context);
     return Scaffold(
       drawer: const DrawerWidget(),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, homeState) {
           return BlocBuilder<MainCubit, MainState>(
             builder: (context, state) {
-              if (state is ErrorGetDataServiceAccState) {
-                print("objectobjectobject$homeState");
-                if (homeState is SuccessInitialStatusHomeState) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (LocaleKeys.itSeemsYoureNotConnectedToTheInternet.tr() ==
-                    state.error) {
-                  return const HomeScreen();
-                }
-                return Column(
-                  children: [
-                    const AppBarHeader(),
-                    Expanded(
-                      child: CustomError(
-                        error: state.error,
-                        onPressed: () {
-                          MainCubit.get(context).getDataServiceAcc();
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              } else if (state is SuccessGetDataServiceAccState) {
-                return mainCubit.getWidgetMain(
-                    state.dataServiceAccModel, context);
-              }
-              return const Center(child: CircularProgressIndicator());
+              return _buildContent(context, state, homeState);
             },
           );
         },
       ),
+    );
+  }
+
+  Widget _buildContent(
+      BuildContext context, MainState state, HomeState homeState) {
+    final mainCubit = MainCubit.get(context);
+
+    if (state is ErrorGetDataServiceAccState) {
+      return _buildErrorState(context, state, homeState);
+    } else if (state is SuccessGetDataServiceAccState) {
+      return mainCubit.getWidgetMain(state.dataServiceAccModel, context);
+    } else {
+      return const Center(child: CircularProgressIndicator());
+    }
+  }
+
+  Widget _buildErrorState(BuildContext context,
+      ErrorGetDataServiceAccState state, HomeState homeState) {
+    if (homeState is SuccessInitialStatusHomeState) {
+      return const Center(child: CircularProgressIndicator());
+    }
+
+    if (state.error == LocaleKeys.itSeemsYoureNotConnectedToTheInternet.tr()) {
+      return const HomeScreen();
+    }
+
+    return Column(
+      children: [
+        const AppBarHeader(),
+        Expanded(
+          child: CustomError(
+            error: state.error,
+            onPressed: () {
+              MainCubit.get(context).getDataServiceAcc();
+            },
+          ),
+        ),
+      ],
     );
   }
 }

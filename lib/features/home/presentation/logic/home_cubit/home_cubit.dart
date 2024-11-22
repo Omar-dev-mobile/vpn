@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,20 +11,36 @@ import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/features/settings/presentation/pages/app_usage_screen.dart';
 import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
+
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial()) {
+    _initialize();
+  }
+
+  final VPNIOSManager _vpniosManager = locator<VPNIOSManager>();
+  final SystemInfoService systemInfoService = SystemInfoService();
+  final HandlerErrorNative _handlerErrorNative = locator<HandlerErrorNative>();
+  StreamSubscription<dynamic>? _vpnStatusSubscription;
+  bool inProgress = false;
+
+  static HomeCubit get(context) => BlocProvider.of(context);
+
+  void _initialize() {
     emit(LoadingInitialStatusHomeState());
-    getInitStatus();
+    _getInitStatus();
+    _subscribeToVpnStatus();
+    emit(SuccessInitialStatusHomeState());
+  }
+
+  void _subscribeToVpnStatus() {
     _vpnStatusSubscription =
-        locator<VPNIOSManager>().vpnStatusStream().listen((event) async {
+        _vpniosManager.vpnStatusStream().listen((event) async {
       emit(LoadingListenVpnState());
-      print("event ${event.status}");
       systemInfoService.connectionStatus = event;
       emit(SuccessListenVpnState());
     });
-    emit(SuccessInitialStatusHomeState());
   }
 
   @override
@@ -34,11 +49,6 @@ class HomeCubit extends Cubit<HomeState> {
     return super.close();
   }
 
-  static HomeCubit get(context) => BlocProvider.of(context);
-  VPNIOSManager vpniosManager = locator<VPNIOSManager>();
-  SystemInfoService systemInfoService = SystemInfoService();
-  final HandlerErrorNative _handlerErrorNative = locator<HandlerErrorNative>();
-  StreamSubscription<dynamic>? _vpnStatusSubscription;
   ConnectionStatus get statusConnection =>
       systemInfoService.connectionStatus ?? emptyConnectionStatus;
 
@@ -47,9 +57,9 @@ class HomeCubit extends Cubit<HomeState> {
   bool get isStopped => statusConnection.status == StatusConnection.Stopped;
   bool get isConnecting =>
       statusConnection.status == StatusConnection.Connecting;
-  bool inProgress = false;
+
   String getStatusVpn() {
-    switch (systemInfoService.connectionStatus?.status) {
+    switch (statusConnection.status) {
       case StatusConnection.Online:
         return LocaleKeys.online.tr();
       case StatusConnection.Stopped:
@@ -61,7 +71,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future getVpnConnecting(context) async {
+  Future<void> getVpnConnecting(BuildContext context) async {
     bool? vpnChoice = await locator<CacheHelper>().getVpnAgreementChoice();
     if (vpnChoice == null || vpnChoice == false) {
       showAppUsageModal(context, confirmVpnConnecting);
@@ -70,53 +80,63 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  Future confirmVpnConnecting(context) async {
+  Future<void> confirmVpnConnecting(BuildContext context) async {
     emit(LoadingConnectVpnState());
     inProgress = true;
-    final res = await _handlerErrorNative.executeNativeHandleError(() async {
-      locator<VPNIOSManager>().configureVPN(
+
+    final result = await _handlerErrorNative.executeNativeHandleError(() async {
+      await _vpniosManager.configureVPN(
         username: systemInfoService.vpnInfo?.u ?? "",
         serverAddress: systemInfoService.vpnInfo?.s ?? "",
         sharedSecret: systemInfoService.vpnInfo?.k ?? "",
         password: systemInfoService.vpnInfo?.p ?? "",
       );
     });
-    await res.fold((l) => CustomSnackBar.badSnackBar(context, l), (r) => null);
+
+    await result.fold(
+      (failure) => CustomSnackBar.badSnackBar(context, failure),
+      (_) => null,
+    );
+
     emit(SuccessConnectVpnState());
-    // when completed status to connect
-    await Future.delayed(const Duration(seconds: 4)).then((value) {
-      inProgress = false;
-      emit(ProgressVpnHomeState());
-    });
+    await _simulateProgress();
   }
 
-  Future stopVpnConnecting(context, {bool showDialog = true}) async {
+  Future<void> stopVpnConnecting(BuildContext context,
+      {bool showDialog = true}) async {
     emit(LoadingStopVpnState());
     inProgress = true;
+
     await Future.delayed(const Duration(seconds: 2), () async {
-      final res = await _handlerErrorNative.executeNativeHandleError(() async {
-        await locator<VPNIOSManager>().stopTun();
+      final result =
+          await _handlerErrorNative.executeNativeHandleError(() async {
+        await _vpniosManager.stopTun();
       });
-      res.fold((l) {
-        CustomSnackBar.badSnackBar(context, l);
-      }, (r) {
-        if (showDialog) {
-          CustomSnackBar.goodSnackBar(
-              context, LocaleKeys.vPNHasBeenDisconnected.tr());
-        }
-      });
+
+      result.fold(
+        (failure) => CustomSnackBar.badSnackBar(context, failure),
+        (_) {
+          if (showDialog) {
+            CustomSnackBar.goodSnackBar(
+                context, LocaleKeys.vPNHasBeenDisconnected.tr());
+          }
+        },
+      );
     });
+
     emit(SuccessStoppedVpnState());
-    // when completed status to disconnect
-    await Future.delayed(const Duration(seconds: 4)).then((value) {
-      inProgress = false;
-      emit(ProgressVpnHomeState());
-    });
+    await _simulateProgress();
   }
 
-  getInitStatus() async {
+  Future<void> _getInitStatus() async {
     emit(LoadingListenVpnState());
-    systemInfoService.connectionStatus = await vpniosManager.getStatus();
+    systemInfoService.connectionStatus = await _vpniosManager.getStatus();
     emit(SuccessListenVpnState());
+  }
+
+  Future<void> _simulateProgress() async {
+    await Future.delayed(const Duration(seconds: 4));
+    inProgress = false;
+    emit(ProgressVpnHomeState());
   }
 }

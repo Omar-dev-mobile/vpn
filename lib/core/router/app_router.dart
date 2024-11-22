@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:vpn/features/auth/presentation/pages/login_screen.dart';
-import 'package:vpn/features/home/presentation/pages/activate_tarif_screen.dart';
 import 'package:vpn/features/home/presentation/pages/main_screen.dart';
 import 'package:vpn/features/profile/presentation/pages/profile_screen.dart';
 import 'package:vpn/features/select_country/presentation/pages/select_country_screen.dart';
@@ -21,6 +20,8 @@ part 'app_router.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
+        // AutoRoute(page: RegisterRoute.page, path: '/'),
+        // AutoRoute(page: SipCallRoute.page, path: '/'),
         AutoRoute(
           page: SplashRoute.page,
           path: '/',
@@ -61,6 +62,5 @@ class AppRouter extends _$AppRouter {
           path: '/',
         ),
         AutoRoute(page: AppUsageRoute.page, path: '/'),
-        AutoRoute(page: ActivateTarifRoute.page, path: '/')
       ];
 }

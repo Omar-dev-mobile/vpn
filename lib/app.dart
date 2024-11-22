@@ -47,7 +47,7 @@ class VpnApp extends StatelessWidget {
                 },
                 child: MaterialApp.router(
                   color: kBlack,
-                  title: 'VPN Line',
+                  title: 'VPN Candodream',
                   debugShowCheckedModeBanner: false,
                   builder: (context, child) {
                     return MediaQuery(

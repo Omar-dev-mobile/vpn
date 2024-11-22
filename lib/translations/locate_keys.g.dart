@@ -31,7 +31,7 @@ abstract class LocaleKeys {
   static const contactUs = 'Contact us';
   static const description = 'Description';
   static const lineVpnProtectsYourOnlinePrivacyWithStateOfTheArtEncryption =
-      "Line VPN protects your online";
+      "VPN Candodream protects your online";
   static const termsOfService = 'Terms of Service';
   static const privacyPolicy = 'Privacy Policy';
   static const askAQuestion = 'Ask a question';
@@ -61,7 +61,7 @@ abstract class LocaleKeys {
   static const errorOccurredPayment =
       'An error occurred when trying to make a payment';
   static const enterAValidEmailAddress = 'Enter a valid email address';
-  static const VPNLineQuestion = 'VPN Line Question';
+  static const VPNLineQuestion = 'VPN Candodream Question';
   static const day = 'day';
   static const waitingForAPurchase = 'Waiting for a purchase';
   static const startSubscription = 'Start Subscription';
@@ -78,7 +78,7 @@ abstract class LocaleKeys {
   static const trafic = 'Trafic';
   static const moneyBack = 'Money back';
   static const allDevices = 'All devices';
-  static const VPNLineSubscription = 'VPN Line Subscription';
+  static const VPNLineSubscription = 'VPN Candodream Subscription';
 
   static const AutoRenewal =
       "Auto-renewal Plans for a week, a month or three months.";
@@ -90,16 +90,16 @@ abstract class LocaleKeys {
       "Your account will be charged for the renewal within 24 hours prior to the end of the current period.";
   static const privacyScreenTitle = "Data and Privacy";
   static const privacyScreenText =
-      "Welcome to VPN Line. For your convenience, we provide here some information regarding your safety when using our application.";
+      "Welcome to VPN Candodream. For your convenience, we provide here some information regarding your safety when using our application.";
   static const collectData = "We collect anonymous";
   static const appUsageData = "app usage data";
   static const makeExperienceBetter =
-      "to make the VPN Line experience even better.";
-  static const accept = "I accept VPN Line's";
+      "to make the VPN Candodream experience even better.";
+  static const accept = "I accept VPN Candodream's";
   static const licenceAgreement = "licence agreement";
   static const and = "and";
   static const privacyPolicy2 = "privacy policy.";
-  static const vpnLine = "VPN Line";
+  static const vpnLine = "VPN Candodream";
   static const appUsage1 = "app usage 1";
   static const appUsage2 = "app usage 2";
   static const appUsage3 = "app usage 3";
