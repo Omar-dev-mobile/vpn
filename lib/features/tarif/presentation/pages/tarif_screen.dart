@@ -13,7 +13,10 @@ import 'package:vpn/core/shared/components/snack_bar.dart';
 import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/tarif/presentation/cubit/purchase/purchases_cubit.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
-import 'package:vpn/features/tarif/presentation/widgets/list_tarif.dart';
+import 'package:vpn/features/tarif/presentation/widgets/custom_column_container.dart';
+import 'package:vpn/features/tarif/presentation/widgets/list_view_tarif.dart';
+import 'package:vpn/features/tarif/presentation/widgets/service_and_privacy_row.dart';
+import 'package:vpn/features/tarif/presentation/widgets/subscription_info_widget.dart';
 import 'package:vpn/locator.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
@@ -68,24 +71,15 @@ class _TarifScreenState extends State<TarifScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const AppBarHeader(
-                          isClose: true,
+                          isClose: false,
                         ),
                         screenUtil.setHeight(33).ph,
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: CommonTextWidget(
-                            text: LocaleKeys.plans.tr(),
-                            color:
-                                Theme.of(context).textTheme.titleMedium!.color,
-                            size: screenUtil.setSp(35),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
                         Expanded(
                           child: Builder(
                             builder: (context) {
                               if (state is TarifLoadingState ||
-                                  statePurchases is LoadingInitStoreInfoState) {
+                                  state is LoadingInitStoreInfoState ||
+                                  purchasesCubit.tarifs.isEmpty) {
                                 return const Center(
                                   child: CircularProgressIndicator(),
                                 );
@@ -110,27 +104,48 @@ class _TarifScreenState extends State<TarifScreen> {
                               }
                               var tarifs =
                                   (state as TarifSuccessState).tarifModel;
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
+
+                              return SingleChildScrollView(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Expanded(
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            ListTariff(
-                                              statePurchases: statePurchases,
-                                              tarifs: tarifs,
-                                            ),
-                                            60.ph,
-                                          ],
-                                        ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 10),
+                                      child: CustomColumnContainer(),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8, horizontal: 20),
+                                      child: CommonTextWidget(
+                                        text:
+                                            LocaleKeys.VPNLineSubscription.tr(),
+                                        fontWeight: FontWeight.w500,
+                                        size: 17,
+                                        height: 45 / 17,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .headlineMedium
+                                            ?.color,
                                       ),
                                     ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 32),
+                                      child: ListViewTariff(
+                                        statePurchases: statePurchases,
+                                        tarifs: tarifs,
+                                      ),
+                                    ),
+                                    10.ph,
+                                    const SubscriptionInfoWidget(),
+                                    const Center(
+                                      child: Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 20, vertical: 32),
+                                        child: ServiceAndPrivacyRow(),
+                                      ),
+                                    ),
+                                    50.ph
                                   ],
                                 ),
                               );

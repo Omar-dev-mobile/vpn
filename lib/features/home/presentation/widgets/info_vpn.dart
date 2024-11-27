@@ -5,8 +5,11 @@ import 'package:vpn/core/theme/theme.dart';
 import 'package:vpn/features/home/presentation/logic/home_cubit/home_cubit.dart';
 import 'package:vpn/features/home/presentation/widgets/date_connection.dart';
 import 'package:vpn/features/home/presentation/widgets/network_speed_checker.dart';
+<<<<<<< HEAD
 
 import '../../../../core/constants.dart';
+=======
+>>>>>>> new_version
 
 class InfoVpnWidget extends StatelessWidget {
   const InfoVpnWidget({super.key});
@@ -31,7 +34,12 @@ class InfoVpnWidget extends StatelessWidget {
                   ),
                   if (homeCubit.statusConnection.dateConnection != null)
                     DateConnection(
+<<<<<<< HEAD
                       date: homeCubit.statusConnection.dateConnection!,
+=======
+                      date: homeCubit.statusConnection.dateConnection ??
+                          DateTime.now(),
+>>>>>>> new_version
                     ),
                   if (homeCubit.isOnline)
                     CommonTextWidget(

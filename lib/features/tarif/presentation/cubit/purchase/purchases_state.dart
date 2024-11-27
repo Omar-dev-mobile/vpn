@@ -32,3 +32,7 @@ class ErrorOriginalTransactionPurchaseState extends PurchasesStatus {
 }
 
 class SuccessPurchaseState extends PurchasesStatus {}
+
+class ChangePurchaseState extends PurchasesStatus {}
+
+class StopChangePurchaseState extends PurchasesStatus {}

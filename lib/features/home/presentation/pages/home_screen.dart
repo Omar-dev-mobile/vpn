@@ -17,6 +17,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const DrawerWidget(),
+<<<<<<< HEAD
       floatingActionButton: KeyboardVisibilityBuilder(
         builder: (context, isKeyboardVisible) {
           return isKeyboardVisible
@@ -43,6 +44,42 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
+=======
+      floatingActionButton: _buildFloatingActionButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: BlocBuilder<ThemeModeCubit, ThemeModeState>(
+        builder: (context, state) => _buildBody(context),
+      ),
+    );
+  }
+
+  Widget _buildFloatingActionButton() {
+    return KeyboardVisibilityBuilder(
+      builder: (context, isKeyboardVisible) {
+        return isKeyboardVisible
+            ? const SizedBox.shrink()
+            : const ButtonCenter();
+      },
+    );
+  }
+
+  Widget _buildBody(BuildContext context) {
+    final themeModeCubit = ThemeModeCubit.get(context);
+    final themeImage = themeModeCubit.themeMode == 'light'
+        ? Assets.navBarLight
+        : Assets.navBarDark;
+
+    return Container(
+      height: screenUtil.screenHeight,
+      width: screenUtil.screenWidth,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: AssetImage(themeImage),
+        ),
+      ),
+      child: const HomeWidget(),
+>>>>>>> new_version
     );
   }
 }

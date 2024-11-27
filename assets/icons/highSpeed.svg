@@ -1,0 +1,13 @@
+<svg width="86" height="86" viewBox="0 0 86 86" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_540_9985" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="86" height="86">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M43 86C66.7482 86 86 66.7482 86 43C86 19.2518 66.7482 0 43 0C19.2518 0 0 19.2518 0 43C0 53.2308 3.57292 62.627 9.53906 70.0091C16.2149 79.67 27.3682 86 40 86C40.4834 86 40.9646 85.9907 41.4435 85.9724C41.9601 85.9907 42.479 86 43 86ZM41.4435 85.9724C61.209 85.2141 77 68.9511 77 49C77 28.5655 60.4345 12 40 12C19.5655 12 3 28.5655 3 49C3 56.8028 5.41531 64.0414 9.53906 70.0091C17.118 79.3867 28.559 85.5139 41.4435 85.9724Z" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_540_9985)">
+<rect x="73.8026" y="-20.7188" width="49" height="44" transform="rotate(60 73.8026 -20.7188)" fill="#BF1522"/>
+<rect x="44" y="-11" width="44" height="44" transform="rotate(90 44 -11)" fill="#F9B234"/>
+<rect x="6.42291" y="12.5781" width="35.4613" height="39.6124" transform="rotate(45 6.42291 12.5781)" fill="#94C120"/>
+</g>
+<path d="M39.0041 42L62.0195 18.0148L44.5012 46.5035L39.0041 42Z" fill="#D9D9D9"/>
+<circle cx="42.0026" cy="44.0032" r="5" transform="rotate(0.0368258 42.0026 44.0032)" fill="#B3B1B2"/>
+<circle cx="42.0026" cy="44.0032" r="5" transform="rotate(0.0368258 42.0026 44.0032)" stroke="white"/>
+</svg>

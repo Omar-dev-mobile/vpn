@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:auto_route/auto_route.dart';
 import 'package:bloc/bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -5,16 +6,28 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vpn/core/router/app_router.dart';
+=======
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+>>>>>>> new_version
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/features/home/data/models/data_service_acc_model.dart';
 import 'package:vpn/features/home/domain/usecases/home_usecase.dart';
+<<<<<<< HEAD
 import 'package:vpn/features/home/presentation/pages/activate_tarif_screen.dart';
 import 'package:vpn/features/home/presentation/pages/home_screen.dart';
 import 'package:vpn/features/select_country/data/models/countries_model.dart';
 import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
 import 'package:vpn/translations/locate_keys.g.dart';
 
+=======
+import 'package:vpn/features/home/presentation/pages/home_screen.dart';
+import 'package:vpn/features/select_country/data/models/countries_model.dart';
+import 'package:vpn/features/tarif/presentation/cubit/tarif/tarif_cubit.dart';
+import 'package:vpn/features/tarif/presentation/pages/tarif_screen.dart';
+>>>>>>> new_version
 part 'main_state.dart';
 
 class MainCubit extends Cubit<MainState> {
@@ -61,13 +74,24 @@ class MainCubit extends Cubit<MainState> {
 
   Widget getWidgetMain(
       DataServiceAccModel dataServiceAccModel, BuildContext context) {
+<<<<<<< HEAD
     switch (dataServiceAccModel.workStatus?.errorAction) {
       case null || "":
         _systemInfoService.isLogin = true;
+=======
+    print(
+        dataServiceAccModel.workStatus?.userInfo?.userApiKey?.isEmpty ?? true);
+    _systemInfoService.isLogin =
+        !(dataServiceAccModel.workStatus?.userInfo?.userApiKey?.isEmpty ??
+            true);
+    switch (dataServiceAccModel.workStatus?.errorAction) {
+      case null || "":
+>>>>>>> new_version
         cacheHelper.saveBaySubscription(
             dataServiceAccModel.workStatus?.userInfo?.tarifInfo?.productId ??
                 "");
         return const HomeScreen();
+<<<<<<< HEAD
       case "login":
         cacheHelper.saveBaySubscription('');
         _systemInfoService.isLogin = false;
@@ -108,6 +132,12 @@ class MainCubit extends Cubit<MainState> {
             context.pushRoute(const TarifRoute());
           },
         );
+=======
+      case "activate_tarif":
+        cacheHelper.saveBaySubscription("");
+        TarifCubit.get(context).getTrials();
+        return const TarifScreen();
+>>>>>>> new_version
       default:
         return Container();
     }

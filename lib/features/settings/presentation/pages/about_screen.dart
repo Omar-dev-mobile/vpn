@@ -3,17 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
+<<<<<<< HEAD
 import 'package:vpn/core/customs/custom_button.dart';
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/features/settings/presentation/widgets/icon_widget.dart';
+=======
+import 'package:vpn/core/customs/roundedButton.dart';
+import 'package:vpn/core/router/app_router.dart';
+import 'package:vpn/core/shared/components/system_info_service.dart';
+import 'package:vpn/core/theme/assets.dart';
+import 'package:vpn/features/settings/presentation/widgets/icon_widget.dart';
+import 'package:vpn/locator.dart';
+>>>>>>> new_version
 import 'package:vpn/translations/locate_keys.g.dart';
 
 import '../../../../core/constants.dart';
 import '../../../../core/customs/app_bar_header.dart';
 import '../../../../core/customs/drawer_widget.dart';
+<<<<<<< HEAD
 import 'package:vpn/core/customs/common_text_widget.dart';
 
+=======
+import '../../../../core/customs/common_text_widget.dart';
+>>>>>>> new_version
 import '../../../../core/theme/theme.dart';
 
 @RoutePage()
@@ -34,6 +47,7 @@ class AboutScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+<<<<<<< HEAD
                   CommonTextWidget(
                     text: LocaleKeys.about.tr(),
                     color: Theme.of(context).textTheme.bodyLarge!.color,
@@ -80,6 +94,34 @@ class AboutScreen extends StatelessWidget {
                     ),
                   ),
                   screenUtil.setHeight(30).ph,
+=======
+                  Row(
+                    children: [
+                      CommonTextWidget(
+                        text: LocaleKeys.about.tr(),
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                        size: screenUtil.setSp(35),
+                        fontWeight: FontWeight.w500,
+                      ),
+                      15.pw,
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: kDarkGreen),
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 5, horizontal: 20),
+                        child: CommonTextWidget(
+                          text: 'v ${locator<SystemInfoService>().appVersion}',
+                          color: kDarkTealColor,
+                          size: screenUtil.setSp(18),
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                  screenUtil.setHeight(20).ph,
+>>>>>>> new_version
                   CommonTextWidget(
                     text: LocaleKeys.description.tr(),
                     color: Theme.of(context).textTheme.titleMedium!.color,
@@ -96,6 +138,22 @@ class AboutScreen extends StatelessWidget {
                     size: screenUtil.setSp(16),
                     height: 2,
                   ),
+<<<<<<< HEAD
+=======
+                  screenUtil.setHeight(10).ph,
+                  IconWidget(
+                      onTap: () async {
+                        final Uri emailLaunchUri = Uri(
+                          scheme: 'mailto',
+                          path: 'support@candodream.com',
+                          query: encodeQueryParameters(<String, String>{
+                            'subject': LocaleKeys.VPNLineQuestion.tr(),
+                          }),
+                        );
+                        await launchUrl(emailLaunchUri);
+                      },
+                      icon: SvgPicture.asset(Assets.mail, fit: BoxFit.none)),
+>>>>>>> new_version
                   screenUtil.setHeight(25).ph,
                   Center(
                     child: Padding(
@@ -111,10 +169,14 @@ class AboutScreen extends StatelessWidget {
                               },
                               child: CommonTextWidget(
                                 text: LocaleKeys.termsOfService.tr(),
+<<<<<<< HEAD
                                 color: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
                                     .color,
+=======
+                                color: kShadeOfGray,
+>>>>>>> new_version
                                 fontWeight: FontWeight.w400,
                                 size: screenUtil.setSp(15),
                                 textAlign: TextAlign.center,
@@ -125,8 +187,12 @@ class AboutScreen extends StatelessWidget {
                               margin:
                                   const EdgeInsets.symmetric(horizontal: 20),
                               width: 2,
+<<<<<<< HEAD
                               color:
                                   Theme.of(context).textTheme.bodyLarge!.color,
+=======
+                              color: kShadeOfGray,
+>>>>>>> new_version
                             ),
                             GestureDetector(
                               onTap: () {
@@ -134,10 +200,14 @@ class AboutScreen extends StatelessWidget {
                               },
                               child: CommonTextWidget(
                                 text: LocaleKeys.privacyPolicy.tr(),
+<<<<<<< HEAD
                                 color: Theme.of(context)
                                     .textTheme
                                     .bodyLarge!
                                     .color,
+=======
+                                color: kShadeOfGray,
+>>>>>>> new_version
                                 fontWeight: FontWeight.w400,
                                 textAlign: TextAlign.center,
                                 size: screenUtil.setSp(15),
@@ -148,6 +218,7 @@ class AboutScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+<<<<<<< HEAD
                   screenUtil.setHeight(30).ph,
                   CustomButton(
                     title: LocaleKeys.askAQuestion.tr(),
@@ -165,9 +236,32 @@ class AboutScreen extends StatelessWidget {
                 ],
               ),
             ),
+=======
+                ],
+              ),
+            ),
+            screenUtil.setHeight(90).ph,
+            RoundedButton(
+              name: LocaleKeys.askAQuestion.tr(),
+              colorRounded: kPrimary,
+              color: kPrimary,
+              width: screenUtil.screenWidth * 0.8,
+              onPressed: () {
+                context.pushRoute(AskQuestionRoute());
+              },
+            ),
+            screenUtil.setHeight(20).ph,
+>>>>>>> new_version
           ],
         ),
       ),
     );
+  }
+
+  String? encodeQueryParameters(Map<String, String> params) {
+    return params.entries
+        .map((MapEntry<String, String> e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
   }
 }

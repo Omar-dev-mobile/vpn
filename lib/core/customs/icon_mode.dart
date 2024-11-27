@@ -24,17 +24,17 @@ class IconMode extends StatelessWidget {
               SvgPicture.asset(
                 Assets.sun,
                 colorFilter: ColorFilter.mode(
-                    Theme.of(context).textTheme.displaySmall?.color ??
-                        Colors.white,
-                    BlendMode.srcIn),
+                  Theme.of(context).textTheme.displaySmall?.color ??
+                      Colors.white,
+                  BlendMode.srcIn,
+                ),
               ),
-              // Sun icon
               if (themeModeCubit.isModeLikeSystem(context))
                 const Positioned(
-                  child: Text('A',
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold)), // Letter 'A'
+                  child: Text(
+                    'A',
+                    style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+                  ),
                 ),
             ],
           ),

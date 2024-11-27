@@ -6,8 +6,13 @@ import 'package:flutter_svg/svg.dart';
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
+<<<<<<< HEAD
 import 'package:vpn/core/customs/custom_button.dart';
 import 'package:vpn/core/customs/drawer_widget.dart';
+=======
+import 'package:vpn/core/customs/drawer_widget.dart';
+import 'package:vpn/core/customs/roundedButton.dart';
+>>>>>>> new_version
 import 'package:vpn/core/router/app_router.dart';
 import 'package:vpn/core/theme/assets.dart';
 import 'package:vpn/core/theme/theme.dart';
@@ -26,6 +31,7 @@ class LoginScreen extends StatelessWidget {
       body: Column(
         children: [
           const AppBarHeader(),
+<<<<<<< HEAD
           screenUtil.setHeight(50).ph,
           Expanded(
             child: Padding(
@@ -75,10 +81,71 @@ class LoginScreen extends StatelessWidget {
                   );
                 },
               ),
+=======
+          Expanded(
+            child: BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) {
+                if (state is AuthSuccessState) {
+                  MainCubit.get(context).getDataServiceAcc();
+                  AutoRouter.of(context).pushAndPopUntil(const MainRoute(),
+                      predicate: (_) => false);
+                }
+              },
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    const Spacer(),
+                    _buildAuthContent(context, state),
+                    screenUtil.setHeight(20).ph,
+                    _buildAppleSignInButton(context, state),
+                  ],
+                );
+              },
+>>>>>>> new_version
             ),
           )
         ],
       ),
     );
   }
+<<<<<<< HEAD
+=======
+
+  Widget _buildAppleSignInButton(BuildContext context, AuthState state) {
+    return RoundedButton(
+      onPressed: () {
+        context.read<AuthBloc>().add(LoginWithAppleAuthEvent());
+      },
+      width: screenUtil.setWidth(300),
+      name: LocaleKeys.signInWithApple.tr(),
+      widget: SvgPicture.asset(Assets.iconApple),
+      color: kCharcoal,
+      colorRounded: kCharcoal,
+      isLoading: state is AuthLoadingAppleState,
+    );
+  }
+
+  Widget _buildAuthContent(BuildContext context, AuthState state) => Align(
+        alignment: Alignment.bottomLeft,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Icon(
+                Icons.check,
+                color: kGreenColor,
+                size: 100,
+              ),
+              CommonTextWidget(
+                text: LocaleKeys.unlockSocialMediaAnywhereAnywhere.tr(),
+                size: 35,
+                color: Theme.of(context).textTheme.headlineMedium!.color,
+                height: 1.2,
+              ),
+            ],
+          ),
+        ),
+      );
+>>>>>>> new_version
 }

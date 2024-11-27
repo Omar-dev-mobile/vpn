@@ -1,5 +1,6 @@
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/error/execute_and_handle_error.dart';
+import 'package:vpn/core/native/check_mode.dart';
 import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
 import 'package:vpn/core/shared/datasources/remote/api_base.dart';
@@ -21,6 +22,7 @@ class ApiServiceHome extends ApiBase {
         "oper": "acc",
         "udid": cacheGenAlgorithm?.udid ?? "",
         "rnd": rnd,
+        "type_run": await isSandboxOrProduct(),
         "id_server": idServer?.id?.toString() ?? "1",
         "signature": signature,
       });

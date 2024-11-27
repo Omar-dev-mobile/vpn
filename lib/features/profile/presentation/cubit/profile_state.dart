@@ -20,3 +20,8 @@ class ProfileSuccessState extends ProfileState {
   final ProfileModel profileModel;
   const ProfileSuccessState(this.profileModel);
 }
+<<<<<<< HEAD
+=======
+
+class ProfileNotAuthorizedState extends ProfileState {}
+>>>>>>> new_version

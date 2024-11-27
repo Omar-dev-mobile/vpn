@@ -1,3 +1,5 @@
+
+import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:vpn/app.dart';
@@ -13,6 +15,7 @@ void main() async {
         assetLoader: const CodegenLoader(),
         supportedLocales: const [
           Locale('ru'),
+          // Locale('ru'),
           Locale('en'),
           Locale('es'),
           Locale('de'),
@@ -20,7 +23,10 @@ void main() async {
         ],
         path: 'lib/translations',
         fallbackLocale: const Locale('en'),
-        child: const VpnApp(),
+
+        child: DevicePreview(
+           enabled: false,
+          builder: (context) => const VpnApp()),
       ),
     ),
     const LogOptions(),

@@ -58,6 +58,13 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
     emit(EndPendingPurchaseState());
   }
 
+  int indexTariff = 1;
+  void changeIndexTariff(int index) {
+    emit(ChangePurchaseState());
+    indexTariff = index;
+    emit(StopChangePurchaseState());
+  }
+
   void goToHome(BuildContext context) async {
     await closeSubscription();
     AutoRouter.of(context)
@@ -172,10 +179,13 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   String productIdToBuy = "";
 
   Future buyTarif(productId) async {
+    print("productId$productId");
+    print("productId$tarifs");
     emit(LoadingPendingPurchaseState());
     late PurchaseParam purchaseParam;
     productIdToBuy = productId;
     if (tarifs.isEmpty) return;
+    print("productIdproductIdproductId$productId");
     ProductDetails productDetail =
         tarifs.firstWhere((element) => element.id == productId);
 
@@ -221,7 +231,10 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
   Future<PurchasesStatus> checkTrans(
       String transactionIdentifier, productID) async {
     final res = await traifUsecases.checkTrans(transactionIdentifier);
-    return res.fold((l) => ErrorPurchaseState(error: l), (r) async {
+    return res.fold((l) async {
+      await closeSubscription();
+      return ErrorPurchaseState(error: l);
+    }, (r) async {
       print("r $r");
       if (r == '1') {
         await closeSubscription();
@@ -253,14 +266,16 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
             if (isAndroid) {
             } else {
               if (purchaseDetails is AppStorePurchaseDetails) {
-                final originalTransaction =
-                    purchaseDetails.skPaymentTransaction.originalTransaction;
+                // final originalTransaction =
+                //     purchaseDetails.skPaymentTransaction.originalTransaction;
+
                 if (currentProductId != purchaseDetails.productID &&
                     productIdToBuy == purchaseDetails.productID) {
+                  print(purchaseDetails.purchaseID);
                   // print(
                   //     purchaseDetails.verificationData.serverVerificationData);
-                  await purchaseTarifIos(
-                      originalTransaction?.transactionIdentifier ?? "",
+                  // originalTransaction?.transactionIdentifier ??
+                  await purchaseTarifIos(purchaseDetails.purchaseID ?? "",
                       purchaseDetails.productID);
                 }
               }
@@ -270,6 +285,18 @@ class PurchasesCubit extends Cubit<PurchasesStatus> {
         }
       }
     } catch (e) {}
+  }
+
+  T first<T>(List<T> ts) {
+    // Do some initial work or error checking, then...
+    T tmp = ts[0];
+    // Do some additional checking or processing...
+    return tmp;
+  }
+
+  T? firstElement<T>(List<T>? data) {
+    if (data == null) return null;
+    return data.isNotEmpty ? data.first : null;
   }
 
   Future checkCompletePurchase(PurchaseDetails purchaseDetails) async {

@@ -2,6 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
+<<<<<<< HEAD
+=======
+import 'package:package_info_plus/package_info_plus.dart';
+>>>>>>> new_version
 import 'package:rxdart/subjects.dart';
 import 'package:vpn/core/native/VPNIOSManager.dart';
 import 'package:vpn/core/shared/datasources/local/cache_helper.dart';
@@ -62,6 +66,10 @@ class SystemInfoService {
   String _hardName = '';
   String _hardLModel = '';
   String _hardFModel = '';
+<<<<<<< HEAD
+=======
+  String _appVersion = '';
+>>>>>>> new_version
 
   String get getLang => _lang;
   String get getHardModel => _hardModel;
@@ -69,10 +77,19 @@ class SystemInfoService {
   String get getHardName => _hardName;
   String get getHardLModel => _hardLModel;
   String get getHardFModel => _hardFModel;
+<<<<<<< HEAD
+=======
+  String get appVersion => _appVersion;
+>>>>>>> new_version
 
   Future<void> getSystemInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     final language = getLocaleName;
+<<<<<<< HEAD
+=======
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+>>>>>>> new_version
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
       _lang = language;
@@ -83,6 +100,10 @@ class SystemInfoService {
       _hardFModel = androidInfo.hardware;
     } else if (Platform.isIOS) {
       IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+<<<<<<< HEAD
+=======
+
+>>>>>>> new_version
       _lang = language;
       _hardModel = iosInfo.model;
       _hardOS = iosInfo.systemVersion;
@@ -91,9 +112,16 @@ class SystemInfoService {
       _hardFModel = iosInfo.identifierForVendor ?? "";
     }
     user = await locator<CacheHelper>().getUser();
+<<<<<<< HEAD
     isLogin = user != null;
     vpnServer = await locator<CacheHelper>().getVpnServer();
     print("vpnServer${vpnServer?.toJson()}");
+=======
+    _appVersion = packageInfo.version;
+    isLogin = user != null;
+    vpnServer = await locator<CacheHelper>().getVpnServer();
+    print("vpnServer$_appVersion");
+>>>>>>> new_version
     themeMode = await locator<CacheHelper>().getThemeMode();
   }
 

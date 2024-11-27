@@ -10,9 +10,17 @@ abstract class Assets {
   static const String navBarLight = '$_assets/$_images/nav_bar_light.png';
   static const String navBarDark = '$_assets/$_images/nav_bar_dark.png';
   static const String notActive = '$_assets/$_images/not_active.png';
+<<<<<<< HEAD
   static const String circularProfile =
       '$_assets/$_images/circular_profile.png';
 
+=======
+  static const String privacy = '$_assets/$_images/privacy.png';
+
+  static const String circularProfile =
+      '$_assets/$_images/circular_profile.png';
+
+>>>>>>> new_version
 //Images animation
   static const String lottieSplashAnimation =
       '$_assets/$_animation/lottie_splash_animation.json';
@@ -45,6 +53,34 @@ abstract class Assets {
   static const String whats = '$_assets/$_icons/whats.svg';
   static const String whatsPhone = '$_assets/$_icons/whatsPhone.svg';
   static const String key = '$_assets/$_icons/key.svg';
+<<<<<<< HEAD
   static const String profileKey = '$_assets/$_icons/profile_key.svg';
   static const String time = '$_assets/$_icons/time.svg';
+=======
+  static const String key2 = '$_assets/$_icons/key2.svg';
+  static const String bin = '$_assets/$_icons/bin.svg';
+  static const String deleteAccount = '$_assets/$_icons/delete_account.svg';
+
+  static const String profileKey = '$_assets/$_icons/profile_key.svg';
+  static const String time = '$_assets/$_icons/time.svg';
+  static const String time2 = '$_assets/$_icons/time2.svg';
+
+  static const String trafic = '$_assets/$_icons/trafic.svg';
+  static const String openWorld = '$_assets/$_icons/openWorld.svg';
+  static const String moneyBack = '$_assets/$_icons/moneyBack.svg';
+  static const String allDevices = '$_assets/$_icons/allDevices.svg';
+  static const String highSpeed = '$_assets/$_icons/highSpeed.svg';
+  static const String trafic2 = '$_assets/$_icons/trafic2.svg';
+  static const String openWorld2 = '$_assets/$_icons/openWorld2.svg';
+  static const String moneyBack2 = '$_assets/$_icons/moneyBack2.svg';
+  static const String allDevices2 = '$_assets/$_icons/allDevices2.svg';
+  static const String allDevices3 = '$_assets/$_icons/allDevices3.svg';
+  static const String highSpeed2 = '$_assets/$_icons/highSpeed2.svg';
+  static const String openWorld3 = '$_assets/$_icons/openWorld3.svg';
+  static const String moneyBack3 = '$_assets/$_icons/moneyBack3.svg';
+
+  static const String circle = '$_assets/$_icons/circle.svg';
+  static const String warningLight = '$_assets/$_icons/warningLight.svg';
+  static const String warningDark = '$_assets/$_icons/warningDark.svg';
+>>>>>>> new_version
 }

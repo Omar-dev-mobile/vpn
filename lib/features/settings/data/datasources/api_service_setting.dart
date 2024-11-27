@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import 'package:vpn/core/native/check_mode.dart';
+>>>>>>> new_version
 import 'package:vpn/core/shared/components/system_info_service.dart';
 import 'package:vpn/core/shared/datasources/remote/api_base.dart';
 import 'package:vpn/features/settings/data/models/ask_question_model.dart';
@@ -24,6 +28,10 @@ class ApiServiceSetting extends ApiBase {
         "username": model.name,
         "email": model.email,
         "message": model.message,
+<<<<<<< HEAD
+=======
+        "type_run": await isSandboxOrProduct(),
+>>>>>>> new_version
         "signature": signature,
       });
       final response = await post(BASE_URL, body: body);
@@ -34,7 +42,11 @@ class ApiServiceSetting extends ApiBase {
     });
   }
 
+<<<<<<< HEAD
   Future<bool> logout() async {
+=======
+  Future<bool> logout({bool isDelete = false}) async {
+>>>>>>> new_version
     return executeAndHandleErrorServer<bool>(() async {
       final cacheHelper =
           await locator<CacheGenAlgorithm>().getSecurityDataAlgithms();
@@ -51,7 +63,14 @@ class ApiServiceSetting extends ApiBase {
         "rnd": rnd,
         "token": userApiKey,
         "signature": signature,
+<<<<<<< HEAD
       });
+=======
+        "type_run": await isSandboxOrProduct(),
+        if (isDelete) "del_user": "1"
+      });
+
+>>>>>>> new_version
       final response = await post(BASE_URL, body: body);
       if (response.json.containsKey("error_status")) {
         throw "${response.json["error_status"]}";
