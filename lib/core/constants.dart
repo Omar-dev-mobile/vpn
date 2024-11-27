@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 import 'package:easy_localization/easy_localization.dart';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,7 +10,6 @@ import 'package:vpn/translations/locate_keys.g.dart';
 
 // const BASE_URL = 'https://vp-line.aysec.org/ios.php';
 const BASE_URL = 'https://app.candodream.com/ios.php';
-
 
 const verifyReceiptUrl = kDebugMode
     ? 'https://sandbox.itunes.apple.com/verifyReceipt'

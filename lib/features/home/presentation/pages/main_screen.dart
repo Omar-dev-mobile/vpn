@@ -16,55 +16,19 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    var mainCubit = MainCubit.get(context);
-=======
->>>>>>> new_version
     return Scaffold(
       drawer: const DrawerWidget(),
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, homeState) {
           return BlocBuilder<MainCubit, MainState>(
             builder: (context, state) {
-<<<<<<< HEAD
-              if (state is ErrorGetDataServiceAccState) {
-                print("objectobjectobject$homeState");
-                if (homeState is SuccessInitialStatusHomeState) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (LocaleKeys.itSeemsYoureNotConnectedToTheInternet.tr() ==
-                    state.error) {
-                  return const HomeScreen();
-                }
-                return Column(
-                  children: [
-                    const AppBarHeader(),
-                    Expanded(
-                      child: CustomError(
-                        error: state.error,
-                        onPressed: () {
-                          MainCubit.get(context).getDataServiceAcc();
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              } else if (state is SuccessGetDataServiceAccState) {
-                return mainCubit.getWidgetMain(
-                    state.dataServiceAccModel, context);
-              }
-              return const Center(child: CircularProgressIndicator());
-=======
               return _buildContent(context, state, homeState);
->>>>>>> new_version
             },
           );
         },
       ),
     );
   }
-<<<<<<< HEAD
-=======
 
   Widget _buildContent(
       BuildContext context, MainState state, HomeState homeState) {
@@ -103,5 +67,4 @@ class MainScreen extends StatelessWidget {
       ],
     );
   }
->>>>>>> new_version
 }

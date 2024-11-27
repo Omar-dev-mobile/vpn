@@ -37,23 +37,13 @@ class ThemeModeCubit extends Cubit<ThemeModeState> {
 
   ThemeMode getThemeMode(context) {
     final cachedThemeMode = locator<SystemInfoService>().themeMode;
-<<<<<<< HEAD
-    if (cachedThemeMode == null) {
-=======
     if (cachedThemeMode == null || cachedThemeMode.isEmpty) {
->>>>>>> new_version
       final mode = MediaQuery.of(context).platformBrightness == Brightness.light
           ? "light"
           : "dark";
       cacheHelper.saveThemeMode(mode);
-<<<<<<< HEAD
-      print(mode);
-      themeMode = mode;
-      return ThemeMode.system;
-=======
       themeMode = mode;
       return mode == "light" ? ThemeMode.light : ThemeMode.dark;
->>>>>>> new_version
     }
     themeMode = cachedThemeMode;
     return cachedThemeMode == "light" ? ThemeMode.light : ThemeMode.dark;

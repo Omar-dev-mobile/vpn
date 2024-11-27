@@ -3,9 +3,5 @@ import 'package:vpn/features/settings/data/models/ask_question_model.dart';
 
 abstract class SettingRepository {
   Future<Either<String, bool>> leaveFeedback(AskQuestionModel model);
-<<<<<<< HEAD
-  Future<Either<String, bool>> logout();
-=======
   Future<Either<String, bool>> logout({bool isDelete = false});
->>>>>>> new_version
 }

@@ -1,9 +1,6 @@
 import 'package:vpn/core/constants.dart';
 import 'package:vpn/core/error/execute_and_handle_error.dart';
-<<<<<<< HEAD
-=======
 import 'package:vpn/core/native/check_mode.dart';
->>>>>>> new_version
 import 'package:vpn/core/shared/datasources/local/cache_gen_algorithm.dart';
 import 'package:vpn/core/shared/datasources/remote/api_base.dart';
 import 'package:vpn/core/shared/utils/generate_keys.dart';
@@ -27,10 +24,7 @@ class ApiServiceCountry extends ApiBase {
         "rnd": rnd,
         "vers": vers.toString(),
         "signature": signature,
-<<<<<<< HEAD
-=======
         "type_run": await isSandboxOrProduct()
->>>>>>> new_version
       });
       final response = await post(BASE_URL, body: body);
       if (response.json.containsKey("error_status")) {

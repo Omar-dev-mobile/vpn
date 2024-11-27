@@ -1,4 +1,3 @@
-
 import 'package:device_preview/device_preview.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +47,6 @@ class VpnApp extends StatelessWidget {
                 },
                 child: MaterialApp.router(
                   color: kBlack,
-
                   title: 'VPN Candodream',
                   debugShowCheckedModeBanner: false,
                   builder: (context, child) {

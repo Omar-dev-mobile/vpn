@@ -1,9 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:flutter/widgets.dart';
-=======
->>>>>>> new_version
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vpn/core/customs/app_bar_header.dart';
 import 'package:vpn/core/customs/custom_error.dart';
@@ -17,17 +13,11 @@ import 'package:vpn/features/select_country/presentation/widgets/progress_indica
 @RoutePage()
 class SelectCountryScreen extends StatelessWidget {
   const SelectCountryScreen({super.key});
-<<<<<<< HEAD
-  @override
-  Widget build(BuildContext context) {
-    var countryCubit = CountryCubit.get(context);
-=======
 
   @override
   Widget build(BuildContext context) {
     var countryCubit = CountryCubit.get(context);
 
->>>>>>> new_version
     return RefreshIndicator(
       onRefresh: () async {
         await countryCubit.getCountriesList(isRefresh: true);
@@ -43,13 +33,7 @@ class SelectCountryScreen extends StatelessWidget {
           builder: (context, state) {
             return Column(
               children: [
-<<<<<<< HEAD
-                const AppBarHeader(
-                  isClose: true,
-                ),
-=======
                 const AppBarHeader(isClose: true),
->>>>>>> new_version
                 ProgressIndicatorCountry(
                     progressing: state is CountriesSelectVpnLoadingState),
                 Expanded(
@@ -63,16 +47,6 @@ class SelectCountryScreen extends StatelessWidget {
                         return CustomError(
                           error: state.error,
                           onPressed: () {
-<<<<<<< HEAD
-                            CountryCubit.get(context).getCountriesList();
-                          },
-                        );
-                      }
-                      var countriesModel = countryCubit.countriesModel;
-                      return ListView.separated(
-                        shrinkWrap: true,
-                        // physics: const NeverScrollableScrollPhysics(),
-=======
                             countryCubit.getCountriesList();
                           },
                         );
@@ -81,7 +55,6 @@ class SelectCountryScreen extends StatelessWidget {
                       var countriesModel = countryCubit.countriesModel;
                       return ListView.separated(
                         shrinkWrap: true,
->>>>>>> new_version
                         itemBuilder: (context, index) {
                           final vpnList =
                               countriesModel?.workStatus?.vpnList?[index];
@@ -120,14 +93,6 @@ class SelectCountryScreen extends StatelessWidget {
                     },
                   ),
                 ),
-<<<<<<< HEAD
-                // const Padding(
-                //   padding: EdgeInsets.only(bottom: 20),
-                //   child: RoundedButton(
-                //       name: 'Send', color: kSendButton, width: 130.0),
-                // ),
-=======
->>>>>>> new_version
               ],
             );
           },

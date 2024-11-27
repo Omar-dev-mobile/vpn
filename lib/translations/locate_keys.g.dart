@@ -61,7 +61,6 @@ abstract class LocaleKeys {
   static const errorOccurredPayment =
       'An error occurred when trying to make a payment';
   static const enterAValidEmailAddress = 'Enter a valid email address';
-
   static const VPNLineQuestion = 'VPN Candodream Question';
   static const day = 'day';
   static const waitingForAPurchase = 'Waiting for a purchase';

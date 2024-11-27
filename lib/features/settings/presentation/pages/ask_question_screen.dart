@@ -36,82 +36,6 @@ class AskQuestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
-      body: BlocProvider(
-        create: (context) => SettingCubit(locator()),
-        child: BlocConsumer<SettingCubit, SettingState>(
-          listener: (context, state) {
-            if (state is AskQuestionSuccessState) {
-              context.replaceRoute(const AppealRoute());
-            } else if (state is AskQuestionErrorState) {
-              CustomSnackBar.badSnackBar(context, state.error);
-            }
-          },
-          builder: (context, state) => Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 40, left: 20, right: 20),
-                  child: IconButton(
-                    icon: const Icon(Icons.close),
-                    onPressed: () {
-                      context.router.pop();
-                    },
-                    color: kPrimary,
-                    iconSize: 30,
-                  ),
-                ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.all(30.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CommonTextWidget(
-                            text: LocaleKeys.askAQuestion.tr(),
-                            size: ScreenUtil().setSp(35.0),
-                            color: Theme.of(context).textTheme.bodyLarge!.color,
-                            fontWeight: FontWeight.w500,
-                          ),
-                          screenUtil.setHeight(20).ph,
-                          ListView.separated(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) =>
-                                  TextFieldWidgetForAsk(
-                                    hintText: hintText[index],
-                                    controller: controllers[index],
-                                    validator: (index == 2)
-                                        ? validateEmail
-                                        : (value) {
-                                            print(value);
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return LocaleKeys
-                                                  .pleaseEnterSomeText
-                                                  .tr();
-                                            }
-                                            return null;
-                                          },
-                                  ),
-                              separatorBuilder: (context, index) =>
-                                  const SizedBox(
-                                    height: 0,
-                                  ),
-                              itemCount: 3),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                screenUtil.setHeight(20).ph,
-                Padding(
-                  padding: const EdgeInsets.only(left: 20, bottom: 30),
-                  child: RoundedButton(
-=======
       body: SafeArea(
         top: false,
         child: BlocProvider(
@@ -194,7 +118,6 @@ class AskQuestionScreen extends StatelessWidget {
                   ),
                   screenUtil.setHeight(20).ph,
                   RoundedButton(
->>>>>>> new_version
                     name: LocaleKeys.send.tr(),
                     color: kPrimary,
                     width: 130,
@@ -208,13 +131,8 @@ class AskQuestionScreen extends StatelessWidget {
                       }
                     },
                   ),
-<<<<<<< HEAD
-                ),
-              ],
-=======
                 ],
               ),
->>>>>>> new_version
             ),
           ),
         ),

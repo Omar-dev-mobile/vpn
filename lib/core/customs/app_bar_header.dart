@@ -9,7 +9,6 @@ import 'package:vpn/features/home/presentation/logic/main_cubit/main_cubit.dart'
 import 'logo.dart';
 
 class AppBarHeader extends StatelessWidget implements PreferredSizeWidget {
-
   const AppBarHeader({super.key, this.isClose = false, this.topPadding});
   final bool isClose;
   final double? topPadding;
@@ -19,7 +18,6 @@ class AppBarHeader extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-
       padding: EdgeInsets.only(top: topPadding ?? 50, right: 20, left: 20),
       child: Row(
         children: [

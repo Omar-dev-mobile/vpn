@@ -51,7 +51,6 @@ class DrawerWidget extends StatelessWidget {
             ListTitleDrawerWidget(
               title: LocaleKeys.home.tr(),
               onTap: () {
-
                 if (activeRouteName != MainRoute.name &&
                     systemInfoService.isLogin) {
                   MainCubit.get(context).verifySubscription();

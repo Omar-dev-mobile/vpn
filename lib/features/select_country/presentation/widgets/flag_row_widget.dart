@@ -1,10 +1,6 @@
 import 'package:flag/flag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-<<<<<<< HEAD
-import 'package:flutter_svg/svg.dart';
-=======
->>>>>>> new_version
 import 'package:vpn/core/customs/cis_widget.dart';
 import 'package:vpn/core/customs/common_text_widget.dart';
 import 'package:vpn/core/theme/theme.dart';

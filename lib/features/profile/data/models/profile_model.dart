@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-import 'package:vpn/core/constants.dart';
-=======
->>>>>>> new_version
 import 'package:vpn/features/auth/data/models/user_model.dart';
 
 class ProfileModel {

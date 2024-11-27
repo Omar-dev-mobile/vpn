@@ -61,7 +61,6 @@ class AppRouter extends _$AppRouter {
           page: ProfileRoute.page,
           path: '/',
         ),
-
         AutoRoute(page: AppUsageRoute.page, path: '/'),
       ];
 }
